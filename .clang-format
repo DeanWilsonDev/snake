@@ -1,0 +1,17 @@
+# .clang-format
+BasedOnStyle: Google # Use a predefined style like LLVM, Google, Mozilla, WebKit, or Chromium
+Language: Cpp
+IndentWidth: 2       # Number of spaces for indentation
+TabWidth: 2          # Number of spaces per tab
+UseTab: Never        # Indent using spaces
+ColumnLimit: 100     # Maximum line length
+AllowShortFunctionsOnASingleLine: Inline # Inline short functions
+IncludeBlocks: Preserve # Preserve existing #include block grouping
+SortIncludes: false  # Don't sort includes automatically
+PointerAlignment: Left # Align pointer with the type (e.g., `int* ptr`)
+DerivePointerAlignment: False # Do not derive pointer alignment
+AlignAfterOpenBracket: BlockIndent # This avoids aligning parameters after the opening bracket.
+BinPackArguments: false # Ensures each argument is on its own line
+AllowAllParametersOfDeclarationOnNextLine: false
+BreakBeforeBraces: Stroustrup # Brace style: Allman, Linux, Attach, Stroustrup, etc.
+BreakConstructorInitializers: BeforeComma

@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include <cmath>
 #include <deque>
+#include <iterator>
 #include <random>
 #include <iostream>
 
@@ -11,15 +12,6 @@
 #define DEBUG_ENABLED true
 
 #define WINDOW_TITLE "Snake"
-
-float get_random_value(int maxRange)
-{
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_int_distribution<> dist(0, maxRange);
-
-  return dist(gen);
-}
 
 struct GameState {
   // Player
@@ -51,7 +43,9 @@ static const GameState DefaultGameState = {
         },
     .playerGrow = false,
 
-    .applePosition = {get_random_value(SCREEN_WIDTH), get_random_value(SCREEN_HEIGHT)}
+    .applePosition =
+        {GetRandomValue(0, (SCREEN_WIDTH / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE,
+         GetRandomValue(0, (SCREEN_HEIGHT / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE}
 };
 
 int main(int argc, char* argv[])
@@ -59,6 +53,9 @@ int main(int argc, char* argv[])
   GameState gameState = DefaultGameState;
   float accumulatedDistance = 0.0f;
   const float smoothness = 10.0f;
+  const float turnSmoothness = 2.0f;
+  Vector2 newDirection = gameState.playerDirection;
+  bool directionChanged = false;
 
   std::deque<Vector2> logicalPosition = gameState.playerBody;
   std::deque<Vector2> renderedPosition = logicalPosition;
@@ -74,19 +71,25 @@ int main(int argc, char* argv[])
     {
       if (gameState.playerDirection.y != 0) {
         if (IsKeyPressed(KEY_A)) {
-          gameState.playerDirection = {-1.0f, 0.0f};
+          newDirection = {-1.0f, 0.0f};
         }
         if (IsKeyPressed(KEY_D)) {
-          gameState.playerDirection = {1.0f, 0.0f};
+          newDirection = {1.0f, 0.0f};
         }
       }
       if (gameState.playerDirection.x != 0) {
         if (IsKeyPressed(KEY_S)) {
-          gameState.playerDirection = {0.0f, 1.0f};
+          newDirection = {0.0f, 1.0f};
         }
         if (IsKeyPressed(KEY_W)) {
-          gameState.playerDirection = {0.0f, -1.0f};
+          newDirection = {0.0f, -1.0f};
         }
+      }
+
+      if (newDirection.x != gameState.playerDirection.x ||
+          newDirection.y != gameState.playerDirection.y) {
+        directionChanged = true;
+        gameState.playerDirection = newDirection;
       }
 
       accumulatedDistance += gameState.playerSpeed * GetFrameTime();
@@ -115,8 +118,15 @@ int main(int argc, char* argv[])
       }
 
       for (size_t i = 0; i < renderedPosition.size(); ++i) {
-        renderedPosition[i].x += (logicalPosition[i].x - renderedPosition[i].x) / smoothness;
-        renderedPosition[i].y += (logicalPosition[i].y - renderedPosition[i].y) / smoothness;
+        float interpolationFactor = directionChanged ? turnSmoothness : smoothness;
+        renderedPosition[i].x +=
+            (logicalPosition[i].x - renderedPosition[i].x) / interpolationFactor;
+        renderedPosition[i].y +=
+            (logicalPosition[i].y - renderedPosition[i].y) / interpolationFactor;
+      }
+
+      if (directionChanged) {
+        directionChanged = false;
       }
     };
 
@@ -143,7 +153,18 @@ int main(int argc, char* argv[])
         DrawRectangleRec({segment.x, segment.y, gameState.playerSize, gameState.playerSize}, GREEN);
       }
 
-      DrawCircle(gameState.applePosition.x, gameState.applePosition.y, DEFAULT_BOX_SIZE / 2, RED);
+      float appleSize = DEFAULT_BOX_SIZE / 2.0f;
+      float offset = (DEFAULT_BOX_SIZE - appleSize) / 2.0f;
+
+      DrawRectangleRec(
+          {
+              gameState.applePosition.x + offset,
+              gameState.applePosition.y + offset,
+              appleSize,
+              appleSize,
+          },
+          RED
+      );
       std::cout << "Apple X: " << gameState.applePosition.x << std::endl;
       std::cout << "Apple Y: " << gameState.applePosition.y << std::endl;
     };

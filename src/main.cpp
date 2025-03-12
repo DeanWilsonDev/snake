@@ -1,8 +1,6 @@
 #include "raylib.h"
 #include <cmath>
 #include <deque>
-#include <iterator>
-#include <random>
 #include <iostream>
 
 #define SCREEN_WIDTH (500)
@@ -13,51 +11,66 @@
 
 #define WINDOW_TITLE "Snake"
 
+struct Apple {
+  Vector2 position;
+  float size;
+};
+
+struct Snake {
+  float size;
+  float speed;
+  int length;
+  Vector2 direction;
+  Vector2 position;
+  std::deque<Vector2> body;
+  bool grow;
+};
+
 struct GameState {
-  // Player
-  float playerSize;
-  float playerSpeed;
-  int playerLength;
-  Vector2 playerDirection;
-  Vector2 playerPosition;
-  std::deque<Vector2> playerBody;
-  bool playerGrow;
-
-  // Apple
-  Vector2 applePosition;
-
   int score;
 };
 
-static const GameState DefaultGameState = {
-    .playerSize = DEFAULT_BOX_SIZE,
-    .playerSpeed = DEFAULT_BOX_SIZE * 5.0f,
-    .playerLength = 3,
-    .playerDirection = {1.0f, 0.0f},
-    .playerPosition = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f},
-    .playerBody =
+static const Snake DefaultSnake = {
+    .size = DEFAULT_BOX_SIZE,
+    .speed = DEFAULT_BOX_SIZE * 5.0f,
+    .length = 3,
+    .direction = {1.0f, 0.0f},
+    .position = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f},
+    .body =
         {
             {100.0f + DEFAULT_BOX_SIZE, 100.0f},
             {100.0f, 100.0f},
             {100.0f + 2 * DEFAULT_BOX_SIZE, 100.0f},
         },
-    .playerGrow = false,
+    .grow = false,
 
-    .applePosition =
-        {GetRandomValue(0, (SCREEN_WIDTH / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE,
-         GetRandomValue(0, (SCREEN_HEIGHT / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE}
+};
+
+static const Apple DefaultApple = {
+    .position = {
+        GetRandomValue(0, (SCREEN_WIDTH / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE,
+        GetRandomValue(0, (SCREEN_HEIGHT / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE
+    },
+    .size = DEFAULT_BOX_SIZE / 2.0f,
+};
+
+static const GameState DefaultGameState = {
+
 };
 
 int main(int argc, char* argv[])
 {
   GameState gameState = DefaultGameState;
+  Snake snake = DefaultSnake;
+  Apple apple = DefaultApple;
+
+  // Snake local variables
   float accumulatedDistance = 0.0f;
   const float smoothness = 10.0f;
   const float turnSmoothness = 2.0f;
-  Vector2 newDirection = gameState.playerDirection;
+  Vector2 newDirection = snake.direction;
   bool directionChanged = false;
-
-  std::deque<Vector2> logicalPosition = gameState.playerBody;
+  std::deque<Vector2> logicalPosition = snake.body;
   std::deque<Vector2> renderedPosition = logicalPosition;
 
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
@@ -69,7 +82,7 @@ int main(int argc, char* argv[])
 
     // Move Player
     {
-      if (gameState.playerDirection.y != 0) {
+      if (snake.direction.y != 0) {
         if (IsKeyPressed(KEY_A)) {
           newDirection = {-1.0f, 0.0f};
         }
@@ -77,7 +90,7 @@ int main(int argc, char* argv[])
           newDirection = {1.0f, 0.0f};
         }
       }
-      if (gameState.playerDirection.x != 0) {
+      if (snake.direction.x != 0) {
         if (IsKeyPressed(KEY_S)) {
           newDirection = {0.0f, 1.0f};
         }
@@ -86,35 +99,31 @@ int main(int argc, char* argv[])
         }
       }
 
-      if (newDirection.x != gameState.playerDirection.x ||
-          newDirection.y != gameState.playerDirection.y) {
+      if (newDirection.x != snake.direction.x || newDirection.y != snake.direction.y) {
         directionChanged = true;
-        gameState.playerDirection = newDirection;
+        snake.direction = newDirection;
       }
+      accumulatedDistance += snake.speed * GetFrameTime();
 
-      accumulatedDistance += gameState.playerSpeed * GetFrameTime();
-
-      if (accumulatedDistance >= gameState.playerSize) {
+      if (accumulatedDistance >= snake.size) {
         Vector2 newLogicalPosition = {
-            logicalPosition.front().x + gameState.playerDirection.x * gameState.playerSize,
-            logicalPosition.front().y + gameState.playerDirection.y * gameState.playerSize,
+            logicalPosition.front().x + snake.direction.x * snake.size,
+            logicalPosition.front().y + snake.direction.y * snake.size,
         };
 
-        newLogicalPosition.x =
-            std::roundf(newLogicalPosition.x / gameState.playerSize) * gameState.playerSize;
-        newLogicalPosition.y =
-            std::roundf(newLogicalPosition.y / gameState.playerSize) * gameState.playerSize;
+        newLogicalPosition.x = std::roundf(newLogicalPosition.x / snake.size) * snake.size;
+        newLogicalPosition.y = std::roundf(newLogicalPosition.y / snake.size) * snake.size;
 
         logicalPosition.push_front(newLogicalPosition);
 
-        if (!gameState.playerGrow) {
+        if (!snake.grow) {
           logicalPosition.pop_back();
         }
         else {
-          gameState.playerGrow = false;
+          snake.grow = false;
         }
 
-        accumulatedDistance -= gameState.playerSize;
+        accumulatedDistance -= snake.size;
       }
 
       for (size_t i = 0; i < renderedPosition.size(); ++i) {
@@ -132,41 +141,48 @@ int main(int argc, char* argv[])
 
     // Update Apple
     {
+      if (CheckCollisionCircles(apple.position, apple.size, snake.position, snake.size)) {
+        apple.position = {
+            GetRandomValue(0, (SCREEN_WIDTH / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE,
+            GetRandomValue(0, (SCREEN_HEIGHT / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE
+        };
 
+        gameState.score += 10;
+        std::cout << "Score: " << gameState.score << std::endl;
+      }
     };
 
     // Draw
     {
       // DEBUG: Draw Grid
       if (DEBUG_ENABLED) {
-        for (int x = 0; x < SCREEN_WIDTH; x += gameState.playerSize) {
+        for (int x = 0; x < SCREEN_WIDTH; x += snake.size) {
           DrawLine(x, 0, x, SCREEN_HEIGHT, {255, 255, 255, 40});
         }
 
-        for (int y = 0; y < SCREEN_HEIGHT; y += gameState.playerSize) {
+        for (int y = 0; y < SCREEN_HEIGHT; y += snake.size) {
           DrawLine(0, y, SCREEN_WIDTH, y, {255, 255, 255, 40});
         }
       }
 
       // Draw Snake
       for (const auto& segment : renderedPosition) {
-        DrawRectangleRec({segment.x, segment.y, gameState.playerSize, gameState.playerSize}, GREEN);
+        DrawRectangleRec({segment.x, segment.y, snake.size, snake.size}, GREEN);
       }
 
-      float appleSize = DEFAULT_BOX_SIZE / 2.0f;
-      float offset = (DEFAULT_BOX_SIZE - appleSize) / 2.0f;
+      float offset = (DEFAULT_BOX_SIZE - apple.size) / 2.0f;
 
       DrawRectangleRec(
           {
-              gameState.applePosition.x + offset,
-              gameState.applePosition.y + offset,
-              appleSize,
-              appleSize,
+              apple.position.x + offset,
+              apple.position.y + offset,
+              apple.size,
+              apple.size,
           },
           RED
       );
-      std::cout << "Apple X: " << gameState.applePosition.x << std::endl;
-      std::cout << "Apple Y: " << gameState.applePosition.y << std::endl;
+      std::cout << "Apple X: " << apple.position.x << std::endl;
+      std::cout << "Apple Y: " << apple.position.y << std::endl;
     };
 
     EndDrawing();

@@ -2,6 +2,7 @@
 #include <cmath>
 #include <deque>
 #include <iostream>
+#include <string>
 
 #define SCREEN_WIDTH (500)
 #define SCREEN_HEIGHT (500)
@@ -33,7 +34,6 @@ struct GameState {
 static const Snake DefaultSnake = {
     .size = DEFAULT_BOX_SIZE,
     .speed = DEFAULT_BOX_SIZE * 5.0f,
-    .length = 3,
     .direction = {1.0f, 0.0f},
     .position = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f},
     .body =
@@ -47,10 +47,11 @@ static const Snake DefaultSnake = {
 };
 
 static const Apple DefaultApple = {
-    .position = {
-        GetRandomValue(0, (SCREEN_WIDTH / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE,
-        GetRandomValue(0, (SCREEN_HEIGHT / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE
-    },
+    .position =
+        {GetRandomValue(0, (SCREEN_WIDTH / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE +
+             (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f,
+         GetRandomValue(0, (SCREEN_HEIGHT / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE +
+             (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f},
     .size = DEFAULT_BOX_SIZE / 2.0f,
 };
 
@@ -99,7 +100,7 @@ int main(int argc, char* argv[])
         }
       }
 
-      if (newDirection.x != snake.direction.x || newDirection.y != snake.direction.y) {
+      if (newDirection.x != snake.direction.x && newDirection.y != snake.direction.y) {
         directionChanged = true;
         snake.direction = newDirection;
       }
@@ -120,6 +121,7 @@ int main(int argc, char* argv[])
           logicalPosition.pop_back();
         }
         else {
+          renderedPosition.push_front(renderedPosition.front());
           snake.grow = false;
         }
 
@@ -141,14 +143,42 @@ int main(int argc, char* argv[])
 
     // Update Apple
     {
-      if (CheckCollisionCircles(apple.position, apple.size, snake.position, snake.size)) {
+      DrawRectangleRec(
+          {
+              apple.position.x,
+              apple.position.y,
+              apple.size,
+              apple.size,
+          },
+          RED
+      );
+
+      float appleOffset = DEFAULT_BOX_SIZE + (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f;
+
+      Vector2 snakeHeadCenter = {
+          renderedPosition[0].x + DEFAULT_BOX_SIZE / 2,
+          renderedPosition[0].y + DEFAULT_BOX_SIZE / 2,
+      };
+      Vector2 appleCenter = {
+          apple.position.x + (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f,
+          apple.position.y + (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f,
+      };
+
+      if (DEBUG_ENABLED) {
+        DrawCircleLinesV(snakeHeadCenter, DEFAULT_BOX_SIZE / 2 - 2, RED);
+        DrawCircleLinesV(appleCenter, DEFAULT_BOX_SIZE / 2 - 2, GREEN);
+      }
+
+      if (CheckCollisionCircles(snakeHeadCenter, snake.size / 2 - 2, appleCenter, apple.size - 2)) {
         apple.position = {
-            GetRandomValue(0, (SCREEN_WIDTH / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE,
-            GetRandomValue(0, (SCREEN_HEIGHT / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE
+            GetRandomValue(0, (SCREEN_WIDTH / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE +
+                (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f,
+            GetRandomValue(0, (SCREEN_HEIGHT / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE +
+                (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f
         };
 
         gameState.score += 10;
-        std::cout << "Score: " << gameState.score << std::endl;
+        snake.grow = true;
       }
     };
 
@@ -156,11 +186,11 @@ int main(int argc, char* argv[])
     {
       // DEBUG: Draw Grid
       if (DEBUG_ENABLED) {
-        for (int x = 0; x < SCREEN_WIDTH; x += snake.size) {
+        for (int x = 0; x < SCREEN_WIDTH; x += DEFAULT_BOX_SIZE) {
           DrawLine(x, 0, x, SCREEN_HEIGHT, {255, 255, 255, 40});
         }
 
-        for (int y = 0; y < SCREEN_HEIGHT; y += snake.size) {
+        for (int y = 0; y < SCREEN_HEIGHT; y += DEFAULT_BOX_SIZE) {
           DrawLine(0, y, SCREEN_WIDTH, y, {255, 255, 255, 40});
         }
       }
@@ -169,20 +199,6 @@ int main(int argc, char* argv[])
       for (const auto& segment : renderedPosition) {
         DrawRectangleRec({segment.x, segment.y, snake.size, snake.size}, GREEN);
       }
-
-      float offset = (DEFAULT_BOX_SIZE - apple.size) / 2.0f;
-
-      DrawRectangleRec(
-          {
-              apple.position.x + offset,
-              apple.position.y + offset,
-              apple.size,
-              apple.size,
-          },
-          RED
-      );
-      std::cout << "Apple X: " << apple.position.x << std::endl;
-      std::cout << "Apple Y: " << apple.position.y << std::endl;
     };
 
     EndDrawing();

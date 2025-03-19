@@ -3,7 +3,6 @@
 #include <cmath>
 #include <deque>
 #include <cstdio>
-#include <iostream>
 
 #define SCREEN_WIDTH (500)
 #define SCREEN_HEIGHT (500)
@@ -30,9 +29,6 @@ struct SnakeBody {
   Rectangle bounds;
   float size = DEFAULT_BOX_SIZE;
 
-  SnakeBody(int index, Vector2 position, Rectangle bounds)
-      : index(index), position(position), bounds(bounds) {};
-
   Rectangle getBounds()
   {
     this->bounds.x = this->position.x;
@@ -44,25 +40,23 @@ struct SnakeBody {
 };
 
 struct Snake {
-  float size;
-  float speed;
-  int length;
-  Vector2 direction;
+  float size = DEFAULT_BOX_SIZE;
+  float speed = DEFAULT_BOX_SIZE * 5.0f;
+  int length = 3;
+  Vector2 direction = {1.0f, 1.0f};
   SnakeBody* head;
   std::deque<SnakeBody*> body;
-  bool grow;
+  bool grow = false;
 
-  Snake(
-      float size, float speed, int length, Vector2 direction, SnakeBody* head,
-      std::deque<SnakeBody*> body, bool grow
-  )
-      : size(size)
-      , speed(speed)
-      , length(length)
-      , direction(direction)
-      , head(head)
-      , body(body)
-      , grow(grow) {};
+  Snake(SnakeBody* head)
+      : head(head)
+      , body{
+            head
+            /*{1, {100.0f + DEFAULT_BOX_SIZE, 100.0f}},*/
+            /*{2, {100.0f + 2 * DEFAULT_BOX_SIZE, 100.0f}},*/
+        }
+  {
+  }
 };
 
 struct GameState {
@@ -70,24 +64,10 @@ struct GameState {
   int score;
 };
 
-static const SnakeBody DefaultHead = {
-    .index = {0},
-    .position = {100.0f + DEFAULT_BOX_SIZE, 100.0f},
+static SnakeBody DefaultHead = {
+    .index = 0,
+    .position = {100.0f, 100.0f},
     .bounds = {100.0f + DEFAULT_BOX_SIZE, 100.0f, DEFAULT_BOX_SIZE, DEFAULT_BOX_SIZE},
-};
-
-static const Snake DefaultSnake = {
-    .speed = DEFAULT_BOX_SIZE * 5.0f,
-    .direction = {1.0f, 0.0f},
-    .position = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f},
-    .head = DefaultHead,
-    .body =
-        {
-            DefaultHead,
-            {.index{1}, .position{100.0f, 100.0f}},
-            {.index{2}, .position{100.0f + 2 * DEFAULT_BOX_SIZE, 100.0f}},
-        },
-    .grow = false,
 };
 
 static const Apple DefaultApple = {
@@ -113,7 +93,7 @@ void draw_text_centered(const char* text, Vector2 position, float fontSize)
 int main(int argc, char* argv[])
 {
   GameState gameState = DefaultGameState;
-  Snake snake = DefaultSnake;
+  Snake snake(&DefaultHead);
   Apple apple = DefaultApple;
 
   // Snake local variables
@@ -122,8 +102,20 @@ int main(int argc, char* argv[])
   const float turnSmoothness = 2.0f;
   Vector2 newDirection = snake.direction;
   bool directionChanged = false;
-  std::deque<SnakeBody*> logicalPosition = snake.body;
-  std::deque<SnakeBody*> renderedPosition = logicalPosition;
+
+  // Initialize the initial snake body
+  // TODO: this can probably go in the snakes contructor
+  for (int i = 1; i < snake.length; i++) {
+    static SnakeBody newBody = {.index = i, .position = {100.0f - i * snake.size, 100.0f}};
+    snake.body.push_back(&newBody);
+  }
+
+  std::deque<Vector2> renderedPosition;
+  for (int i = 0; i < snake.body.size(); i++) {
+    renderedPosition.push_back(snake.body[i]->position);
+  }
+
+  char scoreBuffer[100] = {0};
 
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
   SetTargetFPS(DEFAULT_TARGET_FPS);
@@ -142,7 +134,6 @@ int main(int argc, char* argv[])
         }
         break;
       case STATE_GAMEPLAY:
-        char scoreBuffer[100] = {0};
         std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", gameState.score);
         draw_text_centered(scoreBuffer, (Vector2){50, 30}, 20);
 
@@ -173,17 +164,18 @@ int main(int argc, char* argv[])
 
           if (accumulatedDistance >= snake.size) {
             Vector2 newLogicalPosition = {
-                logicalPosition.front()->position.x + snake.direction.x * snake.size,
-                logicalPosition.front()->position.y + snake.direction.y * snake.size,
+                snake.head->position.x + snake.direction.x * snake.size,
+                snake.head->position.y + snake.direction.y * snake.size,
             };
 
             newLogicalPosition.x = std::roundf(newLogicalPosition.x / snake.size) * snake.size;
             newLogicalPosition.y = std::roundf(newLogicalPosition.y / snake.size) * snake.size;
 
-            logicalPosition.push_front(newLogicalPosition);
+            snake.head->position.x = newLogicalPosition.x;
+            snake.head->position.y = newLogicalPosition.y;
 
             if (!snake.grow) {
-              logicalPosition.pop_back();
+              snake.body.pop_back();
             }
             else {
               renderedPosition.push_front(renderedPosition.front());
@@ -195,18 +187,16 @@ int main(int argc, char* argv[])
 
           for (size_t i = 0; i < renderedPosition.size(); ++i) {
             float interpolationFactor = directionChanged ? turnSmoothness : smoothness;
-            renderedPosition[i]->position.x +=
-                (logicalPosition[i]->position.x - renderedPosition[i]->position.x) /
-                interpolationFactor;
-            renderedPosition[i]->position.y +=
-                (logicalPosition[i]->position.y - renderedPosition[i]->position.y) /
-                interpolationFactor;
+            renderedPosition[i].x +=
+                (snake.body[i]->position.x - renderedPosition[i].x) / interpolationFactor;
+            renderedPosition[i].y +=
+                (snake.body[i]->position.y - renderedPosition[i].y) / interpolationFactor;
           }
 
-          for (auto it = logicalPosition.front(); it != logicalPosition.end();) {
-            if (it != logicalPosition.front()) {
-            if(CheckCollisionRecs(logicalPosition.front()->getBounds(), it.body.getBounds()){
-
+          for (int i = 0; i < snake.body.size(); i++) {
+            if (snake.body[i] != snake.head) {
+              if (CheckCollisionRecs(snake.head->getBounds(), snake.body[i]->getBounds())) {
+                gameState.state = STATE_GAME_OVER;
               }
             }
           }
@@ -281,7 +271,6 @@ int main(int argc, char* argv[])
       case STATE_GAME_OVER:
         draw_text_centered("Game Over", (Vector2){SCREEN_WIDTH / 2.0f, 40}, 80);
         draw_text_centered("Press 'Enter' to start", (Vector2){SCREEN_WIDTH / 2.0f, 200.0f}, 20);
-        char scoreBuffer[100] = {0};
         std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", gameState.score);
         draw_text_centered(scoreBuffer, (Vector2){SCREEN_WIDTH / 2.0f, 100}, 20);
         if (IsKeyPressed(KEY_ENTER)) {

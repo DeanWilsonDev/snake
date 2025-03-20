@@ -1,5 +1,6 @@
 #include <MacTypes.h>
 #include "raylib.h"
+#include <iostream>
 #include <cmath>
 #include <deque>
 #include <cstdio>
@@ -29,6 +30,13 @@ struct SnakeBody {
   Rectangle bounds;
   float size = DEFAULT_BOX_SIZE;
 
+  SnakeBody(int index, Vector2 position) : index(index), position(position), bounds(getBounds())
+  {
+    DEBUG_ENABLED&& std::cout << "Creating SnakeBody with index: " << this->index
+                              << " at position (" << this->position.x << ", " << this->position.y
+                              << ")" << std::endl;
+  }
+
   Rectangle getBounds()
   {
     this->bounds.x = this->position.x;
@@ -43,31 +51,57 @@ struct Snake {
   float size = DEFAULT_BOX_SIZE;
   float speed = DEFAULT_BOX_SIZE * 5.0f;
   int length = 3;
-  Vector2 direction = {1.0f, 1.0f};
+  Vector2 direction = {1.0f, 0.0f};
   SnakeBody* head;
   std::deque<SnakeBody*> body;
   bool grow = false;
 
-  Snake(SnakeBody* head)
-      : head(head)
-      , body{
-            head
-            /*{1, {100.0f + DEFAULT_BOX_SIZE, 100.0f}},*/
-            /*{2, {100.0f + 2 * DEFAULT_BOX_SIZE, 100.0f}},*/
-        }
+  Snake()
   {
+    this->head = new SnakeBody(0, {100.0f, 100.0f});
+    this->body.push_back(this->head);
+
+    for (int i = 1; i < this->length; i++) {
+      this->body.push_back(new SnakeBody(i, {100.0f - i * this->size, 100.0f}));
+    }
+  }
+
+  void destroy()
+  {
+    if (!body.empty() && body.front() == head) {
+      body.pop_front();
+    }
+
+    for (auto segment : body) {
+      if (segment) {
+        DEBUG_ENABLED&& std::cout << "Deleting body segment at address: " << segment << std::endl;
+        delete segment;
+        DEBUG_ENABLED&& std::cout << "Body segment at address: " << segment
+                                  << " successfully destroyed" << std::endl;
+      }
+      else {
+        DEBUG_ENABLED&& std::cout << "Found null segment in body!" << std::endl;
+      }
+    }
+
+    this->body.clear();
+
+    if (head) {
+      DEBUG_ENABLED&& std::cout << "Deleting head at address: " << this->head << std::endl;
+      delete this->head;
+      DEBUG_ENABLED&& std::cout << "Setting head to nullptr" << std::endl;
+      this->head = nullptr;
+      DEBUG_ENABLED&& std::cout << "Head successfully destroyed" << std::endl;
+    }
+    else {
+      DEBUG_ENABLED&& std::cout << "Found null segment in head!" << std::endl;
+    }
   }
 };
 
 struct GameState {
   State state;
   int score;
-};
-
-static SnakeBody DefaultHead = {
-    .index = 0,
-    .position = {100.0f, 100.0f},
-    .bounds = {100.0f + DEFAULT_BOX_SIZE, 100.0f, DEFAULT_BOX_SIZE, DEFAULT_BOX_SIZE},
 };
 
 static const Apple DefaultApple = {
@@ -93,7 +127,7 @@ void draw_text_centered(const char* text, Vector2 position, float fontSize)
 int main(int argc, char* argv[])
 {
   GameState gameState = DefaultGameState;
-  Snake snake(&DefaultHead);
+  Snake snake = Snake();
   Apple apple = DefaultApple;
 
   // Snake local variables
@@ -105,10 +139,6 @@ int main(int argc, char* argv[])
 
   // Initialize the initial snake body
   // TODO: this can probably go in the snakes contructor
-  for (int i = 1; i < snake.length; i++) {
-    static SnakeBody newBody = {.index = i, .position = {100.0f - i * snake.size, 100.0f}};
-    snake.body.push_back(&newBody);
-  }
 
   std::deque<Vector2> renderedPosition;
   for (int i = 0; i < snake.body.size(); i++) {
@@ -171,30 +201,53 @@ int main(int argc, char* argv[])
             newLogicalPosition.x = std::roundf(newLogicalPosition.x / snake.size) * snake.size;
             newLogicalPosition.y = std::roundf(newLogicalPosition.y / snake.size) * snake.size;
 
+            DEBUG_ENABLED&& std::cout << "Snake Body Size: " << snake.body.size() << std::endl;
+            DEBUG_ENABLED&& std::cout << "Snake length: " << snake.length << std::endl;
+            Vector2 previousPosition = snake.head->position;
+            Vector2 nextPosition = snake.head->position;
+
+            for (int i = 1; i < snake.length; i++) {
+              DEBUG_ENABLED&& std::cout << "Body[" << i << "]: " << snake.body[i] << std::endl;
+              DEBUG_ENABLED&& std::cout << "snake.body[" << i
+                                        << "].x: " << snake.body[i]->position.x << std::endl;
+              DEBUG_ENABLED&& std::cout << "snake.body[" << i
+                                        << "].y: " << snake.body[i]->position.y << std::endl;
+
+              if (snake.body[i] && snake.body[i - 1]) {
+                previousPosition = snake.body[i]->position;
+                snake.body[i]->position.x = nextPosition.x;
+                snake.body[i]->position.y = nextPosition.y;
+                nextPosition = previousPosition;
+              }
+
+              DEBUG_ENABLED&& std::cout << "snake.body[" << i - 1
+                                        << "].x: " << snake.body[i - 1]->position.x << std::endl;
+              DEBUG_ENABLED&& std::cout << "snake.body[" << i - 1
+                                        << "].y: " << snake.body[i - 1]->position.y << std::endl;
+            }
+
             snake.head->position.x = newLogicalPosition.x;
             snake.head->position.y = newLogicalPosition.y;
-
-            if (!snake.grow) {
-              snake.body.pop_back();
-            }
-            else {
-              renderedPosition.push_front(renderedPosition.front());
+            if (snake.grow) {
+              snake.body.push_back(new SnakeBody(snake.length, snake.body.back()->position));
+              snake.length++;
               snake.grow = false;
             }
 
             accumulatedDistance -= snake.size;
           }
 
-          for (size_t i = 0; i < renderedPosition.size(); ++i) {
-            float interpolationFactor = directionChanged ? turnSmoothness : smoothness;
-            renderedPosition[i].x +=
-                (snake.body[i]->position.x - renderedPosition[i].x) / interpolationFactor;
-            renderedPosition[i].y +=
-                (snake.body[i]->position.y - renderedPosition[i].y) / interpolationFactor;
+          if (snake.head) {
+            DEBUG_ENABLED&& std::cout << "HEAD: " << snake.head << std::endl;
           }
 
           for (int i = 0; i < snake.body.size(); i++) {
-            if (snake.body[i] != snake.head) {
+            DEBUG_ENABLED&& std::cout << "Body[" << i << "]: " << snake.body[i] << std::endl;
+            if (snake.head != nullptr && snake.body[i] != snake.head) {
+              if (DEBUG_ENABLED) {
+                DrawRectangleRec(snake.body[i]->getBounds(), RED);
+              }
+
               if (CheckCollisionRecs(snake.head->getBounds(), snake.body[i]->getBounds())) {
                 gameState.state = STATE_GAME_OVER;
               }
@@ -221,8 +274,8 @@ int main(int argc, char* argv[])
           float appleOffset = DEFAULT_BOX_SIZE + (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f;
 
           Vector2 snakeHeadCenter = {
-              renderedPosition[0].x + DEFAULT_BOX_SIZE / 2,
-              renderedPosition[0].y + DEFAULT_BOX_SIZE / 2,
+              snake.head->position.x + DEFAULT_BOX_SIZE / 2,
+              snake.head->position.y + DEFAULT_BOX_SIZE / 2,
           };
           Vector2 appleCenter = {
               apple.position.x + (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f,
@@ -263,8 +316,10 @@ int main(int argc, char* argv[])
           }
 
           // Draw Snake
-          for (const auto& segment : renderedPosition) {
-            DrawRectangleRec({segment.x, segment.y, snake.size, snake.size}, GREEN);
+          for (const auto& segment : snake.body) {
+            DrawRectangleRec(
+                {segment->position.x, segment->position.y, snake.size, snake.size}, GREEN
+            );
           }
         };
         break;
@@ -274,6 +329,8 @@ int main(int argc, char* argv[])
         std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", gameState.score);
         draw_text_centered(scoreBuffer, (Vector2){SCREEN_WIDTH / 2.0f, 100}, 20);
         if (IsKeyPressed(KEY_ENTER)) {
+          snake.destroy();
+          snake = Snake();
           gameState = DefaultGameState;
           gameState.state = STATE_GAMEPLAY;
         }

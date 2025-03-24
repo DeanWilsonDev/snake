@@ -114,6 +114,7 @@ static const Apple DefaultApple = {
 };
 
 static const GameState DefaultGameState = {
+    .state = STATE_MAIN_MENU,
     .score = 0,
 };
 
@@ -137,14 +138,6 @@ int main(int argc, char* argv[])
   Vector2 newDirection = snake.direction;
   bool directionChanged = false;
 
-  // Initialize the initial snake body
-  // TODO: this can probably go in the snakes contructor
-
-  std::deque<Vector2> renderedPosition;
-  for (int i = 0; i < snake.body.size(); i++) {
-    renderedPosition.push_back(snake.body[i]->position);
-  }
-
   char scoreBuffer[100] = {0};
 
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
@@ -156,7 +149,7 @@ int main(int argc, char* argv[])
 
     switch (gameState.state) {
       case STATE_MAIN_MENU:
-        draw_text_centered("Snake", (Vector2){SCREEN_WIDTH / 2.0f, 40}, 80);
+        draw_text_centered("Snake", (Vector2){SCREEN_WIDTH / 2.0f, 40.0f}, 80);
         draw_text_centered("Press 'Enter' to start", (Vector2){SCREEN_WIDTH / 2.0f, 200.0f}, 20);
         if (IsKeyPressed(KEY_ENTER)) {
           gameState = DefaultGameState;
@@ -165,11 +158,11 @@ int main(int argc, char* argv[])
         break;
       case STATE_GAMEPLAY:
         std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", gameState.score);
-        draw_text_centered(scoreBuffer, (Vector2){50, 30}, 20);
+        draw_text_centered(scoreBuffer, (Vector2){80, 30}, 20);
 
         // Move Player
         {
-          if (snake.direction.y != 0) {
+          if (snake.direction.y != 0 && !directionChanged) {
             if (IsKeyPressed(KEY_A)) {
               newDirection = {-1.0f, 0.0f};
             }
@@ -177,7 +170,7 @@ int main(int argc, char* argv[])
               newDirection = {1.0f, 0.0f};
             }
           }
-          if (snake.direction.x != 0) {
+          if (snake.direction.x != 0 && !directionChanged) {
             if (IsKeyPressed(KEY_S)) {
               newDirection = {0.0f, 1.0f};
             }
@@ -235,6 +228,28 @@ int main(int argc, char* argv[])
             }
 
             accumulatedDistance -= snake.size;
+
+            if (directionChanged) {
+              directionChanged = false;
+            }
+
+            // Move snake to opposite side
+            {
+              for (int i = 0; i < snake.body.size(); i++) {
+                if (snake.body[i]->position.x > SCREEN_WIDTH) {
+                  snake.body[i]->position.x = 0;
+                }
+                else if (snake.body[i]->position.x < 0) {
+                  snake.body[i]->position.x = SCREEN_WIDTH;
+                }
+                else if (snake.body[i]->position.y > SCREEN_HEIGHT) {
+                  snake.body[i]->position.y = 0;
+                }
+                else if (snake.body[i]->position.y < 0) {
+                  snake.body[i]->position.y = SCREEN_HEIGHT;
+                }
+              }
+            };
           }
 
           if (snake.head) {
@@ -253,11 +268,7 @@ int main(int argc, char* argv[])
               }
             }
           }
-
-          if (directionChanged) {
-            directionChanged = false;
-          }
-        };
+        }
 
         // Update Apple
         {
@@ -324,10 +335,10 @@ int main(int argc, char* argv[])
         };
         break;
       case STATE_GAME_OVER:
-        draw_text_centered("Game Over", (Vector2){SCREEN_WIDTH / 2.0f, 40}, 80);
+        draw_text_centered("Game Over", (Vector2){SCREEN_WIDTH / 2.0f - 40, 40}, 80);
         draw_text_centered("Press 'Enter' to start", (Vector2){SCREEN_WIDTH / 2.0f, 200.0f}, 20);
         std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", gameState.score);
-        draw_text_centered(scoreBuffer, (Vector2){SCREEN_WIDTH / 2.0f, 100}, 20);
+        draw_text_centered(scoreBuffer, (Vector2){SCREEN_WIDTH / 2.0f, 150.0f}, 20);
         if (IsKeyPressed(KEY_ENTER)) {
           snake.destroy();
           snake = Snake();

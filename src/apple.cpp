@@ -1,21 +1,19 @@
 #include "apple.h"
+#include "snake.h"
 #include "game-state.h"
 
-Apple::Apple(GameState* state, Snake* snake) : state(state)
+Apple::Apple(const AppleParams& params)
+    : state(params.state)
+    , settings(params.settings)
+    , snake(params.snake)
+    , size(params.settings.boxSize / 2.0f)
 {
-  this->position = {
-      GetRandomValue(0, (SCREEN_WIDTH / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE +
-          (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f,
-      GetRandomValue(0, (SCREEN_HEIGHT / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE +
-          (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f
-  };
-
-  this->size = DEFAULT_BOX_SIZE / 2.0f;
-  this->snake = snake;
-};
+  this->position = this->getNewPosition();
+}
 
 void Apple::update()
 {
+  // TODO: Move this to the renderer
   DrawRectangleRec(
       {
           this->position.x,
@@ -26,30 +24,36 @@ void Apple::update()
       RED
   );
 
-  float appleOffset = DEFAULT_BOX_SIZE + (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f;
-
+  // TODO: Create functions for these
   Vector2 snakeHeadCenter = {
-      this->snake->head->position.x + DEFAULT_BOX_SIZE / 2,
-      this->snake->head->position.y + DEFAULT_BOX_SIZE / 2,
+      this->snake->head->position.x + this->settings.boxSize / 2.0f,
+      this->snake->head->position.y + this->settings.boxSize / 2.0f,
   };
 
   Vector2 appleCenter = {
-      this->position.x + (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f,
-      this->position.y + (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f,
+      this->position.x + (this->settings.boxSize - this->settings.boxSize / 2.0f) / 2.0f,
+      this->position.y + (this->settings.boxSize - this->settings.boxSize / 2.0f) / 2.0f,
   };
 
   if (CheckCollisionCircles(
-          snakeHeadCenter, this->snake->size / 2 - 2, appleCenter, this->size - 2
+          snakeHeadCenter, this->snake->size / 2.0f - 2.0f, appleCenter, this->size - 2.0f
       )) {
-    this->position = {
-        GetRandomValue(0, (SCREEN_WIDTH / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE +
-            (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f,
-        GetRandomValue(0, (SCREEN_HEIGHT / DEFAULT_BOX_SIZE) - 1) * DEFAULT_BOX_SIZE +
-            (DEFAULT_BOX_SIZE - DEFAULT_BOX_SIZE / 2) / 2.0f
-    };
+    this->position = this->getNewPosition();
 
-    state->increaseScore();
+    this->state->increaseScore();
     // TODO make set function
     this->snake->grow = true;
   }
 };
+
+void Apple::getNewPosition()
+{
+  return {
+      GetRandomValue(0, (this->settings.windowWidth / this->settings.boxSize) - 1) *
+              this->settings.boxSize +
+          (this->settings.boxSize - this->settings.boxSize / 2.0f) / 2.0f,
+      GetRandomValue(0, (this->settings.windowHeight / this->settings.boxSize) - 1) *
+              this->settings.boxSize +
+          (this->settings.boxSize - this->settings.boxSize / 2.0f) / 2.0f
+  };
+}

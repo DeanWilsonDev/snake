@@ -9,6 +9,14 @@ Snake::Snake(GameState* state) : state(state)
   for (int i = 1; i < this->length; i++) {
     this->body.push_back(new SnakeBody(i, {100.0f - i * this->size, 100.0f}));
   }
+
+  float size = this->settings.boxSize;
+  float speed = DEFAULT_BOX_SIZE * 5.0f;
+  int length = 3;
+  Vector2 direction = {1.0f, 0.0f};
+  SnakeBody* head;
+  std::deque<SnakeBody*> body;
+  bool grow = false;
 }
 
 // Move Player

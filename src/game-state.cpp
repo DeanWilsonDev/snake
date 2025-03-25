@@ -26,4 +26,5 @@ void GameState::increaseScore()
 void GameState::update()
 {
   snake->update();
+  apple->update();
 }

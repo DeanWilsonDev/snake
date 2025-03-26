@@ -13,9 +13,21 @@ FetchContent_MakeAvailable(raylib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
     ${CMAKE_BINARY_DIR}/bin/${CMAKE_SYSTEM_PROCESSOR}/${PROJECT_NAME})
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} 
+  src/main.cpp
+  src/apple.cpp
+  src/application.cpp
+  src/game-state.cpp
+  src/raylib-renderer.cpp
+  src/raylib-window.cpp
+  src/snake-body.cpp
+  src/snake.cpp
+  src/user-interface.cpp
+)
 
 # Include and Link Raylib in the game
 target_link_libraries(${PROJECT_NAME} raylib)
 set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG
                                                  ${CMAKE_CURRENT_SOURCE_DIR})
+enable_testing()
+add_subdirectory(tests)

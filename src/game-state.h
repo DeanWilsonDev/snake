@@ -1,5 +1,6 @@
 #pragma once
 
+#include "game-settings.h"
 class Snake;
 class Apple;
 
@@ -11,7 +12,7 @@ enum State {
 
 class GameState {
  public:
-  GameState();
+  GameState(GameSettings settings);
   ~GameState();
 
   void update();
@@ -32,5 +33,6 @@ class GameState {
   Snake* snake;
   Apple* apple;
   State state;
+  GameSettings settings;
   int score;
 };

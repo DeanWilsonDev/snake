@@ -2,12 +2,14 @@
 #include "game-settings.h"
 #include "game-state.h"
 #include "irenderer.h"
+#include "iuser-interface.h"
 #include "iwindow.h"
 
 struct ApplicationParams {
   GameState* gameState;
   IWindow* window;
   IRenderer* renderer;
+  IUserInterface* ui;
   GameSettings gameSettings;
 };
 
@@ -22,5 +24,6 @@ class Application {
   GameState* gameState;
   IWindow* window;
   IRenderer* renderer;
+  IUserInterface* ui;
   GameSettings gameSettings;
 };

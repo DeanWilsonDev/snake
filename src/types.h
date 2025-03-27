@@ -1,9 +1,6 @@
 #pragma once
 
-typedef struct Vector2 {
-  float x;
-  float y;
-} Vector2;
+namespace SnakeGame {
 
 typedef struct Color {
   unsigned char red;
@@ -11,3 +8,5 @@ typedef struct Color {
   unsigned char blue;
   unsigned char alpha;
 } Color;
+
+}  // namespace SnakeGame

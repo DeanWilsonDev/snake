@@ -1,13 +1,17 @@
 #include "snake.h"
 #include "game-state.h"
+#include "snake-body.h"
+#include "raylib.h"
 
-Snake::Snake(GameState* state) : state(state)
+
+
+Snake::Snake(const SnakeParams& snakeParams) : state(snakeParams.state), settings(snakeParams.settings)
 {
-  this->head = new SnakeBody(0, {100.0f, 100.0f});
+  this->head = new SnakeBody(0, {100.0f, 100.0f}, this->size);
   this->body.push_back(this->head);
 
   for (int i = 1; i < this->length; i++) {
-    this->body.push_back(new SnakeBody(i, {100.0f - i * this->size, 100.0f}));
+    this->body.push_back(new SnakeBody(i, {100.0f - i * this->size, 100.0f}, this->size));
   }
 
   float size = this->settings.boxSize;
@@ -19,8 +23,7 @@ Snake::Snake(GameState* state) : state(state)
   bool grow = false;
 }
 
-// Move Player
-void Snake::move()
+void Snake::update()
 {
   Vector2 newDirection;
 
@@ -84,7 +87,7 @@ void Snake::move()
     this->head->position.x = newLogicalPosition.x;
     this->head->position.y = newLogicalPosition.y;
     if (this->grow) {
-      this->body.push_back(new SnakeBody(this->length, this->body.back()->position));
+      this->body.push_back(new SnakeBody(this->length, this->body.back()->position, this->size));
       this->length++;
       this->grow = false;
     }
@@ -98,17 +101,17 @@ void Snake::move()
     // Move this->to opposite side
     {
       for (int i = 0; i < this->body.size(); i++) {
-        if (this->body[i]->position.x > SCREEN_WIDTH) {
+        if (this->body[i]->position.x > this->settings.windowWidth) {
           this->body[i]->position.x = 0;
         }
         else if (this->body[i]->position.x < 0) {
-          this->body[i]->position.x = SCREEN_WIDTH;
+          this->body[i]->position.x = this->settings.windowWidth;
         }
-        else if (this->body[i]->position.y > SCREEN_HEIGHT) {
+        else if (this->body[i]->position.y > this->settings.windowHeight) {
           this->body[i]->position.y = 0;
         }
         else if (this->body[i]->position.y < 0) {
-          this->body[i]->position.y = SCREEN_HEIGHT;
+          this->body[i]->position.y = this->settings.windowHeight;
         }
       }
     };

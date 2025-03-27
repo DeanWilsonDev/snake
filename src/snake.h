@@ -2,22 +2,25 @@
 
 #include "game-settings.h"
 #include "game-state.h"
-#include "raylib.h"
+#include "iuser-interface.h"
 #include "snake-body.h"
 #include <deque>
+#include "raylib.h"
 
 class GameState;
 
+struct SnakeParams {
+  GameState* state;
+  GameSettings settings;
+};
+
 class Snake {
  public:
-  Snake(GameState* state, GameSettings settings);
+  Snake(const SnakeParams& snakeParams);
 
   void update();
-
-  void move();
   void destroy();
 
- private:
   float size;
   float speed;
   int length;
@@ -25,6 +28,8 @@ class Snake {
   SnakeBody* head;
   std::deque<SnakeBody*> body;
   bool grow = false;
+
+ private:
   GameState* state;
   GameSettings settings;
   float accumulatedDistance = 0.0f;

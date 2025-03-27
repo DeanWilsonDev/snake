@@ -1,14 +1,21 @@
 #include "game-state.h"
+#include "game-settings.h"
 #include "snake.h"
 #include "apple.h"
 
-GameState::GameState()
+GameState::GameState(GameSettings settings) : settings(settings)
 {
   this->state = STATE_MAIN_MENU;
   this->score = 0;
-  Snake* snake = new Snake(this);
+  SnakeParams snakeParams = {.state = this, .settings = settings};
+  Snake* snake = new Snake(snakeParams);
   addSnake(snake);
-  addApple(new Apple(this, snake));
+  AppleParams appleParams = {
+    .settings = settings, 
+    .snake = snake, 
+    .state = this,
+  };
+  addApple(new Apple(appleParams));
 }
 
 GameState::~GameState()

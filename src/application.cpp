@@ -1,7 +1,8 @@
 #include "application.h"
 #include "game-settings.h"
 #include "game-state.h"
-#include "user-interface.h"
+#include "raylib-ui.h"
+#include "raylib.h"
 #include "iwindow.h"
 #include "types.h"
 #include <cassert>
@@ -12,12 +13,17 @@ Application::Application(const ApplicationParams& config)
     : gameState(config.gameState)
     , window(config.window)
     , renderer(config.renderer)
-    , gameSettings(config.gameSettings) {};
+    , gameSettings(config.gameSettings)
+    , ui(config.ui)
+
+{};
 
 Application::~Application()
 {
   delete this->window;
   delete this->gameState;
+  delete this->renderer;
+  delete this->ui;
 }
 
 void Application::run()
@@ -31,14 +37,14 @@ void Application::run()
 
   while (this->window->shouldClose()) {
     this->renderer->beginDrawing();
-    this->renderer->clearBackground(Color{0, 0, 0, 0});
+    this->renderer->clearBackground(BLACK);
 
     switch (this->gameState->getState()) {
       case STATE_MAIN_MENU:
-        UserInterface::DrawTextCentered(
+        ui->drawTextCentered(
             "Snake", (Vector2){gameSettings.windowWidth / 2.0f, 40.0f}, 80
         );
-        UserInterface::DrawTextCentered(
+        ui->drawTextCentered(
             "Press 'Enter' to start", (Vector2){gameSettings.windowWidth / 2.0f, 200.0f}, 20
         );
         if (IsKeyPressed(KEY_ENTER)) {
@@ -47,25 +53,25 @@ void Application::run()
         break;
       case STATE_GAMEPLAY:
         std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", this->gameState->getScore());
-        UserInterface::DrawTextCentered(scoreBuffer, (Vector2){80, 30}, 20);
+        ui->drawTextCentered(scoreBuffer, (Vector2){80, 30}, 20);
 
         this->gameState->update();
         this->renderer->draw();
         break;
       case STATE_GAME_OVER:
-        UserInterface::DrawTextCentered(
+        ui->drawTextCentered(
             "Game Over", (Vector2){gameSettings.windowWidth / 2.0f - 40, 40}, 80
         );
-        UserInterface::DrawTextCentered(
+        ui->drawTextCentered(
             "Press 'Enter' to start", (Vector2){gameSettings.windowWidth / 2.0f, 200.0f}, 20
         );
         std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", this->gameState->getScore());
-        UserInterface::DrawTextCentered(
+        ui->drawTextCentered(
             scoreBuffer, (Vector2){gameSettings.windowWidth / 2.0f, 150.0f}, 20
         );
         if (IsKeyPressed(KEY_ENTER)) {
           delete this->gameState;
-          this->gameState = new GameState();
+          this->gameState = new GameState(this->gameSettings);
           this->gameState->setState(STATE_GAMEPLAY);
         }
         break;

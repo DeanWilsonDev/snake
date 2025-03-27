@@ -1,6 +1,8 @@
 #include "apple.h"
 #include "snake.h"
 #include "game-state.h"
+#include "raylib.h"
+
 
 Apple::Apple(const AppleParams& params)
     : state(params.state)
@@ -46,7 +48,7 @@ void Apple::update()
   }
 };
 
-void Apple::getNewPosition()
+Vector2 Apple::getNewPosition()
 {
   return {
       GetRandomValue(0, (this->settings.windowWidth / this->settings.boxSize) - 1) *

@@ -2,7 +2,8 @@
 
 #include "game-settings.h"
 #include "game-state.h"
-#include "types.h"
+#include "raylib.h"
+
 
 struct AppleParams {
   GameSettings settings;
@@ -13,7 +14,6 @@ struct AppleParams {
 class Apple {
  public:
   Apple(const AppleParams& params);
-
   void update();
   Vector2 getNewPosition();
 

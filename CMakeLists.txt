@@ -10,6 +10,8 @@ FetchContent_Declare(raylib
                      GIT_REPOSITORY "https://github.com/raysan5/raylib.git")
 FetchContent_MakeAvailable(raylib)
 
+include_directories(${raylib_SOURCE_DIR}/src)
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
     ${CMAKE_BINARY_DIR}/bin/${CMAKE_SYSTEM_PROCESSOR}/${PROJECT_NAME})
 
@@ -20,9 +22,9 @@ add_executable(${PROJECT_NAME}
   src/game-state.cpp
   src/raylib-renderer.cpp
   src/raylib-window.cpp
+  src/raylib-ui.cpp
   src/snake-body.cpp
   src/snake.cpp
-  src/user-interface.cpp
 )
 
 # Include and Link Raylib in the game

@@ -1,22 +1,29 @@
 #include <MacTypes.h>
 #include "application.h"
 #include "game-settings.h"
+#include "irenderer.h"
+#include "iuser-interface.h"
+#include "raylib-renderer.h"
+#include "raylib-ui.h"
+#include "raylib-ui.h"
 #include "raylib-window.h"
-#include "raylib.h"
-#include <cstdio>
-#include "snake.h"
-#include "apple.h"
 #include "game-state.h"
-#include "user-interface.h"
 
 class IWindow;
 
 int main(int argc, char* argv[])
 {
-  GameState* gameState = new GameState();
-  IWindow* window = new RaylibWindow();
   GameSettings settings = {};
-  Application* application = new Application(gameState, window, settings);
+  GameState* gameState = new GameState(settings);
+  IWindow* window = new RaylibWindow();
+  RaylibRendererParams rendererParams = { .state = gameState, .settings= settings};
+  IRenderer* renderer = new RaylibRenderer(rendererParams);
+  IUserInterface* ui = new RaylibUI();
+
+  const ApplicationParams applicationParams = {
+      .gameState = gameState, .window = window, .gameSettings = settings, .renderer = renderer
+  };
+  Application* application = new Application(applicationParams);
 
   delete application;
   delete window;

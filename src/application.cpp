@@ -1,10 +1,8 @@
 #include "application.h"
 #include "game-settings.h"
 #include "game-state.h"
-#include "raylib-ui.h"
 #include "raylib.h"
 #include "iwindow.h"
-#include "types.h"
 #include <cassert>
 #include <cstdio>
 #include <cstring>

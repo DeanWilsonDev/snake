@@ -2,7 +2,6 @@
 
 #include "game-settings.h"
 #include "game-state.h"
-#include "iuser-interface.h"
 #include "snake-body.h"
 #include <deque>
 #include "raylib.h"
@@ -11,7 +10,7 @@ class GameState;
 
 struct SnakeParams {
   GameState* state;
-  GameSettings settings;
+  GameSettings& settings;
 };
 
 class Snake {

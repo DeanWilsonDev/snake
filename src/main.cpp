@@ -8,20 +8,30 @@
 #include "raylib-ui.h"
 #include "raylib-window.h"
 #include "game-state.h"
+#include "log.h"
 
 class IWindow;
 
 int main(int argc, char* argv[])
 {
+  // Initialize Logging
+  Umbra::Logging::Log::init();
+
   GameSettings settings = {};
   GameState* gameState = new GameState(settings);
   IWindow* window = new RaylibWindow();
-  RaylibRendererParams rendererParams = { .state = gameState, .settings= settings};
+  RaylibRendererParams rendererParams = { 
+    .state = gameState, 
+    .settings= settings,
+  };
   IRenderer* renderer = new RaylibRenderer(rendererParams);
   IUserInterface* ui = new RaylibUI();
 
   const ApplicationParams applicationParams = {
-      .gameState = gameState, .window = window, .gameSettings = settings, .renderer = renderer
+      .gameState = gameState,
+      .window = window,
+      .gameSettings = settings,
+      .renderer = renderer,
   };
   Application* application = new Application(applicationParams);
 

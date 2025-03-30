@@ -3,24 +3,23 @@
 #include "snake-body.h"
 #include "raylib.h"
 
-
-
-Snake::Snake(const SnakeParams& snakeParams) : state(snakeParams.state), settings(snakeParams.settings)
+Snake::Snake(const SnakeParams& snakeParams)
+    : state(snakeParams.state), settings(snakeParams.settings)
 {
+  this->size = this->settings.boxSize;
+  this->speed = this->settings.boxSize * 5.0f;
+  this->length = 3;
+  this->direction = {1.0f, 0.0f};
+  this->grow = false;
+
+  std::cout << "Snake size = " << this->size << std::endl;
+
   this->head = new SnakeBody(0, {100.0f, 100.0f}, this->size);
   this->body.push_back(this->head);
 
   for (int i = 1; i < this->length; i++) {
     this->body.push_back(new SnakeBody(i, {100.0f - i * this->size, 100.0f}, this->size));
   }
-
-  float size = this->settings.boxSize;
-  float speed = DEFAULT_BOX_SIZE * 5.0f;
-  int length = 3;
-  Vector2 direction = {1.0f, 0.0f};
-  SnakeBody* head;
-  std::deque<SnakeBody*> body;
-  bool grow = false;
 }
 
 void Snake::update()
@@ -98,7 +97,6 @@ void Snake::update()
       directionChanged = false;
     }
 
-    // Move this->to opposite side
     {
       for (int i = 0; i < this->body.size(); i++) {
         if (this->body[i]->position.x > this->settings.windowWidth) {

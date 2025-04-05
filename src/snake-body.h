@@ -1,6 +1,6 @@
 #pragma once
 
-#include "iostream"
+#include "log.h"
 #include "raylib.h"
 
 class SnakeBody {
@@ -8,13 +8,19 @@ class SnakeBody {
   SnakeBody(int index, Vector2 position, float size) : index(index), position(position), size(size)
   {
     this->bounds = getBounds();
-    std::cout << "Creating SnakeBody with index: " << this->index << " at position ("
-              << this->position.x << ", " << this->position.y << ")"
-              << " with bounds: (" << this->bounds.x << ", " << this->bounds.y << ", "
-              << this->bounds.height << ", " << this->bounds.width << ")" << std::endl;
+
+    LOG_TRACE(
+        "Creating SnakeBody with index: {} at position (({},{})), with bounds (({}, {}))",
+        this->index,
+        this->position.x,
+        this->position.y,
+        this->bounds.height,
+        this->bounds.width
+    );
   }
 
   Rectangle getBounds();
+  void move(Vector2 newPosition);
 
   int index;
   Vector2 position;

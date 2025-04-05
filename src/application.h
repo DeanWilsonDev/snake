@@ -5,6 +5,8 @@
 #include "iuser-interface.h"
 #include "iwindow.h"
 
+namespace SnakeGame {
+
 struct ApplicationParams {
   GameState* gameState;
   IWindow* window;
@@ -27,3 +29,4 @@ class Application {
   IUserInterface* ui;
   GameSettings gameSettings;
 };
+}  // namespace SnakeGame

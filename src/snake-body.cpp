@@ -1,4 +1,5 @@
 #include "snake-body.h"
+#include "log.h"
 
 Rectangle SnakeBody::getBounds()
 {
@@ -8,3 +9,15 @@ Rectangle SnakeBody::getBounds()
   this->bounds.height = this->size;
   return this->bounds;
 };
+
+void SnakeBody::move(Vector2 newPosition)
+{
+  this->position.x = newPosition.x;
+  this->position.y = newPosition.y;
+  LOG_DEBUG(
+      "Body part at index {} has new position ({}, {})",
+      this->index,
+      this->position.x,
+      this->position.y
+  );
+}

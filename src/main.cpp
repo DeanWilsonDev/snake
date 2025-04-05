@@ -1,4 +1,3 @@
-#include <MacTypes.h>
 #include "application.h"
 #include "game-settings.h"
 #include "irenderer.h"
@@ -9,35 +8,38 @@
 #include "raylib-window.h"
 #include "game-state.h"
 #include "log.h"
+#include "core.h"
 
 class IWindow;
 
 int main(int argc, char* argv[])
 {
   // Initialize Logging
-  Umbra::Logging::Log::init();
+  Umbra::Logging::Log::init(DEBUG_ENABLED);
+  LOG_DEBUG("Debug Log Working {}", 1);
+  LOG_WARNING("Warning Log Working {}", 2);
+  LOG_CORE_ERROR("Core Logging Working {}", 3);
 
-  GameSettings settings = {};
+  GameSettings settings = {.windowTitle = "Snake"};
   GameState* gameState = new GameState(settings);
   IWindow* window = new RaylibWindow();
-  RaylibRendererParams rendererParams = { 
-    .state = gameState, 
-    .settings= settings,
+  RaylibRendererParams rendererParams = {
+      .settings = settings,
+      .state = gameState,
   };
   IRenderer* renderer = new RaylibRenderer(rendererParams);
   IUserInterface* ui = new RaylibUI();
 
-  const ApplicationParams applicationParams = {
+  const SnakeGame::ApplicationParams applicationParams = {
       .gameState = gameState,
       .window = window,
-      .gameSettings = settings,
       .renderer = renderer,
+      .ui = ui,
+      .gameSettings = settings,
   };
-  Application* application = new Application(applicationParams);
 
-  delete application;
-  delete window;
-  delete gameState;
+  SnakeGame::Application* application = new SnakeGame::Application(applicationParams);
 
+  application->run();
   return 0;
 };

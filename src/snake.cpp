@@ -1,30 +1,35 @@
 #include "snake.h"
+#include "game-settings.h"
+#include "log.h"
 #include "game-state.h"
 #include "snake-body.h"
 #include "raylib.h"
+#include <cstddef>
 
 Snake::Snake(const SnakeParams& snakeParams)
     : state(snakeParams.state), settings(snakeParams.settings)
 {
+  LOG_TRACE("Initializing Snake");
   this->size = this->settings.boxSize;
   this->speed = this->settings.boxSize * 5.0f;
   this->length = 3;
   this->direction = {1.0f, 0.0f};
   this->grow = false;
 
-  std::cout << "Snake size = " << this->size << std::endl;
-
-  this->head = new SnakeBody(0, {100.0f, 100.0f}, this->size);
+  this->head = new SnakeBody(0, {100.f, 100.0f}, this->size);
   this->body.push_back(this->head);
 
   for (int i = 1; i < this->length; i++) {
-    this->body.push_back(new SnakeBody(i, {100.0f - i * this->size, 100.0f}, this->size));
+    this->body.push_back(new SnakeBody(i, {100.0f - (i * this->size), 100.0f}, this->size));
   }
+
+  LOG_TRACE("Finished Initializing Snake");
 }
 
 void Snake::update()
 {
-  Vector2 newDirection;
+  LOG_TRACE("Snake Update Begin");
+  Vector2 newDirection = this->direction;
 
   if (this->direction.y != 0 && !directionChanged) {
     if (IsKeyPressed(KEY_A)) {
@@ -50,46 +55,8 @@ void Snake::update()
   accumulatedDistance += this->speed * GetFrameTime();
 
   if (accumulatedDistance >= this->size) {
-    Vector2 newLogicalPosition = {
-        this->head->position.x + this->direction.x * this->size,
-        this->head->position.y + this->direction.y * this->size,
-    };
-
-    newLogicalPosition.x = std::roundf(newLogicalPosition.x / this->size) * this->size;
-    newLogicalPosition.y = std::roundf(newLogicalPosition.y / this->size) * this->size;
-
-    DEBUG_ENABLED&& std::cout << "this->Body Size: " << this->body.size() << std::endl;
-    DEBUG_ENABLED&& std::cout << "this->length: " << this->length << std::endl;
-    Vector2 previousPosition = this->head->position;
-    Vector2 nextPosition = this->head->position;
-
-    for (int i = 1; i < this->length; i++) {
-      DEBUG_ENABLED&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
-      DEBUG_ENABLED&& std::cout << "this->body[" << i << "].x: " << this->body[i]->position.x
-                                << std::endl;
-      DEBUG_ENABLED&& std::cout << "this->body[" << i << "].y: " << this->body[i]->position.y
-                                << std::endl;
-
-      if (this->body[i] && this->body[i - 1]) {
-        previousPosition = this->body[i]->position;
-        this->body[i]->position.x = nextPosition.x;
-        this->body[i]->position.y = nextPosition.y;
-        nextPosition = previousPosition;
-      }
-
-      DEBUG_ENABLED&& std::cout << "this->body[" << i - 1
-                                << "].x: " << this->body[i - 1]->position.x << std::endl;
-      DEBUG_ENABLED&& std::cout << "this->body[" << i - 1
-                                << "].y: " << this->body[i - 1]->position.y << std::endl;
-    }
-
-    this->head->position.x = newLogicalPosition.x;
-    this->head->position.y = newLogicalPosition.y;
-    if (this->grow) {
-      this->body.push_back(new SnakeBody(this->length, this->body.back()->position, this->size));
-      this->length++;
-      this->grow = false;
-    }
+    this->move();
+    this->checkIfShouldGrow();
 
     accumulatedDistance -= this->size;
 
@@ -97,29 +64,15 @@ void Snake::update()
       directionChanged = false;
     }
 
-    {
-      for (int i = 0; i < this->body.size(); i++) {
-        if (this->body[i]->position.x > this->settings.windowWidth) {
-          this->body[i]->position.x = 0;
-        }
-        else if (this->body[i]->position.x < 0) {
-          this->body[i]->position.x = this->settings.windowWidth;
-        }
-        else if (this->body[i]->position.y > this->settings.windowHeight) {
-          this->body[i]->position.y = 0;
-        }
-        else if (this->body[i]->position.y < 0) {
-          this->body[i]->position.y = this->settings.windowHeight;
-        }
-      }
-    };
+    this->teleport();
   }
 
   if (this->head) {
-    DEBUG_ENABLED&& std::cout << "HEAD: " << this->head << std::endl;
+    LOG_DEBUG("HEAD {}", this->head->index);
   }
 
   for (int i = 0; i < this->body.size(); i++) {
+    DEBUG_ENABLED&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
     DEBUG_ENABLED&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
     if (this->head != nullptr && this->body[i] != this->head) {
       if (DEBUG_ENABLED) {
@@ -127,8 +80,63 @@ void Snake::update()
       }
 
       if (CheckCollisionRecs(this->head->getBounds(), this->body[i]->getBounds())) {
+        LOG_INFO("Head hit body part with index: {}", i);
         this->state->setState(STATE_GAME_OVER);
       }
+    }
+  }
+}
+
+void Snake::move()
+{
+  Vector2 previousPosition = this->head->position;
+  Vector2 nextPosition = this->head->position;
+
+  for (int i = 1; i < this->length; i++) {
+    if (this->body[i] && this->body[i - 1]) {
+      previousPosition = this->body[i]->position;
+      this->body[i]->move(nextPosition);
+      nextPosition = previousPosition;
+    }
+  }
+
+  Vector2 newPosition = {
+      this->head->position.x + this->direction.x * this->size,
+      this->head->position.y + this->direction.y * this->size,
+  };
+  LOG_DEBUG("Direction ({}, {})", this->direction.x, this->direction.y);
+  LOG_DEBUG("Head Position ({}, {})", this->head->position.x, this->head->position.y);
+  LOG_DEBUG("New Position ({}, {})", newPosition.x, newPosition.y);
+
+  newPosition.x = std::roundf(newPosition.x / this->size) * this->size;
+  newPosition.y = std::roundf(newPosition.y / this->size) * this->size;
+
+  this->head->move(newPosition);
+}
+
+void Snake::checkIfShouldGrow()
+{
+  if (this->grow) {
+    this->body.push_back(new SnakeBody(this->length, this->body.back()->position, this->size));
+    this->length++;
+    this->grow = false;
+  }
+}
+
+void Snake::teleport()
+{
+  for (int i = 0; i < this->body.size(); i++) {
+    if (this->body[i]->position.x > this->settings.windowWidth) {
+      this->body[i]->position.x = 0;
+    }
+    else if (this->body[i]->position.x < 0) {
+      this->body[i]->position.x = this->settings.windowWidth;
+    }
+    else if (this->body[i]->position.y > this->settings.windowHeight) {
+      this->body[i]->position.y = 0;
+    }
+    else if (this->body[i]->position.y < 0) {
+      this->body[i]->position.y = this->settings.windowHeight;
     }
   }
 }
@@ -141,13 +149,13 @@ void Snake::destroy()
 
   for (auto segment : body) {
     if (segment) {
-      DEBUG_ENABLED&& std::cout << "Deleting body segment at address: " << segment << std::endl;
+      int index = segment->index;
+      LOG_DEBUG("Deleting segment with index: {}", index);
       delete segment;
-      DEBUG_ENABLED&& std::cout << "Body segment at address: " << segment
-                                << " successfully destroyed" << std::endl;
+      LOG_DEBUG("Successfully deleted segment with index: {}", index);
     }
     else {
-      DEBUG_ENABLED&& std::cout << "Found null segment in body!" << std::endl;
+      LOG_DEBUG("Found null segment in body!");
     }
   }
 
@@ -156,11 +164,11 @@ void Snake::destroy()
   if (head) {
     DEBUG_ENABLED&& std::cout << "Deleting head at address: " << this->head << std::endl;
     delete this->head;
-    DEBUG_ENABLED&& std::cout << "Setting head to nullptr" << std::endl;
+    LOG_DEBUG("Setting head to nullptr");
     this->head = nullptr;
-    DEBUG_ENABLED&& std::cout << "Head successfully destroyed" << std::endl;
+    LOG_DEBUG("Head successfully destroyed");
   }
   else {
-    DEBUG_ENABLED&& std::cout << "Found null segment in head!" << std::endl;
+    LOG_DEBUG("Found null segment in head!");
   }
 }

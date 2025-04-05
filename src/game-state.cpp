@@ -1,5 +1,6 @@
 #include "game-state.h"
 #include "game-settings.h"
+#include "log.h"
 #include "snake.h"
 #include "apple.h"
 
@@ -13,16 +14,17 @@ GameState::GameState(GameSettings settings) : settings(settings)
   addSnake(snake);
   AppleParams appleParams = {
       .settings = settings,
-      .snake = snake,
       .state = this,
+      .snake = snake,
   };
   addApple(new Apple(appleParams));
+  LOG_TRACE("Finish Initializing GameState");
 }
 
 GameState::~GameState()
 {
   this->snake->destroy();
-  delete this->snake;
+  // delete this->snake;
   delete this->apple;
 }
 
@@ -33,6 +35,7 @@ void GameState::increaseScore()
 
 void GameState::update()
 {
+  LOG_TRACE("Being GameState Update");
   snake->update();
   apple->update();
 }

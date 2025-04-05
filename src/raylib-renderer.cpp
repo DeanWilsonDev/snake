@@ -1,10 +1,15 @@
 #include "raylib-renderer.h"
 #include "game-settings.h"
+#include "log.h"
 #include "raylib.h"
 #include "apple.h"
 #include "snake.h"
 
-RaylibRenderer::RaylibRenderer(const RaylibRendererParams& params) : settings(params.settings), state(params.state) {}
+RaylibRenderer::RaylibRenderer(const RaylibRendererParams& params)
+    : settings(params.settings), state(params.state)
+{
+  LOG_TRACE("Initializing Raylib Renderer");
+}
 
 void RaylibRenderer::beginDrawing()
 {
@@ -37,9 +42,7 @@ void RaylibRenderer::draw()
   // Draw Snake
   Snake* snake = this->state->getSnake();
   for (const auto& segment : snake->body) {
-    DrawRectangleRec(
-        {segment->position.x, segment->position.y, snake->size, snake->size}, GREEN
-    );
+    DrawRectangleRec({segment->position.x, segment->position.y, snake->size, snake->size}, GREEN);
   }
 
   // Draw Apple

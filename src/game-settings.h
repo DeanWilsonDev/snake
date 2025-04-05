@@ -1,11 +1,11 @@
 #pragma once
 
-#include <iostream>
+#include "log.h"
 #define DEFAULT_SCREEN_WIDTH (500)
 #define DEFAULT_SCREEN_HEIGHT (500)
 #define DEFAULT_TARGET_FPS (60)
 #define DEFAULT_BOX_SIZE (20.0f)
-#define DEBUG_ENABLED false
+#define DEBUG_ENABLED true 
 #define WINDOW_TITLE "Snake"
 
 struct GameSettings {
@@ -19,12 +19,12 @@ struct GameSettings {
 
   void Print()
   {
-    std::cout << "------------ GAME SETTINGS -----------" << std::endl;
-    std::cout << "Window Width: " << this->windowWidth << std::endl;
-    std::cout << "Window Height: " << this->windowHeight << std::endl;
-    std::cout << "Window Title: " << this->windowTitle << std::endl;
-    std::cout << "Target FPS: " << this->targetFPS << std::endl;
-    std::cout << "Box Size: " << this->boxSize << std::endl;
-    std::cout << "--------------------------------------" << std::endl;
+    LOG_INFO("------------ GAME SETTINGS -----------");
+    LOG_INFO("Window Width: {}", this->windowWidth);
+    LOG_INFO("Window Height: {}", this->windowHeight);
+    LOG_INFO("Window Title: {}", this->windowTitle);
+    LOG_INFO("Target FPS: {}", this->targetFPS);
+    LOG_INFO("Box Size: {}", this->boxSize);
+    LOG_INFO("--------------------------------------");
   }
 };

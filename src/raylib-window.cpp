@@ -1,5 +1,11 @@
 #include "raylib-window.h"
+#include "log.h"
 #include "raylib.h"
+
+RaylibWindow::RaylibWindow()
+{
+  LOG_TRACE("Initializing Window");
+}
 
 RaylibWindow::~RaylibWindow()
 {
@@ -8,6 +14,7 @@ RaylibWindow::~RaylibWindow()
 
 void RaylibWindow::createWindow(int width, int height, char* title)
 {
+  LOG_TRACE("Creating Window");
   InitWindow(width, height, title);
 }
 

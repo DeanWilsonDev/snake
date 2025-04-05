@@ -4,6 +4,7 @@
 
 class RaylibWindow : public IWindow {
  public:
+  RaylibWindow();
   ~RaylibWindow() override;
 
   void createWindow(int width, int height, char* title) override;

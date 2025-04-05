@@ -19,6 +19,9 @@ class Snake {
 
   void update();
   void destroy();
+  void move();
+  void checkIfShouldGrow();
+  void teleport();
 
   float size;
   float speed;

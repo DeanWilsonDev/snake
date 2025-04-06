@@ -11,10 +11,10 @@ enum State {
   STATE_GAME_OVER,
 };
 
-class GameState {
+class GameSession {
  public:
-  GameState(GameSettings settings);
-  ~GameState();
+  GameSession(GameSettings settings);
+  ~GameSession();
 
   void update();
 
@@ -39,6 +39,11 @@ class GameState {
 
   int getScore() { return this->score; };
   void increaseScore();
+
+  void changeState();
+  void mainMenu();
+  void gameplay();
+  void gameOver();
 
  private:
   Snake* snake;

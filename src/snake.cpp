@@ -12,7 +12,7 @@ Snake::Snake(const SnakeParams& snakeParams)
   LOG_TRACE("Initializing Snake");
   this->size = this->settings.boxSize;
   this->speed = this->settings.boxSize * 5.0f;
-  this->length = 3;
+  this->length = this->settings.defaultSnakeLength;
   this->direction = {1.0f, 0.0f};
   this->grow = false;
 

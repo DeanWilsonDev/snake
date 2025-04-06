@@ -1,7 +1,6 @@
 #include "raylib-ui.h"
 #include "raylib.h"
 
-
 void RaylibUI::drawTextCentered(const char* text, Vector2 position, float fontSize)
 {
   const Vector2 textSize = MeasureTextEx(GetFontDefault(), text, fontSize, 1);

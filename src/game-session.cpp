@@ -1,10 +1,10 @@
-#include "game-state.h"
+#include "game-session.h"
 #include "game-settings.h"
 #include "log.h"
 #include "snake.h"
 #include "apple.h"
 
-GameState::GameState(GameSettings settings) : settings(settings)
+GameSession::GameSession(GameSettings settings) : settings(settings)
 {
   settings.Print();
   this->state = STATE_MAIN_MENU;
@@ -18,24 +18,24 @@ GameState::GameState(GameSettings settings) : settings(settings)
       .snake = snake,
   };
   addApple(new Apple(appleParams));
-  LOG_TRACE("Finish Initializing GameState");
+  LOG_TRACE("Finish Initializing GameSession");
 }
 
-GameState::~GameState()
+GameSession::~GameSession()
 {
   this->snake->destroy();
   // delete this->snake;
   delete this->apple;
 }
 
-void GameState::increaseScore()
+void GameSession::increaseScore()
 {
   this->score += 10;
 }
 
-void GameState::update()
+void GameSession::update()
 {
-  LOG_TRACE("Being GameState Update");
+  LOG_TRACE("Being GameSession Update");
   snake->update();
   apple->update();
 }

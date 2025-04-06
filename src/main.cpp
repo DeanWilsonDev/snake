@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
   LOG_WARNING("Warning Log Working {}", 2);
   LOG_CORE_ERROR("Core Logging Working {}", 3);
 
-  GameSettings settings = {.windowTitle = "Snake"};
+  GameSettings* settings = {.windowTitle = "Snake"};
   GameState* gameState = new GameState(settings);
   IWindow* window = new RaylibWindow();
   RaylibRendererParams rendererParams = {
@@ -29,6 +29,7 @@ int main(int argc, char* argv[])
   };
   IRenderer* renderer = new RaylibRenderer(rendererParams);
   IUserInterface* ui = new RaylibUI();
+  Game* game = new Game();
 
   const SnakeGame::ApplicationParams applicationParams = {
       .gameState = gameState,
@@ -36,6 +37,7 @@ int main(int argc, char* argv[])
       .renderer = renderer,
       .ui = ui,
       .gameSettings = settings,
+      .game = game,
   };
 
   SnakeGame::Application* application = new SnakeGame::Application(applicationParams);

@@ -2,17 +2,20 @@
 #include "game-settings.h"
 #include "game-state.h"
 #include "irenderer.h"
+#include "istate-context.h"
 #include "iuser-interface.h"
+#include "game.h"
 #include "iwindow.h"
 
 namespace SnakeGame {
 
 struct ApplicationParams {
-  GameState* gameState;
+  GameSession* session;
   IWindow* window;
   IRenderer* renderer;
   IUserInterface* ui;
-  GameSettings gameSettings;
+  GameSettings* gameSettings;
+  Game* game;
 };
 
 class Application {
@@ -23,10 +26,11 @@ class Application {
   void run();
 
  private:
-  GameState* gameState;
+  IStateContext GameSession* session;
   IWindow* window;
   IRenderer* renderer;
   IUserInterface* ui;
-  GameSettings gameSettings;
+  GameSettings* gameSettings;
+  Game* game;
 };
 }  // namespace SnakeGame

@@ -1,13 +1,13 @@
 #include "snake.h"
 #include "game-settings.h"
 #include "log.h"
-#include "game-state.h"
+#include "game-session.h"
 #include "snake-body.h"
 #include "raylib.h"
 #include <cstddef>
 
 Snake::Snake(const SnakeParams& snakeParams)
-    : state(snakeParams.state), settings(snakeParams.settings)
+    : session(snakeParams.session), settings(snakeParams.settings)
 {
   LOG_TRACE("Initializing Snake");
   this->size = this->settings.boxSize;
@@ -81,7 +81,7 @@ void Snake::update()
 
       if (CheckCollisionRecs(this->head->getBounds(), this->body[i]->getBounds())) {
         LOG_INFO("Head hit body part with index: {}", i);
-        this->state->setState(STATE_GAME_OVER);
+        this->session->setState(STATE_GAME_OVER);
       }
     }
   }

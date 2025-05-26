@@ -9,12 +9,12 @@ GameSession::GameSession(GameSettings settings) : settings(settings)
   settings.Print();
   this->state = STATE_MAIN_MENU;
   this->score = 0;
-  SnakeParams snakeParams = {.state = this, .settings = settings};
+  SnakeParams snakeParams = {.session = this, .settings = settings};
   Snake* snake = new Snake(snakeParams);
   addSnake(snake);
   AppleParams appleParams = {
       .settings = settings,
-      .state = this,
+      .session = this,
       .snake = snake,
   };
   addApple(new Apple(appleParams));

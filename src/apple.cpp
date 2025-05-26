@@ -1,11 +1,10 @@
 #include "apple.h"
 #include "snake.h"
-#include "game-state.h"
+#include "game-session.h"
 #include "raylib.h"
 
-
 Apple::Apple(const AppleParams& params)
-    : state(params.state)
+    : state(params.session)
     , settings(params.settings)
     , snake(params.snake)
     , size(params.settings.boxSize / 2.0f)

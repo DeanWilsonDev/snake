@@ -1,13 +1,12 @@
 #pragma once
 
 #include "game-settings.h"
-#include "game-state.h"
+#include "game-session.h"
 #include "raylib.h"
-
 
 struct AppleParams {
   GameSettings settings;
-  GameState* state;
+  GameSession* session;
   Snake* snake;
 };
 
@@ -17,7 +16,7 @@ class Apple {
   void update();
   Vector2 getNewPosition();
 
-  GameState* state;
+  GameSession* state;
   GameSettings settings;
   Snake* snake;
   Vector2 position;

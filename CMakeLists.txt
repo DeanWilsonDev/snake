@@ -8,37 +8,34 @@ project(Snake LANGUAGES CXX)
 include(FetchContent)
 
 # Download Raylib
-FetchContent_Declare(raylib
-                     GIT_REPOSITORY "https://github.com/raysan5/raylib.git"
-                   GIT_TAG 5.5
-                 )
+FetchContent_Declare(
+  raylib
+  GIT_REPOSITORY "https://github.com/raysan5/raylib.git"
+  GIT_TAG 5.5)
 FetchContent_MakeAvailable(raylib)
-
 
 # Download UmbraLogging
 FetchContent_Declare(
   UmbraLogging
   GIT_REPOSITORY "https://github.com/UmbraEngine/logging.git"
-  GIT_TAG main
-)
+  GIT_TAG main)
 
 FetchContent_MakeAvailable(UmbraLogging)
-
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
     ${CMAKE_BINARY_DIR}/bin/${CMAKE_SYSTEM_PROCESSOR}/${PROJECT_NAME})
 
-add_executable(${PROJECT_NAME} 
+add_executable(
+  ${PROJECT_NAME}
   src/main.cpp
   src/apple.cpp
   src/application.cpp
-  src/game-state.cpp
+  src/game-session.cpp
   src/raylib-renderer.cpp
   src/raylib-window.cpp
   src/raylib-ui.cpp
   src/snake-body.cpp
-  src/snake.cpp
-)
+  src/snake.cpp)
 
 # Include and Link Raylib in the game
 target_link_libraries(${PROJECT_NAME} raylib)
@@ -53,9 +50,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG
 enable_testing()
 add_subdirectory(tests)
 
-
 # Setup system link to compile_commands directory for LSP config
 add_custom_command(
-    TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ln -sf ${CMAKE_BINARY_DIR}/compile_commands.json ~/.config/clangd/compile_commands/compile_commands.json
-)
+  TARGET ${PROJECT_NAME}
+  POST_BUILD
+  COMMAND ln -sf ${CMAKE_BINARY_DIR}/compile_commands.json
+          ~/.config/clangd/compile_commands/compile_commands.json)

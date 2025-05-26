@@ -1,7 +1,7 @@
 #pragma once
 
 #include "game-settings.h"
-#include "game-state.h"
+#include "game-session.h"
 #include "snake-body.h"
 #include <deque>
 #include "raylib.h"
@@ -9,7 +9,7 @@
 class GameState;
 
 struct SnakeParams {
-  GameState* state;
+  GameSession* session;
   GameSettings& settings;
 };
 
@@ -32,7 +32,7 @@ class Snake {
   bool grow = false;
 
  private:
-  GameState* state;
+  GameSession* session;
   GameSettings settings;
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;

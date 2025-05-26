@@ -1,8 +1,7 @@
 #pragma once
 #include "game-settings.h"
-#include "game-state.h"
 #include "irenderer.h"
-#include "istate-context.h"
+#include "game-session.h"
 #include "iuser-interface.h"
 #include "game.h"
 #include "iwindow.h"
@@ -14,7 +13,7 @@ struct ApplicationParams {
   IWindow* window;
   IRenderer* renderer;
   IUserInterface* ui;
-  GameSettings* gameSettings;
+  GameSettings settings;
   Game* game;
 };
 
@@ -26,11 +25,11 @@ class Application {
   void run();
 
  private:
-  IStateContext GameSession* session;
+  GameSession* session;
   IWindow* window;
   IRenderer* renderer;
   IUserInterface* ui;
-  GameSettings* gameSettings;
+  GameSettings settings;
   Game* game;
 };
 }  // namespace SnakeGame

@@ -8,6 +8,7 @@
 
 class Game : IGameContext {
  public:
+  Game();
   void update(float deltaTime) { currentState->update(deltaTime); }
   void render() { currentState->render(); }
 
@@ -19,12 +20,12 @@ class Game : IGameContext {
 
   GameSettings& getSettings() override { return settings; }
 
-  GameSession& getGameSession() override { return state; }
+  GameSession& getGameSession() override { return session; }
 
   IUserInterface& getUI() override { return ui; }
 
  private:
-  GameSession state;
+  GameSession session;
   GameSettings settings;
   IGameState* currentState = nullptr;
   RaylibUI ui;

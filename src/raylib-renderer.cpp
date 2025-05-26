@@ -6,7 +6,7 @@
 #include "snake.h"
 
 RaylibRenderer::RaylibRenderer(const RaylibRendererParams& params)
-    : settings(params.settings), state(params.state)
+    : settings(params.settings), session(params.session)
 {
   LOG_TRACE("Initializing Raylib Renderer");
 }
@@ -40,13 +40,13 @@ void RaylibRenderer::draw()
   }
 
   // Draw Snake
-  Snake* snake = this->state->getSnake();
+  Snake* snake = this->session->getSnake();
   for (const auto& segment : snake->body) {
     DrawRectangleRec({segment->position.x, segment->position.y, snake->size, snake->size}, GREEN);
   }
 
   // Draw Apple
-  Apple* apple = this->state->getApple();
+  Apple* apple = this->session->getApple();
 
   // DEBUG: Collision
   Vector2 snakeHeadCenter = {

@@ -1,13 +1,13 @@
 #pragma once
 #include "game-settings.h"
-#include "game-state.h"
+#include "game-session.h"
 #include "irenderer.h"
 
 class Color;
 
 struct RaylibRendererParams {
   GameSettings settings;
-  GameState* state;
+  GameSession* session;
 };
 
 class RaylibRenderer : public IRenderer {
@@ -22,6 +22,5 @@ class RaylibRenderer : public IRenderer {
 
  private:
   GameSettings settings;
-  GameState* state;
-
+  GameSession* session;
 };

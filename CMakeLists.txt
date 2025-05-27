@@ -30,12 +30,15 @@ add_executable(
   src/main.cpp
   src/apple.cpp
   src/application.cpp
+        src/state-machine/game-states/game-over-state.cpp
   src/game-session.cpp
   src/raylib-renderer.cpp
   src/raylib-window.cpp
   src/raylib-ui.cpp
   src/snake-body.cpp
-  src/snake.cpp)
+  src/snake.cpp
+        src/state-machine/gameplay-state-machine.h
+        src/state-machine/gameplay-state-machine.cpp)
 
 # Include and Link Raylib in the game
 target_link_libraries(${PROJECT_NAME} raylib)

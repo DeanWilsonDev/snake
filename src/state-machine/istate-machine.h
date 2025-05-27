@@ -1,13 +1,13 @@
 #pragma once
 
-#include "game-settings.h"
-#include "game-session.h"
-#include "igame-state.h"
-#include "iuser-interface.h"
+class IGameState;
+class IUserInterface;
+class GameSession;
+struct GameSettings;
 
-class IGameContext {
+class IStateMachine {
  public:
-  virtual ~IGameContext() = default;
+  virtual ~IStateMachine() = default;
   virtual void changeState(IGameState* newState) = 0;
   virtual GameSettings& getSettings() = 0;
   virtual GameSession& getGameSession() = 0;

@@ -1,6 +1,6 @@
-
-
 #include "game-over-state.h"
+#include "raylib.h"
+#include <cstdio>
 
 void GameOverState::update(float deltaTime)
 {

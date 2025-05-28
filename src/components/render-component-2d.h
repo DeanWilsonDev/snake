@@ -12,9 +12,9 @@ class IStateMachine;
 
 namespace Component {
 
-class Renderer {
+class RenderComponent2D {
  public:
-  Renderer(float size, float positionX, float positionY, Core::Color color);
+  RenderComponent2D(float size, float positionX, float positionY, Core::Color color);
   void Render(IRenderer& renderer) const;
   void SetPosition(float x, float y);
 

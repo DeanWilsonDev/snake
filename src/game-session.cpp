@@ -6,6 +6,8 @@
 
 GameSession::GameSession(GameSettings settings) : settings(settings)
 {
+  // TODO: this appears to be the initial setup for the game.
+  // We will probably want most of this on the initialization of the statemachine
   settings.Print();
   this->state = STATE_MAIN_MENU;
   this->score = 0;
@@ -23,16 +25,13 @@ GameSession::GameSession(GameSettings settings) : settings(settings)
 
 GameSession::~GameSession()
 {
+  // On destroy of the state machine probably
   this->snake->destroy();
   // delete this->snake;
   delete this->apple;
 }
 
-void GameSession::increaseScore()
-{
-  this->score += 10;
-}
-
+// This is the update function of the gameplay loop.
 void GameSession::update()
 {
   LOG_TRACE("Being GameSession Update");

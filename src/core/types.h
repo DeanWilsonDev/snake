@@ -1,6 +1,6 @@
 #pragma once
 
-namespace SnakeGame {
+namespace Core {
 
 typedef struct Color {
   unsigned char red;
@@ -9,4 +9,4 @@ typedef struct Color {
   unsigned char alpha;
 } Color;
 
-}  // namespace SnakeGame
+}  // namespace Core

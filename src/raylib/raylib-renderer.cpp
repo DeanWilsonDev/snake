@@ -1,9 +1,9 @@
 #include "raylib-renderer.h"
-#include "game-settings.h"
+#include "../game-settings.h"
 #include "log.h"
 #include "raylib.h"
-#include "apple.h"
-#include "snake.h"
+#include "../apple.h"
+#include "../snake.h"
 
 RaylibRenderer::RaylibRenderer(const RaylibRendererParams& params)
     : settings(params.settings), session(params.session)
@@ -11,23 +11,15 @@ RaylibRenderer::RaylibRenderer(const RaylibRendererParams& params)
   LOG_TRACE("Initializing Raylib Renderer");
 }
 
-void RaylibRenderer::beginDrawing()
+void RaylibRenderer::Render()
 {
   BeginDrawing();
-}
+  ClearBackground(BLACK);
+  Draw();
+  StopDrawing();
 
-void RaylibRenderer::stopDrawing()
-{
-  EndDrawing();
-}
+  /// The Following is the gameplay states render function
 
-void RaylibRenderer::clearBackground(Color color)
-{
-  ClearBackground(color);
-}
-
-void RaylibRenderer::draw()
-{
   // DEBUG: Draw Grid
   if (DEBUG_ENABLED) {
     for (int x = 0; x < settings.windowWidth; x += DEFAULT_BOX_SIZE) {
@@ -62,4 +54,15 @@ void RaylibRenderer::draw()
     DrawCircleLinesV(snakeHeadCenter, snake->size / 2 - 2, RED);
     DrawCircleLinesV(appleCenter, apple->size / 2 - 2, GREEN);
   }
-};
+}
+
+
+Color RaylibRenderer::ConvertToRaylibColor(const Core::Color color)
+{
+  return Color(color.red, color.green, color.blue, color.alpha);
+}
+
+void RaylibRenderer::DrawRectangle(float x, float y, float width, float height, Core::Color color)
+{
+  DrawRectangleRec({x, y, width, height}, ConvertToRaylibColor(color));
+}

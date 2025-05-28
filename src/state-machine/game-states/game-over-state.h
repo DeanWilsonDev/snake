@@ -4,16 +4,16 @@
 
 class IUserInterface;
 class IStateMachine;
+class GameplayStateMachine;
 
 class GameOverState : public IGameState {
  public:
-  GameOverState(IStateMachine* context) : context(context) {}
+  GameOverState(GameplayStateMachine* stateMachine) : stateMachine(stateMachine) {}
 
-  void update(float deltaTime) override;
-  void render() override;
+  void Update(float deltaTime) override;
+  void Render() override;
 
  private:
-  IStateMachine* context;
-  IUserInterface* ui;
+  GameplayStateMachine* stateMachine;
   char scoreBuffer[100] = {0};
 };

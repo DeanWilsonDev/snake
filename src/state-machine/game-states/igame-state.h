@@ -1,8 +1,10 @@
 #pragma once
 
+class IRenderer;
 class IGameState {
  public:
   virtual ~IGameState() = default;
-  virtual void update(float deltaTime) = 0;
-  virtual void render() = 0;
+  virtual void Enter() = 0;
+  virtual void Update(float deltaTime) = 0;
+  virtual void Exit() = 0;
 };

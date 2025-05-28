@@ -1,10 +1,10 @@
 #include "application.h"
-#include "irenderer.h"
-#include "iuser-interface.h"
-#include "raylib-renderer.h"
-#include "raylib-ui.h"
-#include "raylib-ui.h"
-#include "raylib-window.h"
+#include "core/irenderer.h"
+#include "core/iuser-interface.h"
+#include "raylib/raylib-renderer.h"
+#include "raylib/raylib-ui.h"
+#include "raylib/raylib-ui.h"
+#include "raylib/raylib-window.h"
 #include "game-session.h"
 #include "log.h"
 #include "core.h"
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
   IUserInterface* ui = new RaylibUI();
   Game* game = new Game();
 
-  const SnakeGame::ApplicationParams applicationParams = {
+  const Core::ApplicationParams applicationParams = {
       .session = session,
       .window = window,
       .renderer = renderer,
@@ -39,8 +39,8 @@ int main(int argc, char* argv[])
       .game = game,
   };
 
-  SnakeGame::Application* application = new SnakeGame::Application(applicationParams);
+  Core::Application* application = new Core::Application(applicationParams);
 
-  application->run();
+  application->Run();
   return 0;
 };

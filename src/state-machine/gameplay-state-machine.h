@@ -1,24 +1,36 @@
 #pragma once
 #include "istate-machine.h"
 
+class Apple;
+class Snake;
 class IGameState;
 struct GameSettings;
 class GameSession;
 class IUserInterface;
 class RaylibUI;
 
-class GameplayStateMachine : public IStateMachine {
-public:
-  GameplayStateMachine();
+class GameplayStateMachine final : public IStateMachine {
+ public:
+  GameplayStateMachine(
+      IGameState* currentState, GameSettings settings, IUserInterface* ui, Snake* snake,
+      Apple* apple
+  );
   ~GameplayStateMachine() override;
-  void changeState(IGameState* newState) override;
-  GameSettings& getSettings() override;
-  GameSession& getGameSession() override;
-  IUserInterface& getUI() override;
+  void ChangeState(IGameState* newState) override;
+  IGameState* GetState() override;
+  GameSettings& GetSettings() override;
+  GameSession& GetGameSession() override;
+  IUserInterface* GetUI() override;
 
-private:
-  GameSession* session;
+  [[nodiscard]] IGameState* GetCurrentState() const { return this->currentState; };
+  [[nodiscard]] int GetScore() const { return this->score; };
+  void IncreaseScore();
+
+ private:
   GameSettings& settings;
   IGameState* currentState = nullptr;
-  RaylibUI& ui;
+  IUserInterface* ui;
+  Snake* snake;
+  Apple* apple;
+  int score;
 };

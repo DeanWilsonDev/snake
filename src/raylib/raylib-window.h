@@ -1,6 +1,6 @@
 #pragma once
 
-#include "iwindow.h"
+#include "../core/iwindow.h"
 
 class RaylibWindow : public IWindow {
  public:

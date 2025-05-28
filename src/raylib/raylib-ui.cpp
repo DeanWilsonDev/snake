@@ -1,4 +1,4 @@
-#include "raylib-ui.h"
+#include "../raylib-ui.h"
 #include "raylib.h"
 
 void RaylibUI::drawTextCentered(const char* text, Vector2 position, float fontSize)

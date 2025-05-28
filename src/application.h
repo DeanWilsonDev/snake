@@ -1,35 +1,36 @@
 #pragma once
 #include "game-settings.h"
-#include "irenderer.h"
-#include "game-session.h"
-#include "iuser-interface.h"
-#include "game.h"
-#include "iwindow.h"
+#include "core/irenderer.h"
 
-namespace SnakeGame {
+class IStateMachine;
+struct GameSettings;
+class IRenderer;
+class IUserInterface;
+class IWindow;
+class IGameState;
+
+namespace Core {
 
 struct ApplicationParams {
-  GameSession* session;
-  IWindow* window;
-  IRenderer* renderer;
-  IUserInterface* ui;
+  IWindow& window;
+  IRenderer* renderer = nullptr;
+  IUserInterface* ui = nullptr;
   GameSettings settings;
-  Game* game;
+  IStateMachine* stateMachine = nullptr;
 };
 
 class Application {
  public:
-  Application(const ApplicationParams& appData);
+  explicit Application(const ApplicationParams& config);
   ~Application();
 
-  void run();
+  void Run();
 
  private:
-  GameSession* session;
-  IWindow* window;
+  IWindow& window;
   IRenderer* renderer;
   IUserInterface* ui;
   GameSettings settings;
-  Game* game;
+  IStateMachine* stateMachine;
 };
 }  // namespace SnakeGame

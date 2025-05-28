@@ -8,8 +8,11 @@ struct GameSettings;
 class IStateMachine {
  public:
   virtual ~IStateMachine() = default;
-  virtual void changeState(IGameState* newState) = 0;
-  virtual GameSettings& getSettings() = 0;
-  virtual GameSession& getGameSession() = 0;
-  virtual IUserInterface& getUI() = 0;
+  virtual void ChangeState(IGameState* newState) = 0;
+  virtual IGameState* GetState() = 0;
+  virtual GameSettings& GetSettings() = 0;
+  virtual GameSession& GetGameSession() = 0;
+  virtual IUserInterface* GetUI() = 0;
+protected:
+  IGameState* currentState = nullptr;
 };

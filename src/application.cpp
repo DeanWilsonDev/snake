@@ -1,22 +1,24 @@
 #include "application.h"
 #include "game-settings.h"
-#include "game-session.h"
+#include "core/iwindow.h"
+#include "state-machine/istate-machine.h"
+#include "core/"
 #include "log.h"
 #include "raylib.h"
-#include "iwindow.h"
+#include "core/iwindow.h"
 #include <iostream>
 #include <cassert>
-#include <cstdio>
 #include <cstring>
 
-namespace SnakeGame {
+
+namespace Core {
 
 Application::Application(const ApplicationParams& config)
-    : session(config.session)
-    , window(config.window)
+    : window(config.window)
     , renderer(config.renderer)
-    , settings(config.settings)
     , ui(config.ui)
+    , settings(config.settings)
+    , stateMachine(config.stateMachine)
 
 {
   LOG_TRACE("Initializing Application");
@@ -24,13 +26,12 @@ Application::Application(const ApplicationParams& config)
 
 Application::~Application()
 {
-  delete this->window;
-  delete this->session;
+  delete this->stateMachine;
   delete this->renderer;
   delete this->ui;
 }
 
-void Application::run()
+void Application::Run()
 {
   std::cout << "Application is actually running, logging failing" << std::endl;
   LOG_TRACE("Beginning Application");
@@ -46,8 +47,8 @@ void Application::run()
   LOG_DEBUG("Window Should Close {}", this->window->shouldClose());
 
   while (!this->window->shouldClose()) {
-    this->renderer->beginDrawing();
-    this->renderer->clearBackground(BLACK);
+    this->renderer->BeginDrawing();
+    this->renderer->ClearBackground(BLACK);
 
     switch (this->session->getState()) {
       case STATE_MAIN_MENU:
@@ -64,7 +65,7 @@ void Application::run()
         std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", this->session->getScore());
         ui->drawTextCentered(scoreBuffer, (Vector2){80, 30}, 20);
         this->session->update();
-        this->renderer->draw();
+        this->renderer->Draw();
         break;
       case STATE_GAME_OVER:
         ui->drawTextCentered("Game Over", (Vector2){settings.windowWidth / 2.0f - 40, 40}, 80);
@@ -81,7 +82,7 @@ void Application::run()
         break;
     }
 
-    this->renderer->stopDrawing();
+    this->renderer->StopDrawing();
   }
   this->window->closeWindow();
 }

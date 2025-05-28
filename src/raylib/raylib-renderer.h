@@ -1,7 +1,7 @@
 #pragma once
-#include "game-settings.h"
-#include "game-session.h"
-#include "irenderer.h"
+#include "../game-settings.h"
+#include "../game-session.h"
+#include "../core/irenderer.h"
 
 class Color;
 
@@ -15,10 +15,9 @@ class RaylibRenderer : public IRenderer {
   RaylibRenderer(const RaylibRendererParams& params);
   ~RaylibRenderer() = default;
 
-  void beginDrawing() override;
-  void stopDrawing() override;
-  void clearBackground(Color color) override;
-  void draw() override;
+  void Render() override;
+  void DrawRectangle(float x, float y, float width, float height, Core::Color) override;
+  static Color RaylibRenderer::ConvertToRaylibColor(Core::Color color);
 
  private:
   GameSettings settings;

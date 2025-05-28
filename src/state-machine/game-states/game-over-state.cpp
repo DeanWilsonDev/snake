@@ -2,7 +2,7 @@
 #include "raylib.h"
 #include <cstdio>
 
-void GameOverState::update(float deltaTime)
+void GameOverState::Update(float deltaTime)
 {
   LOG_INFO("------------ GAME OVER ---------------");
   // std::ofstream logFile(
@@ -17,15 +17,15 @@ void GameOverState::update(float deltaTime)
 
   if (IsKeyPressed(KEY_ENTER)) {
     // Reinitialize Game State
-    context->changeState(STATE_GAMEPLAY);
+    stateMachine->changeState(STATE_GAMEPLAY);
   }
 }
 
-void GameOverState::render()
+void GameOverState::Render()
 {
-  auto& ui = this->context->getUI();
-  auto& settings = this->context->getSettings();
-  auto& session = this->context->getGameSession();
+  auto& ui = this->stateMachine->getUI();
+  auto& settings = this->stateMachine->getSettings();
+  auto& session = this->stateMachine->getGameSession();
 
   ui.drawTextCentered("Game Over", (Vector2){settings.windowWidth / 2.0f - 40, 40}, 80);
   ui.drawTextCentered("Press 'Enter' to start", (Vector2){settings.windowWidth / 2.0f, 200.0f}, 20);

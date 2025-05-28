@@ -1,18 +1,22 @@
 #pragma once
 
 #include "igame-state.h"
+#include "../../core/idrawable.h"
 
-class IUserInterface;
-class IStateMachine;
-class GameplayState : public IGameState {
-public:
-  GameplayState(IStateMachine* context) : context(context){}
+class GameSession;
+struct GameSettings;
+class GameplayStateMachine;
 
-  void update(float deltaTime) override;
-  void render() override;
+class GameplayState : public IGameState, IDrawable {
+ public:
+  GameplayState(GameplayStateMachine* stateMachine, GameSettings& settings);
 
+  void Enter() override;
+  void Update(float deltaTime) override;
+  void Draw(IRenderer* renderer);
+  void Exit() override;
 
-private:
-  IStateMachine* context;
-  IUserInterface* ui;
+ private:
+  GameplayStateMachine* stateMachine;
+  GameSettings& settings;
 };

@@ -41,8 +41,12 @@ add_executable(
         src/state-machine/gameplay-state-machine.cpp
         src/state-machine/game-states/gameplay-state.cpp
         src/components/render-component-2d.h
-        src/core/idrawable.h
-        src/components/render-component-2d.cpp)
+        src/components/render-component-2d.cpp
+        src/render-2d/irenderable.h
+        src/core/entity.cpp
+        src/core/entity.h
+        src/render-2d/render-manager.cpp
+        src/render-2d/render-manager.h)
 
 # Include and Link Raylib in the game
 target_link_libraries(${PROJECT_NAME} raylib)

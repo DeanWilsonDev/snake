@@ -1,13 +1,13 @@
 #pragma once
 
 #include "igame-state.h"
-#include "../../core/idrawable.h"
+#include "../../core/irenderable.h"
 
 class GameSession;
 struct GameSettings;
 class GameplayStateMachine;
 
-class GameplayState : public IGameState, IDrawable {
+class GameplayState : public IGameState, IRenderable {
  public:
   GameplayState(GameplayStateMachine* stateMachine, GameSettings& settings);
 

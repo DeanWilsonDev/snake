@@ -4,10 +4,11 @@
 #include "game-session.h"
 #include "snake-body.h"
 #include "raylib.h"
-#include <cstddef>
+
+Snake::~Snake() = default;
 
 Snake::Snake(const SnakeParams& snakeParams)
-    : session(snakeParams.session), settings(snakeParams.settings)
+    : Entity(&snakeParams.renderComponent), settings(snakeParams.settings)
 {
   LOG_TRACE("Initializing Snake");
   this->size = this->settings.boxSize;
@@ -26,7 +27,7 @@ Snake::Snake(const SnakeParams& snakeParams)
   LOG_TRACE("Finished Initializing Snake");
 }
 
-void Snake::update()
+void Snake::Update()
 {
   LOG_TRACE("Snake Update Begin");
   Vector2 newDirection = this->direction;
@@ -55,8 +56,8 @@ void Snake::update()
   accumulatedDistance += this->speed * GetFrameTime();
 
   if (accumulatedDistance >= this->size) {
-    this->move();
-    this->checkIfShouldGrow();
+    this->Move();
+    this->CheckIfShouldGrow();
 
     accumulatedDistance -= this->size;
 
@@ -64,7 +65,7 @@ void Snake::update()
       directionChanged = false;
     }
 
-    this->teleport();
+    this->Teleport();
   }
 
   if (this->head) {
@@ -87,7 +88,7 @@ void Snake::update()
   }
 }
 
-void Snake::move()
+void Snake::Move()
 {
   Vector2 previousPosition = this->head->position;
   Vector2 nextPosition = this->head->position;
@@ -114,7 +115,7 @@ void Snake::move()
   this->head->move(newPosition);
 }
 
-void Snake::checkIfShouldGrow()
+void Snake::CheckIfShouldGrow()
 {
   if (this->grow) {
     this->body.push_back(new SnakeBody(this->length, this->body.back()->position, this->size));
@@ -123,7 +124,7 @@ void Snake::checkIfShouldGrow()
   }
 }
 
-void Snake::teleport()
+void Snake::Teleport() const
 {
   for (int i = 0; i < this->body.size(); i++) {
     if (this->body[i]->position.x > this->settings.windowWidth) {
@@ -141,7 +142,7 @@ void Snake::teleport()
   }
 }
 
-void Snake::destroy()
+void Snake::Destroy()
 {
   if (!body.empty() && body.front() == head) {
     body.pop_front();

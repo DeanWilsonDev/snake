@@ -1,6 +1,11 @@
 #pragma once
 #include "istate-machine.h"
 
+#include <vector>
+
+namespace Component {
+class IRenderable;
+}
 class Apple;
 class Snake;
 class IGameState;

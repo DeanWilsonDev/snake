@@ -1,6 +1,6 @@
 #pragma once
 #include "game-settings.h"
-#include "core/irenderer.h"
+#include "render-2d/irenderer.h"
 
 class IStateMachine;
 struct GameSettings;

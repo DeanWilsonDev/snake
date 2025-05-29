@@ -1,5 +1,5 @@
 #include "application.h"
-#include "core/irenderer.h"
+#include "render-2d/irenderer.h"
 #include "core/iuser-interface.h"
 #include "raylib/raylib-renderer.h"
 #include "raylib/raylib-ui.h"

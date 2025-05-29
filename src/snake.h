@@ -1,5 +1,6 @@
 #pragma once
 
+#include "core/entity.h"
 #include "game-settings.h"
 #include "game-session.h"
 #include "snake-body.h"
@@ -9,19 +10,20 @@
 class GameState;
 
 struct SnakeParams {
-  GameSession* session;
   GameSettings& settings;
+  Component::IRenderable& renderComponent;
 };
 
-class Snake {
+class Snake final : Core::Entity {
  public:
-  Snake(const SnakeParams& snakeParams);
+  virtual ~Snake();
+  explicit Snake(const SnakeParams& snakeParams);
 
-  void update();
-  void destroy();
-  void move();
-  void checkIfShouldGrow();
-  void teleport();
+  void Update() override;
+  void Destroy();
+  void Move();
+  void CheckIfShouldGrow();
+  void Teleport() const;
 
   float size;
   float speed;
@@ -32,7 +34,6 @@ class Snake {
   bool grow = false;
 
  private:
-  GameSession* session;
   GameSettings settings;
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;

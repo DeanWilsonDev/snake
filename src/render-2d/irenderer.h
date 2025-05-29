@@ -1,6 +1,8 @@
 #pragma once
-#include "types.h"
+#include "../core/types.h"
 class Color;
+
+namespace Render2D {
 
 class IRenderer {
  public:
@@ -12,3 +14,4 @@ class IRenderer {
 
   void virtual DrawRectangle(float x, float y, float width, float height, Core::Color) = 0;
 };
+}  // namespace Render2D

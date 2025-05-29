@@ -9,6 +9,7 @@ GameplayStateMachine::GameplayStateMachine(
 )
     : currentState(currentState), settings(settings), ui(ui), snake(snake), apple(apple), score(0)
 {
+  this->renderComponents = new std::vector<Component::IRenderable*>();
 }
 
 GameplayStateMachine::~GameplayStateMachine() = default;

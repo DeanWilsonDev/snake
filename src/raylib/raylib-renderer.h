@@ -1,18 +1,17 @@
 #pragma once
 #include "../game-settings.h"
 #include "../game-session.h"
-#include "../core/irenderer.h"
+#include "../render-2d/irenderer.h"
 
 class Color;
 
 struct RaylibRendererParams {
   GameSettings settings;
-  GameSession* session;
 };
 
 class RaylibRenderer : public IRenderer {
  public:
-  RaylibRenderer(const RaylibRendererParams& params);
+  explicit RaylibRenderer(const RaylibRendererParams& params);
   ~RaylibRenderer() = default;
 
   void Render() override;
@@ -21,5 +20,4 @@ class RaylibRenderer : public IRenderer {
 
  private:
   GameSettings settings;
-  GameSession* session;
 };

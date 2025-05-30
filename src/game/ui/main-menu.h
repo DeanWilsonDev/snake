@@ -14,6 +14,7 @@ namespace Game::UI {
 class GameUI;
 
 class MainMenu : public GameUI {
+public:
   MainMenu();
   void Render() override;
 };

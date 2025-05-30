@@ -1,6 +1,7 @@
 #include "gameplay-state-machine.h"
-#include "../renderer-2d/render-manager.h"
+#include "../../renderer-2d/render-manager.h"
 #include "log.h"
+#include "../../core/iuser-interface.h"
 
 namespace Game {
 
@@ -15,6 +16,9 @@ void GameplayStateMachine::Update(float deltaTime)
   if (!this->renderManager) return;
   this->currentState->Update(deltaTime);
   this->renderManager->RenderAll();
+
+  if (!this->ui) return;
+  this->ui->Render();
 }
 
 void GameplayStateMachine::ChangeState(Core::IGameState* newState)

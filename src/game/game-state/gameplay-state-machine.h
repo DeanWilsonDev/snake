@@ -1,6 +1,6 @@
 #pragma once
-#include "../core/istate-machine.h"
-#include "../core/igame-state.h"
+#include "../../core/istate-machine.h"
+#include "../../core/igame-state.h"
 
 namespace Renderer2D {
 class IRenderer;
@@ -12,9 +12,15 @@ class Snake;
 namespace Core {
 class IGameState;
 class IUserInterface;
-}
+}  // namespace Core
 
 namespace Game {
+
+enum State {
+  STATE_MAIN_MENU,
+  STATE_GAMEPLAY,
+  STATE_GAME_OVER,
+};
 
 class GameplayStateMachine final : public Core::IStateMachine {
  public:
@@ -43,6 +49,9 @@ class GameplayStateMachine final : public Core::IStateMachine {
   {
     this->renderManager = &renderManager;
   }
+
+
+  void ClearUI() { this->ui = nullptr; }
 
  private:
   Core::IGameState* currentState = nullptr;

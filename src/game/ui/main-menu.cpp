@@ -21,11 +21,6 @@ void MainMenu::Render()
   DrawTextCentered(
       "Press 'Enter' to start", (Vector2){this->windowConfig.width / 2.0f, 200.0f}, 20
   );
-
-  if (IsKeyPressed(KEY_ENTER)) {
-    this->session->setState(STATE_GAMEPLAY);
-  }
-
 }
 
 }

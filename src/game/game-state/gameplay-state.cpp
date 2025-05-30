@@ -8,8 +8,8 @@ class IRenderer;
 
 namespace Game {
 
-GameplayState::GameplayState(GameplayStateMachine* stateMachine, GameSettings& settings)
-    : stateMachine(stateMachine), settings(settings)
+GameplayState::GameplayState(GameplayStateMachine* stateMachine)
+    : stateMachine(stateMachine)
 {
 }
 void GameplayState::Enter() {}

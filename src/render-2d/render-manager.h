@@ -6,18 +6,23 @@
 #define RENDERERMANAGER_H
 #include <vector>
 
+namespace Component {
+class IRenderComponent2D;
+}
+
 class IRenderer;
 class IRenderable;
+
 namespace Render2D {
 class RenderManager {
  public:
   explicit RenderManager(IRenderer& renderer);
-  void Register(IRenderable* component);
-  void Unregister(IRenderable* component);
+  void Register(Component::IRenderComponent2D* component);
+  void Unregister(Component::IRenderComponent2D* component);
   void RenderAll() const;
 
  private:
-  std::vector<IRenderable*> renderComponents;
+  std::vector<Component::IRenderComponent2D*> renderComponents;
   IRenderer& renderer;
 };
 }  // namespace Render2D

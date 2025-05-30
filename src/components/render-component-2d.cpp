@@ -14,16 +14,13 @@ RenderComponent2D::RenderComponent2D(
 {
 }
 
-RenderComponent2D::~RenderComponent2D() = default;
-
 void RenderComponent2D::Render(IRenderer& renderer) const
 {
   // TODO: this function should really render different shapes. Maybe even just a sprite would be
-  // good
   renderer.DrawRectangle(positionX, positionY, width, height, color);
 }
 
-void RenderComponent2D::SetPosition(float x, float y)
+void RenderComponent2D::SetPosition(const float x, const float y)
 {
   this->positionX = x;
   this->positionY = y;

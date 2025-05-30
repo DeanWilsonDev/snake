@@ -46,7 +46,8 @@ add_executable(
         src/core/entity.cpp
         src/core/entity.h
         src/render-2d/render-manager.cpp
-        src/render-2d/render-manager.h)
+        src/render-2d/render-manager.h
+        src/components/irender-component-2d.h)
 
 # Include and Link Raylib in the game
 target_link_libraries(${PROJECT_NAME} raylib)

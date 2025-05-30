@@ -2,15 +2,14 @@
 
 #ifndef RENDERER_H
 #define RENDERER_H
-#include "../render-2d/irenderable.h"
+#include "irender-component-2d.h"
 #include "../core/types.h"
 
 class IRenderer;
 class IStateMachine;
 
 namespace Component {
-
-class RenderComponent2D final : public Render2D::IRenderable {
+class RenderComponent2D final : public IRenderComponent2D {
  public:
   RenderComponent2D(float width, float height, float positionX, float positionY, Core::Color color);
   ~RenderComponent2D() override;

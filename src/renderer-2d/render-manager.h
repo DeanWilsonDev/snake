@@ -5,16 +5,19 @@
 #ifndef RENDERERMANAGER_H
 #define RENDERERMANAGER_H
 
+#pragma once
+
 #include <vector>
+
+namespace Renderer2D {
+
+class IRenderable;
+class IRenderer;
 
 namespace Component {
 class IRenderComponent2D;
 }
 
-class IRenderer;
-class IRenderable;
-
-namespace Renderer2D {
 class RenderManager {
  public:
   explicit RenderManager(IRenderer& renderer);
@@ -26,5 +29,5 @@ class RenderManager {
   std::vector<Component::IRenderComponent2D*> renderComponents;
   IRenderer& renderer;
 };
-}  // namespace Render2D
+}  // namespace Renderer2D
 #endif  // RENDERERMANAGER_H

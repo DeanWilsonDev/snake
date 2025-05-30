@@ -2,6 +2,8 @@
 #include "raylib.h"
 #include <cstdio>
 
+namespace Game {
+
 void GameOverState::Enter() {}
 
 void GameOverState::Update(float deltaTime)
@@ -22,10 +24,7 @@ void GameOverState::Update(float deltaTime)
     stateMachine->changeState(STATE_GAMEPLAY);
   }
 }
-void GameOverState::Exit()
-{
-
-}
+void GameOverState::Exit() {}
 
 void GameOverState::Render()
 {
@@ -38,3 +37,4 @@ void GameOverState::Render()
   std::snprintf(this->scoreBuffer, sizeof(this->scoreBuffer), "Score: %d", session.getScore());
   ui.drawTextCentered(this->scoreBuffer, (Vector2){settings.windowWidth / 2.0f, 150.0f}, 20);
 }
+}  // namespace Game

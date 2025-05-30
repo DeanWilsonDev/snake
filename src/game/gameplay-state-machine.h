@@ -1,37 +1,33 @@
 #pragma once
-#include "istate-machine.h"
+#include "../core/istate-machine.h"
+#include "../core/igame-state.h"
 
 namespace Renderer2D {
 class IRenderer;
 class RenderManager;
-}
-
-
-namespace Component {
-class IRenderable;
-}
+}  // namespace Renderer2D
 
 class Apple;
 class Snake;
+namespace Core {
 class IGameState;
-struct GameSettings;
-class GameSession;
 class IUserInterface;
-class RaylibUI;
+}
 
-class GameplayStateMachine final : public IStateMachine {
+namespace Game {
+
+class GameplayStateMachine final : public Core::IStateMachine {
  public:
-  GameplayStateMachine(IGameState* currentState, GameSettings& settings);
+  explicit GameplayStateMachine(Core::IGameState* currentState);
   ~GameplayStateMachine() override;
-  void ChangeState(IGameState* newState) override;
+  void ChangeState(Core::IGameState* newState) override;
   void Update(float deltaTime) override;
   void IncreaseScore();
 
   // Getters
-  IGameState* GetCurrentState() override { return this->currentState; };
-  GameSettings& GetSettings() override { return this->settings; };
-  [[nodiscard]] IUserInterface* GetUI() override { return this->ui; };
-  [[nodiscard]] IGameState* GetCurrentState() const { return this->currentState; };
+  Core::IGameState* GetCurrentState() override { return this->currentState; };
+
+  [[nodiscard]] Core::IUserInterface* GetUI() { return this->ui; };
   [[nodiscard]] int GetScore() const { return this->score; };
   [[nodiscard]] Snake* GetSnake() const { return this->snake; }
   [[nodiscard]] Apple* GetApple() const { return this->apple; }
@@ -39,9 +35,9 @@ class GameplayStateMachine final : public IStateMachine {
   [[nodiscard]] Renderer2D::RenderManager* GetRenderManager() const { return this->renderManager; }
 
   // Setters
-  void SetSnake(Snake& snake) { this->snake = &snake; }
-  void SetApple(Apple& apple) { this->apple = &apple; }
-  void SetUI(IUserInterface& ui) { this->ui = &ui; }
+  void SetSnake(Snake& snake);
+  void SetApple(Apple& apple);
+  void SetUI(Core::IUserInterface& ui) { this->ui = &ui; }
   void SetRenderer(Renderer2D::IRenderer& renderer) { this->renderer = &renderer; }
   void SetRenderManager(Renderer2D::RenderManager& renderManager)
   {
@@ -49,12 +45,12 @@ class GameplayStateMachine final : public IStateMachine {
   }
 
  private:
-  GameSettings& settings;
-  IGameState* currentState = nullptr;
-  IUserInterface* ui;
+  Core::IGameState* currentState = nullptr;
+  Core::IUserInterface* ui;
   Renderer2D::RenderManager* renderManager;
   Renderer2D::IRenderer* renderer;
   Snake* snake;
   Apple* apple;
   int score;
 };
+}  // namespace Game

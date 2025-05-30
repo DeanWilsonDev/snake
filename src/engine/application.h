@@ -1,5 +1,5 @@
 #pragma once
-#include "../game/game-settings.h"
+#include "config/engine-config.h"
 
 class IStateMachine;
 struct GameSettings;
@@ -14,7 +14,8 @@ struct ApplicationParams {
   IWindow& window;
   IRenderer* renderer = nullptr;
   IUserInterface* ui = nullptr;
-  GameSettings settings;
+  Config::EngineConfig engineConfig;
+
   IStateMachine* stateMachine = nullptr;
 };
 
@@ -29,7 +30,7 @@ class Application {
   IWindow& window;
   IRenderer* renderer;
   IUserInterface* ui;
-  GameSettings settings;
+  Config::EngineConfig engineConfig;
   IStateMachine* stateMachine;
 };
-}  // namespace SnakeGame
+}  // namespace Engine

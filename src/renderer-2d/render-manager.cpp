@@ -3,23 +3,26 @@
 //
 
 #include "render-manager.h"
-#include "irenderable.h"
+#include "components/irender-component-2d.h"
 
 namespace Renderer2D {
 
 RenderManager::RenderManager(IRenderer& renderer) : renderer(renderer) {}
 
-void RenderManager::Register(IRenderable* component)
+void RenderManager::Register(Component::IRenderComponent2D* component)
 {
+  if (!component) {
+    return;
+  }
   this->renderComponents.push_back(component);
 }
 
-void RenderManager::Unregister(IRenderable* component)
+void RenderManager::Unregister(Component::IRenderComponent2D* component)
 {
-  this->renderComponents.erase(
-      std::remove(this->renderComponents.begin(), this->renderComponents.end(), component),
-      this->renderComponents.end()
-  );
+  if (!component) {
+    return;
+  }
+  std::erase(this->renderComponents, component);
 }
 
 void RenderManager::RenderAll() const
@@ -28,4 +31,4 @@ void RenderManager::RenderAll() const
     component->Render(this->renderer);
   }
 }
-}  // namespace Render2D
+}  // namespace Renderer2D

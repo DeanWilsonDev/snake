@@ -1,17 +1,16 @@
 #pragma once
 
-#ifndef RENDERER_H
-#define RENDERER_H
 #include "irender-component-2d.h"
 
 class IStateMachine;
+
 namespace Core {
 class Color;
 }
 
-namespace Renderer2D::Component {
-
 class IRenderer;
+
+namespace Renderer2D::Component {
 
 class RenderComponent2D final : public IRenderComponent2D {
  public:
@@ -31,6 +30,4 @@ class RenderComponent2D final : public IRenderComponent2D {
   float positionY;
   Core::Color color;
 };
-}  // namespace Render::Component
-
-#endif  // RENDERER_H
+}  // namespace Renderer2D::Component

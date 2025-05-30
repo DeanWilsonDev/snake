@@ -1,12 +1,14 @@
 #pragma once
 
-#include "igame-state.h"
+#include "../../core/igame-state.h"
 
 class IUserInterface;
 class IStateMachine;
 class GameplayStateMachine;
 
-class GameOverState : public IGameState {
+namespace Game {
+
+class GameOverState : public Core::IGameState {
  public:
   GameOverState(GameplayStateMachine* stateMachine) : stateMachine(stateMachine) {}
 
@@ -18,3 +20,4 @@ class GameOverState : public IGameState {
   GameplayStateMachine* stateMachine;
   char scoreBuffer[100] = {0};
 };
+}  // namespace Game

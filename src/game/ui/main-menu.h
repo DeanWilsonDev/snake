@@ -7,11 +7,13 @@
 #ifndef MAIN_MENU_USER_INTERFACE_H
 #define MAIN_MENU_USER_INTERFACE_H
 
+#include "game-ui.h"
+
 namespace Game::UI {
 
 class GameUI;
 
-class MainMenu : GameUI {
+class MainMenu : public GameUI {
   MainMenu();
   void Render() override;
 };

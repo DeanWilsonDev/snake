@@ -2,6 +2,8 @@
 // Created by Dean Wilson on 29/5/2025.
 //
 
+#pragma once
+
 namespace Component {
 class RenderComponent2D;
 }

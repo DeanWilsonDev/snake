@@ -1,14 +1,8 @@
 #pragma once
 
-namespace Renderer2D {
-class RenderManager;
-class IRenderer;
-}  // namespace Render2D
+namespace Core {
 
 class IGameState;
-class IUserInterface;
-class GameSession;
-struct GameSettings;
 
 class IStateMachine {
  public:
@@ -20,3 +14,4 @@ class IStateMachine {
  protected:
   IGameState* currentState = nullptr;
 };
+}  // namespace Core

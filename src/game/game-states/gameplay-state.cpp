@@ -2,10 +2,21 @@
 #include "gameplay-state.h"
 #include "../../game/game-settings.h"
 
-GameplayState::GameplayState(GameplayStateMachine* stateMachine, GameSettings& settings): stateMachine(stateMachine), settings(settings) {}
-inline void GameplayState::Enter() {}
-inline void GameplayState::Update(float deltaTime) {}
-inline void GameplayState::Draw(IRenderer& renderer)
+namespace Renderer2D {
+class IRenderer;
+}
+
+namespace Game {
+
+GameplayState::GameplayState(GameplayStateMachine* stateMachine, GameSettings& settings)
+    : stateMachine(stateMachine), settings(settings)
+{
+}
+void GameplayState::Enter() {}
+
+void GameplayState::Update(float deltaTime) {}
+
+void GameplayState::Draw(Renderer2D::IRenderer& renderer)
 {
   /// The Following is the gameplay states render function
 
@@ -44,4 +55,6 @@ inline void GameplayState::Draw(IRenderer& renderer)
     DrawCircleLinesV(appleCenter, apple->size / 2 - 2, GREEN);
   }
 }
-inline void GameplayState::Exit() {}
+
+void GameplayState::Exit() {}
+}  // namespace Game

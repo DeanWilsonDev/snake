@@ -1,13 +1,10 @@
 #include "application.h"
-#include "../game/game-settings.h"
-#include "../platform/window/iwindow.h"
-#include "../state-machine/istate-machine.h"
+#include "../core/istate-machine.h"
 #include "log.h"
 #include "raylib.h"
 #include <iostream>
 #include <cassert>
 #include <cstring>
-
 
 namespace Engine {
 
@@ -15,7 +12,7 @@ Application::Application(const ApplicationParams& config)
     : window(config.window)
     , renderer(config.renderer)
     , ui(config.ui)
-    , settings(config.settings)
+    , engineConfig(config.engineConfig)
     , stateMachine(config.stateMachine)
 
 {
@@ -84,4 +81,4 @@ void Application::Run()
   }
   this->window->closeWindow();
 }
-}  // namespace SnakeGame
+}  // namespace Engine

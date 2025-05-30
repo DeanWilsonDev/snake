@@ -1,6 +1,5 @@
 #pragma once
-#include "game-settings.h"
-#include "render-2d/irenderer.h"
+#include "../game/game-settings.h"
 
 class IStateMachine;
 struct GameSettings;
@@ -9,7 +8,7 @@ class IUserInterface;
 class IWindow;
 class IGameState;
 
-namespace Core {
+namespace Engine {
 
 struct ApplicationParams {
   IWindow& window;

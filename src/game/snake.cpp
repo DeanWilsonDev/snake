@@ -1,9 +1,11 @@
 #include "snake.h"
 #include "game-settings.h"
 #include "log.h"
-#include "game-session.h"
+#include "../game-session.h"
 #include "snake-body.h"
 #include "raylib.h"
+
+namespace Game {
 
 Snake::~Snake() = default;
 
@@ -173,3 +175,4 @@ void Snake::Destroy()
     LOG_DEBUG("Found null segment in head!");
   }
 }
+}  // namespace Game

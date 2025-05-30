@@ -1,8 +1,10 @@
 #pragma once
 
 #include "game-settings.h"
-#include "game-session.h"
+#include "../game-session.h"
 #include "raylib.h"
+
+namespace Game {
 
 struct AppleParams {
   GameSettings settings;
@@ -22,3 +24,4 @@ class Apple {
   Vector2 position;
   float size;
 };
+}  // namespace Game

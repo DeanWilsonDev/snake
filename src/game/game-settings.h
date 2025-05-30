@@ -8,6 +8,8 @@
 #define DEBUG_ENABLED true
 #define WINDOW_TITLE "Snake"
 
+namespace Game {
+
 struct GameSettings {
   int windowWidth = DEFAULT_SCREEN_WIDTH;
   int windowHeight = DEFAULT_SCREEN_HEIGHT;
@@ -29,3 +31,4 @@ struct GameSettings {
     LOG_INFO("--------------------------------------");
   }
 };
+}  // namespace Game

@@ -10,8 +10,9 @@ class GameOverState : public IGameState {
  public:
   GameOverState(GameplayStateMachine* stateMachine) : stateMachine(stateMachine) {}
 
+  void Enter() override;
   void Update(float deltaTime) override;
-  void Render() override;
+  void Exit() override;
 
  private:
   GameplayStateMachine* stateMachine;

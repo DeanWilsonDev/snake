@@ -1,8 +1,8 @@
 #include "game-session.h"
-#include "game-settings.h"
+#include "game/game-settings.h"
 #include "log.h"
-#include "snake.h"
-#include "apple.h"
+#include "game/snake.h"
+#include "game/apple.h"
 
 GameSession::GameSession(GameSettings settings) : settings(settings)
 {

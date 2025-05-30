@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Render2D {
+namespace Renderer2D {
 class RenderManager;
 class IRenderer;
 }  // namespace Render2D

@@ -1,9 +1,10 @@
 #include "raylib-renderer.h"
-#include "../game-settings.h"
+#include "../../game/game-settings.h"
 #include "log.h"
 #include "raylib.h"
-#include "../apple.h"
-#include "../snake.h"
+#include "../../game/snake.h"
+
+namespace Raylib::Renderer {
 
 RaylibRenderer::RaylibRenderer(const RaylibRendererParams& params)
     : settings(params.settings), session(params.session)
@@ -56,7 +57,6 @@ void RaylibRenderer::Render()
   }
 }
 
-
 Color RaylibRenderer::ConvertToRaylibColor(const Core::Color color)
 {
   return Color(color.red, color.green, color.blue, color.alpha);
@@ -66,3 +66,4 @@ void RaylibRenderer::DrawRectangle(float x, float y, float width, float height, 
 {
   DrawRectangleRec({x, y, width, height}, ConvertToRaylibColor(color));
 }
+}  // namespace Raylib::Renderer

@@ -1,10 +1,8 @@
-#include "application.h"
-#include "render-2d/irenderer.h"
+#include "engine/application.h"
 #include "core/iuser-interface.h"
-#include "raylib/raylib-renderer.h"
-#include "raylib/raylib-ui.h"
-#include "raylib/raylib-ui.h"
-#include "raylib/raylib-window.h"
+#include "raylib/renderer/raylib-renderer.h"
+#include "raylib/user-interface/raylib-ui.h"
+#include "raylib/window/raylib-window.h"
 #include "game-session.h"
 #include "log.h"
 #include "core.h"
@@ -39,7 +37,7 @@ int main(int argc, char* argv[])
       .game = game,
   };
 
-  Core::Application* application = new Core::Application(applicationParams);
+  Engine::Application* application = new Engine::Application(applicationParams);
 
   application->Run();
   return 0;

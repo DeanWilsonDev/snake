@@ -1,6 +1,6 @@
 
 #include "gameplay-state.h"
-#include "../../game-settings.h"
+#include "../../game/game-settings.h"
 
 GameplayState::GameplayState(GameplayStateMachine* stateMachine, GameSettings& settings): stateMachine(stateMachine), settings(settings) {}
 inline void GameplayState::Enter() {}

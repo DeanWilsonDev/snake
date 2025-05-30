@@ -2,7 +2,7 @@
 #include "../core/types.h"
 class Color;
 
-namespace Render2D {
+namespace Renderer2D {
 
 class IRenderer {
  public:

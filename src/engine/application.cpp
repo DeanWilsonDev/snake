@@ -1,17 +1,15 @@
 #include "application.h"
-#include "game-settings.h"
-#include "core/iwindow.h"
-#include "state-machine/istate-machine.h"
-#include "core/"
+#include "../game/game-settings.h"
+#include "../platform/window/iwindow.h"
+#include "../state-machine/istate-machine.h"
 #include "log.h"
 #include "raylib.h"
-#include "core/iwindow.h"
 #include <iostream>
 #include <cassert>
 #include <cstring>
 
 
-namespace Core {
+namespace Engine {
 
 Application::Application(const ApplicationParams& config)
     : window(config.window)

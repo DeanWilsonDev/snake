@@ -3,12 +3,16 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 #include "irender-component-2d.h"
-#include "../core/types.h"
+
+class IStateMachine;
+namespace Core {
+class Color;
+}
+
+namespace Renderer2D::Component {
 
 class IRenderer;
-class IStateMachine;
 
-namespace Component {
 class RenderComponent2D final : public IRenderComponent2D {
  public:
   RenderComponent2D(float width, float height, float positionX, float positionY, Core::Color color);
@@ -27,6 +31,6 @@ class RenderComponent2D final : public IRenderComponent2D {
   float positionY;
   Core::Color color;
 };
-}  // namespace Component
+}  // namespace Render::Component
 
 #endif  // RENDERER_H

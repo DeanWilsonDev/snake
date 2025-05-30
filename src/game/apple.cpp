@@ -1,7 +1,9 @@
 #include "apple.h"
 #include "snake.h"
-#include "game-session.h"
+#include "../game-session.h"
 #include "raylib.h"
+
+namespace Game {
 
 Apple::Apple(const AppleParams& params)
     : state(params.session)
@@ -58,3 +60,5 @@ Vector2 Apple::getNewPosition()
           (this->settings.boxSize - this->settings.boxSize / 2.0f) / 2.0f
   };
 }
+
+}  // namespace Game

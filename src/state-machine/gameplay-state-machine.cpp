@@ -2,8 +2,8 @@
 
 #include "log.h"
 #include "game-states/igame-state.h"
-#include "../game-settings.h"
-#include "../render-2d/render-manager.h"
+#include "../game/game-settings.h"
+#include "../renderer-2d/render-manager.h"
 
 GameplayStateMachine::GameplayStateMachine(
     IGameState* currentState, GameSettings& settings

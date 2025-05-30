@@ -1,5 +1,7 @@
-#include "snake-body.h"
+#include "../snake-body.h"
 #include "log.h"
+
+namespace Game {
 
 Rectangle SnakeBody::getBounds()
 {
@@ -21,3 +23,4 @@ void SnakeBody::move(Vector2 newPosition)
       this->position.y
   );
 }
+}  // namespace Game

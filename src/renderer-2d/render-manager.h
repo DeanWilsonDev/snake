@@ -4,6 +4,7 @@
 
 #ifndef RENDERERMANAGER_H
 #define RENDERERMANAGER_H
+
 #include <vector>
 
 namespace Component {
@@ -13,7 +14,7 @@ class IRenderComponent2D;
 class IRenderer;
 class IRenderable;
 
-namespace Render2D {
+namespace Renderer2D {
 class RenderManager {
  public:
   explicit RenderManager(IRenderer& renderer);

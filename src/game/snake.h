@@ -1,13 +1,15 @@
 #pragma once
 
-#include "core/entity.h"
+#include "../core/entity.h"
 #include "game-settings.h"
-#include "game-session.h"
+#include "../game-session.h"
 #include "snake-body.h"
 #include <deque>
 #include "raylib.h"
 
 class GameState;
+
+namespace Game {
 
 struct SnakeParams {
   GameSettings& settings;
@@ -38,3 +40,4 @@ class Snake final : Core::Entity {
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;
 };
+}  // namespace Game

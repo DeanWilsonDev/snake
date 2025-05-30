@@ -2,6 +2,8 @@
 #include "raylib.h"
 #include <cstdio>
 
+void GameOverState::Enter() {}
+
 void GameOverState::Update(float deltaTime)
 {
   LOG_INFO("------------ GAME OVER ---------------");
@@ -19,6 +21,10 @@ void GameOverState::Update(float deltaTime)
     // Reinitialize Game State
     stateMachine->changeState(STATE_GAMEPLAY);
   }
+}
+void GameOverState::Exit()
+{
+
 }
 
 void GameOverState::Render()

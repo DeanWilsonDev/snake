@@ -2,9 +2,11 @@
 
 class Vector2;
 
+namespace Core {
+
 class IUserInterface {
  public:
   virtual ~IUserInterface() = default;
-
-  virtual void DrawTextCentered(const char* text, Vector2 position, float fontSize) = 0;
+  virtual void Render() = 0;
 };
+}  // namespace Core

@@ -3,6 +3,8 @@
 #include "log.h"
 #include "raylib.h"
 
+namespace Game {
+
 class SnakeBody {
  public:
   SnakeBody(int index, Vector2 position, float size) : index(index), position(position), size(size)
@@ -27,3 +29,4 @@ class SnakeBody {
   Rectangle bounds;
   float size;
 };
+}  // namespace Game

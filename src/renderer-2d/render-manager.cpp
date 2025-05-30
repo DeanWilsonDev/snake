@@ -5,7 +5,7 @@
 #include "render-manager.h"
 #include "irenderable.h"
 
-namespace Render2D {
+namespace Renderer2D {
 
 RenderManager::RenderManager(IRenderer& renderer) : renderer(renderer) {}
 

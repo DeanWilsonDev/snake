@@ -3,9 +3,9 @@
 //
 
 #include "render-component-2d.h"
-#include "../render-2d/irenderer.h"
+#include "../../core/types.h"
 
-namespace Component {
+namespace Renderer2D::Component {
 
 RenderComponent2D::RenderComponent2D(
     float width, float height, float positionX, float positionY, Core::Color color
@@ -42,4 +42,4 @@ float RenderComponent2D::GetHeight() const
   return this->height;
 }
 
-}  // namespace Component
+}  // namespace Render::Component

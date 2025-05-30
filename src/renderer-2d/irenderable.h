@@ -7,7 +7,7 @@ class RenderComponent2D;
 }
 class IRenderer;
 
-namespace Render2D {
+namespace Renderer2D {
 
 class IRenderable {
  public:

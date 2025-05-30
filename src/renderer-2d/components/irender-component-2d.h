@@ -5,8 +5,8 @@
 #ifndef IRENDER_COMPONENT_H
 #define IRENDER_COMPONENT_H
 
+namespace Renderer2D::Component {
 class IRenderer;
-namespace Component {
 class IRenderComponent2D {
   virtual ~IRenderComponent2D() = 0;
   virtual void Render(IRenderer& renderer) const = 0;
@@ -16,5 +16,5 @@ class IRenderComponent2D {
   [[nodiscard]] virtual float GetWidth() const = 0;
   [[nodiscard]] virtual float GetHeight() const = 0;
 };
-}  // namespace Component
+}  // namespace Render::Component
 #endif  // IRENDER_COMPONENT_H

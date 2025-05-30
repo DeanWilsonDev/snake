@@ -28,26 +28,32 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
 add_executable(
         ${PROJECT_NAME}
         src/main.cpp
-        src/apple.cpp
-        src/application.cpp
+        src/game/apple.cpp
+        src/engine/application.cpp
         src/state-machine/game-states/game-over-state.cpp
         src/game-session.cpp
-        src/raylib/raylib-renderer.cpp
-        src/raylib/raylib-window.cpp
-        src/raylib/raylib-ui.cpp
-        src/snake-body.cpp
-        src/snake.cpp
+        src/raylib/renderer/raylib-renderer.cpp
+        src/raylib/window/raylib-window.cpp
+        src/raylib/user-interface/raylib-ui.cpp
+        src/game/snake-body.cpp
+        src/game/snake.cpp
         src/state-machine/gameplay-state-machine.h
         src/state-machine/gameplay-state-machine.cpp
         src/state-machine/game-states/gameplay-state.cpp
-        src/components/render-component-2d.h
-        src/components/render-component-2d.cpp
-        src/render-2d/irenderable.h
+        src/renderer-2d/components/render-component-2d.h
+        src/renderer-2d/components/render-component-2d.cpp
+        src/renderer-2d/irenderable.h
         src/core/entity.cpp
         src/core/entity.h
-        src/render-2d/render-manager.cpp
-        src/render-2d/render-manager.h
-        src/components/irender-component-2d.h)
+        src/renderer-2d/render-manager.cpp
+        src/renderer-2d/render-manager.h
+        src/renderer-2d/components/irender-component-2d.h
+        src/game/ui/main-menu.h
+        src/game/ui/main-menu.cpp
+        src/game/ui/game-ui.cpp
+        src/game/ui/game-ui.h
+        src/engine/engine-config.h
+        src/platform/window/window-config.h)
 
 # Include and Link Raylib in the game
 target_link_libraries(${PROJECT_NAME} raylib)

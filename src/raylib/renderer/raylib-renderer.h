@@ -1,15 +1,21 @@
 #pragma once
-#include "../game-settings.h"
-#include "../game-session.h"
-#include "../render-2d/irenderer.h"
+#include "../../renderer-2d/irenderer.h"
 
+namespace Core {
 class Color;
+}
+
+namespace Renderer2D {
+class IRenderer;
+}
+
+namespace Raylib::Renderer {
 
 struct RaylibRendererParams {
-  GameSettings settings;
+  // TODO: Not needed?
 };
 
-class RaylibRenderer : public IRenderer {
+class RaylibRenderer : public Renderer2D::IRenderer {
  public:
   explicit RaylibRenderer(const RaylibRendererParams& params);
   ~RaylibRenderer() = default;
@@ -17,7 +23,5 @@ class RaylibRenderer : public IRenderer {
   void Render() override;
   void DrawRectangle(float x, float y, float width, float height, Core::Color) override;
   static Color RaylibRenderer::ConvertToRaylibColor(Core::Color color);
-
- private:
-  GameSettings settings;
 };
+}  // namespace Raylib::Renderer

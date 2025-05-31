@@ -19,7 +19,7 @@ class MainMenuState final : public Core::IGameState {
 
  private:
   GameplayStateMachine& gameplayStateMachine;
-  MainMenuUI* mainMenuUI;
+  MainMenuUI* mainMenuUI = nullptr;
 };
 
 }  // namespace Game

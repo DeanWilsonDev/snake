@@ -16,7 +16,7 @@ MainMenuState::MainMenuState(GameplayStateMachine& gameplayStateMachine)
 
 void MainMenuState::Enter()
 {
-  this->mainMenuUI = new UI::MainMenu();
+  this->mainMenuUI = new MainMenuUI();
   this->gameplayStateMachine.SetUI(*mainMenuUI);
 }
 

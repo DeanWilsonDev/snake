@@ -1,14 +1,11 @@
 #include "engine/application.h"
-#include "core/iuser-interface.h"
-#include "raylib/renderer/raylib-renderer.h"
-#include "raylib/user-interface/raylib-ui.h"
-#include "raylib/window/raylib-window.h"
+#include "raylib/window/raylib-window-adapter.hpp"
 #include "game-session.h"
 #include "log.h"
 #include "core.h"
-#include "platform/input/iinput.hpp"
 #include "platform/input/input-manager.hpp"
-#include "raylib/input/raylib-input.hpp"
+#include "platform/window/window-manager.hpp"
+#include "raylib/input/raylib-input-adapter.hpp"
 
 class IWindow;
 
@@ -20,18 +17,16 @@ int main(int argc, char* argv[])
   LOG_WARNING("Warning Log Working {}", 2);
   LOG_CORE_ERROR("Core Logging Working {}", 3);
 
-  auto raylibInput = std::make_unique<RaylibAdapter::Input::RaylibInput>();
+  auto raylibInput = std::make_unique<RaylibAdapter::Input::RaylibInputAdapter>();
   Platform::Input::InputManager::SetBackend(std::move(raylibInput));
 
+  auto raylibWindow = std::make_unique<RaylibAdapter::Window::RaylibWindowAdapter>();
+  Platform::Window::WindowManager::SetBackend(std::move(raylibWindow));
+
   /*
-   * TODO: Hook all this backup once input system integration is complete
-   * Required steps:
-   * 1. Verify input system works with all game states
-   * 2. Test input abstraction with different backends
-   * 3. Update all direct raylib input calls to use InputManager
+   * TODO: Hook all this backup once all adapters have been refactored
    */
 
-  // IWindow* window = new RaylibAdapter::Window::RaylibWindow();
   // IRenderer* renderer = new RaylibAdapter::Renderer::RaylibRenderer();
   // IUserInterface* ui = new RaylibAdapter::UserInterface::RaylibUI();
   //

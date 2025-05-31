@@ -3,12 +3,13 @@
 //
 
 #pragma once
-#include "game-ui.hpp"
+#include "igame-ui.hpp"
+#include "../../core/iuser-interface.hpp"
 
 namespace Game {
-class GameOverUI : public GameUI {
+class GameOverUI final : public Core::IUserInterface{
  public:
-  GameOverUI(const Platform::Config::Window::WindowConfig& windowConfig);
+  GameOverUI();
   ~GameOverUI() override = default;
   void Render() override;
 };

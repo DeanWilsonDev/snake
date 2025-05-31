@@ -2,7 +2,7 @@
 // Created by Dean Wilson on 29/5/2025.
 //
 
-#include "render-manager.h"
+#include "render-manager.hpp"
 #include "components/irender-component-2d.h"
 
 namespace Renderer2D {

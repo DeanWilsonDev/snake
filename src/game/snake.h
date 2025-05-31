@@ -7,18 +7,15 @@
 #include <deque>
 #include "raylib.h"
 
-class GameState;
-
 namespace Game {
 
 struct SnakeParams {
-  GameSettings& settings;
   Component::IRenderable& renderComponent;
 };
 
 class Snake final : Core::Entity {
  public:
-  virtual ~Snake();
+  ~Snake() override;
   explicit Snake(const SnakeParams& snakeParams);
 
   void Update() override;

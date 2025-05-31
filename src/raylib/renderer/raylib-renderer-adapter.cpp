@@ -1,4 +1,4 @@
-#include "raylib-renderer.h"
+#include "raylib-renderer-adapter.hpp"
 #include "../../game/game-settings.h"
 #include "log.h"
 #include "raylib.h"
@@ -6,13 +6,13 @@
 
 namespace RaylibAdapter::Renderer {
 
-RaylibRenderer::RaylibRenderer()
+RaylibRendererAdapter::RaylibRendererAdapter()
 {
   LOG_TRACE("Initializing Raylib Renderer");
 }
-RaylibRenderer::~RaylibRenderer() = default;
+RaylibRendererAdapter::~RaylibRendererAdapter() = default;
 
-void RaylibRenderer::Render()
+void RaylibRendererAdapter::Render()
 {
   BeginDrawing();
   ClearBackground(BLACK);
@@ -57,12 +57,12 @@ void RaylibRenderer::Render()
   }
 }
 
-Color RaylibRenderer::ConvertToRaylibColor(const Core::Color color)
+Color RaylibRendererAdapter::ConvertToRaylibColor(const Core::Color color)
 {
   return Color(color.red, color.green, color.blue, color.alpha);
 }
 
-void RaylibRenderer::DrawRectangle(float x, float y, float width, float height, Core::Color color)
+void RaylibRendererAdapter::DrawRectangle(float x, float y, float width, float height, Core::Color color)
 {
   DrawRectangleRec({x, y, width, height}, ConvertToRaylibColor(color));
 }

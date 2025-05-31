@@ -4,6 +4,9 @@
 
 #include "input-manager.hpp"
 
+#include "core.h"
+#include "log.h"
+
 namespace Platform::Input {
 void InputManager::SetBackend(std::unique_ptr<IInput> inputImpl)
 {
@@ -12,18 +15,31 @@ void InputManager::SetBackend(std::unique_ptr<IInput> inputImpl)
 
 bool InputManager::IsKeyPressed(const KeyCode keyCode)
 {
-  if (!IsInitialized()) {
-    return nullptr;
+  try {
+    if (!IsInitialized()) {
+      return nullptr;
+    }
+    return backend->IsKeyPressed(keyCode);
   }
-  return backend->IsKeyPressed(keyCode);
+  catch (const std::exception& e) {
+    LOG_CORE_FATAL("Error calling IsKeyDown {}", e.what());
+    throw;
+  }
+  return nullptr;
 }
 
 bool InputManager::IsKeyDown(const KeyCode keyCode)
 {
-  if (!IsInitialized()) {
-    return nullptr;
+  try {
+    if (IsInitialized()) {
+      return backend->IsKeyDown(keyCode);
+    }
   }
-  return backend->IsKeyDown(keyCode);
+  catch (const std::exception& e) {
+    LOG_CORE_FATAL("Error calling IsKeyDown {}", e.what());
+    throw;
+  }
+  return nullptr;
 }
 bool InputManager::IsInitialized()
 {

@@ -1,7 +1,8 @@
-#pragma once
 //
 // Created by Dean Wilson on 31/5/2025.
 //
+
+#pragma once
 
 namespace Platform::Input {
 

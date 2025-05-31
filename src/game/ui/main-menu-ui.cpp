@@ -5,17 +5,17 @@
 #include "main-menu-ui.hpp"
 
 #include "raylib.h"
-#include "game-ui.hpp"
+#include "../../platform/window/window-manager.hpp"
 
 namespace Game {
 
-MainMenuUI::MainMenuUI(const Platform::Config::Window::WindowConfig& windowConfig) : GameUI(windowConfig) {}
+MainMenuUI::MainMenuUI() {}
 
 void MainMenuUI::Render()
 {
-  DrawTextCentered("Snake", (Vector2){this->windowConfig.width / 2.0f, 40.0f}, 80);
+  DrawTextCentered("Snake", (Vector2){Platform::Window::WindowManager::GetScreenWidth() / 2.0f, 40.0f}, 80);
   DrawTextCentered(
-      "Press 'Enter' to start", (Vector2){this->windowConfig.width / 2.0f, 200.0f}, 20
+      "Press 'Enter' to start", (Vector2){Platform::Window::WindowManager::GetScreenWidth() / 2.0f, 200.0f}, 20
   );
 }
 

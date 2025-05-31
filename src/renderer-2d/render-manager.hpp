@@ -2,9 +2,6 @@
 // Created by Dean Wilson on 29/5/2025.
 //
 
-#ifndef RENDERERMANAGER_H
-#define RENDERERMANAGER_H
-
 #pragma once
 
 #include <vector>
@@ -30,4 +27,3 @@ class RenderManager {
   IRenderer& renderer;
 };
 }  // namespace Renderer2D
-#endif  // RENDERERMANAGER_H

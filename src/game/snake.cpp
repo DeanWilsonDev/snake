@@ -84,6 +84,8 @@ void Snake::Update()
 
       if (CheckCollisionRecs(this->head->getBounds(), this->body[i]->getBounds())) {
         LOG_INFO("Head hit body part with index: {}", i);
+        // TODO: come up with a clean way for the GameplayStateMachine to change the state on death
+        // And event would probably be ideal for this.
         this->session->setState(STATE_GAME_OVER);
       }
     }

@@ -32,9 +32,9 @@ add_executable(
         src/engine/application.cpp
         src/game/game-state/game-over-state.cpp
         src/game-session.cpp
-        src/raylib/renderer/raylib-renderer.cpp
-        src/raylib/window/raylib-window.cpp
-        src/raylib/user-interface/raylib-ui.cpp
+        src/raylib/renderer/raylib-renderer-adapter.cpp
+        src/raylib/window/raylib-window-adapter.cpp
+        src/raylib/user-interface/raylib-user-interface-adapter.cpp
         src/game/snake-body.cpp
         src/game/snake.cpp
         src/game/game-state/gameplay-state-machine.h
@@ -46,24 +46,24 @@ add_executable(
         src/core/entity.cpp
         src/core/entity.h
         src/renderer-2d/render-manager.cpp
-        src/renderer-2d/render-manager.h
+        src/renderer-2d/render-manager.hpp
         src/renderer-2d/components/irender-component-2d.h
         src/game/ui/main-menu-ui.hpp
         src/game/ui/main-menu-ui.cpp
-        src/game/ui/game-ui.cpp
-        src/game/ui/game-ui.hpp
         src/engine/config/engine-config.h
-        src/platform/window/config/window-config.h
+        src/platform/window/config/window-config.hpp
         src/game/game-state/main-menu-state.cpp
         src/game/game-state/main-menu-state.hpp
         src/platform/input/key-codes.hpp
-        src/raylib/input/raylib-input.cpp
-        src/raylib/input/raylib-input.hpp
+        src/raylib/input/raylib-input-adapter.cpp
+        src/raylib/input/raylib-input-adapter.hpp
         src/platform/input/iinput.hpp
         src/platform/input/input-manager.cpp
         src/platform/input/input-manager.hpp
         src/game/ui/game-over-ui.cpp
         src/game/ui/game-over-ui.hpp
+        src/platform/window/window-manager.cpp
+        src/platform/window/window-manager.hpp
 )
 
 # Include and Link Raylib in the game

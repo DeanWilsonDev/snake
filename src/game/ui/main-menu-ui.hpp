@@ -3,21 +3,16 @@
 //
 
 #pragma once
-
-#ifndef MAIN_MENU_USER_INTERFACE_H
-#define MAIN_MENU_USER_INTERFACE_H
-
-#include "game-ui.hpp"
+#include "../../core/iuser-interface.hpp"
 
 namespace Game {
 
-class GameUI;
+class IGameUI;
 
-class MainMenuUI : public GameUI {
+class MainMenuUI final : public Core::IUserInterface {
  public:
-  explicit MainMenuUI(const Platform::Config::Window::WindowConfig& windowConfig);
+  explicit MainMenuUI();
   void Render() override;
 };
 
 }  // namespace Game
-#endif  // MAIN_MENU_USER_INTERFACE_H

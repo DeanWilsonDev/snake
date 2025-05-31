@@ -2,10 +2,10 @@
 
 #include "game-over-state.hpp"
 #include "gameplay-state.hpp"
-#include "../../renderer-2d/render-manager.h"
+#include "../../renderer-2d/render-manager.hpp"
 #include "log.h"
 #include "main-menu-state.hpp"
-#include "../../core/iuser-interface.h"
+#include "../../core/iuser-interface.hpp"
 
 namespace Game {
 

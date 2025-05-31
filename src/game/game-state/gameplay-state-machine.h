@@ -35,7 +35,7 @@ class GameplayStateMachine final : public Core::IStateMachine {
   // Getters
   Core::IGameState* GetCurrentState() override { return this->currentState; };
 
-  [[nodiscard]] Core::IUserInterface* GetUI() { return this->ui; };
+  [[nodiscard]] Core::IUserInterface* GetUI() const { return this->ui; };
   [[nodiscard]] int GetScore() const { return this->score; };
   [[nodiscard]] Snake* GetSnake() const { return this->snake; }
   [[nodiscard]] Apple* GetApple() const { return this->apple; }

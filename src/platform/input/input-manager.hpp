@@ -1,10 +1,10 @@
+//
+// Created by Dean Wilson on 31/5/2025.
+//
 #pragma once
 #include "iinput.hpp"
 
 #include <memory>
-//
-// Created by Dean Wilson on 31/5/2025.
-//
 
 namespace Platform::Input {
 

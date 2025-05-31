@@ -4,14 +4,16 @@
 
 namespace RaylibAdapter::Window {
 
-class RaylibWindow : public Platform::Window::IWindow {
+class RaylibWindowAdapter : public Platform::Window::IWindow {
  public:
-  RaylibWindow();
-  ~RaylibWindow() override;
+  RaylibWindowAdapter();
+  ~RaylibWindowAdapter() override;
 
   void CreateWindow(int width, int height, char* title) override;
   void CloseWindow() override;
   void SetTargetFPS(int targetFPS) override;
   bool ShouldClose() override;
+  int GetScreenHeight() override;
+  int GetScreenWidth() override;
 };
 }  // namespace RaylibAdapter::Window

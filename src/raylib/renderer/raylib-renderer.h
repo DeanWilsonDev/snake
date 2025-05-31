@@ -20,4 +20,4 @@ class RaylibRenderer : public Renderer2D::IRenderer {
   void DrawRectangle(float x, float y, float width, float height, Core::Color) override;
   static Color RaylibRenderer::ConvertToRaylibColor(Core::Color color);
 };
-}  // namespace Raylib::Renderer
+}  // namespace RaylibAdapter::Renderer

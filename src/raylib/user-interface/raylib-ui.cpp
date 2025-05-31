@@ -10,4 +10,4 @@ void RaylibUI::DrawTextCentered(const char* text, Vector2 position, float fontSi
   DrawText(text, position.x, position.y, fontSize, {255, 255, 255, 255});
 }
 
-}  // namespace Raylib::UserInterface
+}  // namespace RaylibAdapter::UserInterface

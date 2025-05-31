@@ -1,2 +1,5 @@
 CompileFlags:
-    Add: [-xc++]
+    Add: [-xc++, -Wall, -Wextra]
+Diagnostics:
+    UnusedIncludes: Strict
+    MissingIncludes: Strict

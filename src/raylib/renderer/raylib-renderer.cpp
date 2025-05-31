@@ -66,4 +66,4 @@ void RaylibRenderer::DrawRectangle(float x, float y, float width, float height, 
 {
   DrawRectangleRec({x, y, width, height}, ConvertToRaylibColor(color));
 }
-}  // namespace Raylib::Renderer
+}  // namespace RaylibAdapter::Renderer

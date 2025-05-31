@@ -3,9 +3,6 @@
 //
 #pragma once
 
-#ifndef GAMEUI_H
-#define GAMEUI_H
-
 #include "../../raylib/user-interface/raylib-ui.h"
 
 namespace Game::UI {
@@ -16,4 +13,3 @@ class GameUI : public  RaylibAdapter::UserInterface::RaylibUI {
 };
 
 }  // namespace Game::UI
-#endif  // GAMEUI_H

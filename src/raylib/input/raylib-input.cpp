@@ -5,19 +5,21 @@
 #include "raylib-input.hpp"
 #include "raylib.h"
 
-RaylibAdapter::Input::RaylibInput::RaylibInput() = default;
+namespace RaylibAdapter::Input {
 
-bool RaylibAdapter::Input::RaylibInput::IsKeyPressed(const int keyCode)
+RaylibInput::RaylibInput() = default;
+
+bool RaylibInput::IsKeyPressed(const Platform::Input::KeyCode keyCode)
 {
   return ::IsKeyPressed(MapKeyCode(keyCode));
 }
 
-bool RaylibAdapter::Input::RaylibInput::IsKeyDown(const int keyCode)
+bool RaylibInput::IsKeyDown(const Platform::Input::KeyCode keyCode)
 {
   return ::IsKeyDown(MapKeyCode(keyCode));
 }
 
-int RaylibAdapter::Input::RaylibInput::MapKeyCode(const int keyCode)
+int RaylibInput::MapKeyCode(const Platform::Input::KeyCode keyCode)
 {
   using KeyCode = Platform::Input::KeyCode;
 
@@ -36,3 +38,4 @@ int RaylibAdapter::Input::RaylibInput::MapKeyCode(const int keyCode)
       return 0;
   }
 }
+}  // namespace RaylibAdapter::Input

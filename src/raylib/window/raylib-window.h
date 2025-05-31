@@ -1,19 +1,17 @@
 #pragma once
 
-namespace Platform {
-class IWindow;
-}
+#include "../../platform/window/iwindow.h"
 
 namespace RaylibAdapter::Window {
 
-class RaylibWindow : public Platform::IWindow {
+class RaylibWindow : public Platform::Window::IWindow {
  public:
   RaylibWindow();
   ~RaylibWindow() override;
 
-  static void CreateWindow(int width, int height, const char* title) override;
-  static void CloseWindow() override;
-  static void SetTargetFPS(int targetFPS) override;
-  static bool ShouldClose() override;
+  void CreateWindow(int width, int height, char* title) override;
+  void CloseWindow() override;
+  void SetTargetFPS(int targetFPS) override;
+  bool ShouldClose() override;
 };
-}  // namespace Raylib::Window
+}  // namespace RaylibAdapter::Window

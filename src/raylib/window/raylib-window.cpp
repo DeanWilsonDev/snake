@@ -14,7 +14,7 @@ RaylibWindow::~RaylibWindow()
   CloseWindow();
 }
 
-void RaylibWindow::CreateWindow(const int width, const int height, const char* title)
+void RaylibWindow::CreateWindow(int width, int height, char* title)
 {
   LOG_TRACE("Creating Window");
   ::InitWindow(width, height, title);
@@ -34,4 +34,4 @@ bool RaylibWindow::ShouldClose()
 {
   return WindowShouldClose();
 }
-}  // namespace Raylib::Window
+}  // namespace RaylibAdapter::Window

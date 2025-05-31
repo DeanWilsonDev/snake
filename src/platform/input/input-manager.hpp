@@ -15,6 +15,8 @@ class InputManager{
   static bool IsKeyDown(KeyCode keyCode);
 
 private:
+  static bool IsInitialized();
+
   static std::unique_ptr<IInput> backend;
 };
 

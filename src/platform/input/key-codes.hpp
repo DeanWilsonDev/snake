@@ -30,6 +30,7 @@ typedef enum {
   KEY_V,
   KEY_W,
   KEY_X,
+  KEY_Y,
   KEY_Z,
 
   KEY_ENTER,

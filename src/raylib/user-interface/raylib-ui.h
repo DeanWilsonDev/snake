@@ -18,4 +18,4 @@ class RaylibUI : public Core::IUserInterface {
   Platform::Config::Window::WindowConfig windowConfig;
 };
 
-}  // namespace Raylib::UserInterface
+}  // namespace RaylibAdapter::UserInterface

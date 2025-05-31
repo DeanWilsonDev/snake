@@ -12,13 +12,22 @@ void InputManager::SetBackend(std::unique_ptr<IInput> inputImpl)
 
 bool InputManager::IsKeyPressed(const KeyCode keyCode)
 {
+  if (!IsInitialized()) {
+    return nullptr;
+  }
   return backend->IsKeyPressed(keyCode);
 }
 
 bool InputManager::IsKeyDown(const KeyCode keyCode)
 {
+  if (!IsInitialized()) {
+    return nullptr;
+  }
   return backend->IsKeyDown(keyCode);
+}
+bool InputManager::IsInitialized()
+{
+  return backend != nullptr || throw std::runtime_error("Input backend is not initialized!");
 }
 
 }  // namespace Platform::Input
-// Platform

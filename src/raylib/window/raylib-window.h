@@ -4,7 +4,7 @@ namespace Platform {
 class IWindow;
 }
 
-namespace Raylib::Window {
+namespace RaylibAdapter::Window {
 
 class RaylibWindow : public Platform::IWindow {
  public:

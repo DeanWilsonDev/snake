@@ -2,7 +2,7 @@
 #include "log.h"
 #include "raylib.h"
 
-namespace Raylib::Window {
+namespace RaylibAdapter::Window {
 
 RaylibWindow::RaylibWindow()
 {

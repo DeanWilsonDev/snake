@@ -5,7 +5,7 @@
 
 class Vector2;
 
-namespace Raylib::UserInterface {
+namespace RaylibAdapter::UserInterface {
 class RaylibUI : public Core::IUserInterface {
  public:
   explicit RaylibUI(Platform::Config::Window::WindowConfig windowConfig)

@@ -10,7 +10,7 @@
 
 namespace Game::UI {
 
-class GameUI : public  Raylib::UserInterface::RaylibUI {
+class GameUI : public  RaylibAdapter::UserInterface::RaylibUI {
   GameUI();
   void Render() override;
 };

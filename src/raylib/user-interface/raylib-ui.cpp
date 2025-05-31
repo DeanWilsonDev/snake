@@ -1,7 +1,7 @@
 #include "raylib-ui.h"
 #include "raylib.h"
 
-namespace Raylib::UserInterface {
+namespace RaylibAdapter::UserInterface {
 
 void RaylibUI::DrawTextCentered(const char* text, Vector2 position, float fontSize)
 {

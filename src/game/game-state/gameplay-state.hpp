@@ -10,15 +10,15 @@ namespace Game {
 
 class GameplayStateMachine;
 
-class GameplayState : public Core::IGameState {
+class GameplayState final : public Core::IGameState {
  public:
-  GameplayState(GameplayStateMachine* stateMachine);
+  explicit GameplayState(GameplayStateMachine* stateMachine);
 
   void Enter() override;
   void Update(float deltaTime) override;
   void Exit() override;
 
  private:
-  GameplayStateMachine* stateMachine;
+  GameplayStateMachine* gameplayStateMachine;
 };
 }  // namespace Game

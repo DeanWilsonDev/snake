@@ -1,9 +1,17 @@
-#include "game-over-state.h"
+#include "game-over-state.hpp"
 #include "raylib.h"
+#include "../../platform/input/iinput.hpp"
+#include "../../platform/input/input-manager.hpp"
+#include "gameplay-state-machine.h"
+
 #include <cstdio>
 
 namespace Game {
 
+GameOverState::GameOverState(GameplayStateMachine& stateMachine)
+    : gameplayStateMachine(stateMachine)
+{
+}
 void GameOverState::Enter() {}
 
 void GameOverState::Update(float deltaTime)
@@ -19,22 +27,11 @@ void GameOverState::Update(float deltaTime)
   //   logfile << "Entered STATE_GAME_OVER" << std::endl;
   // }
 
-  if (IsKeyPressed(KEY_ENTER)) {
-    // Reinitialize Game State
-    stateMachine->changeState(STATE_GAMEPLAY);
+  if (Platform::Input::InputManager::IsKeyPressed(Platform::Input::KeyCode::KEY_ENTER)) {
+    this->gameplayStateMachine.Next();
   }
 }
+
 void GameOverState::Exit() {}
 
-void GameOverState::Render()
-{
-  auto& ui = this->stateMachine->getUI();
-  auto& settings = this->stateMachine->getSettings();
-  auto& session = this->stateMachine->getGameSession();
-
-  ui.drawTextCentered("Game Over", (Vector2){settings.windowWidth / 2.0f - 40, 40}, 80);
-  ui.drawTextCentered("Press 'Enter' to start", (Vector2){settings.windowWidth / 2.0f, 200.0f}, 20);
-  std::snprintf(this->scoreBuffer, sizeof(this->scoreBuffer), "Score: %d", session.getScore());
-  ui.drawTextCentered(this->scoreBuffer, (Vector2){settings.windowWidth / 2.0f, 150.0f}, 20);
-}
 }  // namespace Game

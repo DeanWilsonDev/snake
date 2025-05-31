@@ -48,20 +48,22 @@ add_executable(
         src/renderer-2d/render-manager.cpp
         src/renderer-2d/render-manager.h
         src/renderer-2d/components/irender-component-2d.h
-        src/game/ui/main-menu.h
-        src/game/ui/main-menu.cpp
+        src/game/ui/main-menu-ui.hpp
+        src/game/ui/main-menu-ui.cpp
         src/game/ui/game-ui.cpp
-        src/game/ui/game-ui.h
+        src/game/ui/game-ui.hpp
         src/engine/config/engine-config.h
         src/platform/window/config/window-config.h
         src/game/game-state/main-menu-state.cpp
-        src/game/game-state/main-menu-state.h
+        src/game/game-state/main-menu-state.hpp
         src/platform/input/key-codes.hpp
         src/raylib/input/raylib-input.cpp
         src/raylib/input/raylib-input.hpp
         src/platform/input/iinput.hpp
         src/platform/input/input-manager.cpp
         src/platform/input/input-manager.hpp
+        src/game/ui/game-over-ui.cpp
+        src/game/ui/game-over-ui.hpp
 )
 
 # Include and Link Raylib in the game

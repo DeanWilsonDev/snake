@@ -1,5 +1,5 @@
 #include "application.h"
-#include "../core/istate-machine.h"
+#include "../core/istate-machine.hpp"
 #include "log.h"
 #include "raylib.h"
 #include <iostream>

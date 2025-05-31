@@ -1,6 +1,10 @@
 #include "gameplay-state-machine.h"
+
+#include "game-over-state.hpp"
+#include "gameplay-state.hpp"
 #include "../../renderer-2d/render-manager.h"
 #include "log.h"
+#include "main-menu-state.hpp"
 #include "../../core/iuser-interface.h"
 
 namespace Game {
@@ -10,11 +14,20 @@ GameplayStateMachine::GameplayStateMachine(Core::IGameState* currentState)
 {
 }
 
+GameplayStateMachine::~GameplayStateMachine()
+{
+  if (currentState) {
+    currentState->Exit();
+    delete this->currentState;
+  }
+}
+
 void GameplayStateMachine::Update(float deltaTime)
 {
   if (!this->currentState) return;
-  if (!this->renderManager) return;
   this->currentState->Update(deltaTime);
+
+  if (!this->renderManager) return;
   this->renderManager->RenderAll();
 
   if (!this->ui) return;
@@ -23,13 +36,27 @@ void GameplayStateMachine::Update(float deltaTime)
 
 void GameplayStateMachine::ChangeState(Core::IGameState* newState)
 {
-  delete this->currentState;
+  if (currentState) {
+    currentState->Exit();
+    delete this->currentState;
+  }
   this->currentState = newState;
+  if (currentState) {
+    currentState->Enter();
+  }
 }
 
 void GameplayStateMachine::IncreaseScore()
 {
   this->score += 10;
+}
+void GameplayStateMachine::Next()
+{
+  if (!currentState) return;
+
+  if (Core::IGameState* nextState = this->DetermineNextState()) {
+    this->ChangeState(nextState);
+  }
 }
 
 void GameplayStateMachine::SetSnake(Snake& snake)
@@ -44,5 +71,22 @@ void GameplayStateMachine::SetApple(Apple& apple)
   LOG_TRACE("Adding Apple to Game State");
   this->apple = &apple;
   LOG_TRACE("Apple Added to Game State");
+}
+Core::IGameState* GameplayStateMachine::DetermineNextState()
+{
+  if (dynamic_cast<MainMenuState*>(this->currentState)) {
+    return new GameplayState(this);
+  }
+
+  if (dynamic_cast<GameplayState*>(this->currentState)) {
+    return new GameOverState(this);
+  }
+
+  if (dynamic_cast<GameOverState*>(this->currentState)) {
+    return new GameplayState(this);
+  }
+
+  return nullptr;
 };
+
 }  // namespace Game

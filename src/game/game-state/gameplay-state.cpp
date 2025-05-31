@@ -1,5 +1,5 @@
 
-#include "gameplay-state.h"
+#include "gameplay-state.hpp"
 #include "../../game/game-settings.h"
 
 namespace Renderer2D {

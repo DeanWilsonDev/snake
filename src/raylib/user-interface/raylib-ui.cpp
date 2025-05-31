@@ -3,6 +3,10 @@
 
 namespace RaylibAdapter::UserInterface {
 
+RaylibUI::RaylibUI(Platform::Config::Window::WindowConfig windowConfig): windowConfig(windowConfig)
+{
+  LOG_TRACE("Initializing Raylib User Interface");
+}
 void RaylibUI::DrawTextCentered(const char* text, Vector2 position, float fontSize)
 {
   const Vector2 textSize = MeasureTextEx(GetFontDefault(), text, fontSize, 1);

@@ -4,20 +4,20 @@
 
 class IUserInterface;
 class IStateMachine;
-class GameplayStateMachine;
 
 namespace Game {
+class GameplayStateMachine;
 
-class GameOverState : public Core::IGameState {
+class GameOverState final : public Core::IGameState {
  public:
-  GameOverState(GameplayStateMachine* stateMachine) : stateMachine(stateMachine) {}
+  explicit GameOverState(GameplayStateMachine& stateMachine);
 
   void Enter() override;
   void Update(float deltaTime) override;
   void Exit() override;
 
  private:
-  GameplayStateMachine* stateMachine;
+  GameplayStateMachine& gameplayStateMachine;
   char scoreBuffer[100] = {0};
 };
 }  // namespace Game

@@ -1,5 +1,5 @@
 #pragma once
-#include "../../core/istate-machine.h"
+#include "../../core/istate-machine.hpp"
 #include "../../core/igame-state.h"
 
 namespace Renderer2D {
@@ -20,6 +20,7 @@ enum State {
   STATE_MAIN_MENU,
   STATE_GAMEPLAY,
   STATE_GAME_OVER,
+  STATE_NONE
 };
 
 class GameplayStateMachine final : public Core::IStateMachine {
@@ -29,6 +30,7 @@ class GameplayStateMachine final : public Core::IStateMachine {
   void ChangeState(Core::IGameState* newState) override;
   void Update(float deltaTime) override;
   void IncreaseScore();
+  void Next() override;
 
   // Getters
   Core::IGameState* GetCurrentState() override { return this->currentState; };
@@ -52,6 +54,9 @@ class GameplayStateMachine final : public Core::IStateMachine {
 
 
   void ClearUI() { this->ui = nullptr; }
+
+protected:
+  Core::IGameState* DetermineNextState() override;
 
  private:
   Core::IGameState* currentState = nullptr;

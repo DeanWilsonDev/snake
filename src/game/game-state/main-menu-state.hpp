@@ -5,14 +5,10 @@
 // Created by Dean Wilson on 30/5/2025.
 //
 
-namespace Game::UI {
-class MainMenu;
-}
+namespace Game {
 
-namespace Game {
 class GameplayStateMachine;
-}
-namespace Game {
+class MainMenuUI;
 
 class MainMenuState final : public Core::IGameState {
  public:
@@ -23,7 +19,7 @@ class MainMenuState final : public Core::IGameState {
 
  private:
   GameplayStateMachine& gameplayStateMachine;
-  UI::MainMenu* mainMenuUI;
+  MainMenuUI* mainMenuUI;
 };
 
 }  // namespace Game

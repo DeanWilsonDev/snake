@@ -5,13 +5,12 @@
 #include "main-menu-state.h"
 #include "../ui/main-menu.h"
 #include "gameplay-state-machine.h"
-#include "raylib.h"
+#include "../../platform/input/input-manager.hpp"
 
 namespace Game {
 MainMenuState::MainMenuState(GameplayStateMachine& gameplayStateMachine)
     : gameplayStateMachine(gameplayStateMachine)
 {
-
 }
 
 void MainMenuState::Enter()
@@ -22,8 +21,8 @@ void MainMenuState::Enter()
 
 void MainMenuState::Update(float deltaTime)
 {
-  if (IsKeyPressed(KEY_ENTER)) {
-    this->gameplayStateMachine.ChangeState(STATE_GAMEPLAY);
+  if (Platform::Input::InputManager::IsKeyPressed(Platform::Input::KeyCode::KEY_ENTER)) {
+    this->gameplayStateMachine.ChangeState(State::STATE_GAMEPLAY);
   }
 }
 

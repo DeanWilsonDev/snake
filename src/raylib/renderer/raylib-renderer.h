@@ -9,19 +9,15 @@ namespace Renderer2D {
 class IRenderer;
 }
 
-namespace Raylib::Renderer {
-
-struct RaylibRendererParams {
-  // TODO: Not needed?
-};
+namespace RaylibAdapter::Renderer {
 
 class RaylibRenderer : public Renderer2D::IRenderer {
  public:
-  explicit RaylibRenderer(const RaylibRendererParams& params);
-  ~RaylibRenderer() = default;
+  explicit RaylibRenderer();
+  ~RaylibRenderer() override;
 
   void Render() override;
   void DrawRectangle(float x, float y, float width, float height, Core::Color) override;
   static Color RaylibRenderer::ConvertToRaylibColor(Core::Color color);
 };
-}  // namespace Raylib::Renderer
+}  // namespace RaylibAdapter::Renderer

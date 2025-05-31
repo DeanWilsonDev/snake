@@ -4,13 +4,13 @@
 #include "raylib.h"
 #include "../../game/snake.h"
 
-namespace Raylib::Renderer {
+namespace RaylibAdapter::Renderer {
 
-RaylibRenderer::RaylibRenderer(const RaylibRendererParams& params)
-    : settings(params.settings), session(params.session)
+RaylibRenderer::RaylibRenderer()
 {
   LOG_TRACE("Initializing Raylib Renderer");
 }
+RaylibRenderer::~RaylibRenderer() = default;
 
 void RaylibRenderer::Render()
 {
@@ -66,4 +66,4 @@ void RaylibRenderer::DrawRectangle(float x, float y, float width, float height, 
 {
   DrawRectangleRec({x, y, width, height}, ConvertToRaylibColor(color));
 }
-}  // namespace Raylib::Renderer
+}  // namespace RaylibAdapter::Renderer

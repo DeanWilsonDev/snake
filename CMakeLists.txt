@@ -55,7 +55,14 @@ add_executable(
         src/engine/config/engine-config.h
         src/platform/window/config/window-config.h
         src/game/game-state/main-menu-state.cpp
-        src/game/game-state/main-menu-state.h)
+        src/game/game-state/main-menu-state.h
+        src/platform/input/key-codes.hpp
+        src/raylib/input/raylib-input.cpp
+        src/raylib/input/raylib-input.hpp
+        src/platform/input/iinput.hpp
+        src/platform/input/input-manager.cpp
+        src/platform/input/input-manager.hpp
+)
 
 # Include and Link Raylib in the game
 target_link_libraries(${PROJECT_NAME} raylib)

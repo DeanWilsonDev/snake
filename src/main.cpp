@@ -6,6 +6,9 @@
 #include "game-session.h"
 #include "log.h"
 #include "core.h"
+#include "platform/input/iinput.hpp"
+#include "platform/input/input-manager.hpp"
+#include "raylib/input/raylib-input.hpp"
 
 class IWindow;
 
@@ -17,28 +20,28 @@ int main(int argc, char* argv[])
   LOG_WARNING("Warning Log Working {}", 2);
   LOG_CORE_ERROR("Core Logging Working {}", 3);
 
-  GameSettings settings = {.windowTitle = "Snake"};
-  GameSession* session = new GameSession(settings);
-  IWindow* window = new RaylibWindow();
-  RaylibRendererParams rendererParams = {
-      .settings = settings,
-      .session = session,
-  };
-  IRenderer* renderer = new RaylibRenderer(rendererParams);
-  IUserInterface* ui = new RaylibUI();
-  Game* game = new Game();
+  auto raylibInput = std::make_unique<RaylibAdapter::Input::RaylibInput>();
+  Platform::Input::InputManager::SetBackend(std::move(raylibInput));
 
-  const Core::ApplicationParams applicationParams = {
-      .session = session,
-      .window = window,
-      .renderer = renderer,
-      .ui = ui,
-      .settings = settings,
-      .game = game,
-  };
+  /*
+   * TODO: Hook all this backup once input system integration is complete
+   * Required steps:
+   * 1. Verify input system works with all game states
+   * 2. Test input abstraction with different backends
+   * 3. Update all direct raylib input calls to use InputManager
+   */
 
-  Engine::Application* application = new Engine::Application(applicationParams);
+  // IWindow* window = new RaylibAdapter::Window::RaylibWindow();
+  // IRenderer* renderer = new RaylibAdapter::Renderer::RaylibRenderer();
+  // IUserInterface* ui = new RaylibAdapter::UserInterface::RaylibUI();
+  //
+  // const Engine::ApplicationParams applicationParams = {
+  //     .renderer = renderer,
+  //     .ui = ui,
+  // };
 
-  application->Run();
+  // Engine::Application* application = new Engine::Application(applicationParams);
+
+  // application->Run();
   return 0;
 };

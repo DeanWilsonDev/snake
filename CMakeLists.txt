@@ -64,6 +64,8 @@ add_executable(
         src/game/ui/game-over-ui.hpp
         src/platform/window/window-manager.cpp
         src/platform/window/window-manager.hpp
+        src/core/math/transform-2d.hpp
+        src/core/math/vector-2d.hpp
 )
 
 # Include and Link Raylib in the game

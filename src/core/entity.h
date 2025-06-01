@@ -4,6 +4,7 @@
 
 #ifndef ENTITY_H
 #define ENTITY_H
+#include "math/transform-2d.hpp"
 
 namespace Component {
 class IRenderable;
@@ -17,6 +18,10 @@ class Entity {
 
   virtual void Update();
   [[nodiscard]] Component::IRenderable* GetRenderComponent() const;
+
+  // Properties
+public:
+  Transform2D transform;
 
  protected:
   Component::IRenderable* renderComponent;

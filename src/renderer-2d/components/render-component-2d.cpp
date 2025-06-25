@@ -3,12 +3,13 @@
 //
 
 #include "render-component-2d.h"
-#include "../../core/types.h"
+#include "../irenderer.h"
 
 namespace Renderer2D::Component {
 
 RenderComponent2D::RenderComponent2D(
-    float width, float height, float positionX, float positionY, Core::Color color
+    const float width, const float height, const float positionX, const float positionY,
+    const Core::Color color
 )
     : width(width), height(height), positionX(positionX), positionY(positionY), color(color)
 {
@@ -16,7 +17,7 @@ RenderComponent2D::RenderComponent2D(
 
 void RenderComponent2D::Render(IRenderer& renderer) const
 {
-  // TODO: this function should really render different shapes. Maybe even just a sprite would be
+  // TODO: this function should really render different shapes. Maybe even just a sprite would be ideal
   renderer.DrawRectangle(positionX, positionY, width, height, color);
 }
 

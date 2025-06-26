@@ -21,7 +21,7 @@ class Entity {
 
   // Properties
 public:
-  Transform2D transform;
+  Math::Transform2D transform;
 
  protected:
   Component::IRenderable* renderComponent;

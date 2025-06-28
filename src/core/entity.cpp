@@ -2,22 +2,9 @@
 // Created by Dean Wilson on 29/5/2025.
 //
 #include "entity.h"
-#include "../renderer-2d/irenderable.h"
-#include "math/transform-2d.hpp"
 
 namespace Core {
-Entity::Entity(Component::IRenderable* renderComponent = nullptr)
-    : transform(Math::Transform2D::Empty()), renderComponent(renderComponent)
-{
-
-}>
-
+Entity::Entity(){}
 Entity::~Entity() = default;
-
-void Entity::Update() {}
-
-Component::IRenderable* Entity::GetRenderComponent() const
-{
-  return this->renderComponent;
-}
+void Entity::Update(float deltaTime) {}
 }  // namespace Core

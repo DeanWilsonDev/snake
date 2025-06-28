@@ -7,6 +7,7 @@
 namespace Component {
 class RenderComponent2D;
 }
+
 class IRenderer;
 
 namespace Renderer2D {

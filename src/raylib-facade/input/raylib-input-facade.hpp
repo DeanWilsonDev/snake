@@ -6,11 +6,11 @@
 
 #include "../../platform/input/iinput.hpp"
 
-namespace RaylibAdapter::Input {
-class RaylibInputAdapter final : public Platform::Input::IInput {
+namespace RaylibFacade::Input {
+class RaylibInputFacade final : public Platform::Input::IInput {
  public:
-  RaylibInputAdapter();
-  ~RaylibInputAdapter() override = default;
+  RaylibInputFacade();
+  ~RaylibInputFacade() override = default;
   bool IsKeyPressed(Platform::Input::KeyCode keyCode) override;
   bool IsKeyDown(Platform::Input::KeyCode keyCode) override;
 

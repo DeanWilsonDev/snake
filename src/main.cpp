@@ -1,30 +1,32 @@
 #include "engine/application.h"
-#include "raylib/window/raylib-window-adapter.hpp"
+#include "raylib-facade/window/raylib-window-facade.hpp"
 #include "game-session.h"
 #include "log.h"
 #include "core.h"
 #include "platform/input/input-manager.hpp"
 #include "platform/window/window-manager.hpp"
-#include "raylib/input/raylib-input-adapter.hpp"
+#include "raylib-facade/input/raylib-input-facade.hpp"
 
 class IWindow;
 
 int main(int argc, char* argv[])
 {
   // Initialize Logging
-  Umbra::Logging::Log::init(DEBUG_ENABLED);
+  constexpr bool debugEnabled = DEBUG_ENABLED;
+  Umbra::Logging::Log::init(debugEnabled);
   LOG_DEBUG("Debug Log Working {}", 1);
   LOG_WARNING("Warning Log Working {}", 2);
   LOG_CORE_ERROR("Core Logging Working {}", 3);
 
-  auto raylibInput = std::make_unique<RaylibAdapter::Input::RaylibInputAdapter>();
+  // Main Quest: This should be set by the engine
+  auto raylibInput = std::make_unique<RaylibFacade::Input::RaylibInputFacade>();
   Platform::Input::InputManager::SetBackend(std::move(raylibInput));
 
-  auto raylibWindow = std::make_unique<RaylibAdapter::Window::RaylibWindowAdapter>();
+  auto raylibWindow = std::make_unique<RaylibFacade::Window::RaylibWindowFacade>();
   Platform::Window::WindowManager::SetBackend(std::move(raylibWindow));
 
   /*
-   * TODO: Hook all this backup once all adapters have been refactored
+   * Main Quest: Hook all this backup once all adapters have been refactored
    */
 
   // IRenderer* renderer = new RaylibAdapter::Renderer::RaylibRenderer();

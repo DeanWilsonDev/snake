@@ -1,27 +1,24 @@
 #pragma once
 
-#include "game-settings.h"
+#include "Settings/game-settings.h"
 #include "../game-session.h"
-#include "raylib.h"
+#include "../core/entity.h"
 
 namespace Game {
 
 struct AppleParams {
   GameSettings settings;
-  GameSession* session;
   Snake* snake;
 };
 
-class Apple {
+class Apple final: public Core::Entity {
  public:
-  Apple(const AppleParams& params);
-  void update();
-  Vector2 getNewPosition();
+  explicit Apple(const AppleParams& params);
+  void Update(float deltaTime) override;
+  Core::Math::Vector2D GetNewPosition() const;
+  Core::Math::Vector2D GetCenter() const;
 
-  GameSession* state;
   GameSettings settings;
   Snake* snake;
-  Vector2 position;
-  float size;
 };
 }  // namespace Game

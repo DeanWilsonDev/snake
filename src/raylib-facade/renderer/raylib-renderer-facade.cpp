@@ -1,18 +1,20 @@
-#include "raylib-renderer-adapter.hpp"
-#include "../../game/game-settings.h"
+#include "raylib-renderer-facade.hpp"
+#include "../../game/Settings/game-settings.h"
 #include "log.h"
 #include "raylib.h"
 #include "../../game/snake.h"
 
-namespace RaylibAdapter::Renderer {
+namespace RaylibFacade::Renderer {
 
-RaylibRendererAdapter::RaylibRendererAdapter()
+// Main Quest: This needs the be updated still
+
+RaylibRendererFacade::RaylibRendererFacade()
 {
   LOG_TRACE("Initializing Raylib Renderer");
 }
-RaylibRendererAdapter::~RaylibRendererAdapter() = default;
+RaylibRendererFacade::~RaylibRendererFacade() = default;
 
-void RaylibRendererAdapter::Render()
+void RaylibRendererFacade::Render()
 {
   BeginDrawing();
   ClearBackground(BLACK);
@@ -57,12 +59,12 @@ void RaylibRendererAdapter::Render()
   }
 }
 
-Color RaylibRendererAdapter::ConvertToRaylibColor(const Core::Color color)
+Color RaylibRendererFacade::ConvertToRaylibColor(const Core::Color color)
 {
   return Color(color.red, color.green, color.blue, color.alpha);
 }
 
-void RaylibRendererAdapter::DrawRectangle(float x, float y, float width, float height, Core::Color color)
+void RaylibRendererFacade::DrawRectangle(float x, float y, float width, float height, Core::Color color)
 {
   DrawRectangleRec({x, y, width, height}, ConvertToRaylibColor(color));
 }

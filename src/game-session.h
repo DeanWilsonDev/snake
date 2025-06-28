@@ -1,6 +1,6 @@
 #pragma once
 
-#include "game/game-settings.h"
+#include "game/Settings/game-settings.h"
 #include "log.h"
 class Snake;
 class Apple;

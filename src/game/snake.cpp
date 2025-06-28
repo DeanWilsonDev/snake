@@ -1,52 +1,65 @@
-#include "snake.h"
-#include "game-settings.h"
+#include "snake.hpp"
+#include "Settings/game-settings.h"
 #include "log.h"
 #include "../game-session.h"
-#include "snake-body.h"
-#include "raylib.h"
+#include "snake-segment.hpp"
+#include "../platform/input/input.hpp"
+
+// Main Quest: clean this up to the point that raylib doesn't need to be imported
 
 namespace Game {
 
 Snake::~Snake() = default;
 
 Snake::Snake(const SnakeParams& snakeParams)
-    : Entity(&snakeParams.renderComponent), settings(snakeParams.settings)
+    : renderComponent(snakeParams.renderComponent), settings(snakeParams.settings)
+{
+}
+
+Snake* Snake::Initialize()
 {
   LOG_TRACE("Initializing Snake");
-  this->size = this->settings.boxSize;
-  this->speed = this->settings.boxSize * 5.0f;
+
+  this->size = this->settings.GetBoxSize();
+
+  this->speed = this->size * 5.0f;
   this->length = this->settings.defaultSnakeLength;
   this->direction = {1.0f, 0.0f};
   this->grow = false;
 
-  this->head = new SnakeBody(0, {100.f, 100.0f}, this->size);
+  const Core::Math::Transform2D headTransform = {{100.f, 100.0f}, 0, {this->size, this->size}};
+  this->head = new SnakeSegment(0, headTransform);
+
   this->body.push_back(this->head);
 
   for (int i = 1; i < this->length; i++) {
-    this->body.push_back(new SnakeBody(i, {100.0f - (i * this->size), 100.0f}, this->size));
+    Core::Math::Transform2D nextSegmentTransform = headTransform;
+    nextSegmentTransform.position.x = headTransform.position.x - (i * this->size);
+    this->body.push_back(new SnakeSegment(i, nextSegmentTransform));
   }
 
   LOG_TRACE("Finished Initializing Snake");
+  return this;
 }
 
-void Snake::Update()
+void Snake::Update(float deltaTime)
 {
   LOG_TRACE("Snake Update Begin");
-  Vector2 newDirection = this->direction;
+  Core::Math::Vector2D newDirection = this->direction;
 
   if (this->direction.y != 0 && !directionChanged) {
-    if (IsKeyPressed(KEY_A)) {
+    if (Platform::Input::Input::IsKeyPressed(Platform::Input::KEY_A)) {
       newDirection = {-1.0f, 0.0f};
     }
-    if (IsKeyPressed(KEY_D)) {
+    if (Platform::Input::Input::IsKeyPressed(Platform::Input::KEY_D)) {
       newDirection = {1.0f, 0.0f};
     }
   }
   if (this->direction.x != 0 && !directionChanged) {
-    if (IsKeyPressed(KEY_S)) {
+    if (Platform::Input::Input::IsKeyPressed(Platform::Input::KEY_S)) {
       newDirection = {0.0f, 1.0f};
     }
-    if (IsKeyPressed(KEY_W)) {
+    if (Platform::Input::Input::IsKeyPressed(Platform::Input::KEY_W)) {
       newDirection = {0.0f, -1.0f};
     }
   }
@@ -55,7 +68,7 @@ void Snake::Update()
     directionChanged = true;
     this->direction = newDirection;
   }
-  accumulatedDistance += this->speed * GetFrameTime();
+  accumulatedDistance += this->speed * deltaTime;
 
   if (accumulatedDistance >= this->size) {
     this->Move();
@@ -75,14 +88,19 @@ void Snake::Update()
   }
 
   for (int i = 0; i < this->body.size(); i++) {
-    DEBUG_ENABLED&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
-    DEBUG_ENABLED&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
+    this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i]
+                                              << std::endl;
+    this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i]
+                                              << std::endl;
+
     if (this->head != nullptr && this->body[i] != this->head) {
-      if (DEBUG_ENABLED) {
-        DrawRectangleRec(this->body[i]->getBounds(), RED);
+      // Side Quest: Allow for Debug drawing in some fashion
+
+      if (this->debugEnabled) {
+        DrawRectangleRec(this->body[i]->GetBounds(), RED);
       }
 
-      if (CheckCollisionRecs(this->head->getBounds(), this->body[i]->getBounds())) {
+      if (CheckCollisionRecs(this->head->GetBounds(), this->body[i]->GetBounds())) {
         LOG_INFO("Head hit body part with index: {}", i);
         // TODO: come up with a clean way for the GameplayStateMachine to change the state on death
         // And event would probably be ideal for this.
@@ -94,54 +112,60 @@ void Snake::Update()
 
 void Snake::Move()
 {
-  Vector2 previousPosition = this->head->position;
-  Vector2 nextPosition = this->head->position;
+  Core::Math::Vector2D previousPosition = this->head->transform.position;
+  Core::Math::Vector2D nextPosition = previousPosition;
 
   for (int i = 1; i < this->length; i++) {
     if (this->body[i] && this->body[i - 1]) {
-      previousPosition = this->body[i]->position;
-      this->body[i]->move(nextPosition);
+      previousPosition = this->body[i]->transform.position;
+      this->body[i]->Move(nextPosition);
       nextPosition = previousPosition;
     }
   }
 
-  Vector2 newPosition = {
-      this->head->position.x + this->direction.x * this->size,
-      this->head->position.y + this->direction.y * this->size,
+  Core::Math::Vector2D newPosition = {
+      this->head->transform.position.x + this->direction.x * this->size,
+      this->head->transform.position.y + this->direction.y * this->size,
   };
+
   LOG_DEBUG("Direction ({}, {})", this->direction.x, this->direction.y);
-  LOG_DEBUG("Head Position ({}, {})", this->head->position.x, this->head->position.y);
+  LOG_DEBUG(
+      "Head Position ({}, {})", this->head->transform.position.x, this->head->transform.position.y
+  );
   LOG_DEBUG("New Position ({}, {})", newPosition.x, newPosition.y);
 
   newPosition.x = std::roundf(newPosition.x / this->size) * this->size;
   newPosition.y = std::roundf(newPosition.y / this->size) * this->size;
 
-  this->head->move(newPosition);
+  this->head->Move(newPosition);
 }
 
 void Snake::CheckIfShouldGrow()
 {
+  LOG_TRACE("[Snake] Checking if Snake should grow {}", this->grow);
   if (this->grow) {
-    this->body.push_back(new SnakeBody(this->length, this->body.back()->position, this->size));
+    this->body.push_back(new SnakeSegment(this->length, this->body.back()->transform));
     this->length++;
     this->grow = false;
+
+    LOG_TRACE("[Snake] Snake Grew Successfully");
   }
 }
 
 void Snake::Teleport() const
 {
   for (int i = 0; i < this->body.size(); i++) {
-    if (this->body[i]->position.x > this->settings.windowWidth) {
-      this->body[i]->position.x = 0;
+    if (this->body[i]->transform.position.x > this->settings.GetScreenWidth()) {
+      this->body[i]->transform.position.x = 0;
     }
-    else if (this->body[i]->position.x < 0) {
-      this->body[i]->position.x = this->settings.windowWidth;
+    else if (this->body[i]->transform.position.x < 0) {
+      this->body[i]->transform.position.x = this->settings.GetScreenWidth();
     }
-    else if (this->body[i]->position.y > this->settings.windowHeight) {
-      this->body[i]->position.y = 0;
+    else if (this->body[i]->transform.position.y > this->settings.GetScreenHeight()) {
+      this->body[i]->transform.position.y = 0;
     }
-    else if (this->body[i]->position.y < 0) {
-      this->body[i]->position.y = this->settings.windowHeight;
+    else if (this->body[i]->transform.position.y < 0) {
+      this->body[i]->transform.position.y = this->settings.GetScreenHeight();
     }
   }
 }
@@ -152,7 +176,7 @@ void Snake::Destroy()
     body.pop_front();
   }
 
-  for (auto segment : body) {
+  for (const auto segment : body) {
     if (segment) {
       int index = segment->index;
       LOG_DEBUG("Deleting segment with index: {}", index);
@@ -167,7 +191,8 @@ void Snake::Destroy()
   this->body.clear();
 
   if (head) {
-    DEBUG_ENABLED&& std::cout << "Deleting head at address: " << this->head << std::endl;
+    this->debugEnabled&& std::cout << "Deleting head at address: " << this->head
+                                              << std::endl;
     delete this->head;
     LOG_DEBUG("Setting head to nullptr");
     this->head = nullptr;

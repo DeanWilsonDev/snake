@@ -1,20 +1,22 @@
 #pragma once
 #include "../../core/istate-machine.hpp"
 #include "../../core/igame-state.h"
+#include "../snake.hpp"
 
 namespace Renderer2D {
 class IRenderer;
 class RenderManager;
 }  // namespace Renderer2D
 
-class Apple;
-class Snake;
 namespace Core {
 class IGameState;
 class IUserInterface;
 }  // namespace Core
 
 namespace Game {
+
+class Apple;
+class Snake;
 
 enum State {
   STATE_MAIN_MENU,
@@ -31,6 +33,9 @@ class GameplayStateMachine final : public Core::IStateMachine {
   void Update(float deltaTime) override;
   void IncreaseScore();
   void Next() override;
+
+  // Initializers
+  [[nodiscard]] Snake* InitializeSnake() const { return this->snake->Initialize(); }
 
   // Getters
   Core::IGameState* GetCurrentState() override { return this->currentState; };
@@ -65,6 +70,6 @@ protected:
   Renderer2D::IRenderer* renderer;
   Snake* snake;
   Apple* apple;
-  int score;
+  int score = {0};
 };
 }  // namespace Game

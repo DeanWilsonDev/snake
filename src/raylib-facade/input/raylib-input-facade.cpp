@@ -2,24 +2,24 @@
 // Created by Dean Wilson on 31/5/2025.
 //
 
-#include "raylib-input-adapter.hpp"
+#include "raylib-input-facade.hpp"
 #include "raylib.h"
 
-namespace RaylibAdapter::Input {
+namespace RaylibFacade::Input {
 
-RaylibInputAdapter::RaylibInputAdapter() = default;
+RaylibInputFacade::RaylibInputFacade() = default;
 
-bool RaylibInputAdapter::IsKeyPressed(const Platform::Input::KeyCode keyCode)
+bool RaylibInputFacade::IsKeyPressed(const Platform::Input::KeyCode keyCode)
 {
   return ::IsKeyPressed(MapKeyCode(keyCode));
 }
 
-bool RaylibInputAdapter::IsKeyDown(const Platform::Input::KeyCode keyCode)
+bool RaylibInputFacade::IsKeyDown(const Platform::Input::KeyCode keyCode)
 {
   return ::IsKeyDown(MapKeyCode(keyCode));
 }
 
-int RaylibInputAdapter::MapKeyCode(const Platform::Input::KeyCode keyCode)
+int RaylibInputFacade::MapKeyCode(const Platform::Input::KeyCode keyCode)
 {
   using KeyCode = Platform::Input::KeyCode;
 

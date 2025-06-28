@@ -1,13 +1,14 @@
-#include "raylib-user-interface-adapter.hpp"
+#include "raylib-user-interface-facade.hpp"
 #include "raylib.h"
+#include "log.h"
 
-namespace RaylibAdapter::UserInterface {
+namespace RaylibFacade::UserInterface {
 
-RaylibUserInterfaceAdapter::RaylibUserInterfaceAdapter()
+RaylibUserInterfaceFacade::RaylibUserInterfaceFacade()
 {
   LOG_TRACE("Initializing Raylib User Interface");
 }
-void RaylibUserInterfaceAdapter::DrawTextCentered(const char* text, Vector2 position, float fontSize)
+void RaylibUserInterfaceFacade::DrawTextCentered(const char* text, Vector2 position, float fontSize)
 {
   const Vector2 textSize = MeasureTextEx(GetFontDefault(), text, fontSize, 1);
   position.x -= textSize.x / 2.0f;

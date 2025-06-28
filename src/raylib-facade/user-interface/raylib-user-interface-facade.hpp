@@ -3,10 +3,10 @@
 
 class Vector2;
 
-namespace RaylibAdapter::UserInterface {
-class RaylibUserInterfaceAdapter : public Core::IUserInterface {
+namespace RaylibFacade::UserInterface {
+class RaylibUserInterfaceFacade : public Core::IUserInterface {
  public:
-  explicit RaylibUserInterfaceAdapter();
+  explicit RaylibUserInterfaceFacade();
   static void DrawTextCentered(const char* text, Vector2 position, float fontSize);
 
  protected:

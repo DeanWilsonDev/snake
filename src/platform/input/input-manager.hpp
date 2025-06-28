@@ -3,7 +3,6 @@
 //
 #pragma once
 #include "iinput.hpp"
-
 #include <memory>
 
 namespace Platform::Input {
@@ -16,9 +15,7 @@ class InputManager{
 
 private:
   static bool IsInitialized();
-
   static std::unique_ptr<IInput> backend;
 };
-
 } // Input
 // Platform

@@ -1,7 +1,7 @@
 #include "game-session.h"
-#include "game/game-settings.h"
+#include "game/Settings/game-settings.h"
 #include "log.h"
-#include "game/snake.h"
+#include "game/snake.hpp"
 #include "game/apple.h"
 
 GameSession::GameSession(GameSettings settings) : settings(settings)
@@ -31,7 +31,7 @@ GameSession::~GameSession()
   delete this->apple;
 }
 
-// This is the update function of the gameplay loop.
+// This is the Update function of the gameplay loop.
 void GameSession::update()
 {
   LOG_TRACE("Being GameSession Update");

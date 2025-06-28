@@ -6,25 +6,25 @@
 #define ENTITY_H
 #include "math/transform-2d.hpp"
 
-namespace Component {
+
+namespace Renderer2D {
 class IRenderable;
+namespace Component {
+class IRenderComponent2D;
 }
+}  // namespace Renderer2D
 
 namespace Core {
 class Entity {
  public:
-  explicit Entity(Component::IRenderable* renderComponent);
+  explicit Entity();
   virtual ~Entity() = 0;
 
-  virtual void Update();
-  [[nodiscard]] Component::IRenderable* GetRenderComponent() const;
+  virtual void Update(float deltaTime);
 
   // Properties
-public:
-  Math::Transform2D transform;
-
- protected:
-  Component::IRenderable* renderComponent;
+ public:
+  Math::Transform2D transform = {Math::Transform2D::Empty()};
 };
 }  // namespace Core
 #endif  // ENTITY_H

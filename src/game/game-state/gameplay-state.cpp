@@ -1,6 +1,8 @@
 
 #include "gameplay-state.hpp"
-#include "../../game/game-settings.h"
+#include "../Settings/game-settings.h"
+#include "gameplay-state-machine.h"
+#include "../snake.hpp"
 
 namespace Renderer2D {
 class IRenderer;
@@ -8,11 +10,20 @@ class IRenderer;
 
 namespace Game {
 
-GameplayState::GameplayState(GameplayStateMachine* stateMachine)
-    : stateMachine(stateMachine)
+GameplayState::GameplayState(GameplayStateMachine* stateMachine) : gameplayStateMachine(stateMachine) {}
+
+void GameplayState::Enter()
 {
+  LOG_TRACE("[GameplayState] Beginning New Game");
+  Snake* snake = this->gameplayStateMachine->InitializeSnake();
+  addSnake(snake);
+  AppleParams appleParams = {
+      .settings = settings,
+      .session = this,
+      .snake = snake,
+  };
+  addApple(new Apple(appleParams));
 }
-void GameplayState::Enter() {}
 
 void GameplayState::Update(float deltaTime) {}
 

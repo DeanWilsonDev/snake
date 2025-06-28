@@ -32,10 +32,10 @@ add_executable(
         src/engine/application.cpp
         src/game/game-state/game-over-state.cpp
         src/game-session.cpp
-        src/raylib/renderer/raylib-renderer-adapter.cpp
-        src/raylib/window/raylib-window-adapter.cpp
-        src/raylib/user-interface/raylib-user-interface-adapter.cpp
-        src/game/snake-body.cpp
+        src/raylib-facade/renderer/raylib-renderer-facade.cpp
+        src/raylib-facade/window/raylib-window-facade.cpp
+        src/raylib-facade/user-interface/raylib-user-interface-facade.cpp
+        src/game/snake-segment.cpp
         src/game/snake.cpp
         src/game/game-state/gameplay-state-machine.h
         src/game/game-state/gameplay-state-machine.cpp
@@ -55,8 +55,8 @@ add_executable(
         src/game/game-state/main-menu-state.cpp
         src/game/game-state/main-menu-state.hpp
         src/platform/input/key-codes.hpp
-        src/raylib/input/raylib-input-adapter.cpp
-        src/raylib/input/raylib-input-adapter.hpp
+        src/raylib-facade/input/raylib-input-facade.cpp
+        src/raylib-facade/input/raylib-input-facade.hpp
         src/platform/input/iinput.hpp
         src/platform/input/input-manager.cpp
         src/platform/input/input-manager.hpp
@@ -67,6 +67,11 @@ add_executable(
         src/core/math/transform-2d.hpp
         src/core/math/vector-2d.hpp
         src/core/math/quaternion.hpp
+        src/platform/window/screen.hpp
+        src/platform/input/input.hpp
+        src/raylib-facade/core/raylib-core-facade.cpp
+        src/raylib-facade/core/raylib-core-facade.hpp
+        src/core/math/geometry/Rectangle.h
 )
 
 # Include and Link Raylib in the game

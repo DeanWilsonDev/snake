@@ -1,63 +1,69 @@
 #include "apple.h"
-#include "snake.h"
+#include "snake.hpp"
 #include "../game-session.h"
 #include "raylib.h"
 
 namespace Game {
 
-Apple::Apple(const AppleParams& params)
-    : state(params.session)
-    , settings(params.settings)
-    , snake(params.snake)
-    , size(params.settings.boxSize / 2.0f)
+Apple::Apple(const AppleParams& params) :
+     settings(params.settings)
+, snake(params.snake)
 {
-  this->position = this->getNewPosition();
+  LOG_TRACE("[Apple] Initializing");
+  this->transform.position = this->GetNewPosition();
 }
 
-void Apple::update()
+void Apple::Update(float deltaTime)
 {
+  const int boxSize = this->settings.GetBoxSize();
+  const float positionX = this->transform.position.x;
+  const float positionY = this->transform.position.y;
+  const float scaleX = this->transform.scale.x;
+  const float scaleY = this->transform.scale.y;
+  const float size = boxSize / 2.0f;
+
   // TODO: Move this to the renderer
   DrawRectangleRec(
       {
-          this->position.x,
-          this->position.y,
-          this->size,
-          this->size,
+          positionX,
+          positionY,
+        scaleX,
+        scaleY
       },
       RED
   );
 
-  // TODO: Create functions for these
+  // Side Quest: Create functions for these
   Vector2 snakeHeadCenter = {
-      this->snake->head->position.x + this->settings.boxSize / 2.0f,
-      this->snake->head->position.y + this->settings.boxSize / 2.0f,
+      this->snake->head->position.x + boxSize / 2.0f,
+      this->snake->head->position.y + boxSize / 2.0f,
   };
 
   Vector2 appleCenter = {
-      this->position.x + (this->settings.boxSize - this->settings.boxSize / 2.0f) / 2.0f,
-      this->position.y + (this->settings.boxSize - this->settings.boxSize / 2.0f) / 2.0f,
+      this->position.x + (boxSize - boxSize / 2.0f) / 2.0f,
+      this->position.y + (boxSize - boxSize / 2.0f) / 2.0f,
   };
 
   if (CheckCollisionCircles(
-          snakeHeadCenter, this->snake->size / 2.0f - 2.0f, appleCenter, this->size - 2.0f
+          snakeHeadCenter, this->snake->size / 2.0f - 2.0f, appleCenter, size - 2.0f
       )) {
-    this->position = this->getNewPosition();
+    this->position = this->GetNewPosition();
 
     this->state->increaseScore();
+
     // TODO make set function
     this->snake->grow = true;
   }
 };
 
-Vector2 Apple::getNewPosition()
+Core::Math::Vector2D Apple::GetNewPosition() const
 {
+  const int boxSize = this->settings.GetBoxSize();
+  const int screenWidth = this->settings.GetScreenWidth();
+  const int screenHeight = this->settings.GetScreenHeight();
   return {
-      GetRandomValue(0, (this->settings.windowWidth / this->settings.boxSize) - 1) *
-              this->settings.boxSize +
-          (this->settings.boxSize - this->settings.boxSize / 2.0f) / 2.0f,
-      GetRandomValue(0, (this->settings.windowHeight / this->settings.boxSize) - 1) *
-              this->settings.boxSize +
-          (this->settings.boxSize - this->settings.boxSize / 2.0f) / 2.0f
+      GetRandomValue(0, (screenWidth / boxSize) - 1) * boxSize + (boxSize - boxSize / 2.0f) / 2.0f,
+      GetRandomValue(0, (screenHeight / boxSize) - 1) * boxSize + (boxSize - boxSize / 2.0f) / 2.0f
   };
 }
 

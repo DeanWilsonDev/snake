@@ -2,12 +2,12 @@
 
 #include "../../platform/window/iwindow.h"
 
-namespace RaylibAdapter::Window {
+namespace RaylibFacade::Window {
 
-class RaylibWindowAdapter : public Platform::Window::IWindow {
+class RaylibWindowFacade : public Platform::Window::IWindow {
  public:
-  RaylibWindowAdapter();
-  ~RaylibWindowAdapter() override;
+  RaylibWindowFacade();
+  ~RaylibWindowFacade() override;
 
   void CreateWindow(int width, int height, char* title) override;
   void CloseWindow() override;

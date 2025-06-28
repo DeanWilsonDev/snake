@@ -8,6 +8,8 @@
 
 namespace Engine {
 
+// Main Quest: Update all this
+
 Application::Application(const ApplicationParams& config)
     : window(config.window)
     , renderer(config.renderer)

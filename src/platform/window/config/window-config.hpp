@@ -8,9 +8,14 @@
 
 namespace Platform::Config::Window {
 
+#define DEFAULT_SCREEN_WIDTH (1280)
+#define DEFAULT_SCREEN_HEIGHT (720)
+#define DEFAULT_TARGET_FPS (60)
+
 struct WindowConfig {
-  int width = 1280;
-  int height = 720;
+  int width = DEFAULT_SCREEN_WIDTH;
+  int height = DEFAULT_SCREEN_HEIGHT;
+  int targetFPS = DEFAULT_TARGET_FPS;
   bool fullscreen = false;
   std::string title = "My Game";
   bool vsync = true;

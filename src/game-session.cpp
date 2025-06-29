@@ -2,7 +2,7 @@
 #include "game/Settings/game-settings.h"
 #include "log.h"
 #include "game/snake.hpp"
-#include "game/apple.h"
+#include "game/apple.hpp"
 
 GameSession::GameSession(GameSettings settings) : settings(settings)
 {

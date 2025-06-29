@@ -18,12 +18,7 @@ namespace Game {
 class Apple;
 class Snake;
 
-enum State {
-  STATE_MAIN_MENU,
-  STATE_GAMEPLAY,
-  STATE_GAME_OVER,
-  STATE_NONE
-};
+enum State { STATE_MAIN_MENU, STATE_GAMEPLAY, STATE_GAME_OVER, STATE_NONE };
 
 class GameplayStateMachine final : public Core::IStateMachine {
  public:
@@ -35,7 +30,8 @@ class GameplayStateMachine final : public Core::IStateMachine {
   void Next() override;
 
   // Initializers
-  [[nodiscard]] Snake* InitializeSnake() const { return this->snake->Initialize(); }
+  [[nodiscard]] void InitializeSnake() const { this->snake->Initialize(); }
+  [[nodiscard]] void InitializeApple() const { this->apple->Initialize(); }
 
   // Getters
   Core::IGameState* GetCurrentState() override { return this->currentState; };
@@ -57,10 +53,9 @@ class GameplayStateMachine final : public Core::IStateMachine {
     this->renderManager = &renderManager;
   }
 
-
   void ClearUI() { this->ui = nullptr; }
 
-protected:
+ protected:
   Core::IGameState* DetermineNextState() override;
 
  private:

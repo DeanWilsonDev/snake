@@ -1,4 +1,4 @@
-#include "apple.h"
+#include "apple.hpp"
 #include "snake.hpp"
 #include "../game-session.h"
 #include "raylib.h"
@@ -7,10 +7,8 @@ namespace Game {
 
 Apple::Apple(const AppleParams& params) :
      settings(params.settings)
-, snake(params.snake)
 {
-  LOG_TRACE("[Apple] Initializing");
-  this->transform.position = this->GetNewPosition();
+  this->Initialize();
 }
 
 void Apple::Update(float deltaTime)
@@ -23,37 +21,24 @@ void Apple::Update(float deltaTime)
   const float size = boxSize / 2.0f;
 
   // TODO: Move this to the renderer
-  DrawRectangleRec(
-      {
-          positionX,
-          positionY,
-        scaleX,
-        scaleY
-      },
-      RED
-  );
-
-  // Side Quest: Create functions for these
-  Vector2 snakeHeadCenter = {
-      this->snake->head->position.x + boxSize / 2.0f,
-      this->snake->head->position.y + boxSize / 2.0f,
-  };
-
-  Vector2 appleCenter = {
-      this->position.x + (boxSize - boxSize / 2.0f) / 2.0f,
-      this->position.y + (boxSize - boxSize / 2.0f) / 2.0f,
-  };
+  DrawRectangleRec({positionX, positionY, scaleX, scaleY}, RED);
 
   if (CheckCollisionCircles(
-          snakeHeadCenter, this->snake->size / 2.0f - 2.0f, appleCenter, size - 2.0f
+          this.snake->GetCenter(), this->snake->size / 2.0f - 2.0f, this->GetCenter(), size - 2.0f
       )) {
-    this->position = this->GetNewPosition();
+    this->transform.position = this->GetNewPosition();
 
     this->state->increaseScore();
 
     // TODO make set function
     this->snake->grow = true;
   }
+}
+void Apple::Initialize()
+{
+  LOG_TRACE("[Apple] Initializing");
+  this->transform.position = this->GetNewPosition();
+  LOG_TRACE("[Apple] Finished Initializing");
 };
 
 Core::Math::Vector2D Apple::GetNewPosition() const
@@ -65,6 +50,14 @@ Core::Math::Vector2D Apple::GetNewPosition() const
       GetRandomValue(0, (screenWidth / boxSize) - 1) * boxSize + (boxSize - boxSize / 2.0f) / 2.0f,
       GetRandomValue(0, (screenHeight / boxSize) - 1) * boxSize + (boxSize - boxSize / 2.0f) / 2.0f
   };
+}
+Core::Math::Vector2D Apple::GetCenter() const
+{
+  const int boxSize = this->settings.GetBoxSize();
+  return {
+    this->transform.position.x + (boxSize - boxSize / 2.0f) / 2.0f,
+    this->transform.position.y + (boxSize - boxSize / 2.0f) / 2.0f,
+};
 }
 
 }  // namespace Game

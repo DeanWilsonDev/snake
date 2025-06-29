@@ -72,6 +72,8 @@ add_executable(
         src/raylib-facade/core/raylib-core-facade.cpp
         src/raylib-facade/core/raylib-core-facade.hpp
         src/core/math/geometry/Rectangle.h
+        src/physics/components/collider-component-2d.cpp
+        src/physics/components/collider-component-2d.hpp
 )
 
 # Include and Link Raylib in the game

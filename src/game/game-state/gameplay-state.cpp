@@ -3,6 +3,7 @@
 #include "../Settings/game-settings.h"
 #include "gameplay-state-machine.h"
 #include "../snake.hpp"
+#include "../apple.hpp"
 
 namespace Renderer2D {
 class IRenderer;
@@ -10,22 +11,34 @@ class IRenderer;
 
 namespace Game {
 
-GameplayState::GameplayState(GameplayStateMachine* stateMachine) : gameplayStateMachine(stateMachine) {}
+GameplayState::GameplayState(GameplayStateMachine* stateMachine)
+    : gameplayStateMachine(stateMachine)
+{
+}
 
 void GameplayState::Enter()
 {
   LOG_TRACE("[GameplayState] Beginning New Game");
-  Snake* snake = this->gameplayStateMachine->InitializeSnake();
-  addSnake(snake);
-  AppleParams appleParams = {
-      .settings = settings,
-      .session = this,
-      .snake = snake,
-  };
-  addApple(new Apple(appleParams));
+  this->gameplayStateMachine->InitializeSnake();
+  this->gameplayStateMachine->InitializeApple();
 }
 
-void GameplayState::Update(float deltaTime) {}
+void GameplayState::Update(float deltaTime)
+{
+  Snake* snake = this->gameplayStateMachine->GetSnake();
+  Apple* apple = this->gameplayStateMachine->GetApple();
+
+
+  if (snake)
+
+  if (CheckCollisionCircles(
+          snake->GetCenter(), snake->size / 2.0f - 2.0f, apple->GetCenter(), apple->GetSize() - 2.0f
+      )) {
+    apple->transform.position = apple->GetNewPosition();
+    this->gameplayStateMachine->IncreaseScore();
+    snake->SetGrow(true);
+  }
+}
 
 void GameplayState::Draw(Renderer2D::IRenderer& renderer)
 {

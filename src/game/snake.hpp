@@ -2,8 +2,13 @@
 
 #include "../core/entity.h"
 #include "snake-segment.hpp"
+
 #include <deque>
 #include "Settings/game-settings.h"
+
+namespace Physics::Components {
+class ColliderComponent2D;
+}
 
 namespace Renderer2D::Component {
 class IRenderComponent2D;
@@ -13,10 +18,11 @@ namespace Game {
 
 struct SnakeParams {
   Renderer2D::Component::IRenderComponent2D& renderComponent;
+  Physics::Components::ColliderComponent2D& colliderComponent;
   GameSettings& settings;
 };
 
-class Snake final : Core::Entity {
+class Snake final : public Core::Entity {
  public:
   ~Snake() override;
   explicit Snake(const SnakeParams& snakeParams);
@@ -27,7 +33,16 @@ class Snake final : Core::Entity {
   void Move();
   void CheckIfShouldGrow();
   void Teleport() const;
+  Core::Math::Vector2D GetCenter() const;
+  void SetGrow(bool value) { this->grow = value; }
 
+  // Getters
+  Physics::Components::ColliderComponent2D& GetColliderComponent() const
+  {
+    return this->colliderComponent;
+  }
+
+  // Side Quest: fix up the access on these variables. add getters and setters where necessary
   float size;
   float speed;
   int length;
@@ -39,9 +54,9 @@ class Snake final : Core::Entity {
 
  private:
   Renderer2D::Component::IRenderComponent2D& renderComponent;
+  Physics::Components::ColliderComponent2D& colliderComponent;
   GameSettings& settings;
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;
-
 };
 }  // namespace Game

@@ -12,7 +12,7 @@ namespace Game {
 Snake::~Snake() = default;
 
 Snake::Snake(const SnakeParams& snakeParams)
-    : renderComponent(snakeParams.renderComponent), settings(snakeParams.settings)
+    : renderComponent(snakeParams.renderComponent), colliderComponent(snakeParams.colliderComponent), settings(snakeParams.settings)
 {
 }
 
@@ -88,10 +88,8 @@ void Snake::Update(float deltaTime)
   }
 
   for (int i = 0; i < this->body.size(); i++) {
-    this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i]
-                                              << std::endl;
-    this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i]
-                                              << std::endl;
+    this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
+    this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
 
     if (this->head != nullptr && this->body[i] != this->head) {
       // Side Quest: Allow for Debug drawing in some fashion
@@ -170,6 +168,15 @@ void Snake::Teleport() const
   }
 }
 
+Core::Math::Vector2D Snake::GetCenter() const
+{
+  const int boxSize = this->settings.GetBoxSize();
+  return {
+      this->head->transform.position.x + boxSize / 2.0f,
+      this->head->transform.position.y + boxSize / 2.0f,
+  };
+}
+
 void Snake::Destroy()
 {
   if (!body.empty() && body.front() == head) {
@@ -179,20 +186,19 @@ void Snake::Destroy()
   for (const auto segment : body) {
     if (segment) {
       int index = segment->index;
-      LOG_DEBUG("Deleting segment with index: {}", index);
+      LOG_TRACE("[Snake] Deleting segment with index: {}", index);
       delete segment;
-      LOG_DEBUG("Successfully deleted segment with index: {}", index);
+      LOG_TRACE("[Snake] Successfully deleted segment with index: {}", index);
     }
     else {
-      LOG_DEBUG("Found null segment in body!");
+      LOG_ERROR("[Snake] Found null segment in body!");
     }
   }
 
   this->body.clear();
 
   if (head) {
-    this->debugEnabled&& std::cout << "Deleting head at address: " << this->head
-                                              << std::endl;
+    this->debugEnabled&& std::cout << "Deleting head at address: " << this->head << std::endl;
     delete this->head;
     LOG_DEBUG("Setting head to nullptr");
     this->head = nullptr;

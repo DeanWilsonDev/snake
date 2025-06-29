@@ -8,17 +8,19 @@ namespace Game {
 
 struct AppleParams {
   GameSettings settings;
-  Snake* snake;
 };
 
 class Apple final: public Core::Entity {
  public:
   explicit Apple(const AppleParams& params);
   void Update(float deltaTime) override;
+  void Initialize();
   Core::Math::Vector2D GetNewPosition() const;
   Core::Math::Vector2D GetCenter() const;
+  float GetSize() const { return this->size;}
 
+private:
   GameSettings settings;
-  Snake* snake;
+  float size;
 };
 }  // namespace Game

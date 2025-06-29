@@ -43,7 +43,7 @@ class Snake final : public Core::Entity {
     return this->colliderComponent;
   }
 
-  // Side Quest: fix up the access on these variables. add getters and setters where necessary
+  // Side Quest: [Snake] fix up the access on public variables. Add getters and setters where necessary
   float size;
   float speed;
   int length;

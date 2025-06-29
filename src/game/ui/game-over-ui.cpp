@@ -6,7 +6,7 @@
 
 #include "platform/window/window-manager.hpp"
 
-// Main Quest: Update this
+// Main Quest: [GameOverUI] update Game Over UI class
 
 namespace Game {
 

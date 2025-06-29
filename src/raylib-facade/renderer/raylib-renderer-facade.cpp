@@ -4,7 +4,7 @@
 
 namespace RaylibFacade::Renderer {
 
-// Main Quest: This needs the be updated still
+// Main Quest: [RaylibRendererFacade] Refactor render function. Remove unwanted code and move to the correct location
 
 RaylibRendererFacade::RaylibRendererFacade()
 {

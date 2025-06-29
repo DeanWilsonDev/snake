@@ -6,7 +6,7 @@
 
 GameSession::GameSession(GameSettings settings) : settings(settings)
 {
-  // Main Quest: Delete this file after this has been migrated to it's rightful position
+  // Main Quest: [GameSession] Delete Game Session file. Remove this file once everything has been migrated
   settings.Print();
   this->state = STATE_MAIN_MENU;
   this->score = 0;

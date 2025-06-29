@@ -18,15 +18,15 @@ int main(int argc, char* argv[])
   LOG_WARNING("Warning Log Working {}", 2);
   LOG_CORE_ERROR("Core Logging Working {}", 3);
 
-  // Main Quest: This should be set by the engine
+  // Main Quest: [Main] Move dependencies to the application class
+  // Side Quest: [DependencyInjector] Create a Dependency Injector Class to handle Dependecies
   auto raylibInput = std::make_unique<RaylibFacade::Input::RaylibInputFacade>();
   Platform::Input::InputManager::SetBackend(std::move(raylibInput));
-
   auto raylibWindow = std::make_unique<RaylibFacade::Window::RaylibWindowFacade>();
   Platform::Window::WindowManager::SetBackend(std::move(raylibWindow));
 
   /*
-   * Main Quest: Hook all this backup once all adapters have been refactored
+   * Main Quest: [Main] Finish hooking up the application in the main file
    */
 
   // IRenderer* renderer = new RaylibAdapter::Renderer::RaylibRenderer();

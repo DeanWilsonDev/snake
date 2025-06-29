@@ -19,7 +19,7 @@ void Apple::Update(float deltaTime)
   const float scaleY = this->transform.scale.y;
   const float size = boxSize / 2.0f;
 
-  // Main Quest: Move this to the renderer
+  // Main Quest: [Apple] Apple handling own draw. move the draw method of the apple to the renderer component
   DrawRectangleRec({positionX, positionY, scaleX, scaleY}, RED);
 }
 void Apple::Initialize()

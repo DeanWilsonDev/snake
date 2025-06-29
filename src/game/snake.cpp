@@ -4,7 +4,7 @@
 #include "snake-segment.hpp"
 #include "platform/input/input.hpp"
 
-// Main Quest: clean this up to the point that raylib doesn't need to be imported
+// Main Quest: [Snake] Snake class tidy up. Clean up the snake class so that it no longer imports raylib
 
 namespace Game {
 
@@ -90,10 +90,10 @@ void Snake::Update(float deltaTime)
     this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
     this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
 
-    // Main Quest: Move all the logic here to the state machine
+    // Main Quest: [Snake] Snake class tidy up. move this to the state machine / renderer
     if (this->head != nullptr && this->body[i] != this->head) {
-      // Side Quest: Allow for Debug drawing in some fashion
 
+      // Side Quest: [Debug] Create a Debug module to allow for Debug drawing
       if (this->debugEnabled) {
         DrawRectangleRec(this->body[i]->GetBounds(), RED);
       }

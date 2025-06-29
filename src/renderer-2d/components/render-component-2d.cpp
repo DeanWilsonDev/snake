@@ -17,7 +17,7 @@ RenderComponent2D::RenderComponent2D(
 
 void RenderComponent2D::Render(IRenderer& renderer) const
 {
-  // Side Quest: this function should really render different shapes. Maybe even just a sprite would be ideal
+  // Side Quest [RenderComponent2D] Allow for rendering different shapes and Sprites
   renderer.DrawRectangle(positionX, positionY, width, height, color);
 }
 

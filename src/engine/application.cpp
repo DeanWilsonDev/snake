@@ -8,7 +8,7 @@
 
 namespace Engine {
 
-// Main Quest: Update all this
+// Main Quest: [Application] Update Application class. move items from main to application and tidy up
 
 Application::Application(const ApplicationParams& config)
     : window(config.window)

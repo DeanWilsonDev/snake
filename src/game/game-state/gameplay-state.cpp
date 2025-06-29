@@ -1,9 +1,9 @@
 
 #include "gameplay-state.hpp"
-#include "../Settings/game-settings.h"
+#include "game/settings/game-settings.h"
 #include "gameplay-state-machine.h"
-#include "../snake.hpp"
-#include "../apple.hpp"
+#include "game/snake.hpp"
+#include "game/apple.hpp"
 
 namespace Renderer2D {
 class IRenderer;

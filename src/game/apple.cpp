@@ -1,6 +1,5 @@
 #include "apple.hpp"
 #include "snake.hpp"
-#include "../game-session.h"
 #include "raylib.h"
 
 namespace Game {
@@ -20,19 +19,8 @@ void Apple::Update(float deltaTime)
   const float scaleY = this->transform.scale.y;
   const float size = boxSize / 2.0f;
 
-  // TODO: Move this to the renderer
+  // Main Quest: Move this to the renderer
   DrawRectangleRec({positionX, positionY, scaleX, scaleY}, RED);
-
-  if (CheckCollisionCircles(
-          this.snake->GetCenter(), this->snake->size / 2.0f - 2.0f, this->GetCenter(), size - 2.0f
-      )) {
-    this->transform.position = this->GetNewPosition();
-
-    this->state->increaseScore();
-
-    // TODO make set function
-    this->snake->grow = true;
-  }
 }
 void Apple::Initialize()
 {

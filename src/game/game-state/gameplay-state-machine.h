@@ -1,7 +1,7 @@
 #pragma once
-#include "../../core/istate-machine.hpp"
-#include "../../core/igame-state.h"
-#include "../snake.hpp"
+#include "core/istate-machine.hpp"
+#include "core/igame-state.h"
+#include "game/snake.hpp"
 
 namespace Renderer2D {
 class IRenderer;

@@ -1,13 +1,12 @@
 #include "game-session.h"
-#include "game/Settings/game-settings.h"
+#include "game/settings/game-settings.h"
 #include "log.h"
 #include "game/snake.hpp"
 #include "game/apple.hpp"
 
 GameSession::GameSession(GameSettings settings) : settings(settings)
 {
-  // TODO: this appears to be the initial setup for the game.
-  // We will probably want most of this on the initialization of the statemachine
+  // Main Quest: Delete this file after this has been migrated to it's rightful position
   settings.Print();
   this->state = STATE_MAIN_MENU;
   this->score = 0;

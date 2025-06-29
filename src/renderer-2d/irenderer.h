@@ -1,5 +1,5 @@
 #pragma once
-#include "../core/types.h"
+#include "core/types.h"
 class Color;
 
 namespace Renderer2D {

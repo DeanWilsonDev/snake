@@ -4,7 +4,9 @@
 
 #include "game-over-ui.hpp"
 
-#include "../../platform/window/window-manager.hpp"
+#include "platform/window/window-manager.hpp"
+
+// Main Quest: Update this
 
 namespace Game {
 

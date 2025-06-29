@@ -1,7 +1,8 @@
 #pragma once
 
 #include "log.h"
-#include "../../platform/window/screen.hpp"
+#include "platform/window/screen.hpp"
+
 #define DEFAULT_BOX_SIZE (20);
 #define DEFAULT_MIN_BOX_SIZE (10);
 #define DEFAULT_MAX_BOX_SIZE (40);

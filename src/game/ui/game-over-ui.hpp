@@ -4,7 +4,7 @@
 
 #pragma once
 #include "igame-ui.hpp"
-#include "../../core/iuser-interface.hpp"
+#include "core/iuser-interface.hpp"
 
 namespace Game {
 class GameOverUI final : public Core::IUserInterface{

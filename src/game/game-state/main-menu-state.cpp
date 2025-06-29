@@ -3,9 +3,9 @@
 //
 
 #include "main-menu-state.hpp"
-#include "../ui/main-menu-ui.hpp"
+#include "game/ui/main-menu-ui.hpp"
 #include "gameplay-state-machine.h"
-#include "../../platform/input/input-manager.hpp"
+#include "platform/input/input-manager.hpp"
 
 namespace Game {
 

@@ -1,9 +1,8 @@
 #include "snake.hpp"
-#include "Settings/game-settings.h"
+#include "game/settings/game-settings.h"
 #include "log.h"
-#include "../game-session.h"
 #include "snake-segment.hpp"
-#include "../platform/input/input.hpp"
+#include "platform/input/input.hpp"
 
 // Main Quest: clean this up to the point that raylib doesn't need to be imported
 
@@ -91,6 +90,7 @@ void Snake::Update(float deltaTime)
     this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
     this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
 
+    // Main Quest: Move all the logic here to the state machine
     if (this->head != nullptr && this->body[i] != this->head) {
       // Side Quest: Allow for Debug drawing in some fashion
 
@@ -100,8 +100,6 @@ void Snake::Update(float deltaTime)
 
       if (CheckCollisionRecs(this->head->GetBounds(), this->body[i]->GetBounds())) {
         LOG_INFO("Head hit body part with index: {}", i);
-        // TODO: come up with a clean way for the GameplayStateMachine to change the state on death
-        // And event would probably be ideal for this.
         this->session->setState(STATE_GAME_OVER);
       }
     }

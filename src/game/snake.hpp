@@ -1,10 +1,8 @@
 #pragma once
 
-#include "../core/entity.h"
-#include "snake-segment.hpp"
-
+#include "core/entity.h"
 #include <deque>
-#include "Settings/game-settings.h"
+
 
 namespace Physics::Components {
 class ColliderComponent2D;
@@ -15,6 +13,9 @@ class IRenderComponent2D;
 }
 
 namespace Game {
+
+class SnakeSegment;
+struct GameSettings;
 
 struct SnakeParams {
   Renderer2D::Component::IRenderComponent2D& renderComponent;

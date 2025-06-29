@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../core/igame-state.h"
+#include "core/igame-state.h"
 
 namespace Renderer2D {
 class IRenderer;

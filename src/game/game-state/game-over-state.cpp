@@ -1,6 +1,6 @@
 #include "game-over-state.hpp"
-#include "../../platform/input/iinput.hpp"
-#include "../../platform/input/input-manager.hpp"
+#include "platform/input/iinput.hpp"
+#include "platform/input/input-manager.hpp"
 #include "gameplay-state-machine.h"
 #include "log.h"
 

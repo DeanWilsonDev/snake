@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Settings/game-settings.h"
-#include "../game-session.h"
-#include "../core/entity.h"
+#include "settings/game-settings.h"
+#include "core/entity.h"
 
 namespace Game {
 

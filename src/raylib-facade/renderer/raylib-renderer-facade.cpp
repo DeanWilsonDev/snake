@@ -1,8 +1,6 @@
 #include "raylib-renderer-facade.hpp"
-#include "../../game/Settings/game-settings.h"
 #include "log.h"
 #include "raylib.h"
-#include "../../game/snake.h"
 
 namespace RaylibFacade::Renderer {
 

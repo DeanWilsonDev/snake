@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../core/math/transform-2d.hpp"
+#include "core/math/transform-2d.hpp"
 
 namespace Game {
 

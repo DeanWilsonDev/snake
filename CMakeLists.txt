@@ -78,7 +78,7 @@ add_executable(
 
 # Include and Link Raylib in the game
 target_link_libraries(${PROJECT_NAME} raylib)
-target_include_directories(${PROJECT_NAME} PRIVATE ${raylib_SOURCE_DIR}/src)
+include_directories(${raylib_SOURCE_DIR}/src)
 message(STATUS "The raylib directory is: ${raylib_SOURCE_DIR}/src")
 
 # Include and Link Umbra Libraries
@@ -86,6 +86,10 @@ target_link_libraries(${PROJECT_NAME} UmbraLogging)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG
         ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src ${raylib_SOURCE_DIR}/src)
+
 enable_testing()
 add_subdirectory(tests)
 

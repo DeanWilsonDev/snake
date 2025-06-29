@@ -1,7 +1,7 @@
 #pragma once
 
-#include "irender-component-2d.h"
-#include "../../core/types.h"
+#include "renderer-2d/components/irender-component-2d.h"
+#include "core/types.h"
 
 class IStateMachine;
 

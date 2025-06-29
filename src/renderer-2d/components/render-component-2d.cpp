@@ -2,8 +2,8 @@
 // Created by Dean Wilson on 28/5/2025.
 //
 
-#include "render-component-2d.h"
-#include "../irenderer.h"
+#include "renderer-2d/components/render-component-2d.h"
+#include "renderer-2d/irenderer.h"
 
 namespace Renderer2D::Component {
 
@@ -17,7 +17,7 @@ RenderComponent2D::RenderComponent2D(
 
 void RenderComponent2D::Render(IRenderer& renderer) const
 {
-  // TODO: this function should really render different shapes. Maybe even just a sprite would be ideal
+  // Side Quest: this function should really render different shapes. Maybe even just a sprite would be ideal
   renderer.DrawRectangle(positionX, positionY, width, height, color);
 }
 

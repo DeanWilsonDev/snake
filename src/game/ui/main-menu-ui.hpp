@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include "../../core/iuser-interface.hpp"
+#include "core/iuser-interface.hpp"
 
 namespace Game {
 

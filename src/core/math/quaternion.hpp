@@ -4,7 +4,6 @@
 
 #pragma once
 
-// TODO: implement own version of cmath?
 #include <cmath>
 
 namespace Core::Math {

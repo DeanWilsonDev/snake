@@ -1,5 +1,5 @@
 #pragma once
-#include "../../core/igame-state.h"
+#include "core/igame-state.h"
 
 //
 // Created by Dean Wilson on 30/5/2025.

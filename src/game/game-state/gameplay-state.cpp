@@ -4,6 +4,9 @@
 #include "gameplay-state-machine.h"
 #include "game/snake.hpp"
 #include "game/apple.hpp"
+#include "physics/components/collider-component-2d.hpp"
+
+#include <assert.h>
 
 namespace Renderer2D {
 class IRenderer;
@@ -27,18 +30,18 @@ void GameplayState::Update(float deltaTime)
 {
   Snake* snake = this->gameplayStateMachine->GetSnake();
   Apple* apple = this->gameplayStateMachine->GetApple();
+  assert(snake);
+  assert(apple);
 
-
-  if (snake)
-
-  if (CheckCollisionCircles(
-          snake->GetCenter(), snake->size / 2.0f - 2.0f, apple->GetCenter(), apple->GetSize() - 2.0f
-      )) {
+  if (snake->GetColliderComponent().Intersects(apple->GetColliderComponent())) {
     apple->transform.position = apple->GetNewPosition();
     this->gameplayStateMachine->IncreaseScore();
     snake->SetGrow(true);
   }
 }
+
+
+// Main Quest: [GameplayState] Clean draw function.
 
 void GameplayState::Draw(Renderer2D::IRenderer& renderer)
 {

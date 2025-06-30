@@ -3,4 +3,11 @@
 //
 
 #include "collider-component-2d.hpp"
-Physics::Components::ColliderComponent2D::ColliderComponent2D(const ColliderComponentParams& params): transform(params.transform), bounds(params.bounds) {}
+Physics::Components::ColliderComponent2D::ColliderComponent2D(const ColliderComponentParams& params)
+    : transform(params.transform), bounds(params.bounds)
+{
+}
+bool Physics::Components::ColliderComponent2D::Intersects(const ColliderComponent2D& other) const
+{
+  return this->bounds.Intersects(other.bounds);
+}

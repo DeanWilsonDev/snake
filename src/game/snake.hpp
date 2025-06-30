@@ -13,6 +13,7 @@ class IRenderComponent2D;
 }
 
 namespace Game {
+class Apple;
 
 class SnakeSegment;
 struct GameSettings;

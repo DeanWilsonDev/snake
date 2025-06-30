@@ -19,6 +19,7 @@ struct ColliderComponentParams {
 class ColliderComponent2D {
  public:
   explicit ColliderComponent2D(const ColliderComponentParams& params);
+  bool Intersects(const ColliderComponent2D& other) const;
   Core::Math::Transform2D transform;
   Core::Math::Geometry::Rectangle bounds;
 };

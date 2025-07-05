@@ -33,10 +33,30 @@ void GameplayState::Update(float deltaTime)
   assert(snake);
   assert(apple);
 
+  // Main Quest: [GameplayState] Move collider to SnakeSegment so the head can collide with the apple and other segments
   if (snake->GetColliderComponent().Intersects(apple->GetColliderComponent())) {
     apple->transform.position = apple->GetNewPosition();
     this->gameplayStateMachine->IncreaseScore();
     snake->SetGrow(true);
+  }
+
+
+  for (int i = 0; i < snake->body.size(); i++) {
+    this->debugEnabled&& std::cout << "Body[" << i << "]: " << snake->body[i] << std::endl;
+    this->debugEnabled&& std::cout << "Body[" << i << "]: " << snake->body[i] << std::endl;
+
+    if (snake->head != nullptr && snake->body[i] != snake->head) {
+
+      // Side Quest: [Debug] Create a Debug module to allow for Debug drawing
+      if (this->debugEnabled) {
+        DrawRectangleRec(snake->body[i]->GetBounds(), RED);
+      }
+
+      if (CheckCollisionRecs(snake->head->GetBounds(), snake->body[i]->GetBounds())) {
+        LOG_INFO("Head hit body part with index: {}", i);
+        this->session->setState(STATE_GAME_OVER);
+      }
+    }
   }
 }
 

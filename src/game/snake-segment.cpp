@@ -1,9 +1,21 @@
 #include "snake-segment.hpp"
 #include "log.h"
+#include "physics/components/collider-component-2d.hpp"
 
 namespace Game {
 
-SnakeSegment::SnakeSegment(const int index, const Core::Math::Transform2D& transform) : index(index), transform(transform){}
+SnakeSegment::SnakeSegment(const SnakeSegmentParams& props)
+    : index(props.index), transform(props.transform)
+{
+  this->colliderComponent = new Physics::Components::ColliderComponent2D({
+    transform = props.transform,
+    bounds = Core::Math::Geometry::Rectangle(props.transform)
+  });
+}
+SnakeSegment::~SnakeSegment()
+{
+  delete colliderComponent;
+}
 
 SnakeSegment* SnakeSegment::Initialize(const int index, const Core::Math::Transform2D& transform)
 {
@@ -13,7 +25,8 @@ SnakeSegment* SnakeSegment::Initialize(const int index, const Core::Math::Transf
   this->transform = transform;
 
   LOG_TRACE(
-      "[SnakeSegment] Creating SnakeBody with index: {} at position (({},{})), with a scale of (({}, {}))",
+      "[SnakeSegment] Creating SnakeBody with index: {} at position (({},{})), with a scale of "
+      "(({}, {}))",
       this->index,
       this->transform.position.x,
       this->transform.position.y,

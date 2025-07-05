@@ -7,6 +7,7 @@ Physics::Components::ColliderComponent2D::ColliderComponent2D(const ColliderComp
     : transform(params.transform), bounds(params.bounds)
 {
 }
+
 bool Physics::Components::ColliderComponent2D::Intersects(const ColliderComponent2D& other) const
 {
   return this->bounds.Intersects(other.bounds);

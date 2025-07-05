@@ -1,5 +1,4 @@
 #include "application.h"
-#include "core/istate-machine.hpp"
 #include "log.h"
 #include "raylib.h"
 #include <iostream>
@@ -41,7 +40,7 @@ void Application::Run()
 
   char scoreBuffer[100] = {0};
 
-  LOG_DEBUG("Window Should Close {}", this->window->shouldClose());
+  LOG_DEBUG("Window Should Close {}", this->window->ShouldClose());
 
   while (!this->window->shouldClose()) {
     this->renderer->BeginDrawing();

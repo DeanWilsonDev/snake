@@ -4,7 +4,7 @@
 
 #include "main-menu-state.hpp"
 #include "game/ui/main-menu-ui.hpp"
-#include "gameplay-state-machine.h"
+#include "gameplay-state-machine.hpp"
 #include "platform/input/input-manager.hpp"
 
 namespace Game {

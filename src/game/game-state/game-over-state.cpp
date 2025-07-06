@@ -1,7 +1,7 @@
 #include "game-over-state.hpp"
 #include "platform/input/iinput.hpp"
 #include "platform/input/input-manager.hpp"
-#include "gameplay-state-machine.h"
+#include "gameplay-state-machine.hpp"
 #include "log.h"
 
 namespace Game {

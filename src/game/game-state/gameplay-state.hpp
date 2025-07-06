@@ -12,13 +12,13 @@ class GameplayStateMachine;
 
 class GameplayState final : public Core::IGameState {
  public:
-  explicit GameplayState(GameplayStateMachine* stateMachine);
+  explicit GameplayState(GameplayStateMachine& stateMachine);
 
   void Enter() override;
   void Update(float deltaTime) override;
   void Exit() override;
 
  private:
-  GameplayStateMachine* gameplayStateMachine;
+  GameplayStateMachine& gameplayStateMachine;
 };
 }  // namespace Game

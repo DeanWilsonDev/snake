@@ -2,6 +2,7 @@
 #include "core/istate-machine.hpp"
 #include "core/igame-state.h"
 #include "game/snake.hpp"
+#include "game/apple.hpp"
 
 namespace Renderer2D {
 class IRenderer;
@@ -24,7 +25,6 @@ class GameplayStateMachine final : public Core::IStateMachine {
  public:
   explicit GameplayStateMachine(Core::IGameState* currentState);
   ~GameplayStateMachine() override;
-  void ChangeState(Core::IGameState* newState) override;
   void Update(float deltaTime) override;
   void IncreaseScore();
   void Next() override;
@@ -55,10 +55,11 @@ class GameplayStateMachine final : public Core::IStateMachine {
 
   void ClearUI() { this->ui = nullptr; }
 
- protected:
-  Core::IGameState* DetermineNextState() override;
 
  private:
+  Core::IGameState* DetermineNextState() override;
+  void ChangeState(Core::IGameState* newState) override;
+
   Core::IGameState* currentState = nullptr;
   Core::IUserInterface* ui;
   Renderer2D::RenderManager* renderManager;

@@ -7,10 +7,9 @@ namespace Game {
 SnakeSegment::SnakeSegment(const SnakeSegmentParams& props)
     : index(props.index), transform(props.transform)
 {
-  this->colliderComponent = new Physics::Components::ColliderComponent2D({
-    transform = props.transform,
-    bounds = Core::Math::Geometry::Rectangle(props.transform)
-  });
+  this->colliderComponent = new Physics::Components::ColliderComponent2D(
+      {.bounds = Core::Math::Geometry::Rectangle(props.transform), .transform = props.transform}
+  );
 }
 SnakeSegment::~SnakeSegment()
 {

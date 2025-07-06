@@ -4,22 +4,25 @@
 #include "snake-segment.hpp"
 #include "platform/input/input.hpp"
 
-// Main Quest: [Snake] Snake class tidy up. Clean up the snake class so that it no longer imports raylib
+// Main Quest: [Snake] Snake class tidy up. Clean up the snake class so that it no longer imports
 
 namespace Game {
 
 Snake::~Snake() = default;
 
 Snake::Snake(const SnakeParams& snakeParams)
-    : renderComponent(snakeParams.renderComponent), colliderComponent(snakeParams.colliderComponent), settings(snakeParams.settings)
+    : renderComponent(snakeParams.renderComponent)
+    , colliderComponent(snakeParams.colliderComponent)
+    , settings(snakeParams.settings)
 {
+  Initialize();
 }
 
 Snake* Snake::Initialize()
 {
   LOG_TRACE("Initializing Snake");
 
-  this->size = this->settings.GetBoxSize();
+  this->size = static_cast<float>(this->settings.GetBoxSize());
 
   this->speed = this->size * 5.0f;
   this->length = this->settings.defaultSnakeLength;
@@ -27,14 +30,21 @@ Snake* Snake::Initialize()
   this->grow = false;
 
   const Core::Math::Transform2D headTransform = {{100.f, 100.0f}, 0, {this->size, this->size}};
-  this->head = new SnakeSegment(0, headTransform);
+
+  this->head = new SnakeSegment({
+      .index = 0,
+      .transform = headTransform,
+  });
 
   this->body.push_back(this->head);
 
   for (int i = 1; i < this->length; i++) {
     Core::Math::Transform2D nextSegmentTransform = headTransform;
     nextSegmentTransform.position.x = headTransform.position.x - (i * this->size);
-    this->body.push_back(new SnakeSegment(i, nextSegmentTransform));
+    this->body.push_back(new SnakeSegment({
+        .index = i,
+        .transform = nextSegmentTransform,
+    }));
   }
 
   LOG_TRACE("Finished Initializing Snake");
@@ -81,29 +91,6 @@ void Snake::Update(float deltaTime)
 
     this->Teleport();
   }
-
-  if (this->head) {
-    LOG_DEBUG("HEAD {}", this->head->index);
-  }
-
-  for (int i = 0; i < this->body.size(); i++) {
-    this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
-    this->debugEnabled&& std::cout << "Body[" << i << "]: " << this->body[i] << std::endl;
-
-    // Main Quest: [Snake] Snake class tidy up. move this to the state machine / renderer
-    if (this->head != nullptr && this->body[i] != this->head) {
-
-      // Side Quest: [Debug] Create a Debug module to allow for Debug drawing
-      if (this->debugEnabled) {
-        DrawRectangleRec(this->body[i]->GetBounds(), RED);
-      }
-
-      if (CheckCollisionRecs(this->head->GetBounds(), this->body[i]->GetBounds())) {
-        LOG_INFO("Head hit body part with index: {}", i);
-        this->session->setState(STATE_GAME_OVER);
-      }
-    }
-  }
 }
 
 void Snake::Move()
@@ -140,7 +127,9 @@ void Snake::CheckIfShouldGrow()
 {
   LOG_TRACE("[Snake] Checking if Snake should grow {}", this->grow);
   if (this->grow) {
-    this->body.push_back(new SnakeSegment(this->length, this->body.back()->transform));
+    const Core::Math::Transform2D newSegmentTransform = this->body.back()->transform;
+    this->body.push_back(new SnakeSegment({.index = this->length, .transform = newSegmentTransform})
+    );
     this->length++;
     this->grow = false;
 

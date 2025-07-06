@@ -1,4 +1,4 @@
-#include "gameplay-state-machine.h"
+#include "gameplay-state-machine.hpp"
 
 #include "game-over-state.hpp"
 #include "gameplay-state.hpp"
@@ -9,6 +9,7 @@
 
 namespace Game {
 
+// Main Quest: [GameplayStateMachine]
 GameplayStateMachine::GameplayStateMachine(Core::IGameState* currentState)
     : currentState(currentState), score(0)
 {
@@ -75,15 +76,15 @@ void GameplayStateMachine::SetApple(Apple& apple)
 Core::IGameState* GameplayStateMachine::DetermineNextState()
 {
   if (dynamic_cast<MainMenuState*>(this->currentState)) {
-    return new GameplayState(this);
+    return new GameplayState(*this);
   }
 
   if (dynamic_cast<GameplayState*>(this->currentState)) {
-    return new GameOverState(this);
+    return new GameOverState(*this);
   }
 
   if (dynamic_cast<GameOverState*>(this->currentState)) {
-    return new GameplayState(this);
+    return new GameplayState(*this);
   }
 
   return nullptr;

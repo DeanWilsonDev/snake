@@ -25,8 +25,8 @@ namespace Components {
  * boundaries.
  */
 struct ColliderComponentParams {
-  Core::Math::Transform2D& transform;
-  Core::Math::Geometry::Rectangle& bounds;
+  Core::Math::Transform2D transform;
+  Core::Math::Geometry::Rectangle bounds;
 };
 
 /**
@@ -48,10 +48,11 @@ class ColliderComponent2D {
  public:
   explicit ColliderComponent2D(const ColliderComponentParams& params);
   [[nodiscard]] bool Intersects(const ColliderComponent2D& other) const;
-  Core::Math::Geometry::Rectangle bounds;
+  [[nodiscard]] Core::Math::Geometry::Rectangle GetBounds() const { return this->bounds;}
 
 private:
-  Core::Math::Transform2D& transform;
+  Core::Math::Transform2D transform;
+  Core::Math::Geometry::Rectangle bounds;
 };
 }  // namespace Components
 }  // namespace Physics

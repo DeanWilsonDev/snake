@@ -3,7 +3,6 @@
 #include "core/entity.h"
 #include <deque>
 
-
 namespace Physics::Components {
 class ColliderComponent2D;
 }
@@ -35,24 +34,17 @@ class Snake final : public Core::Entity {
   void Move();
   void CheckIfShouldGrow();
   void Teleport() const;
-  Core::Math::Vector2D GetCenter() const;
+  [[nodiscard]] Core::Math::Vector2D GetCenter() const;
   void SetGrow(bool value) { this->grow = value; }
 
   // Getters
-  Physics::Components::ColliderComponent2D& GetColliderComponent() const
+  [[nodiscard]] Physics::Components::ColliderComponent2D& GetColliderComponent() const
   {
     return this->colliderComponent;
   }
 
-  // Daily Quest: [Snake] fix up the access on public variables. Add getters and setters where necessary
-  float size;
-  float speed;
-  int length;
-  Core::Math::Vector2D direction;
   SnakeSegment* head;
   std::deque<SnakeSegment*> body;
-  bool grow = false;
-  bool debugEnabled = false;
 
  private:
   Renderer2D::Component::IRenderComponent2D& renderComponent;
@@ -60,5 +52,11 @@ class Snake final : public Core::Entity {
   GameSettings& settings;
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;
+  float size = {0};
+  float speed = {10};
+  int length = {3};
+  Core::Math::Vector2D direction;
+  bool grow = false;
+  bool debugEnabled = false;
 };
 }  // namespace Game

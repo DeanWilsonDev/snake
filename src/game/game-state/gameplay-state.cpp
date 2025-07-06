@@ -1,12 +1,13 @@
 
 #include "gameplay-state.hpp"
+
 #include "game/settings/game-settings.h"
-#include "gameplay-state-machine.h"
+#include "gameplay-state-machine.hpp"
 #include "game/snake.hpp"
 #include "game/apple.hpp"
 #include "physics/components/collider-component-2d.hpp"
-
-#include <assert.h>
+#include "game/snake-segment.hpp"
+#include <cassert>
 
 namespace Renderer2D {
 class IRenderer;
@@ -14,7 +15,7 @@ class IRenderer;
 
 namespace Game {
 
-GameplayState::GameplayState(GameplayStateMachine* stateMachine)
+GameplayState::GameplayState(GameplayStateMachine& stateMachine)
     : gameplayStateMachine(stateMachine)
 {
 }
@@ -22,44 +23,46 @@ GameplayState::GameplayState(GameplayStateMachine* stateMachine)
 void GameplayState::Enter()
 {
   LOG_TRACE("[GameplayState] Beginning New Game");
-  this->gameplayStateMachine->InitializeSnake();
-  this->gameplayStateMachine->InitializeApple();
+  this->gameplayStateMachine.InitializeSnake();
+  this->gameplayStateMachine.InitializeApple();
 }
 
 void GameplayState::Update(float deltaTime)
 {
-  Snake* snake = this->gameplayStateMachine->GetSnake();
-  Apple* apple = this->gameplayStateMachine->GetApple();
+  Snake* snake = this->gameplayStateMachine.GetSnake();
+  Apple* apple = this->gameplayStateMachine.GetApple();
+  LOG_TRACE("[GameplayState] Asserting Snake is Initialized");
   assert(snake);
+  LOG_TRACE("[GameplayState] Snake Initialization Verified");
+  LOG_TRACE("[GameplayState] Asserting Apple is Initialized");
   assert(apple);
+  LOG_TRACE("[GameplayState] Apple Initialization Verified");
 
-  // Main Quest: [GameplayState] Move collider to SnakeSegment so the head can collide with the apple and other segments
   if (snake->GetColliderComponent().Intersects(apple->GetColliderComponent())) {
     apple->transform.position = apple->GetNewPosition();
-    this->gameplayStateMachine->IncreaseScore();
+    this->gameplayStateMachine.IncreaseScore();
     snake->SetGrow(true);
   }
 
-
   for (int i = 0; i < snake->body.size(); i++) {
-    this->debugEnabled&& std::cout << "Body[" << i << "]: " << snake->body[i] << std::endl;
-    this->debugEnabled&& std::cout << "Body[" << i << "]: " << snake->body[i] << std::endl;
+
+    LOG_DEBUG("Body[{}]", snake->body[i]);
 
     if (snake->head != nullptr && snake->body[i] != snake->head) {
 
       // Side Quest: [Debug] Create a Debug module to allow for Debug drawing
-      if (this->debugEnabled) {
-        DrawRectangleRec(snake->body[i]->GetBounds(), RED);
-      }
+      // if (this->debugEnabled) {
+      //   DrawRectangleRec(snake->body[i]->GetBounds(), RED);
+      // }
 
-      if (CheckCollisionRecs(snake->head->GetBounds(), snake->body[i]->GetBounds())) {
+      if (snake->head->GetColliderComponent()->Intersects(*snake->body[i]->GetColliderComponent()
+          )) {
         LOG_INFO("Head hit body part with index: {}", i);
-        this->session->setState(STATE_GAME_OVER);
+        this->gameplayStateMachine->Next();
       }
     }
   }
 }
-
 
 // Main Quest: [GameplayState] Clean draw function.
 

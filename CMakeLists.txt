@@ -37,7 +37,7 @@ add_executable(
         src/raylib-facade/user-interface/raylib-user-interface-facade.cpp
         src/game/snake-segment.cpp
         src/game/snake.cpp
-        src/game/game-state/gameplay-state-machine.h
+        src/game/game-state/gameplay-state-machine.hpp
         src/game/game-state/gameplay-state-machine.cpp
         src/game/game-state/gameplay-state.cpp
         src/renderer-2d/components/render-component-2d.h

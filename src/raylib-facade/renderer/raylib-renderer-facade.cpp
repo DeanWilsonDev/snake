@@ -57,12 +57,12 @@ void RaylibRendererFacade::Render()
   }
 }
 
-Color RaylibRendererFacade::ConvertToRaylibColor(const Core::Color color)
+Color RaylibRendererFacade::ConvertToRaylibColor(const UserInterface::Color color)
 {
   return Color(color.red, color.green, color.blue, color.alpha);
 }
 
-void RaylibRendererFacade::DrawRectangle(float x, float y, float width, float height, Core::Color color)
+void RaylibRendererFacade::DrawRectangle(float x, float y, float width, float height, UserInterface::Color color)
 {
   DrawRectangleRec({x, y, width, height}, ConvertToRaylibColor(color));
 }

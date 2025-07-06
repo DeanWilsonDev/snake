@@ -4,7 +4,7 @@
 #include "entity.h"
 
 namespace Core {
-Entity::Entity(){}
+Entity::Entity() {}
 Entity::~Entity() = default;
 void Entity::Update(float deltaTime) {}
 }  // namespace Core

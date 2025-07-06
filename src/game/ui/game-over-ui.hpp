@@ -3,14 +3,15 @@
 //
 
 #pragma once
-#include "igame-ui.hpp"
-#include "core/iuser-interface.hpp"
+#include "user-interface/iuser-interface.hpp"
 
 namespace Game {
-class GameOverUI final : public Core::IUserInterface{
+class GameOverUI final : public UserInterface::IUserInterface{
  public:
-  GameOverUI();
+  GameOverUI(int score);
   ~GameOverUI() override = default;
   void Render() override;
+private:
+  int score = {0};
 };
 }  // namespace Game

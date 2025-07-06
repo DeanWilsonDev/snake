@@ -9,7 +9,7 @@ namespace Renderer2D::Component {
 
 RenderComponent2D::RenderComponent2D(
     const float width, const float height, const float positionX, const float positionY,
-    const Core::Color color
+    const UserInterface::Color color
 )
     : width(width), height(height), positionX(positionX), positionY(positionY), color(color)
 {

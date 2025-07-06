@@ -7,28 +7,28 @@
 namespace Game {
 
 struct AppleParams {
-  GameSettings settings;
-  Physics::Components::ColliderComponent2D colliderComponent;
+  GameSettings& settings;
+  Physics::Components::ColliderComponent2D& colliderComponent;
 };
 
-class Apple final : public Core::Entity {
+class Apple final : public UserInterface::Entity {
  public:
   explicit Apple(const AppleParams& params);
   void Update(float deltaTime) override;
   void Initialize();
-  Core::Math::Vector2D GetNewPosition() const;
-  Core::Math::Vector2D GetCenter() const;
+  [[nodiscard]] UserInterface::Math::Vector2D GetNewPosition() const;
+  [[nodiscard]] UserInterface::Math::Vector2D GetCenter() const;
 
-  Physics::Components::ColliderComponent2D GetColliderComponent() const
+  [[nodiscard]] Physics::Components::ColliderComponent2D GetColliderComponent() const
   {
     return this->colliderComponent;
   }
 
-  float GetSize() const { return this->size; }
+  [[nodiscard]] float GetSize() const { return this->size; }
 
  private:
-  GameSettings settings;
-  Physics::Components::ColliderComponent2D colliderComponent;
-  float size;
+  GameSettings& settings;
+  Physics::Components::ColliderComponent2D& colliderComponent;
+  float size = {10};
 };
 }  // namespace Game

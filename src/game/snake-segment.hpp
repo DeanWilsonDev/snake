@@ -10,7 +10,7 @@ namespace Game {
 
 struct SnakeSegmentParams {
   int index;
-  Core::Math::Transform2D transform;
+  UserInterface::Math::Transform2D transform;
   Physics::Components::ColliderComponent2D* colliderComponent;
 };
 
@@ -18,15 +18,15 @@ class SnakeSegment final {
  public:
   // Properties
   int index = {0};
-  Core::Math::Transform2D transform = {Core::Math::Transform2D::Empty()};
+  UserInterface::Math::Transform2D transform = {UserInterface::Math::Transform2D::Empty()};
 
   // Constructor
   explicit SnakeSegment(const SnakeSegmentParams& props);
   ~SnakeSegment();
 
   // Methods
-  SnakeSegment* Initialize(int index, const Core::Math::Transform2D& transform);
-  void Move(Core::Math::Vector2D newPosition);
+  SnakeSegment* Initialize(int index, const UserInterface::Math::Transform2D& transform);
+  void Move(UserInterface::Math::Vector2D newPosition);
 
   [[nodiscard]] Physics::Components::ColliderComponent2D* GetColliderComponent() const
   {

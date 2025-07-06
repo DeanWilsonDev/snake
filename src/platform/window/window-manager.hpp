@@ -3,23 +3,17 @@
 //
 
 #pragma once
-#include <memory>
+#include "core/implementation-manager.hpp"
 
 namespace Platform::Window {
 class IWindow;
 }
 namespace Platform::Window {
 
-class WindowManager {
+class WindowManager final: public Core::ImplementationManager<IWindow>{
 public:
   WindowManager();
-  static void SetBackend(std::unique_ptr<IWindow> windowImpl);
   static int GetScreenHeight();
   static int GetScreenWidth();
-
-private:
-  static bool IsInitialized();
-  static std::unique_ptr<IWindow> backend;
 };
-
 }

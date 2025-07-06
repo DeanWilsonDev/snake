@@ -10,10 +10,12 @@ namespace Core::Math::Geometry {
 struct Rectangle {
   float x, y, width, height;
 
-
   Rectangle(float x, float y, float width, float height);
   explicit Rectangle(const Transform2D& transform)
-      : x(transform.position.x), y(transform.position.y), width(transform.scale.x), height(transform.scale.y) {};
+      : x(transform.position.x)
+      , y(transform.position.y)
+      , width(transform.scale.x)
+      , height(transform.scale.y) {};
 
   [[nodiscard]] bool Intersects(const Rectangle& other) const
   {

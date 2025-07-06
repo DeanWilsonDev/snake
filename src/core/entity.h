@@ -6,7 +6,6 @@
 #define ENTITY_H
 #include "math/transform-2d.hpp"
 
-
 namespace Renderer2D {
 class IRenderable;
 namespace Component {

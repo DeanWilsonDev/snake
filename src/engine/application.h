@@ -1,22 +1,33 @@
 #pragma once
 #include "config/engine-config.h"
 
+namespace Core {
 class IStateMachine;
-struct GameSettings;
-class IRenderer;
-class IUserInterface;
-class IWindow;
 class IGameState;
+}
+
+namespace Renderer2D {
+class IRenderer;
+}
+
+namespace UserInterface {
+class IUserInterface;
+}
+
+namespace Platform::Window {
+class IWindow;
+}
+
 
 namespace Engine {
 
 struct ApplicationParams {
-  IWindow& window;
-  IRenderer* renderer = nullptr;
-  IUserInterface* ui = nullptr;
+  Platform::Window::IWindow& window;
+  Renderer2D::IRenderer* renderer = nullptr;
+  UserInterface::IUserInterface* ui = nullptr;
   Config::EngineConfig engineConfig;
 
-  IStateMachine* stateMachine = nullptr;
+  Core::IStateMachine* stateMachine = nullptr;
 };
 
 class Application {
@@ -27,10 +38,10 @@ class Application {
   void Run();
 
  private:
-  IWindow& window;
-  IRenderer* renderer;
-  IUserInterface* ui;
+  Platform::Window::IWindow& window;
+  Renderer2D::IRenderer* renderer;
+  UserInterface::IUserInterface* ui;
   Config::EngineConfig engineConfig;
-  IStateMachine* stateMachine;
+  Core::IStateMachine* stateMachine;
 };
 }  // namespace Engine

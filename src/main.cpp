@@ -6,6 +6,10 @@
 #include "platform/input/input-manager.hpp"
 #include "platform/window/window-manager.hpp"
 #include "raylib-facade/input/raylib-input-facade.hpp"
+#include "raylib-facade/renderer/raylib-renderer-facade.hpp"
+#include "raylib-facade/user-interface/raylib-user-interface-facade.hpp"
+#include "user-interface/user-interface-manager.hpp"
+
 
 class IWindow;
 
@@ -20,10 +24,11 @@ int main(int argc, char* argv[])
 
   // Main Quest: [Main] Move dependencies to the application class
   // Side Quest: [DependencyInjector] Create a Dependency Injector Class to handle Dependecies
-  auto raylibInput = std::make_unique<RaylibFacade::Input::RaylibInputFacade>();
-  Platform::Input::InputManager::SetBackend(std::move(raylibInput));
-  auto raylibWindow = std::make_unique<RaylibFacade::Window::RaylibWindowFacade>();
-  Platform::Window::WindowManager::SetBackend(std::move(raylibWindow));
+
+  Platform::Input::InputManager::SetBackend(std::make_unique<RaylibFacade::Input::RaylibInputFacade>());
+  Platform::Window::WindowManager::SetBackend(std::make_unique<RaylibFacade::Window::RaylibWindowFacade>());
+  UserInterface::UserInterfaceManager::SetBackend(std::make_unique<RaylibFacade::UserInterface::RaylibUserInterfaceFacade>());
+
 
   /*
    * Main Quest: [Main] Finish hooking up the application in the main file

@@ -11,8 +11,11 @@ class RenderManager;
 
 namespace Core {
 class IGameState;
-class IUserInterface;
 }  // namespace Core
+
+namespace UserInterface {
+class IUserInterface;
+}  // namespace UserInterface
 
 namespace Game {
 
@@ -30,13 +33,13 @@ class GameplayStateMachine final : public Core::IStateMachine {
   void Next() override;
 
   // Initializers
-  [[nodiscard]] void InitializeSnake() const { this->snake->Initialize(); }
-  [[nodiscard]] void InitializeApple() const { this->apple->Initialize(); }
+  void InitializeSnake() const;
+  void InitializeApple() const;
 
   // Getters
   Core::IGameState* GetCurrentState() override { return this->currentState; };
 
-  [[nodiscard]] Core::IUserInterface* GetUI() const { return this->ui; };
+  [[nodiscard]] UserInterface::IUserInterface* GetUI() const { return this->ui; };
   [[nodiscard]] int GetScore() const { return this->score; };
   [[nodiscard]] Snake* GetSnake() const { return this->snake; }
   [[nodiscard]] Apple* GetApple() const { return this->apple; }
@@ -46,7 +49,7 @@ class GameplayStateMachine final : public Core::IStateMachine {
   // Setters
   void SetSnake(Snake& snake);
   void SetApple(Apple& apple);
-  void SetUI(Core::IUserInterface& ui) { this->ui = &ui; }
+  void SetUI(UserInterface::IUserInterface& ui) { this->ui = &ui; }
   void SetRenderer(Renderer2D::IRenderer& renderer) { this->renderer = &renderer; }
   void SetRenderManager(Renderer2D::RenderManager& renderManager)
   {
@@ -55,13 +58,12 @@ class GameplayStateMachine final : public Core::IStateMachine {
 
   void ClearUI() { this->ui = nullptr; }
 
-
  private:
   Core::IGameState* DetermineNextState() override;
   void ChangeState(Core::IGameState* newState) override;
 
   Core::IGameState* currentState = nullptr;
-  Core::IUserInterface* ui;
+  UserInterface::IUserInterface* ui;
   Renderer2D::RenderManager* renderManager;
   Renderer2D::IRenderer* renderer;
   Snake* snake;

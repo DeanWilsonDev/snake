@@ -2,9 +2,6 @@
 
 #include "core/igame-state.h"
 
-class IUserInterface;
-class IStateMachine;
-
 namespace Game {
 class GameplayStateMachine;
 

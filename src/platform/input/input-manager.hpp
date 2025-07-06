@@ -3,19 +3,14 @@
 //
 #pragma once
 #include "iinput.hpp"
-#include <memory>
+#include "core/implementation-manager.hpp"
 
 namespace Platform::Input {
 
-class InputManager{
+class InputManager final : public Core::ImplementationManager<IInput>{
   public:
-  static void SetBackend(std::unique_ptr<IInput> inputImpl);
   static bool IsKeyPressed(KeyCode keyCode);
   static bool IsKeyDown(KeyCode keyCode);
-
-private:
-  static bool IsInitialized();
-  static std::unique_ptr<IInput> backend;
 };
 } // Input
 // Platform

@@ -1,7 +1,7 @@
 #pragma once
 #include "renderer-2d/irenderer.h"
 
-namespace Core {
+namespace UserInterface {
 class Color;
 }
 
@@ -17,7 +17,7 @@ class RaylibRendererFacade : public Renderer2D::IRenderer {
   ~RaylibRendererFacade() override;
 
   void Render() override;
-  void DrawRectangle(float x, float y, float width, float height, Core::Color) override;
-  static Color RaylibRendererFacade::ConvertToRaylibColor(Core::Color color);
+  void DrawRectangle(float x, float y, float width, float height, UserInterface::Color) override;
+  static Color RaylibRendererFacade::ConvertToRaylibColor(UserInterface::Color color);
 };
 }  // namespace RaylibAdapter::Renderer

@@ -10,7 +10,7 @@ namespace Game {
 class GameplayStateMachine;
 class MainMenuUI;
 
-class MainMenuState final : public Core::IGameState {
+class MainMenuState final : public UserInterface::IGameState {
  public:
   explicit MainMenuState(GameplayStateMachine& gameplayStateMachine);
   void Enter() override;

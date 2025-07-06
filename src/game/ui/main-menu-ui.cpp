@@ -15,6 +15,7 @@ MainMenuUI::MainMenuUI() {}
 
 void MainMenuUI::Render()
 {
+  // Main Quest: [] Create Draw Text Centered function or reuse the one from raylib
   DrawTextCentered("Snake", (Vector2){Platform::Window::WindowManager::GetScreenWidth() / 2.0f, 40.0f}, 80);
   DrawTextCentered(
       "Press 'Enter' to start", (Vector2){Platform::Window::WindowManager::GetScreenWidth() / 2.0f, 200.0f}, 20

@@ -74,6 +74,11 @@ add_executable(
         src/core/math/geometry/Rectangle.h
         src/physics/components/collider-component-2d.cpp
         src/physics/components/collider-component-2d.hpp
+        src/core/core.hpp
+        src/user-interface/UserInterfaceManager.cpp
+        src/user-interface/user-interface-manager.cpp
+        src/user-interface/user-interface-manager.hpp
+        src/core/implementation-manager.hpp
 )
 
 # Include and Link Raylib in the game

@@ -4,8 +4,6 @@
 #include "snake-segment.hpp"
 #include "platform/input/input.hpp"
 
-// Main Quest: [Snake] Snake class tidy up. Clean up the snake class so that it no longer imports
-
 namespace Game {
 
 Snake::~Snake() = default;
@@ -29,7 +27,7 @@ Snake* Snake::Initialize()
   this->direction = {1.0f, 0.0f};
   this->grow = false;
 
-  const Core::Math::Transform2D headTransform = {{100.f, 100.0f}, 0, {this->size, this->size}};
+  const UserInterface::Math::Transform2D headTransform = {{100.f, 100.0f}, 0, {this->size, this->size}};
 
   this->head = new SnakeSegment({
       .index = 0,
@@ -39,7 +37,7 @@ Snake* Snake::Initialize()
   this->body.push_back(this->head);
 
   for (int i = 1; i < this->length; i++) {
-    Core::Math::Transform2D nextSegmentTransform = headTransform;
+    UserInterface::Math::Transform2D nextSegmentTransform = headTransform;
     nextSegmentTransform.position.x = headTransform.position.x - (i * this->size);
     this->body.push_back(new SnakeSegment({
         .index = i,
@@ -54,7 +52,7 @@ Snake* Snake::Initialize()
 void Snake::Update(float deltaTime)
 {
   LOG_TRACE("Snake Update Begin");
-  Core::Math::Vector2D newDirection = this->direction;
+  UserInterface::Math::Vector2D newDirection = this->direction;
 
   if (this->direction.y != 0 && !directionChanged) {
     if (Platform::Input::Input::IsKeyPressed(Platform::Input::KEY_A)) {
@@ -95,8 +93,8 @@ void Snake::Update(float deltaTime)
 
 void Snake::Move()
 {
-  Core::Math::Vector2D previousPosition = this->head->transform.position;
-  Core::Math::Vector2D nextPosition = previousPosition;
+  UserInterface::Math::Vector2D previousPosition = this->head->transform.position;
+  UserInterface::Math::Vector2D nextPosition = previousPosition;
 
   for (int i = 1; i < this->length; i++) {
     if (this->body[i] && this->body[i - 1]) {
@@ -106,7 +104,7 @@ void Snake::Move()
     }
   }
 
-  Core::Math::Vector2D newPosition = {
+  UserInterface::Math::Vector2D newPosition = {
       this->head->transform.position.x + this->direction.x * this->size,
       this->head->transform.position.y + this->direction.y * this->size,
   };
@@ -127,7 +125,7 @@ void Snake::CheckIfShouldGrow()
 {
   LOG_TRACE("[Snake] Checking if Snake should grow {}", this->grow);
   if (this->grow) {
-    const Core::Math::Transform2D newSegmentTransform = this->body.back()->transform;
+    const UserInterface::Math::Transform2D newSegmentTransform = this->body.back()->transform;
     this->body.push_back(new SnakeSegment({.index = this->length, .transform = newSegmentTransform})
     );
     this->length++;
@@ -139,25 +137,28 @@ void Snake::CheckIfShouldGrow()
 
 void Snake::Teleport() const
 {
-  for (int i = 0; i < this->body.size(); i++) {
-    if (this->body[i]->transform.position.x > this->settings.GetScreenWidth()) {
-      this->body[i]->transform.position.x = 0;
+  const auto screenWidth = static_cast<float>(Game::GameSettings::GetScreenWidth());
+  const auto screenHeight = static_cast<float>(Game::GameSettings::GetScreenHeight());
+
+  for (const auto segment : this->body) {
+    if (segment->transform.position.x > screenWidth) {
+      segment->transform.position.x = 0;
     }
-    else if (this->body[i]->transform.position.x < 0) {
-      this->body[i]->transform.position.x = this->settings.GetScreenWidth();
+    else if (segment->transform.position.x < 0) {
+      segment->transform.position.x = screenWidth;
     }
-    else if (this->body[i]->transform.position.y > this->settings.GetScreenHeight()) {
-      this->body[i]->transform.position.y = 0;
+    else if (segment->transform.position.y > screenHeight) {
+      segment->transform.position.y = 0;
     }
-    else if (this->body[i]->transform.position.y < 0) {
-      this->body[i]->transform.position.y = this->settings.GetScreenHeight();
+    else if (segment->transform.position.y < 0) {
+      segment->transform.position.y = screenHeight;
     }
   }
 }
 
-Core::Math::Vector2D Snake::GetCenter() const
+UserInterface::Math::Vector2D Snake::GetCenter() const
 {
-  const int boxSize = this->settings.GetBoxSize();
+  const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
   return {
       this->head->transform.position.x + boxSize / 2.0f,
       this->head->transform.position.y + boxSize / 2.0f,
@@ -185,7 +186,7 @@ void Snake::Destroy()
   this->body.clear();
 
   if (head) {
-    this->debugEnabled&& std::cout << "Deleting head at address: " << this->head << std::endl;
+    LOG_DEBUG("Deleting head at address: {}", this->head);
     delete this->head;
     LOG_DEBUG("Setting head to nullptr");
     this->head = nullptr;

@@ -12,6 +12,6 @@ class IRenderer {
   void virtual Draw() = 0;
   void virtual GetGameplayState() = 0;
 
-  void virtual DrawRectangle(float x, float y, float width, float height, Core::Color) = 0;
+  void virtual DrawRectangle(float x, float y, float width, float height, UserInterface::Color) = 0;
 };
 }  // namespace Render2D

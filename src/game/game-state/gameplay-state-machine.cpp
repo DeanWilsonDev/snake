@@ -5,7 +5,7 @@
 #include "renderer-2d/render-manager.hpp"
 #include "log.h"
 #include "main-menu-state.hpp"
-#include "core/iuser-interface.hpp"
+#include "../../user-interface/iuser-interface.hpp"
 
 namespace Game {
 
@@ -59,6 +59,14 @@ void GameplayStateMachine::Next()
     this->ChangeState(nextState);
   }
 }
+void GameplayStateMachine::InitializeSnake() const
+{
+  this->snake->Initialize();
+}
+void GameplayStateMachine::InitializeApple() const
+{
+  this->apple->Initialize();
+}
 
 void GameplayStateMachine::SetSnake(Snake& snake)
 {
@@ -73,6 +81,7 @@ void GameplayStateMachine::SetApple(Apple& apple)
   this->apple = &apple;
   LOG_TRACE("Apple Added to Game State");
 }
+
 Core::IGameState* GameplayStateMachine::DetermineNextState()
 {
   if (dynamic_cast<MainMenuState*>(this->currentState)) {

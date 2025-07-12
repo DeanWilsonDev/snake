@@ -11,13 +11,13 @@ struct AppleParams {
   Physics::Components::ColliderComponent2D& colliderComponent;
 };
 
-class Apple final : public UserInterface::Entity {
+class Apple final : public Core::Entity {
  public:
   explicit Apple(const AppleParams& params);
   void Update(float deltaTime) override;
   void Initialize();
-  [[nodiscard]] UserInterface::Math::Vector2D GetNewPosition() const;
-  [[nodiscard]] UserInterface::Math::Vector2D GetCenter() const;
+  [[nodiscard]] Core::Math::Vector2D GetNewPosition() const;
+  [[nodiscard]] Core::Math::Vector2D GetCenter() const;
 
   [[nodiscard]] Physics::Components::ColliderComponent2D GetColliderComponent() const
   {

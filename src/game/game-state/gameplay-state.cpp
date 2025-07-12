@@ -58,7 +58,7 @@ void GameplayState::Update(float deltaTime)
       if (snake->head->GetColliderComponent()->Intersects(*snake->body[i]->GetColliderComponent()
           )) {
         LOG_INFO("Head hit body part with index: {}", i);
-        this->gameplayStateMachine->Next();
+        this->gameplayStateMachine.Next();
       }
     }
   }

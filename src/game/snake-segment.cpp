@@ -8,7 +8,7 @@ SnakeSegment::SnakeSegment(const SnakeSegmentParams& props)
     : index(props.index), transform(props.transform)
 {
   this->colliderComponent = new Physics::Components::ColliderComponent2D(
-      {.bounds = UserInterface::Math::Geometry::Rectangle(props.transform), .transform = props.transform}
+      {.bounds = Core::Math::Geometry::Rectangle(props.transform), .transform = props.transform}
   );
 }
 SnakeSegment::~SnakeSegment()
@@ -16,7 +16,7 @@ SnakeSegment::~SnakeSegment()
   delete colliderComponent;
 }
 
-SnakeSegment* SnakeSegment::Initialize(const int index, const UserInterface::Math::Transform2D& transform)
+SnakeSegment* SnakeSegment::Initialize(const int index, const Core::Math::Transform2D& transform)
 {
   LOG_TRACE("[SnakeSegment] Initializing New Snake Segment");
 
@@ -35,7 +35,7 @@ SnakeSegment* SnakeSegment::Initialize(const int index, const UserInterface::Mat
   return this;
 };
 
-void SnakeSegment::Move(UserInterface::Math::Vector2D newPosition)
+void SnakeSegment::Move(Core::Math::Vector2D newPosition)
 {
   LOG_TRACE("[SnakeSegment] Initializing New Snake Segment");
   this->transform.position.x = newPosition.x;

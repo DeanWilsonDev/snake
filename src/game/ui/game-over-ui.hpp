@@ -8,10 +8,11 @@
 namespace Game {
 class GameOverUI final : public UserInterface::IUserInterface{
  public:
-  GameOverUI(int score);
+  explicit GameOverUI(int score);
   ~GameOverUI() override = default;
   void Render() override;
 private:
   int score = {0};
+  char scoreBuffer[100] = {0};
 };
 }  // namespace Game

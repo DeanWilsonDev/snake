@@ -4,21 +4,23 @@
 
 #include "main-menu-ui.hpp"
 
-#include "raylib.h"
+#include "core/math/vector-2d.hpp"
 #include "platform/window/window-manager.hpp"
-
-// Main Quest: [MainMenuUI] update Main Menu UI class
+#include "user-interface/user-interface-manager.hpp"
 
 namespace Game {
 
-MainMenuUI::MainMenuUI() {}
+MainMenuUI::MainMenuUI() = default;
 
 void MainMenuUI::Render()
 {
-  // Main Quest: [] Create Draw Text Centered function or reuse the one from raylib
-  DrawTextCentered("Snake", (Vector2){Platform::Window::WindowManager::GetScreenWidth() / 2.0f, 40.0f}, 80);
-  DrawTextCentered(
-      "Press 'Enter' to start", (Vector2){Platform::Window::WindowManager::GetScreenWidth() / 2.0f, 200.0f}, 20
+  const auto screenWidth = static_cast<float>(Platform::Window::WindowManager::GetScreenWidth());
+
+  UserInterface::UserInterfaceManager::DrawTextCentered(
+      "Snake", (Core::Math::Vector2D){screenWidth / 2.0f, 40.0f}, 80
+  );
+  UserInterface::UserInterfaceManager::DrawTextCentered(
+      "Press 'Enter' to start", (Core::Math::Vector2D){screenWidth / 2.0f, 200.0f}, 20
   );
 }
 

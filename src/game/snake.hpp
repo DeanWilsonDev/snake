@@ -23,7 +23,7 @@ struct SnakeParams {
   GameSettings& settings;
 };
 
-class Snake final : public UserInterface::Entity {
+class Snake final : public Core::Entity {
  public:
   ~Snake() override;
   explicit Snake(const SnakeParams& snakeParams);
@@ -34,7 +34,7 @@ class Snake final : public UserInterface::Entity {
   void Move();
   void CheckIfShouldGrow();
   void Teleport() const;
-  [[nodiscard]] UserInterface::Math::Vector2D GetCenter() const;
+  [[nodiscard]] Core::Math::Vector2D GetCenter() const;
   void SetGrow(bool value) { this->grow = value; }
 
   // Getters
@@ -55,7 +55,7 @@ class Snake final : public UserInterface::Entity {
   float size = {0};
   float speed = {10};
   int length = {3};
-  UserInterface::Math::Vector2D direction{};
+  Core::Math::Vector2D direction{};
   bool grow = false;
   bool debugEnabled = false;
 };

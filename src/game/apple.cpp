@@ -21,7 +21,7 @@ void Apple::Initialize()
   LOG_TRACE("[Apple] Finished Initializing");
 };
 
-UserInterface::Math::Vector2D Apple::GetNewPosition() const
+Core::Math::Vector2D Apple::GetNewPosition() const
 {
   const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
   const auto screenWidth = static_cast<float>(GameSettings::GetScreenWidth());
@@ -31,14 +31,15 @@ UserInterface::Math::Vector2D Apple::GetNewPosition() const
   const auto maxHeight = static_cast<int>(screenHeight / boxSize - 1.f);
 
   const auto posX =
-      static_cast<float>(UserInterface::GetRandomValue(0, maxWidth)) * boxSize + (boxSize - boxSize / 2.0f) / 2.0f;
+      static_cast<float>(Core::GetRandomValue(0, maxWidth)) * boxSize + (boxSize - boxSize / 2.0f) / 2.0f;
 
-  const auto posY = static_cast<float>(UserInterface::GetRandomValue(0, maxHeight)) * boxSize +
+  const auto posY = static_cast<float>(Core::GetRandomValue(0, maxHeight)) * boxSize +
                     (boxSize - boxSize / 2.0f) / 2.0f;
 
   return {.x = posX, .y = posY};
 }
-UserInterface::Math::Vector2D Apple::GetCenter() const
+
+Core::Math::Vector2D Apple::GetCenter() const
 {
   const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
   return {

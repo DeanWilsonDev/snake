@@ -79,6 +79,7 @@ add_executable(
         src/user-interface/user-interface-manager.cpp
         src/user-interface/user-interface-manager.hpp
         src/core/implementation-manager.hpp
+        src/user-interface/user-interface.hpp
 )
 
 # Include and Link Raylib in the game

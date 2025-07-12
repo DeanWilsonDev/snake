@@ -13,6 +13,8 @@ class MainMenuUI final : public UserInterface::IUserInterface {
  public:
   explicit MainMenuUI();
   void Render() override;
+private:
+  char scoreBuffer[100] = {0};
 };
 
 }  // namespace Game

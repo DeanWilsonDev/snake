@@ -11,7 +11,7 @@ class InputManager;
 }
 namespace Platform::Input {
 
-class Input :  public IInput {
+class Input {
  public:
   static bool IsKeyDown(const KeyCode keyCode) { return InputManager::IsKeyDown(keyCode); }
   static bool IsKeyPressed(const KeyCode keyCode)

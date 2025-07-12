@@ -27,7 +27,7 @@ Snake* Snake::Initialize()
   this->direction = {1.0f, 0.0f};
   this->grow = false;
 
-  const UserInterface::Math::Transform2D headTransform = {{100.f, 100.0f}, 0, {this->size, this->size}};
+  const Core::Math::Transform2D headTransform = {{100.f, 100.0f}, 0, {this->size, this->size}};
 
   this->head = new SnakeSegment({
       .index = 0,
@@ -37,7 +37,7 @@ Snake* Snake::Initialize()
   this->body.push_back(this->head);
 
   for (int i = 1; i < this->length; i++) {
-    UserInterface::Math::Transform2D nextSegmentTransform = headTransform;
+    Core::Math::Transform2D nextSegmentTransform = headTransform;
     nextSegmentTransform.position.x = headTransform.position.x - (i * this->size);
     this->body.push_back(new SnakeSegment({
         .index = i,
@@ -52,7 +52,7 @@ Snake* Snake::Initialize()
 void Snake::Update(float deltaTime)
 {
   LOG_TRACE("Snake Update Begin");
-  UserInterface::Math::Vector2D newDirection = this->direction;
+  Core::Math::Vector2D newDirection = this->direction;
 
   if (this->direction.y != 0 && !directionChanged) {
     if (Platform::Input::Input::IsKeyPressed(Platform::Input::KEY_A)) {
@@ -93,8 +93,8 @@ void Snake::Update(float deltaTime)
 
 void Snake::Move()
 {
-  UserInterface::Math::Vector2D previousPosition = this->head->transform.position;
-  UserInterface::Math::Vector2D nextPosition = previousPosition;
+  Core::Math::Vector2D previousPosition = this->head->transform.position;
+  Core::Math::Vector2D nextPosition = previousPosition;
 
   for (int i = 1; i < this->length; i++) {
     if (this->body[i] && this->body[i - 1]) {
@@ -104,7 +104,7 @@ void Snake::Move()
     }
   }
 
-  UserInterface::Math::Vector2D newPosition = {
+  Core::Math::Vector2D newPosition = {
       this->head->transform.position.x + this->direction.x * this->size,
       this->head->transform.position.y + this->direction.y * this->size,
   };
@@ -125,7 +125,7 @@ void Snake::CheckIfShouldGrow()
 {
   LOG_TRACE("[Snake] Checking if Snake should grow {}", this->grow);
   if (this->grow) {
-    const UserInterface::Math::Transform2D newSegmentTransform = this->body.back()->transform;
+    const Core::Math::Transform2D newSegmentTransform = this->body.back()->transform;
     this->body.push_back(new SnakeSegment({.index = this->length, .transform = newSegmentTransform})
     );
     this->length++;
@@ -156,7 +156,7 @@ void Snake::Teleport() const
   }
 }
 
-UserInterface::Math::Vector2D Snake::GetCenter() const
+Core::Math::Vector2D Snake::GetCenter() const
 {
   const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
   return {

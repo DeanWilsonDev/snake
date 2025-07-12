@@ -29,8 +29,8 @@ public:
   {
     return std::clamp(
       std::min(
-        this->GetScreenWidth() / this->gridWidth,
-        this->GetScreenHeight() / this->gridHeight
+        GetScreenWidth() / this->gridWidth,
+        GetScreenHeight() / this->gridHeight
         ),
       this->minBoxSize,
       this->maxBoxSize);

@@ -12,18 +12,19 @@ class IRenderable;
 class IRenderer;
 
 namespace Component {
+
 class IRenderComponent2D;
 }
 
-class RenderManager {
+class RenderComponent2DManager {
  public:
-  explicit RenderManager(IRenderer& renderer);
+  explicit RenderComponent2DManager(std::shared_ptr<IRenderer> renderer);
   void Register(Component::IRenderComponent2D* component);
   void Unregister(Component::IRenderComponent2D* component);
   void RenderAll() const;
 
  private:
   std::vector<Component::IRenderComponent2D*> renderComponents;
-  IRenderer& renderer;
+  std::shared_ptr<IRenderer> renderer;
 };
 }  // namespace Renderer2D

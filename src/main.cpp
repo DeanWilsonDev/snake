@@ -1,18 +1,14 @@
 #include "engine/application.h"
 #include "raylib-facade/window/raylib-window-facade.hpp"
-#include "game-session.h"
 #include "log.h"
-#include "core.h"
 #include "core/dependency-injector.hpp"
 #include "engine/config/project-settings.hpp"
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "game/settings/game-settings.h"
-#include "platform/input/input-manager.hpp"
-#include "platform/window/window-manager.hpp"
 #include "raylib-facade/input/raylib-input-facade.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
 #include "raylib-facade/user-interface/raylib-user-interface-facade.hpp"
-#include "user-interface/user-interface-manager.hpp"
+#include "renderer-2d/render-component-2d-manager.hpp"
 
 class IWindow;
 
@@ -40,14 +36,16 @@ int main(int argc, char* argv[])
   // 1UP: Need a better way of defining ProjectSettings in the future
   auto projectSettings = Engine::Config::ProjectSettings("Snake");
 
+  const auto renderer2d = injector.Resolve<Renderer2D::IRenderer>();
+
+  Renderer2D::RenderComponent2DManager renderManager =
+      Renderer2D::RenderComponent2DManager(renderer2d);
+
   const auto params = Engine::ApplicationParams{
       .injector = injector,
       .engineConfig = engineConfig,
       .projectSettings = projectSettings,
-      .window = injector.Resolve<Platform::Window::IWindow>(),
-      .renderer2d = injector.Resolve<Renderer2D::IRenderer>(),
-      .input = injector.Resolve<Platform::Input::IInput>(),
-      .userInterface = injector.Resolve<UserInterface::IUserInterface>()
+      .renderComponent2dManager = renderManager
   };
 
   auto application = Engine::Application(params);

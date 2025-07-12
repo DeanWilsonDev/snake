@@ -2,7 +2,7 @@
 
 #include "game-over-state.hpp"
 #include "gameplay-state.hpp"
-#include "renderer-2d/render-manager.hpp"
+#include "../../renderer-2d/render-component-2d-manager.hpp"
 #include "log.h"
 #include "main-menu-state.hpp"
 #include "../../user-interface/iuser-interface.hpp"

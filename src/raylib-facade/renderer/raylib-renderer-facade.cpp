@@ -16,7 +16,7 @@ void RaylibRendererFacade::Render()
 {
   BeginDrawing();
   ClearBackground(BLACK);
-  Draw();
+
   EndDrawing();
 
   /// The Following is the gameplay states render function

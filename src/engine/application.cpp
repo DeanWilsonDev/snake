@@ -9,6 +9,7 @@
 #include <cstring>
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "platform/window/iwindow.h"
+#include "renderer-2d/render-component-2d-manager.hpp"
 
 namespace Engine {
 
@@ -19,6 +20,7 @@ Application::Application(const ApplicationParams& params)
     : injector(params.injector)
     , engineConfig(params.engineConfig)
     , projectSettings(params.projectSettings)
+    , renderComponent2dManager(params.renderComponent2dManager)
 {
   LOG_TRACE("Initializing Application");
   this->window = injector.Resolve<Platform::Window::IWindow>();
@@ -46,15 +48,18 @@ void Application::Run()
   assert(windowTitle);
 
   this->window->CreateWindow(engineConfig.window.width, engineConfig.window.height, windowTitle);
-  this->window->SetTargetFPS(
-      engineConfig.window.targetFPS
-  );
+  this->window->SetTargetFPS(engineConfig.window.targetFPS);
 
   LOG_DEBUG("Window Should Close {}", this->window->ShouldClose());
 
   while (!this->window->ShouldClose()) {
     this->renderer2d->BeginDrawing();
     this->renderer2d->ClearBackground(BLACK);
+
+
+    // Main Quest: [Application] Work out how to calculate delta time and pass it through to the update function
+    this->stateMachine->Update(0);
+    this->renderComponent2dManager.RenderAll();
 
     switch (this->session->getState()) {
       case Game::STATE_MAIN_MENU:
@@ -63,7 +68,7 @@ void Application::Run()
             "Press 'Enter' to start", (Vector2){settings.windowWidth / 2.0f, 200.0f}, 20
         );
         if (IsKeyPressed(KEY_ENTER)) {
-          this->session->setState(STATE_GAMEPLAY);
+          this->session->setState(Game::STATE_GAMEPLAY);
         }
         break;
       case STATE_GAMEPLAY:

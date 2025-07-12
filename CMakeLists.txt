@@ -44,8 +44,8 @@ add_executable(
         src/renderer-2d/irenderable.h
         src/core/entity.cpp
         src/core/entity.h
-        src/renderer-2d/render-manager.cpp
-        src/renderer-2d/render-manager.hpp
+        src/renderer-2d/render-component-2d-manager.cpp
+        src/renderer-2d/render-component-2d-manager.hpp
         src/renderer-2d/components/irender-component-2d.h
         src/game/ui/main-menu-ui.hpp
         src/game/ui/main-menu-ui.cpp

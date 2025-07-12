@@ -3,6 +3,9 @@
 #include "core/implementation-manager.hpp"
 #include "platform/input/input.hpp"
 
+namespace Renderer2D {
+class RenderComponent2DManager;
+}
 namespace Core {
 class DependencyInjector;
 }
@@ -34,6 +37,7 @@ struct ApplicationParams {
   Core::DependencyInjector& injector;
   Config::EngineConfig& engineConfig;
   Config::ProjectSettings& projectSettings;
+  Renderer2D::RenderComponent2DManager& renderComponent2dManager;
 };
 
 class Application {
@@ -57,5 +61,6 @@ class Application {
   std::shared_ptr<Renderer2D::IRenderer> renderer2d = nullptr;
   std::shared_ptr<Platform::Input::IInput> input = nullptr;
   std::shared_ptr<UserInterface::IUserInterface> userInterface = nullptr;
+  Renderer2D::RenderComponent2DManager& renderComponent2dManager;
 };
 }  // namespace Engine

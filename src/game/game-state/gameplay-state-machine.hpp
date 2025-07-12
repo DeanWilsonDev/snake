@@ -6,7 +6,7 @@
 
 namespace Renderer2D {
 class IRenderer;
-class RenderManager;
+class Renderer2D;
 }  // namespace Renderer2D
 
 namespace Core {
@@ -44,14 +44,14 @@ class GameplayStateMachine final : public Core::IStateMachine {
   [[nodiscard]] Snake* GetSnake() const { return this->snake; }
   [[nodiscard]] Apple* GetApple() const { return this->apple; }
   [[nodiscard]] Renderer2D::IRenderer* GetRenderer() const { return this->renderer; }
-  [[nodiscard]] Renderer2D::RenderManager* GetRenderManager() const { return this->renderManager; }
+  [[nodiscard]] Renderer2D::Renderer2D* GetRenderManager() const { return this->renderManager; }
 
   // Setters
   void SetSnake(Snake& snake);
   void SetApple(Apple& apple);
   void SetUI(UserInterface::IUserInterface& ui) { this->ui = &ui; }
   void SetRenderer(Renderer2D::IRenderer& renderer) { this->renderer = &renderer; }
-  void SetRenderManager(Renderer2D::RenderManager& renderManager)
+  void SetRenderManager(Renderer2D::Renderer2D& renderManager)
   {
     this->renderManager = &renderManager;
   }
@@ -64,7 +64,7 @@ class GameplayStateMachine final : public Core::IStateMachine {
 
   Core::IGameState* currentState = nullptr;
   UserInterface::IUserInterface* ui;
-  Renderer2D::RenderManager* renderManager;
+  Renderer2D::Renderer2D* renderManager;
   Renderer2D::IRenderer* renderer;
   Snake* snake;
   Apple* apple;

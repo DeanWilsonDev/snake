@@ -17,7 +17,7 @@ struct WindowConfig {
   int height = DEFAULT_SCREEN_HEIGHT;
   int targetFPS = DEFAULT_TARGET_FPS;
   bool fullscreen = false;
-  std::string title = "My Game";
+  const char* title = "My Game";
   bool vsync = true;
 };
 

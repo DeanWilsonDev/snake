@@ -9,11 +9,14 @@ namespace Renderer2D::Component {
 
 RenderComponent2D::RenderComponent2D(
     const float width, const float height, const float positionX, const float positionY,
-    const UserInterface::Color color
+    const Core::Color color
 )
     : width(width), height(height), positionX(positionX), positionY(positionY), color(color)
 {
+
 }
+
+RenderComponent2D::~RenderComponent2D() = default;
 
 void RenderComponent2D::Render(IRenderer& renderer) const
 {

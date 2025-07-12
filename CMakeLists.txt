@@ -31,7 +31,6 @@ add_executable(
         src/game/apple.cpp
         src/engine/application.cpp
         src/game/game-state/game-over-state.cpp
-        src/game-session.cpp
         src/raylib-facade/renderer/raylib-renderer-facade.cpp
         src/raylib-facade/window/raylib-window-facade.cpp
         src/raylib-facade/user-interface/raylib-user-interface-facade.cpp
@@ -74,12 +73,14 @@ add_executable(
         src/core/math/geometry/Rectangle.h
         src/physics/components/collider-component-2d.cpp
         src/physics/components/collider-component-2d.hpp
-        src/core/core.hpp
-        src/user-interface/UserInterfaceManager.cpp
+        src/core/core.h
         src/user-interface/user-interface-manager.cpp
         src/user-interface/user-interface-manager.hpp
         src/core/implementation-manager.hpp
         src/user-interface/user-interface.hpp
+        src/engine/config/project-settings.hpp
+        src/core/dependency-injector.cpp
+        src/core/dependency-injector.hpp
 )
 
 # Include and Link Raylib in the game

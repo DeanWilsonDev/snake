@@ -27,7 +27,7 @@ void RenderManager::Unregister(Component::IRenderComponent2D* component)
 
 void RenderManager::RenderAll() const
 {
-  for (auto* component : this->renderComponents) {
+  for (const auto* component : this->renderComponents) {
     component->Render(this->renderer);
   }
 }

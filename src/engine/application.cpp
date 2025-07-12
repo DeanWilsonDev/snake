@@ -1,53 +1,63 @@
 #include "application.h"
 #include "log.h"
 #include "raylib.h"
+#include "config/project-settings.hpp"
+#include "core/dependency-injector.hpp"
+
 #include <iostream>
 #include <cassert>
 #include <cstring>
+#include "game/game-state/gameplay-state-machine.hpp"
+#include "platform/window/iwindow.h"
 
 namespace Engine {
 
-// Main Quest: [Application] Update Application class. move items from main to application and tidy up
+// Main Quest: [Application] Update Application class. move items from main to application and tidy
+// up
 
-Application::Application(const ApplicationParams& config)
-    : window(config.window)
-    , renderer(config.renderer)
-    , ui(config.ui)
-    , engineConfig(config.engineConfig)
-    , stateMachine(config.stateMachine)
-
+Application::Application(const ApplicationParams& params)
+    : injector(params.injector)
+    , engineConfig(params.engineConfig)
+    , projectSettings(params.projectSettings)
 {
   LOG_TRACE("Initializing Application");
+  this->window = injector.Resolve<Platform::Window::IWindow>();
+  this->renderer2d = injector.Resolve<Renderer2D::IRenderer>();
+  this->stateMachine = injector.Resolve<Core::IStateMachine>();
+  this->input = injector.Resolve<Platform::Input::IInput>();
+  this->userInterface = injector.Resolve<UserInterface::IUserInterface>();
+
+  LOG_TRACE("Validating Dependencies");
+  assert(this->window);
+  assert(this->renderer2d);
+  assert(this->stateMachine);
+  assert(this->input);
+  assert(this->userInterface);
 };
 
-Application::~Application()
-{
-  delete this->stateMachine;
-  delete this->renderer;
-  delete this->ui;
-}
+Application::~Application() = default;
 
 void Application::Run()
 {
-  std::cout << "Application is actually running, logging failing" << std::endl;
   LOG_TRACE("Beginning Application");
-  const char* title = settings.windowTitle ? settings.windowTitle : "Untitled Game";
-  LOG_DEBUG("Title: {}", title);
-  char* windowTitle = strdup(settings.windowTitle);
+  const char* title = projectSettings.GetTitle() ? engineConfig.window.title : "Untitled Game";
+  LOG_INFO("Starting Game: {}", title);
+  char* windowTitle = strdup(title);
   assert(windowTitle);
-  this->window->createWindow(settings.windowWidth, settings.windowHeight, windowTitle);
-  this->window->setTargetFPS(settings.targetFPS);
 
-  char scoreBuffer[100] = {0};
+  this->window->CreateWindow(engineConfig.window.width, engineConfig.window.height, windowTitle);
+  this->window->SetTargetFPS(
+      engineConfig.window.targetFPS
+  );
 
   LOG_DEBUG("Window Should Close {}", this->window->ShouldClose());
 
-  while (!this->window->shouldClose()) {
-    this->renderer->BeginDrawing();
-    this->renderer->ClearBackground(BLACK);
+  while (!this->window->ShouldClose()) {
+    this->renderer2d->BeginDrawing();
+    this->renderer2d->ClearBackground(BLACK);
 
     switch (this->session->getState()) {
-      case STATE_MAIN_MENU:
+      case Game::STATE_MAIN_MENU:
         ui->drawTextCentered("Snake", (Vector2){settings.windowWidth / 2.0f, 40.0f}, 80);
         ui->drawTextCentered(
             "Press 'Enter' to start", (Vector2){settings.windowWidth / 2.0f, 200.0f}, 20

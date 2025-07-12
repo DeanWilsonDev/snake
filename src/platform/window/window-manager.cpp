@@ -9,12 +9,7 @@
 
 namespace Platform::Window {
 
-WindowManager::WindowManager() {}
-
-void WindowManager::SetBackend(std::unique_ptr<IWindow> windowImpl)
-{
-  backend = std::move(windowImpl);
-}
+WindowManager::WindowManager() = default;
 
 int WindowManager::GetScreenWidth()
 {
@@ -44,10 +39,4 @@ int WindowManager::GetScreenHeight()
     throw;
   }
 }
-
-bool WindowManager::IsInitialized()
-{
-  return backend != nullptr || throw std::runtime_error("Window backend is not initialized!");
-}
-
 }  // namespace Platform::Window

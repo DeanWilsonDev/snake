@@ -17,6 +17,7 @@ class RaylibRendererFacade : public Renderer2D::IRenderer {
   ~RaylibRendererFacade() override;
 
   void Render() override;
+  void Draw() override;
   void DrawRectangle(float x, float y, float width, float height, UserInterface::Color) override;
   static Color RaylibRendererFacade::ConvertToRaylibColor(UserInterface::Color color);
 };

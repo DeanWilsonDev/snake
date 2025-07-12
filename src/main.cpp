@@ -3,13 +3,16 @@
 #include "game-session.h"
 #include "log.h"
 #include "core.h"
+#include "core/dependency-injector.hpp"
+#include "engine/config/project-settings.hpp"
+#include "game/game-state/gameplay-state-machine.hpp"
+#include "game/settings/game-settings.h"
 #include "platform/input/input-manager.hpp"
 #include "platform/window/window-manager.hpp"
 #include "raylib-facade/input/raylib-input-facade.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
 #include "raylib-facade/user-interface/raylib-user-interface-facade.hpp"
 #include "user-interface/user-interface-manager.hpp"
-
 
 class IWindow;
 
@@ -18,32 +21,38 @@ int main(int argc, char* argv[])
   // Initialize Logging
   constexpr bool debugEnabled = DEBUG_ENABLED;
   Umbra::Logging::Log::init(debugEnabled);
-  LOG_DEBUG("Debug Log Working {}", 1);
-  LOG_WARNING("Warning Log Working {}", 2);
-  LOG_CORE_ERROR("Core Logging Working {}", 3);
+  Core::DependencyInjector injector;
 
-  // Main Quest: [Main] Move dependencies to the application class
-  // Side Quest: [DependencyInjector] Create a Dependency Injector Class to handle Dependecies
+  injector.Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
+  injector.Register<Renderer2D::IRenderer, RaylibFacade::Renderer::RaylibRendererFacade>();
+  injector.Register<Platform::Input::IInput, RaylibFacade::Input::RaylibInputFacade>();
+  injector.Register<
+      UserInterface::IUserInterface,
+      RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
+  injector.Register<Core::IStateMachine, Game::GameplayStateMachine>();
 
-  Platform::Input::InputManager::SetBackend(std::make_unique<RaylibFacade::Input::RaylibInputFacade>());
-  Platform::Window::WindowManager::SetBackend(std::make_unique<RaylibFacade::Window::RaylibWindowFacade>());
-  UserInterface::UserInterfaceManager::SetBackend(std::make_unique<RaylibFacade::UserInterface::RaylibUserInterfaceFacade>());
+  // Platform::Input::InputManager::SetBackend(std::make_unique<RaylibFacade::Input::RaylibInputFacade>());
+  // Platform::Window::WindowManager::SetBackend(std::make_unique<RaylibFacade::Window::RaylibWindowFacade>());
+  // UserInterface::UserInterfaceManager::SetBackend(std::make_unique<RaylibFacade::UserInterface::RaylibUserInterfaceFacade>());
 
+  auto engineConfig = Engine::Config::EngineConfig();
 
-  /*
-   * Main Quest: [Main] Finish hooking up the application in the main file
-   */
+  // 1UP: Need a better way of defining ProjectSettings in the future
+  auto projectSettings = Engine::Config::ProjectSettings("Snake");
 
-  // IRenderer* renderer = new RaylibAdapter::Renderer::RaylibRenderer();
-  // IUserInterface* ui = new RaylibAdapter::UserInterface::RaylibUI();
-  //
-  // const Engine::ApplicationParams applicationParams = {
-  //     .renderer = renderer,
-  //     .ui = ui,
-  // };
+  const auto params = Engine::ApplicationParams{
+      .injector = injector,
+      .engineConfig = engineConfig,
+      .projectSettings = projectSettings,
+      .window = injector.Resolve<Platform::Window::IWindow>(),
+      .renderer2d = injector.Resolve<Renderer2D::IRenderer>(),
+      .input = injector.Resolve<Platform::Input::IInput>(),
+      .userInterface = injector.Resolve<UserInterface::IUserInterface>()
+  };
 
-  // Engine::Application* application = new Engine::Application(applicationParams);
+  auto application = Engine::Application(params);
 
-  // application->Run();
+  application.Run();
+  injector.Teardown();
   return 0;
 };

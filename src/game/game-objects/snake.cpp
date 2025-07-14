@@ -1,4 +1,4 @@
-#include "snake.hpp"
+#include "game/game-objects/snake.hpp"
 #include "game/settings/game-settings.h"
 #include "log.h"
 #include "snake-segment.hpp"

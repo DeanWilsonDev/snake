@@ -8,8 +8,7 @@ class RenderComponent2DManager;
 }
 namespace Core {
 class DependencyInjector;
-}
-namespace Core {
+class IGame;
 class IStateMachine;
 class IGameState;
 }  // namespace Core
@@ -45,7 +44,8 @@ class Application {
   explicit Application(const ApplicationParams& params);
   ~Application();
 
-  void Run();
+  void SetGame(std::shared_ptr<Core::IGame> game);
+  void Run() const;
 
  private:
   // Main Quest: [Application] Remove Implementation Managers
@@ -56,6 +56,7 @@ class Application {
   Core::DependencyInjector& injector;
   Config::EngineConfig& engineConfig;
   Config::ProjectSettings& projectSettings;
+  std::shared_ptr<Core::IGame> game = nullptr;
   std::shared_ptr<Core::IStateMachine> stateMachine = nullptr;
   std::shared_ptr<Platform::Window::IWindow> window = nullptr;
   std::shared_ptr<Renderer2D::IRenderer> renderer2d = nullptr;

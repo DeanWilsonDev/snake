@@ -13,6 +13,10 @@
 
 namespace Game {
 
+/**
+ * @brief Manages configurable settings for the game, including grid dimensions, box size limits,
+ *        debug mode status, and default snake length.
+ */
 struct GameSettings {
 public:
   int minBoxSize = DEFAULT_MIN_BOX_SIZE;

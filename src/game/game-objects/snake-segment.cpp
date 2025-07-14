@@ -1,6 +1,6 @@
-#include "snake-segment.hpp"
 #include "log.h"
 #include "physics/components/collider-component-2d.hpp"
+#include "game/game-objects/snake-segment.hpp"
 
 namespace Game {
 

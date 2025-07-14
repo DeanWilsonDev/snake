@@ -28,14 +28,14 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
 add_executable(
         ${PROJECT_NAME}
         src/main.cpp
-        src/game/apple.cpp
+        src/game/game-objects/apple.cpp
         src/engine/application.cpp
         src/game/game-state/game-over-state.cpp
         src/raylib-facade/renderer/raylib-renderer-facade.cpp
         src/raylib-facade/window/raylib-window-facade.cpp
         src/raylib-facade/user-interface/raylib-user-interface-facade.cpp
-        src/game/snake-segment.cpp
-        src/game/snake.cpp
+        src/game/game-objects/snake-segment.cpp
+        src/game/game-objects/snake.cpp
         src/game/game-state/gameplay-state-machine.hpp
         src/game/game-state/gameplay-state-machine.cpp
         src/game/game-state/gameplay-state.cpp
@@ -81,6 +81,9 @@ add_executable(
         src/engine/config/project-settings.hpp
         src/core/dependency-injector.cpp
         src/core/dependency-injector.hpp
+        src/game/game.cpp
+        src/game/game.hpp
+        src/core/igame.hpp
 )
 
 # Include and Link Raylib in the game

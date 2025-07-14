@@ -1,10 +1,9 @@
 #include "raylib-renderer-facade.hpp"
 #include "log.h"
 #include "raylib.h"
+#include "core/color.h"
 
 namespace RaylibFacade::Renderer {
-
-// Main Quest: [RaylibRendererFacade] Refactor render function. Remove unwanted code and move to the correct location
 
 RaylibRendererFacade::RaylibRendererFacade()
 {
@@ -12,58 +11,29 @@ RaylibRendererFacade::RaylibRendererFacade()
 }
 RaylibRendererFacade::~RaylibRendererFacade() = default;
 
-void RaylibRendererFacade::Render()
+void RaylibRendererFacade::BeginDrawing()
 {
-  BeginDrawing();
-  ClearBackground(BLACK);
-
-  EndDrawing();
-
-  /// The Following is the gameplay states render function
-
-  // DEBUG: Draw Grid
-  if (DEBUG_ENABLED) {
-    for (int x = 0; x < settings.windowWidth; x += DEFAULT_BOX_SIZE) {
-      DrawLine(x, 0, x, settings.windowHeight, {255, 255, 255, 40});
-    }
-
-    for (int y = 0; y < settings.windowHeight; y += DEFAULT_BOX_SIZE) {
-      DrawLine(0, y, settings.windowWidth, y, {255, 255, 255, 40});
-    }
-  }
-
-  // Draw Snake
-  Snake* snake = this->session->getSnake();
-  for (const auto& segment : snake->body) {
-    DrawRectangleRec({segment->position.x, segment->position.y, snake->size, snake->size}, GREEN);
-  }
-
-  // Draw Apple
-  Apple* apple = this->session->getApple();
-
-  // DEBUG: Collision
-  Vector2 snakeHeadCenter = {
-      snake->head->position.x + snake->size / 2,
-      snake->head->position.y + snake->size / 2,
-  };
-  Vector2 appleCenter = {
-      apple->position.x + (apple->size - apple->size / 2) / 2.0f,
-      apple->position.y + (apple->size - apple->size / 2) / 2.0f,
-  };
-
-  if (DEBUG_ENABLED) {
-    DrawCircleLinesV(snakeHeadCenter, snake->size / 2 - 2, RED);
-    DrawCircleLinesV(appleCenter, apple->size / 2 - 2, GREEN);
-  }
+  return ::BeginDrawing();
+}
+void RaylibRendererFacade::EndDrawing()
+{
+  return ::EndDrawing();
 }
 
-Color RaylibRendererFacade::ConvertToRaylibColor(const UserInterface::Color color)
+void RaylibRendererFacade::ClearBackground(const Core::Color color)
+{
+  return ::ClearBackground(ConvertToRaylibColor(color));
+}
+
+Color RaylibRendererFacade::ConvertToRaylibColor(const Core::Color color)
 {
   return Color(color.red, color.green, color.blue, color.alpha);
 }
 
-void RaylibRendererFacade::DrawRectangle(float x, float y, float width, float height, UserInterface::Color color)
+void RaylibRendererFacade::DrawRectangle(
+    float x, float y, float width, float height, Core::Color color
+)
 {
   DrawRectangleRec({x, y, width, height}, ConvertToRaylibColor(color));
 }
-}  // namespace RaylibAdapter::Renderer
+}  // namespace RaylibFacade::Renderer

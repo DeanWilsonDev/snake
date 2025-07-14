@@ -1,15 +1,16 @@
 #include "application.h"
 #include "log.h"
-#include "raylib.h"
 #include "config/project-settings.hpp"
 #include "core/dependency-injector.hpp"
+#include "core/color.h"
+#include "renderer-2d/irenderer.h"
 
-#include <iostream>
 #include <cassert>
 #include <cstring>
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "platform/window/iwindow.h"
 #include "renderer-2d/render-component-2d-manager.hpp"
+#include "core/igame.hpp"
 
 namespace Engine {
 
@@ -39,10 +40,18 @@ Application::Application(const ApplicationParams& params)
 
 Application::~Application() = default;
 
-void Application::Run()
+void Application::SetGame(std::shared_ptr<Core::IGame> game)
+{
+  this->game = std::move(game);
+  if (this->game) {
+    this->game->Initialize();
+  }
+}
+
+void Application::Run() const
 {
   LOG_TRACE("Beginning Application");
-  const char* title = projectSettings.GetTitle() ? engineConfig.window.title : "Untitled Game";
+  const char* title = projectSettings.GetTitle() ?: engineConfig.window.title;
   LOG_INFO("Starting Game: {}", title);
   char* windowTitle = strdup(title);
   assert(windowTitle);
@@ -52,49 +61,27 @@ void Application::Run()
 
   LOG_DEBUG("Window Should Close {}", this->window->ShouldClose());
 
+  std::chrono::time_point lastTime = std::chrono::high_resolution_clock::now();
+
   while (!this->window->ShouldClose()) {
-    this->renderer2d->BeginDrawing();
-    this->renderer2d->ClearBackground(BLACK);
 
+    // Calculate DeltaTime
+    std::chrono::time_point currentTime = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float> elapsedTime = currentTime - lastTime;
+    const float deltaTime = elapsedTime.count();
+    lastTime = currentTime;
 
-    // Main Quest: [Application] Work out how to calculate delta time and pass it through to the update function
-    this->stateMachine->Update(0);
-    this->renderComponent2dManager.RenderAll();
-
-    switch (this->session->getState()) {
-      case Game::STATE_MAIN_MENU:
-        ui->drawTextCentered("Snake", (Vector2){settings.windowWidth / 2.0f, 40.0f}, 80);
-        ui->drawTextCentered(
-            "Press 'Enter' to start", (Vector2){settings.windowWidth / 2.0f, 200.0f}, 20
-        );
-        if (IsKeyPressed(KEY_ENTER)) {
-          this->session->setState(Game::STATE_GAMEPLAY);
-        }
-        break;
-      case STATE_GAMEPLAY:
-        LOG_TRACE("Begin Gameplay Loop");
-        std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", this->session->getScore());
-        ui->drawTextCentered(scoreBuffer, (Vector2){80, 30}, 20);
-        this->session->update();
-        this->renderer->Draw();
-        break;
-      case STATE_GAME_OVER:
-        ui->drawTextCentered("Game Over", (Vector2){settings.windowWidth / 2.0f - 40, 40}, 80);
-        ui->drawTextCentered(
-            "Press 'Enter' to start", (Vector2){settings.windowWidth / 2.0f, 200.0f}, 20
-        );
-        std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", this->session->getScore());
-        ui->drawTextCentered(scoreBuffer, (Vector2){settings.windowWidth / 2.0f, 150.0f}, 20);
-        if (IsKeyPressed(KEY_ENTER)) {
-          delete this->session;
-          this->session = new GameSession(this->settings);
-          this->session->setState(STATE_GAMEPLAY);
-        }
-        break;
+    if (game) {
+      this->game->Update(deltaTime);
     }
 
-    this->renderer->StopDrawing();
+    this->renderer2d->BeginDrawing();
+    this->renderer2d->ClearBackground(Core::COLOR_BLACK);
+    if (game) {
+      this->game->Render();
+    }
+    this->renderer2d->EndDrawing();
   }
-  this->window->closeWindow();
+  this->window->CloseWindow();
 }
 }  // namespace Engine

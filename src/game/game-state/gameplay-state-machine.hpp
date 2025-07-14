@@ -1,12 +1,10 @@
 #pragma once
 #include "core/istate-machine.hpp"
 #include "core/igame-state.h"
-#include "game/snake.hpp"
-#include "game/apple.hpp"
 
 namespace Renderer2D {
 class IRenderer;
-class Renderer2D;
+class RenderComponent2DManager; // Side Quest: This should probably be an interface
 }  // namespace Renderer2D
 
 namespace Core {
@@ -21,8 +19,6 @@ namespace Game {
 
 class Apple;
 class Snake;
-
-enum State { STATE_MAIN_MENU, STATE_GAMEPLAY, STATE_GAME_OVER, STATE_NONE };
 
 class GameplayStateMachine final : public Core::IStateMachine {
  public:
@@ -44,14 +40,14 @@ class GameplayStateMachine final : public Core::IStateMachine {
   [[nodiscard]] Snake* GetSnake() const { return this->snake; }
   [[nodiscard]] Apple* GetApple() const { return this->apple; }
   [[nodiscard]] Renderer2D::IRenderer* GetRenderer() const { return this->renderer; }
-  [[nodiscard]] Renderer2D::Renderer2D* GetRenderManager() const { return this->renderManager; }
+  [[nodiscard]] Renderer2D::RenderComponent2DManager* GetRenderManager() const { return this->renderManager; }
 
   // Setters
   void SetSnake(Snake& snake);
   void SetApple(Apple& apple);
   void SetUI(UserInterface::IUserInterface& ui) { this->ui = &ui; }
   void SetRenderer(Renderer2D::IRenderer& renderer) { this->renderer = &renderer; }
-  void SetRenderManager(Renderer2D::Renderer2D& renderManager)
+  void SetRenderManager(Renderer2D::RenderComponent2DManager& renderManager)
   {
     this->renderManager = &renderManager;
   }
@@ -63,11 +59,11 @@ class GameplayStateMachine final : public Core::IStateMachine {
   void ChangeState(Core::IGameState* newState) override;
 
   Core::IGameState* currentState = nullptr;
-  UserInterface::IUserInterface* ui;
-  Renderer2D::Renderer2D* renderManager;
-  Renderer2D::IRenderer* renderer;
-  Snake* snake;
-  Apple* apple;
+  UserInterface::IUserInterface* ui = nullptr;
+  Renderer2D::RenderComponent2DManager* renderManager = nullptr;
+  Renderer2D::IRenderer* renderer = nullptr;
+  Snake* snake = nullptr;
+  Apple* apple = nullptr;
   int score = {0};
 };
 }  // namespace Game

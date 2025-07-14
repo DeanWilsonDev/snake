@@ -1,6 +1,6 @@
 #pragma once
 
-#include "settings/game-settings.h"
+#include "../settings/game-settings.h"
 #include "core/entity.h"
 #include "physics/components/collider-component-2d.hpp"
 

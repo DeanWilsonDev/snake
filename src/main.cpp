@@ -3,6 +3,7 @@
 #include "log.h"
 #include "core/dependency-injector.hpp"
 #include "engine/config/project-settings.hpp"
+#include "game/game.hpp"
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "game/settings/game-settings.h"
 #include "raylib-facade/input/raylib-input-facade.hpp"
@@ -49,6 +50,10 @@ int main(int argc, char* argv[])
   };
 
   auto application = Engine::Application(params);
+
+  std::shared_ptr<Core::IGame> game =
+      std::make_shared<Game::Game>(injector, projectSettings, renderManager);
+  application.SetGame(game);
 
   application.Run();
   injector.Teardown();

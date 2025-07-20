@@ -9,7 +9,7 @@ class IRenderer;
 
 namespace RaylibFacade::Renderer {
 
-class RaylibRendererFacade : public Renderer2D::IRenderer {
+class RaylibRendererFacade final : public Renderer2D::IRenderer {
  public:
   explicit RaylibRendererFacade();
   ~RaylibRendererFacade() override;
@@ -19,6 +19,6 @@ class RaylibRendererFacade : public Renderer2D::IRenderer {
   void ClearBackground(Core::Color color) override;
 
   void DrawRectangle(float x, float y, float width, float height, Core::Color) override;
-  static Color RaylibRendererFacade::ConvertToRaylibColor(Core::Color color);
+  static Color ConvertToRaylibColor(Core::Color color);
 };
 }  // namespace RaylibAdapter::Renderer

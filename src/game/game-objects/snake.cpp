@@ -27,18 +27,20 @@ Snake* Snake::Initialize()
   this->direction = {1.0f, 0.0f};
   this->grow = false;
 
-  const Core::Math::Transform2D headTransform = {{100.f, 100.0f}, 0, {this->size, this->size}};
+  auto headTransform = Core::Math::Transform2D{{100.f, 100.0f}, 0, {this->size, this->size}};
 
-  this->head = new SnakeSegment({
+  const auto snakeSegmentParams = SnakeSegmentParams{
       .index = 0,
       .transform = headTransform,
-  });
+  };
+
+  this->head = new SnakeSegment(snakeSegmentParams);
 
   this->body.push_back(this->head);
 
   for (int i = 1; i < this->length; i++) {
     Core::Math::Transform2D nextSegmentTransform = headTransform;
-    nextSegmentTransform.position.x = headTransform.position.x - (i * this->size);
+    nextSegmentTransform.position.x = headTransform.position.x - this->size * i;
     this->body.push_back(new SnakeSegment({
         .index = i,
         .transform = nextSegmentTransform,
@@ -49,7 +51,7 @@ Snake* Snake::Initialize()
   return this;
 }
 
-void Snake::Update(float deltaTime)
+void Snake::Update(const float deltaTime)
 {
   LOG_TRACE("Snake Update Begin");
   Core::Math::Vector2D newDirection = this->direction;
@@ -125,9 +127,10 @@ void Snake::CheckIfShouldGrow()
 {
   LOG_TRACE("[Snake] Checking if Snake should grow {}", this->grow);
   if (this->grow) {
-    const Core::Math::Transform2D newSegmentTransform = this->body.back()->transform;
-    this->body.push_back(new SnakeSegment({.index = this->length, .transform = newSegmentTransform})
-    );
+    Core::Math::Transform2D newSegmentTransform = this->body.back()->transform;
+    const auto segmentParams = SnakeSegmentParams{.index = this->length, .transform = newSegmentTransform};
+    const auto segment = new SnakeSegment(segmentParams);
+    this->body.push_back(segment);
     this->length++;
     this->grow = false;
 
@@ -137,8 +140,8 @@ void Snake::CheckIfShouldGrow()
 
 void Snake::Teleport() const
 {
-  const auto screenWidth = static_cast<float>(Game::GameSettings::GetScreenWidth());
-  const auto screenHeight = static_cast<float>(Game::GameSettings::GetScreenHeight());
+  const auto screenWidth = static_cast<float>(this->settings.GetScreenWidth());
+  const auto screenHeight = static_cast<float>(this->settings.GetScreenHeight());
 
   for (const auto segment : this->body) {
     if (segment->transform.position.x > screenWidth) {
@@ -186,7 +189,8 @@ void Snake::Destroy()
   this->body.clear();
 
   if (head) {
-    LOG_DEBUG("Deleting head at address: {}", this->head);
+    // SIDE QUEST: [LOGGER] Support this style of logging
+    // LOG_DEBUG("Deleting head at address: {}", this->head);
     delete this->head;
     LOG_DEBUG("Setting head to nullptr");
     this->head = nullptr;

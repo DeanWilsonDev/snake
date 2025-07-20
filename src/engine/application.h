@@ -1,6 +1,5 @@
 #pragma once
 #include "config/engine-config.h"
-#include "core/implementation-manager.hpp"
 #include "platform/input/input.hpp"
 
 namespace Renderer2D {
@@ -48,11 +47,6 @@ class Application {
   void Run() const;
 
  private:
-  // Main Quest: [Application] Remove Implementation Managers
-  // Core::ImplementationManager<Platform::Window::IWindow>& window;
-  // Core::ImplementationManager<Renderer2D::IRenderer>& renderer;
-  // Core::ImplementationManager<UserInterface::IUserInterface>& ui;
-
   Core::DependencyInjector& injector;
   Config::EngineConfig& engineConfig;
   Config::ProjectSettings& projectSettings;

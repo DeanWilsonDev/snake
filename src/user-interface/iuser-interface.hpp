@@ -1,5 +1,9 @@
 #pragma once
 
+namespace Core::Math {
+struct Vector2D;
+}
+
 namespace UserInterface {
 
 class IUserInterface {

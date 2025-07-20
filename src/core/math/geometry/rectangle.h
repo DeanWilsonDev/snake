@@ -5,6 +5,7 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
+#include "core/math/transform-2d.hpp"
 namespace Core::Math::Geometry {
 
 struct Rectangle {
@@ -25,7 +26,6 @@ struct Rectangle {
     );
   }
 };
-
 }  // namespace Core::Math::Geometry
 
 #endif  // RECTANGLE_H

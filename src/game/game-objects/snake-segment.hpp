@@ -10,7 +10,7 @@ namespace Game {
 
 struct SnakeSegmentParams {
   int index;
-  Core::Math::Transform2D transform;
+  Core::Math::Transform2D& transform;
   Physics::Components::ColliderComponent2D* colliderComponent;
 };
 

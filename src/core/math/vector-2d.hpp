@@ -49,22 +49,22 @@ struct Vector2D {
     return (*this);
   }
 
-  inline Vector2D operator*(const Vector2D& v, float s) const { return {v.x * s, v.y * s}; }
+  friend Vector2D operator*(const Vector2D& v, float s) { return {v.x * s, v.y * s}; }
 
-  inline Vector2D operator/(const Vector2D& v, float s) const
+  friend Vector2D operator/(const Vector2D& v, float s)
   {
     s = 1.0f / s;
     return {v.x * s, v.y * s};
   }
 
-  inline Vector2D operator-(const Vector2D& v) const { return {-v.x, -v.y}; }
+  friend Vector2D operator-(const Vector2D& v) { return {-v.x, -v.y}; }
 
-  inline Vector2D operator+(const Vector2D& a, const Vector2D& b) const
+  friend Vector2D operator+(const Vector2D& a, const Vector2D& b)
   {
     return {a.x + b.x, a.y + b.y};
   }
 
-  inline Vector2D operator-(const Vector2D& a, const Vector2D& b) const
+  friend Vector2D operator-(const Vector2D& a, const Vector2D& b)
   {
     return {a.x - b.x, a.y - b.y};
   }

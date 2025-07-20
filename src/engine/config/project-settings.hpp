@@ -9,7 +9,7 @@ namespace Engine::Config {
 struct ProjectSettings {
  public:
   explicit ProjectSettings(const char* title):title(title){}
-  [[nodiscard]] const char* ProjectSettings::GetTitle() const { return this->title; }
+  [[nodiscard]] const char* GetTitle() const { return this->title; }
 
  private:
   const char* title = nullptr;

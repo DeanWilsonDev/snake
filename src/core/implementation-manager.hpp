@@ -3,7 +3,9 @@
 //
 
 #pragma once
+#include <core.h>
 #include <memory>
+#include "log.h"
 
 namespace Core {
 
@@ -24,7 +26,11 @@ class ImplementationManager {
  protected:
   static bool IsInitialized()
   {
-    return backend != nullptr || throw std::runtime_error("Backend not set!");
+    if (backend == nullptr) {
+      LOG_CORE_FATAL("Backend not set!");
+      return false;
+    }
+    return true;
   };
 
   static std::unique_ptr<TImplementation> backend;

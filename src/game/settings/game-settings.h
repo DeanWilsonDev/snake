@@ -1,11 +1,12 @@
 #pragma once
 
 #include "log.h"
-#include "platform/window/screen.hpp"
 
 #define DEFAULT_BOX_SIZE (20);
 #define DEFAULT_MIN_BOX_SIZE (10);
 #define DEFAULT_MAX_BOX_SIZE (40);
+#define DEFAULT_SCREEN_WIDTH (1280)
+#define DEFAULT_SCREEN_HEIGHT (720)
 #define GRID_COLUMNS (25);
 #define GRID_ROWS (25);
 #define DEBUG_ENABLED false;
@@ -18,26 +19,31 @@ namespace Game {
  *        debug mode status, and default snake length.
  */
 struct GameSettings {
-public:
+ public:
   int minBoxSize = DEFAULT_MIN_BOX_SIZE;
   int maxBoxSize = DEFAULT_MAX_BOX_SIZE;
   int gridWidth = GRID_COLUMNS;
   int gridHeight = GRID_ROWS;
   bool isDebugEnabled = DEBUG_ENABLED;
   int defaultSnakeLength = DEFAULT_SNAKE_LENGTH;
+  int screenWidth = DEFAULT_SCREEN_WIDTH;
+  int screenHeight = DEFAULT_SCREEN_HEIGHT;
 
-  static int GetScreenWidth() { return Platform::Window::Screen::GetWidth(); }
-  static int GetScreenHeight() { return Platform::Window::Screen::GetHeight(); }
+  [[nodiscard]] int GetScreenWidth() const { return this->screenWidth; }
+  [[nodiscard]] int GetScreenHeight() const { return this->screenHeight; }
+  void SetScreenResolution(const int width, const int height)
+  {
+    this->screenWidth = width;
+    this->screenHeight = height;
+  }
 
   [[nodiscard]] int GetBoxSize() const
   {
     return std::clamp(
-      std::min(
-        GetScreenWidth() / this->gridWidth,
-        GetScreenHeight() / this->gridHeight
-        ),
-      this->minBoxSize,
-      this->maxBoxSize);
+        std::min(screenWidth / this->gridWidth, screenHeight / this->gridHeight),
+        this->minBoxSize,
+        this->maxBoxSize
+    );
   }
 
   void Print()
@@ -47,11 +53,12 @@ public:
     LOG_INFO("Current Box Size: {}", GetBoxSize());
     LOG_INFO("Grid Width: {}", this->gridWidth);
     LOG_INFO("Grid Height: {}", this->gridHeight);
-    LOG_INFO("Screen Width: {}", this->GetScreenWidth());
-    LOG_INFO("Screen Height: {}", this->GetScreenHeight());
+    LOG_INFO("Screen Width: {}", this->screenWidth);
+    LOG_INFO("Screen Height: {}", this->screenHeight);
     LOG_INFO("--------------------------------------");
   }
-private:
+
+ private:
   int boxSize = DEFAULT_BOX_SIZE;
 };
 }  // namespace Game

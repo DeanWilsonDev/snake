@@ -6,6 +6,11 @@
 #include "../core/igame.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
 
+#include <memory>
+
+namespace Game {
+class GameplayStateMachine;
+}
 namespace Core {
 class DependencyInjector;
 }
@@ -34,6 +39,7 @@ private:
   Core::DependencyInjector& injector;
   Engine::Config::ProjectSettings& projectSettings;
   Renderer2D::RenderComponent2DManager& renderManager;
+  std::shared_ptr<GameplayStateMachine> gameplayStateMachine;
 };
 
 } // Game

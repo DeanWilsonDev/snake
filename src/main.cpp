@@ -28,10 +28,6 @@ int main(int argc, char* argv[])
       RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
   injector.Register<Core::IStateMachine, Game::GameplayStateMachine>();
 
-  // Platform::Input::InputManager::SetBackend(std::make_unique<RaylibFacade::Input::RaylibInputFacade>());
-  // Platform::Window::WindowManager::SetBackend(std::make_unique<RaylibFacade::Window::RaylibWindowFacade>());
-  // UserInterface::UserInterfaceManager::SetBackend(std::make_unique<RaylibFacade::UserInterface::RaylibUserInterfaceFacade>());
-
   auto engineConfig = Engine::Config::EngineConfig();
 
   // 1UP: Need a better way of defining ProjectSettings in the future

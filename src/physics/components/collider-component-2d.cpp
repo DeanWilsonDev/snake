@@ -4,7 +4,7 @@
 
 #include "collider-component-2d.hpp"
 Physics::Components::ColliderComponent2D::ColliderComponent2D(const ColliderComponentParams& params)
-    : bounds(params.bounds), transform(params.transform)
+    : transform(params.transform), bounds(params.bounds)
 {
 }
 

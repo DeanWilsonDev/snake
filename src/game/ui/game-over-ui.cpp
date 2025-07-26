@@ -5,32 +5,26 @@
 #include "game-over-ui.hpp"
 
 #include "core/math/vector-2d.hpp"
+#include "game/settings/game-settings.h"
 #include "platform/window/window-manager.hpp"
-#include "user-interface/user-interface.hpp"
-
-#include <cstdio>
+#include "user-interface/i-user-interface.hpp"
 
 namespace Game {
 
-GameOverUI::GameOverUI(const int score) : score(score) {}
+GameOverUI::GameOverUI(UserInterface::IUserInterface& ui, GameSettings& settings, int& score)
+    : ui(ui), settings(settings), score(score)
+{
+}
 
 void GameOverUI::Render()
 {
-  const auto screenWidth = static_cast<float>(Platform::Window::WindowManager::GetScreenWidth());
+  const auto screenWidth = static_cast<float>(this->settings.GetScreenWidth());
 
-  UserInterface::UserInterface::DrawTextCentered(
-      "Game Over", Core::Math::Vector2D{screenWidth / 2.0f - 40, 40}, 80
-  );
+  this->ui.DrawTextCentered("Game Over", {screenWidth / 2.0f - 40, 40}, 80);
+  this->ui.DrawTextCentered("Press 'Enter' to start", {screenWidth / 2.0f, 200.0f}, 20);
 
-  UserInterface::UserInterface::DrawTextCentered(
-      "Press 'Enter' to start", Core::Math::Vector2D{screenWidth / 2.0f, 200.0f}, 20
-  );
-
-  std::snprintf(this->scoreBuffer, sizeof(this->scoreBuffer), "Score: %d", score);
-
-  UserInterface::UserInterface::DrawTextCentered(
-      this->scoreBuffer, Core::Math::Vector2D{screenWidth / 2.0f, 150.0f}, 20
-  );
+  std::snprintf(this->scoreBuffer, sizeof(this->scoreBuffer), "Score: %d", this->score);
+  this->ui.DrawTextCentered(this->scoreBuffer, {screenWidth / 2.0f, 150.0f}, 20);
 }
 
 }  // namespace Game

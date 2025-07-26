@@ -4,12 +4,16 @@
 
 #pragma once
 #include <cmath>
+#include <string>
 using namespace std;
 
 namespace Core::Math {
 
 struct Vector2D {
  public:
+  // Properties:
+  float x, y;
+
   Vector2D() = default;
 
   Vector2D(const float x, const float y)
@@ -101,8 +105,9 @@ struct Vector2D {
 
   inline static Vector2D Zero() { return {0, 0}; }
 
-  // Properties:
- public:
-  float x, y;
+  inline std::string ToString() const
+  {
+    return "{x: " + std::to_string(x) + ", y: " + std::to_string(y) + "}";
+  }
 };
 }  // namespace Core::Math

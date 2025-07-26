@@ -3,14 +3,16 @@
 #include "config/project-settings.hpp"
 #include "core/dependency-injector.hpp"
 #include "core/color.h"
-#include "renderer-2d/irenderer.h"
+#include "renderer-2d/i-renderer.h"
+#include "platform/input/i-input.hpp"
+#include "user-interface/i-user-interface.hpp"
 
 #include <cassert>
 #include <cstring>
 #include "game/game-state/gameplay-state-machine.hpp"
-#include "platform/window/iwindow.h"
+#include "platform/window/i-window.h"
 #include "renderer-2d/render-component-2d-manager.hpp"
-#include "core/igame.hpp"
+#include "core/i-game.hpp"
 
 namespace Engine {
 

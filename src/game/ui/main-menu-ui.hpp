@@ -3,18 +3,23 @@
 //
 
 #pragma once
-#include "user-interface/iuser-interface.hpp"
+#include "user-interface/i-game-ui.hpp"
+
+namespace UserInterface {
+class IUserInterface;
+}
 
 namespace Game {
+struct GameSettings;
 
-class IGameUI;
-
-class MainMenuUI final : public UserInterface::IUserInterface {
+class MainMenuUI final : public UserInterface::IGameUI {
  public:
-  explicit MainMenuUI();
+  explicit MainMenuUI(UserInterface::IUserInterface& ui, GameSettings& settings);
   void Render() override;
 private:
   char scoreBuffer[100] = {0};
+  GameSettings& settings;
+  UserInterface::IUserInterface& ui;
 };
 
 }  // namespace Game

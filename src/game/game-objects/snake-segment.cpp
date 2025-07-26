@@ -16,7 +16,6 @@ SnakeSegment::~SnakeSegment()
 {
   delete colliderComponent;
 }
-
 SnakeSegment* SnakeSegment::Initialize(const int index, const Core::Math::Transform2D& transform)
 {
   LOG_TRACE("[SnakeSegment] Initializing New Snake Segment");
@@ -25,27 +24,23 @@ SnakeSegment* SnakeSegment::Initialize(const int index, const Core::Math::Transf
   this->transform = transform;
 
   LOG_TRACE(
-      "[SnakeSegment] Creating SnakeBody with index: {} at position (({},{})), with a scale of "
-      "(({}, {}))",
+      "[SnakeSegment] Creating SnakeBody with index: {} at position {}, with a scale of {}",
       this->index,
-      this->transform.position.x,
-      this->transform.position.y,
-      this->transform.scale.x,
-      this->transform.scale.y
+      this->transform.position.ToString(),
+      this->transform.scale.ToString()
   );
   return this;
 };
 
-void SnakeSegment::Move(Core::Math::Vector2D newPosition)
+void SnakeSegment::Move(const Core::Math::Vector2D newPosition)
 {
   LOG_TRACE("[SnakeSegment] Initializing New Snake Segment");
   this->transform.position.x = newPosition.x;
   this->transform.position.y = newPosition.y;
   LOG_TRACE(
-      "[SnakeSegment] Segment at index {} has new position ({}, {})",
+      "[SnakeSegment] Segment at index {} has new position {}",
       this->index,
-      this->transform.position.x,
-      this->transform.position.y
+      this->transform.position.ToString()
   );
 }
 }  // namespace Game

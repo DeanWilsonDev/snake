@@ -34,9 +34,7 @@ int main(int argc, char* argv[])
   auto projectSettings = Engine::Config::ProjectSettings("Snake");
 
   const auto renderer2d = injector.Resolve<Renderer2D::IRenderer>();
-
-  Renderer2D::RenderComponent2DManager renderManager =
-      Renderer2D::RenderComponent2DManager(renderer2d);
+  auto renderManager = Renderer2D::RenderComponent2DManager(renderer2d);
 
   const auto params = Engine::ApplicationParams{
       .injector = injector,

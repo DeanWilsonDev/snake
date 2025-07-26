@@ -4,7 +4,7 @@
 
 #include "render-component-2d-manager.hpp"
 #include "core.h"
-#include "components/irender-component-2d.h"
+#include "components/i-render-component-2d.h"
 #include "log.h"
 #include <utility>
 

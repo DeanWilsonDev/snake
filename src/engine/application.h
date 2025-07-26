@@ -1,6 +1,5 @@
 #pragma once
 #include "config/engine-config.h"
-#include "platform/input/input.hpp"
 
 namespace Renderer2D {
 class RenderComponent2DManager;
@@ -20,9 +19,14 @@ namespace UserInterface {
 class IUserInterface;
 }
 
-namespace Platform::Window {
+namespace Platform {
+namespace Input {
+class IInput;
+}
+namespace Window {
 class IWindow;
 }
+}  // namespace Platform
 
 namespace Engine {
 

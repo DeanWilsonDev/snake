@@ -5,15 +5,20 @@
 #include "renderer-2d/render-component-2d-manager.hpp"
 #include "log.h"
 #include "main-menu-state.hpp"
-#include "user-interface/iuser-interface.hpp"
 #include "game/game-objects/apple.hpp"
 #include "game/game-objects/snake.hpp"
+#include "user-interface/i-game-ui.hpp"
+
+#include <cassert>
 
 namespace Game {
 
 GameplayStateMachine::GameplayStateMachine(Core::IGameState* currentState)
     : currentState(currentState), score(0)
 {
+  if (!currentState) {
+    this->currentState = new MainMenuState(*this);
+  }
 }
 
 GameplayStateMachine::~GameplayStateMachine()
@@ -29,11 +34,12 @@ void GameplayStateMachine::Update(float deltaTime)
   if (!this->currentState) return;
   this->currentState->Update(deltaTime);
 
-  if (!this->renderManager) return;
+  if (this->renderManager)
   this->renderManager->RenderAll();
 
-  if (!this->ui) return;
-  this->ui->Render();
+  if (this->gameUI) {
+    this->gameUI->Render();
+  }
 }
 
 void GameplayStateMachine::ChangeState(Core::IGameState* newState)

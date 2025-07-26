@@ -1,7 +1,6 @@
 #pragma once
 #include "core/color.h"
-#include "renderer-2d/irenderer.h"
-
+#include "renderer-2d/i-renderer.h"
 
 namespace Renderer2D {
 class IRenderer;

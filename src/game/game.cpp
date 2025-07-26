@@ -10,10 +10,15 @@
 #include "game-objects/snake.hpp"
 #include "game-state/gameplay-state-machine.hpp"
 #include "physics/components/collider-component-2d.hpp"
-#include "platform/window/iwindow.h"
+#include "platform/window/i-window.h"
+#include "platform/input/i-input.hpp"
+#include "renderer-2d/i-renderer.h"
+#include "user-interface/i-user-interface.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
 #include "renderer-2d/components/render-component-2d.h"
 #include "settings/game-settings.h"
+#include "core/i-state-machine.hpp"
+#include "game-state/main-menu-state.hpp"
 
 #include <cassert>
 
@@ -33,7 +38,15 @@ void Game::Initialize()
 
   LOG_TRACE("[Game] Initializing Game");
   LOG_TRACE("[Game] Resolving Window");
-  const shared_ptr<Platform::Window::IWindow> window = injector.Resolve<Platform::Window::IWindow>();
+  const shared_ptr<Platform::Window::IWindow> window =
+      injector.Resolve<Platform::Window::IWindow>();
+
+  const auto input = injector.Resolve<Platform::Input::IInput>();
+  if (!input) {
+    LOG_FATAL("[Game] Failed to initialize Input");
+    assert(input);
+  }
+
   LOG_TRACE("[Game] Validating Window");
   assert(window);
 
@@ -52,11 +65,7 @@ void Game::Initialize()
   };
 
   auto snakeRenderComponent = Renderer2D::Component::RenderComponent2D(
-      snakeTransform->scale.x,
-      snakeTransform->scale.y,
-      snakeTransform->position.x,
-      snakeTransform->position.y,
-      Core::COLOR_GREEN
+      snakeTransform->position, snakeTransform->scale, Core::COLOR_GREEN
   );
 
   auto snakeColliderComponent = Physics::Components::ColliderComponent2D(snakeColliderParams);
@@ -64,6 +73,7 @@ void Game::Initialize()
   const auto snakeParams = SnakeParams{
       .renderComponent = snakeRenderComponent,
       .colliderComponent = snakeColliderComponent,
+      .input = *input,
       .settings = settings
   };
 
@@ -73,7 +83,7 @@ void Game::Initialize()
   // Initialize Apple
 
   auto* appleTransform =
-      new Core::Math::Transform2D(Core::Math::Vector2D::Zero(), 0.0f, Core::Math::Vector2D::Zero());
+      new Core::Math::Transform2D(Core::Math::Vector2D::Zero(), 0.0f, Core::Math::Size2D::Zero());
 
   auto appleBounds = Core::Math::Geometry::Rectangle(*appleTransform);
   const auto appleColliderParams = Physics::Components::ColliderComponentParams{
@@ -81,18 +91,14 @@ void Game::Initialize()
   };
 
   auto appleRenderComponent = Renderer2D::Component::RenderComponent2D(
-      appleTransform->scale.x,
-      appleTransform->scale.y,
-      appleTransform->position.x,
-      appleTransform->position.y,
-      Core::COLOR_RED
+      appleTransform->position, appleTransform->scale, Core::COLOR_RED
   );
 
   const auto appleColliderComponent =
       new Physics::Components::ColliderComponent2D(appleColliderParams);
-  const auto appleParams = AppleParams{.settings = settings, .colliderComponent = *appleColliderComponent};
+  const auto appleParams =
+      AppleParams{.settings = settings, .colliderComponent = *appleColliderComponent};
   const auto apple = new Apple(appleParams);
-
 
   const auto renderer = injector.Resolve<Renderer2D::IRenderer>();
   if (!renderer) {
@@ -106,7 +112,7 @@ void Game::Initialize()
     assert(userInterface);
   }
 
-  const auto stateMachine = injector.Resolve<IStateMachine>();
+  const auto stateMachine = injector.Resolve<Core::IStateMachine>();
   this->gameplayStateMachine = dynamic_pointer_cast<GameplayStateMachine>(stateMachine);
 
   if (!this->gameplayStateMachine) {
@@ -122,11 +128,12 @@ void Game::Initialize()
 
   this->gameplayStateMachine->SetRenderManager(renderManager);
   this->gameplayStateMachine->SetRenderer(*renderer);
-  this->gameplayStateMachine->SetUI(*userInterface);
+  this->gameplayStateMachine->SetUserInterface(*userInterface);
+  this->gameplayStateMachine->SetInput(*input);
 
 }
 
-void Game::Update(float deltaTime)
+void Game::Update(const float deltaTime)
 {
   this->gameplayStateMachine->Update(deltaTime);
 }

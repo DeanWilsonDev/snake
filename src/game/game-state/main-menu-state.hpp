@@ -1,10 +1,13 @@
 #pragma once
-#include "core/igame-state.h"
+#include "core/i-game-state.h"
 
 //
 // Created by Dean Wilson on 30/5/2025.
 //
 
+namespace Platform::Input {
+class IInput;
+}
 namespace Game {
 
 class GameplayStateMachine;
@@ -20,6 +23,7 @@ class MainMenuState final : public Core::IGameState {
  private:
   GameplayStateMachine& gameplayStateMachine;
   MainMenuUI* mainMenuUI = nullptr;
+  Platform::Input::IInput* input = nullptr;
 };
 
 }  // namespace Game

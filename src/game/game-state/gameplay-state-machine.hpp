@@ -1,10 +1,16 @@
 #pragma once
-#include "core/istate-machine.hpp"
-#include "core/igame-state.h"
+#include "core/i-state-machine.hpp"
+#include "core/i-game-state.h"
 
+namespace Platform::Input {
+class IInput;
+}
+namespace Game {
+struct GameSettings;
+}
 namespace Renderer2D {
 class IRenderer;
-class RenderComponent2DManager; // Side Quest: This should probably be an interface
+class RenderComponent2DManager;  // Side Quest: This should probably be an interface
 }  // namespace Renderer2D
 
 namespace Core {
@@ -12,6 +18,7 @@ class IGameState;
 }  // namespace Core
 
 namespace UserInterface {
+class IGameUI;
 class IUserInterface;
 }  // namespace UserInterface
 
@@ -22,7 +29,7 @@ class Snake;
 
 class GameplayStateMachine final : public Core::IStateMachine {
  public:
-  explicit GameplayStateMachine(Core::IGameState* currentState);
+  explicit GameplayStateMachine(Core::IGameState* currentState = nullptr);
   ~GameplayStateMachine() override;
   void Update(float deltaTime) override;
   void IncreaseScore();
@@ -35,33 +42,49 @@ class GameplayStateMachine final : public Core::IStateMachine {
   // Getters
   Core::IGameState* GetCurrentState() override { return this->currentState; };
 
-  [[nodiscard]] UserInterface::IUserInterface* GetUI() const { return this->ui; };
+  [[nodiscard]] UserInterface::IUserInterface* GetUserInterface() const
+  {
+    return this->userInterface;
+  };
+  [[nodiscard]] Platform::Input::IInput* GetInput() const { return this->input; };
+  [[nodiscard]] UserInterface::IGameUI* GetGameUI() const { return this->gameUI; };
+  [[nodiscard]] int& GetScore() { return this->score; };
   [[nodiscard]] int GetScore() const { return this->score; };
   [[nodiscard]] Snake* GetSnake() const { return this->snake; }
   [[nodiscard]] Apple* GetApple() const { return this->apple; }
+  [[nodiscard]] GameSettings* GetGameSettings() const { return this->settings; }
   [[nodiscard]] Renderer2D::IRenderer* GetRenderer() const { return this->renderer; }
-  [[nodiscard]] Renderer2D::RenderComponent2DManager* GetRenderManager() const { return this->renderManager; }
+  [[nodiscard]] Renderer2D::RenderComponent2DManager* GetRenderManager() const
+  {
+    return this->renderManager;
+  }
 
   // Setters
   void SetSnake(Snake& snake);
   void SetApple(Apple& apple);
-  void SetUI(UserInterface::IUserInterface& ui) { this->ui = &ui; }
+  void SetUserInterface(UserInterface::IUserInterface& ui) { this->userInterface = &ui; }
+  void SetInput(Platform::Input::IInput& input) { this->input = &input; }
+  void SetGameUI(UserInterface::IGameUI& gameUI) { this->gameUI = &gameUI; }
+  void SetGameSettings(GameSettings& settings) { this->settings = &settings; }
   void SetRenderer(Renderer2D::IRenderer& renderer) { this->renderer = &renderer; }
   void SetRenderManager(Renderer2D::RenderComponent2DManager& renderManager)
   {
     this->renderManager = &renderManager;
   }
 
-  void ClearUI() { this->ui = nullptr; }
+  void ClearUI() { this->gameUI = nullptr; }
 
  private:
   Core::IGameState* DetermineNextState() override;
   void ChangeState(Core::IGameState* newState) override;
 
   Core::IGameState* currentState = nullptr;
-  UserInterface::IUserInterface* ui = nullptr;
+  UserInterface::IUserInterface* userInterface = nullptr;
+  UserInterface::IGameUI* gameUI = nullptr;
   Renderer2D::RenderComponent2DManager* renderManager = nullptr;
   Renderer2D::IRenderer* renderer = nullptr;
+  Platform::Input::IInput* input = nullptr;
+  GameSettings* settings = nullptr;
   Snake* snake = nullptr;
   Apple* apple = nullptr;
   int score = {0};

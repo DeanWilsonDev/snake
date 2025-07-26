@@ -1,9 +1,9 @@
 #pragma once
 
-#include "renderer-2d/components/irender-component-2d.h"
+#include "renderer-2d/components/i-render-component-2d.h"
 #include "core/color.h"
-
-class IStateMachine;
+#include "core/math/size-2d.hpp"
+#include "core/math/vector-2d.hpp"
 
 namespace Renderer2D {
 class IRenderer;
@@ -13,8 +13,9 @@ namespace Renderer2D::Component {
 
 class RenderComponent2D final : public IRenderComponent2D {
  public:
-  RenderComponent2D(float width, float height, float positionX, float positionY, Core::Color color);
-  ~RenderComponent2D() override;
+  RenderComponent2D(float positionX, float positionY, float width, float height, Core::Color color);
+  RenderComponent2D(Core::Math::Vector2D position, Core::Math::Size2D size, Core::Color color);
+  ~RenderComponent2D() override = default;
   void Render(IRenderer& renderer) const override;
   void SetPosition(float x, float y) override;
   [[nodiscard]] float GetX() const override;
@@ -23,10 +24,8 @@ class RenderComponent2D final : public IRenderComponent2D {
   [[nodiscard]] float GetHeight() const override;
 
  private:
-  float width;
-  float height;
-  float positionX;
-  float positionY;
+  Core::Math::Vector2D position;
+  Core::Math::Size2D size;
   Core::Color color;
 };
 }  // namespace Renderer2D::Component

@@ -2,7 +2,8 @@
 #include "game/settings/game-settings.h"
 #include "log.h"
 #include "snake-segment.hpp"
-#include "platform/input/input.hpp"
+#include "platform/input/key-codes.hpp"
+#include "platform/input/i-input.hpp"
 
 namespace Game {
 
@@ -11,6 +12,7 @@ Snake::~Snake() = default;
 Snake::Snake(const SnakeParams& snakeParams)
     : renderComponent(snakeParams.renderComponent)
     , colliderComponent(snakeParams.colliderComponent)
+    , input(snakeParams.input)
     , settings(snakeParams.settings)
 {
   Initialize();
@@ -18,7 +20,7 @@ Snake::Snake(const SnakeParams& snakeParams)
 
 Snake* Snake::Initialize()
 {
-  LOG_TRACE("Initializing Snake");
+  LOG_TRACE("[Snake] Initializing Snake");
 
   this->size = static_cast<float>(this->settings.GetBoxSize());
 
@@ -47,28 +49,30 @@ Snake* Snake::Initialize()
     }));
   }
 
-  LOG_TRACE("Finished Initializing Snake");
+  LOG_TRACE("[Snake] Finished Initializing Snake");
   return this;
 }
 
 void Snake::Update(const float deltaTime)
 {
-  LOG_TRACE("Snake Update Begin");
+  LOG_TRACE("[Snake] Snake Update Begin");
   Core::Math::Vector2D newDirection = this->direction;
 
+  // Side Quest: [Snake] Input should really be handled by the gameplay state rather than the
+  // gameobject
   if (this->direction.y != 0 && !directionChanged) {
-    if (Platform::Input::Input::IsKeyPressed(Platform::Input::KEY_A)) {
+    if (this->input.IsKeyPressed(Platform::Input::KEY_A)) {
       newDirection = {-1.0f, 0.0f};
     }
-    if (Platform::Input::Input::IsKeyPressed(Platform::Input::KEY_D)) {
+    if (this->input.IsKeyPressed(Platform::Input::KEY_D)) {
       newDirection = {1.0f, 0.0f};
     }
   }
   if (this->direction.x != 0 && !directionChanged) {
-    if (Platform::Input::Input::IsKeyPressed(Platform::Input::KEY_S)) {
+    if (this->input.IsKeyPressed(Platform::Input::KEY_S)) {
       newDirection = {0.0f, 1.0f};
     }
-    if (Platform::Input::Input::IsKeyPressed(Platform::Input::KEY_W)) {
+    if (this->input.IsKeyPressed(Platform::Input::KEY_W)) {
       newDirection = {0.0f, -1.0f};
     }
   }
@@ -93,7 +97,7 @@ void Snake::Update(const float deltaTime)
   }
 }
 
-void Snake::Move()
+void Snake::Move() const
 {
   Core::Math::Vector2D previousPosition = this->head->transform.position;
   Core::Math::Vector2D nextPosition = previousPosition;
@@ -111,11 +115,9 @@ void Snake::Move()
       this->head->transform.position.y + this->direction.y * this->size,
   };
 
-  LOG_DEBUG("Direction ({}, {})", this->direction.x, this->direction.y);
-  LOG_DEBUG(
-      "Head Position ({}, {})", this->head->transform.position.x, this->head->transform.position.y
-  );
-  LOG_DEBUG("New Position ({}, {})", newPosition.x, newPosition.y);
+  LOG_DEBUG("[Snake] Direction: {}", this->direction.ToString());
+  LOG_DEBUG("[Snake] Head Position: {}", this->head->transform.position.ToString());
+  LOG_DEBUG("[Snake] New Position: {}", newPosition.ToString());
 
   newPosition.x = std::roundf(newPosition.x / this->size) * this->size;
   newPosition.y = std::roundf(newPosition.y / this->size) * this->size;
@@ -128,7 +130,8 @@ void Snake::CheckIfShouldGrow()
   LOG_TRACE("[Snake] Checking if Snake should grow {}", this->grow);
   if (this->grow) {
     Core::Math::Transform2D newSegmentTransform = this->body.back()->transform;
-    const auto segmentParams = SnakeSegmentParams{.index = this->length, .transform = newSegmentTransform};
+    const auto segmentParams =
+        SnakeSegmentParams{.index = this->length, .transform = newSegmentTransform};
     const auto segment = new SnakeSegment(segmentParams);
     this->body.push_back(segment);
     this->length++;
@@ -192,12 +195,12 @@ void Snake::Destroy()
     // SIDE QUEST: [LOGGER] Support this style of logging
     // LOG_DEBUG("Deleting head at address: {}", this->head);
     delete this->head;
-    LOG_DEBUG("Setting head to nullptr");
+    LOG_DEBUG("[Snake] Setting head to nullptr");
     this->head = nullptr;
-    LOG_DEBUG("Head successfully destroyed");
+    LOG_DEBUG("[Snake] Head successfully destroyed");
   }
   else {
-    LOG_DEBUG("Found null segment in head!");
+    LOG_DEBUG("[Snake] Found null segment in head!");
   }
 }
 }  // namespace Game

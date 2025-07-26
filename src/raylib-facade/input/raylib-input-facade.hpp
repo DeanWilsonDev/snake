@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "platform/input/iinput.hpp"
+#include "platform/input/i-input.hpp"
 
 namespace RaylibFacade::Input {
 class RaylibInputFacade final : public Platform::Input::IInput {

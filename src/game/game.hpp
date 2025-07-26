@@ -3,8 +3,7 @@
 //
 
 #pragma once
-#include "../core/igame.hpp"
-#include "raylib-facade/renderer/raylib-renderer-facade.hpp"
+#include "../core/i-game.hpp"
 
 #include <memory>
 

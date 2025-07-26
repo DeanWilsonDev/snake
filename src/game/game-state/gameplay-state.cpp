@@ -7,6 +7,8 @@
 #include "game/game-objects/apple.hpp"
 #include "physics/components/collider-component-2d.hpp"
 #include "game/game-objects/snake-segment.hpp"
+#include "game/ui/gameplay-ui.hpp"
+
 #include <cassert>
 
 namespace Renderer2D {
@@ -18,6 +20,22 @@ namespace Game {
 GameplayState::GameplayState(GameplayStateMachine& stateMachine)
     : gameplayStateMachine(stateMachine)
 {
+  LOG_TRACE("[GameplayState] Entering State");
+
+  LOG_TRACE("[GameplayState] Setting up Input");
+  this->input = this->gameplayStateMachine.GetInput();
+  assert(input);
+
+  LOG_TRACE("[GameplayState] Initializing Main Menu UI");
+  const auto gameSettings = this->gameplayStateMachine.GetGameSettings();
+  const auto userInterface = this->gameplayStateMachine.GetUserInterface();
+  int& score = this->gameplayStateMachine.GetScore();
+  LOG_TRACE("[GameplayState] Validating Game Settings");
+  assert(gameSettings);
+  LOG_TRACE("[GameplayState] Validating User Interface");
+  assert(userInterface);
+  LOG_TRACE("[GameplayState] Setting Main Menu UI");
+  this->gameplayUI = new GameplayUI(*userInterface, *gameSettings, score);
 }
 
 void GameplayState::Enter()
@@ -108,5 +126,8 @@ void GameplayState::Update(float deltaTime)
 // }
 // }
 
-void GameplayState::Exit() {}
+void GameplayState::Exit()
+{
+}
+
 }  // namespace Game

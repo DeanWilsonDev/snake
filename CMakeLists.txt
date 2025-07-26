@@ -41,12 +41,12 @@ add_executable(
         src/game/game-state/gameplay-state.cpp
         src/renderer-2d/components/render-component-2d.h
         src/renderer-2d/components/render-component-2d.cpp
-        src/renderer-2d/irenderable.h
+        src/renderer-2d/i-renderable.h
         src/core/entity.cpp
         src/core/entity.h
         src/renderer-2d/render-component-2d-manager.cpp
         src/renderer-2d/render-component-2d-manager.hpp
-        src/renderer-2d/components/irender-component-2d.h
+        src/renderer-2d/components/i-render-component-2d.h
         src/game/ui/main-menu-ui.hpp
         src/game/ui/main-menu-ui.cpp
         src/engine/config/engine-config.h
@@ -56,34 +56,29 @@ add_executable(
         src/platform/input/key-codes.hpp
         src/raylib-facade/input/raylib-input-facade.cpp
         src/raylib-facade/input/raylib-input-facade.hpp
-        src/platform/input/iinput.hpp
-        src/platform/input/input-manager.cpp
-        src/platform/input/input-manager.hpp
+        src/platform/input/i-input.hpp
         src/game/ui/game-over-ui.cpp
         src/game/ui/game-over-ui.hpp
-        src/platform/window/window-manager.cpp
-        src/platform/window/window-manager.hpp
         src/core/math/transform-2d.hpp
         src/core/math/vector-2d.hpp
         src/core/math/quaternion.hpp
         src/platform/window/screen.hpp
-        src/platform/input/input.hpp
         src/raylib-facade/core/raylib-core-facade.cpp
         src/raylib-facade/core/raylib-core-facade.hpp
         src/core/math/geometry/Rectangle.h
         src/physics/components/collider-component-2d.cpp
         src/physics/components/collider-component-2d.hpp
         src/core/core.h
-        src/user-interface/user-interface-manager.cpp
-        src/user-interface/user-interface-manager.hpp
-        src/core/implementation-manager.hpp
-        src/user-interface/user-interface.hpp
         src/engine/config/project-settings.hpp
         src/core/dependency-injector.cpp
         src/core/dependency-injector.hpp
         src/game/game.cpp
         src/game/game.hpp
-        src/core/igame.hpp
+        src/core/i-game.hpp
+        src/core/math/size-2d.hpp
+        src/user-interface/i-game-ui.hpp
+        src/game/ui/gameplay-ui.cpp
+        src/game/ui/gameplay-ui.hpp
 )
 
 # Include and Link Raylib in the game

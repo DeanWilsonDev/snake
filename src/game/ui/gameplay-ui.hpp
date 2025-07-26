@@ -1,5 +1,5 @@
 //
-// Created by Dean Wilson on 31/5/2025.
+// Created by Dean Wilson on 26/7/2025.
 //
 
 #pragma once
@@ -8,18 +8,19 @@
 namespace UserInterface {
 class IUserInterface;
 }
+
 namespace Game {
 struct GameSettings;
-class GameOverUI final : public UserInterface::IGameUI {
+
+class GameplayUI final : public UserInterface::IGameUI {
  public:
-  explicit GameOverUI(UserInterface::IUserInterface& ui, GameSettings& settings, int& score);
-  ~GameOverUI() override = default;
+  explicit GameplayUI(UserInterface::IUserInterface& ui, GameSettings& settings, int& score);
   void Render() override;
 
  private:
   UserInterface::IUserInterface& ui;
   GameSettings& settings;
-  int& score;
   char scoreBuffer[100] = {0};
+  int& score;
 };
 }  // namespace Game

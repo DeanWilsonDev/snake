@@ -3,6 +3,9 @@
 #include "core/entity.h"
 #include <deque>
 
+namespace Platform::Input {
+class IInput;
+}
 namespace Physics::Components {
 class ColliderComponent2D;
 }
@@ -38,6 +41,7 @@ struct GameSettings;
 struct SnakeParams {
   Renderer2D::Component::IRenderComponent2D& renderComponent;
   Physics::Components::ColliderComponent2D& colliderComponent;
+  Platform::Input::IInput& input;
   GameSettings& settings;
 };
 
@@ -63,7 +67,7 @@ class Snake final : public Core::Entity {
   Snake* Initialize();
   void Update(float deltaTime) override;
   void Destroy();
-  void Move();
+  void Move() const;
   void CheckIfShouldGrow();
   void Teleport() const;
   [[nodiscard]] Core::Math::Vector2D GetCenter() const;
@@ -81,6 +85,7 @@ class Snake final : public Core::Entity {
  private:
   Renderer2D::Component::IRenderComponent2D& renderComponent;
   Physics::Components::ColliderComponent2D& colliderComponent;
+  Platform::Input::IInput& input;
   GameSettings& settings;
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;

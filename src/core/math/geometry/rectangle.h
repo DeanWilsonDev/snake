@@ -11,12 +11,17 @@ namespace Core::Math::Geometry {
 struct Rectangle {
   float x, y, width, height;
 
-  Rectangle(float x, float y, float width, float height);
+  Rectangle(const float x, const float y, const float width, const float height)
+      : x(x), y(y), width(width), height(height) {};
+
+  Rectangle(const Vector2D position, const Size2D size)
+      : x(position.x), y(position.y), width(size.width), height(size.height) {};
+
   explicit Rectangle(const Transform2D& transform)
       : x(transform.position.x)
       , y(transform.position.y)
-      , width(transform.scale.x)
-      , height(transform.scale.y) {};
+      , width(transform.scale.width)
+      , height(transform.scale.height) {};
 
   [[nodiscard]] bool Intersects(const Rectangle& other) const
   {

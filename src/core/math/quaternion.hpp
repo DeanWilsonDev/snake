@@ -13,7 +13,7 @@ struct Quaternion {
 
   inline static Quaternion Identity() { return Quaternion(0, 0, 0, 1); }
 
-  inline void Normalize()
+  static inline void Normalize()
   {
     float mag = std::sqrt(x * x + y * y + z * z + w * w);
     if (mag > 0.0f) {

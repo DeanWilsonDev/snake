@@ -3,34 +3,54 @@
 //
 
 #include "main-menu-state.hpp"
-#include "game/ui/main-menu-ui.hpp"
 #include "gameplay-state-machine.hpp"
-#include "platform/input/input-manager.hpp"
+#include "game/settings/game-settings.h"
+#include "game/ui/main-menu-ui.hpp"
+#include  "platform/input/i-input.hpp"
+
+#include <cassert>
 
 namespace Game {
 
 MainMenuState::MainMenuState(GameplayStateMachine& gameplayStateMachine)
     : gameplayStateMachine(gameplayStateMachine)
 {
+  LOG_TRACE("[MainMenuState] Entering State");
+
+  LOG_TRACE("[MainMenuState] Setting up Input");
+  this->input = this->gameplayStateMachine.GetInput();
+  assert(input);
+
+  LOG_TRACE("[MainMenuState] Initializing Main Menu UI");
+  const auto gameSettings =  this->gameplayStateMachine.GetGameSettings();
+  const auto userInterface = this->gameplayStateMachine.GetUserInterface();
+  LOG_TRACE("[MainMenuState] Validating Game Settings");
+  assert(gameSettings);
+  LOG_TRACE("[MainMenuState] Validating User Interface");
+  assert(userInterface);
+  LOG_TRACE("[MainMenuState] Setting Main Menu UI");
+  this->mainMenuUI = new MainMenuUI(*userInterface, *gameSettings);
 }
 
 void MainMenuState::Enter()
 {
-  this->mainMenuUI = new MainMenuUI();
-  this->gameplayStateMachine.SetUI(*mainMenuUI);
+  LOG_TRACE("[MainMenuState] Entering State");
+
+  LOG_TRACE("[MainMenuState] Setting Main Menu UI as Active Game UI");
+  this->gameplayStateMachine.SetGameUI(*this->mainMenuUI);
 }
 
 void MainMenuState::Update(float deltaTime)
 {
-  if (Platform::Input::InputManager::IsKeyPressed(Platform::Input::KeyCode::KEY_ENTER)) {
+  if (this->input->IsKeyPressed(Platform::Input::KeyCode::KEY_ENTER)) {
     this->gameplayStateMachine.Next();
   }
 }
 
 void MainMenuState::Exit()
 {
-  this->gameplayStateMachine.ClearUI();
-  delete this->mainMenuUI;
+  LOG_TRACE("[MainMenuState] Exiting State");
+  delete mainMenuUI;
 }
 
 }  // namespace Game

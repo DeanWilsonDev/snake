@@ -4,7 +4,7 @@
 
 #include "window-manager.hpp"
 
-#include "iwindow.h"
+#include "i-window.h"
 #include "log.h"
 
 namespace Platform::Window {

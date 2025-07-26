@@ -9,7 +9,9 @@ RaylibUserInterfaceFacade::RaylibUserInterfaceFacade()
 {
   LOG_TRACE("Initializing Raylib User Interface");
 }
-void RaylibUserInterfaceFacade::DrawTextCentered(const char* text, Core::Math::Vector2D position, const float fontSize)
+void RaylibUserInterfaceFacade::DrawTextCentered(
+    const char* text, Core::Math::Vector2D position, const float fontSize
+)
 {
   const auto [x, y] = MeasureTextEx(GetFontDefault(), text, fontSize, 1);
   position.x -= x / 2.0f;

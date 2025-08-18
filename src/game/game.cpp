@@ -90,15 +90,15 @@ void Game::Initialize()
       .transform = snakeTransform, .bounds = snakeBounds
   };
 
-  auto snakeRenderComponent = Renderer2D::Component::RenderComponent2D(
+  auto snakeRenderComponent = new Renderer2D::Component::RenderComponent2D(
       snakeTransform.position, snakeTransform.scale, Core::COLOR_GREEN
   );
 
-  auto snakeColliderComponent = Physics::Components::ColliderComponent2D(snakeColliderParams);
+  auto snakeColliderComponent = new Physics::Components::ColliderComponent2D(snakeColliderParams);
 
   const auto snakeParams = SnakeParams{
-      .renderComponent = snakeRenderComponent,
-      .colliderComponent = snakeColliderComponent,
+      .renderComponent = *snakeRenderComponent,
+      .colliderComponent = *snakeColliderComponent,
       .input = *input,
       .settings = *settings
   };
@@ -116,16 +116,28 @@ void Game::Initialize()
       .transform = appleTransform, .bounds = appleBounds
   };
 
-  auto appleRenderComponent = Renderer2D::Component::RenderComponent2D(
+  auto appleRenderComponent = new Renderer2D::Component::RenderComponent2D(
       appleTransform.position, appleTransform.scale, Core::COLOR_RED
   );
 
-  const auto appleColliderComponent =
-      new Physics::Components::ColliderComponent2D(appleColliderParams);
+  const auto appleColliderComponent = new Physics::Components::ColliderComponent2D(appleColliderParams);
   const auto appleParams = AppleParams{
-      .settings = *settings, .colliderComponent = *appleColliderComponent, appleRenderComponent
+      .settings = *settings,
+      .colliderComponent = *appleColliderComponent,
+      .renderComponent= *appleRenderComponent
   };
   this->apple = new Apple(appleParams);
+
+  LOG_DEBUG(
+      "[Game] Apple RenderComponent is Initialized: [{}]", static_cast<void*>(&appleRenderComponent)
+  );
+  LOG_DEBUG(
+      "[Game] Apple ColliderComponent is Initialized: [{}]",
+      static_cast<void*>(appleColliderComponent)
+  );
+  LOG_DEBUG(
+      "[Apple] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
+  );
 
   LOG_DEBUG("[Game] Apple set to [{}]", static_cast<void*>(&this->apple));
 
@@ -170,20 +182,21 @@ void Game::Initialize()
   this->gameplayStateMachine->SetGameSettings(*settings);
 
   this->gameplayStateMachine->ChangeState(initialState);
+
+
+  this->renderManager.Register(snakeRenderComponent);
+  this->renderManager.Register(appleRenderComponent);
 }
 
 void Game::Update(const float deltaTime)
 {
-  LOG_DEBUG("[GAME] Game Update running...");
+  LOG_DEBUG("[Game] Game Update running...");
   this->gameplayStateMachine->Update(deltaTime);
 }
 
 void Game::Render()
 {
-  LOG_DEBUG(
-      "[GameplayStateMachine] checking RenderManager2D [{}]",
-      static_cast<void*>(&this->renderManager)
-  );
+  LOG_DEBUG("[Game] checking RenderManager2D [{}]", static_cast<void*>(&this->renderManager));
   this->renderManager.RenderAll();
 }
 

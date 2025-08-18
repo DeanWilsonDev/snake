@@ -4,15 +4,25 @@
 
 namespace Game {
 
-Apple::Apple(const AppleParams& params) : settings(params.settings), colliderComponent(params.colliderComponent), renderComponent(params.renderComponent)
+Apple::Apple(const AppleParams& params)
+    : settings(params.settings)
+    , colliderComponent(params.colliderComponent)
+    , renderComponent(params.renderComponent)
 {
-  this->Initialize();
+  LOG_DEBUG(
+      "[Apple] Checking RenderComponent is Initialized: [{}]",
+      static_cast<void*>(&this->renderComponent)
+  );
+  LOG_DEBUG(
+      "[Apple] Checking ColliderComponent is Initialized: [{}]",
+      static_cast<void*>(&this->colliderComponent)
+  );
+  LOG_DEBUG(
+      "[Apple] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
+  );
 }
 
-void Apple::Update(float deltaTime)
-{
-
-}
+void Apple::Update(float deltaTime) {}
 
 void Apple::Initialize()
 {
@@ -30,8 +40,8 @@ Core::Math::Vector2D Apple::GetNewPosition() const
   const auto maxWidth = static_cast<int>(screenWidth / boxSize - 1.f);
   const auto maxHeight = static_cast<int>(screenHeight / boxSize - 1.f);
 
-  const auto posX =
-      static_cast<float>(Core::GetRandomValue(0, maxWidth)) * boxSize + (boxSize - boxSize / 2.0f) / 2.0f;
+  const auto posX = static_cast<float>(Core::GetRandomValue(0, maxWidth)) * boxSize +
+                    (boxSize - boxSize / 2.0f) / 2.0f;
 
   const auto posY = static_cast<float>(Core::GetRandomValue(0, maxHeight)) * boxSize +
                     (boxSize - boxSize / 2.0f) / 2.0f;

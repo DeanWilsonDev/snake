@@ -40,7 +40,7 @@ void RenderComponent2DManager::Unregister(Component::IRenderComponent2D* compone
 void RenderComponent2DManager::RenderAll() const
 {
   LOG_CORE_TRACE("[RenderComponent2DManager] Begin rendering RenderComponent2D");
-  if (this->renderComponents.size() == 0) {
+  if (this->renderComponents.empty()) {
     LOG_CORE_DEBUG("[RenderComponent2DManager] No render components set");
     return;
   }

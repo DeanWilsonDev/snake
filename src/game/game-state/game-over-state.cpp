@@ -33,6 +33,13 @@ void GameOverState::Update(float deltaTime)
 void GameOverState::Exit()
 {
   LOG_TRACE("[GameOverState] Exiting State");
+
+  // Side Quest: [GameOverState] Hook up GameOverUI
+  // if (gameOverUI) {
+  //   delete gameOverUI;
+  //   gameOverUI = nullptr;
+  // }
+  // this->gameplayStateMachine.ClearUI();
 }
 
 }  // namespace Game

@@ -73,10 +73,10 @@ class GameplayStateMachine final : public Core::IStateMachine {
   }
 
   void ClearUI() { this->gameUI = nullptr; }
+  void ChangeState(Core::IGameState* newState) override;
 
  private:
   Core::IGameState* DetermineNextState() override;
-  void ChangeState(Core::IGameState* newState) override;
 
   Core::IGameState* currentState = nullptr;
   UserInterface::IUserInterface* userInterface = nullptr;

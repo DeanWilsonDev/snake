@@ -3,6 +3,9 @@
 //
 
 #include "raylib-input-facade.hpp"
+
+#include "core.h"
+#include "log.h"
 #include "raylib.h"
 
 namespace RaylibFacade::Input {
@@ -11,7 +14,12 @@ RaylibInputFacade::RaylibInputFacade() = default;
 
 bool RaylibInputFacade::IsKeyPressed(const Platform::Input::KeyCode keyCode)
 {
-  return ::IsKeyPressed(MapKeyCode(keyCode));
+  const bool pressed = ::IsKeyPressed(MapKeyCode(keyCode));
+  LOG_CORE_TRACE("[RaylibInputFacade] IsKeyPressed? {}", pressed);
+  if (pressed) {
+    LOG_CORE_TRACE("[RaylibInputFacade] Key Pressed trigger for key: {}", static_cast<int>(keyCode));
+  }
+  return pressed;
 }
 
 bool RaylibInputFacade::IsKeyDown(const Platform::Input::KeyCode keyCode)

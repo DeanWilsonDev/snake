@@ -18,7 +18,8 @@ class IRenderComponent2D;
 
 class RenderComponent2DManager {
  public:
-  explicit RenderComponent2DManager(std::shared_ptr<IRenderer> renderer);
+  explicit RenderComponent2DManager(const std::shared_ptr<IRenderer>& renderer);
+  ~RenderComponent2DManager() = default;
   void Register(Component::IRenderComponent2D* component);
   void Unregister(Component::IRenderComponent2D* component);
   void RenderAll() const;

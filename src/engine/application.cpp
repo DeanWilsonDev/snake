@@ -11,13 +11,9 @@
 #include <cstring>
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "platform/window/i-window.h"
-#include "renderer-2d/render-component-2d-manager.hpp"
 #include "core/i-game.hpp"
 
 namespace Engine {
-
-// Main Quest: [Application] Update Application class. move items from main to application and tidy
-// up
 
 Application::Application(const ApplicationParams& params)
     : injector(params.injector)
@@ -25,14 +21,20 @@ Application::Application(const ApplicationParams& params)
     , projectSettings(params.projectSettings)
     , renderComponent2dManager(params.renderComponent2dManager)
 {
-  LOG_TRACE("Initializing Application");
+  LOG_CORE_TRACE("[Application] Initializing");
   this->window = injector.Resolve<Platform::Window::IWindow>();
   this->renderer2d = injector.Resolve<Renderer2D::IRenderer>();
   this->stateMachine = injector.Resolve<Core::IStateMachine>();
   this->input = injector.Resolve<Platform::Input::IInput>();
   this->userInterface = injector.Resolve<UserInterface::IUserInterface>();
 
-  LOG_TRACE("Validating Dependencies");
+  LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&window));
+  LOG_CORE_TRACE("[Application] Renderer2D set to {}", static_cast<void*>(&renderer2d));
+  LOG_CORE_TRACE("[Application] StateMachine set to {}", static_cast<void*>(&stateMachine));
+  LOG_CORE_TRACE("[Application] Input set to {}", static_cast<void*>(&input));
+  LOG_CORE_TRACE("[Application] UserInterface set to {}", static_cast<void*>(&userInterface));
+
+  LOG_CORE_TRACE("[Application] Validating Dependencies");
   assert(this->window);
   assert(this->renderer2d);
   assert(this->stateMachine);
@@ -44,7 +46,8 @@ Application::~Application() = default;
 
 void Application::SetGame(std::shared_ptr<Core::IGame> game)
 {
-  this->game = std::move(game);
+  LOG_CORE_TRACE("[Application] Setting Game to {}", static_cast<void*>(&game));
+  this->game = game;
   if (this->game) {
     this->game->Initialize();
   }
@@ -52,21 +55,26 @@ void Application::SetGame(std::shared_ptr<Core::IGame> game)
 
 void Application::Run() const
 {
-  LOG_TRACE("Beginning Application");
+  LOG_CORE_TRACE("[Application] Beginning Application");
   const char* title = projectSettings.GetTitle() ?: engineConfig.window.title;
-  LOG_INFO("Starting Game: {}", title);
+  LOG_CORE_INFO("[Application] Starting Game: {}", title);
   char* windowTitle = strdup(title);
+  LOG_CORE_DEBUG("[Application] Window Title set: {}", windowTitle);
   assert(windowTitle);
 
+  if (!this->window) {
+    LOG_CORE_FATAL("[Application] Failed to initialize window");
+    assert(this->window);
+  }
   this->window->CreateWindow(engineConfig.window.width, engineConfig.window.height, windowTitle);
   this->window->SetTargetFPS(engineConfig.window.targetFPS);
 
-  LOG_DEBUG("Window Should Close {}", this->window->ShouldClose());
+  LOG_CORE_DEBUG("[Application] Window Should Close {}", this->window->ShouldClose());
 
   std::chrono::time_point lastTime = std::chrono::high_resolution_clock::now();
 
+  LOG_CORE_TRACE("[Application] Beginning application loop");
   while (!this->window->ShouldClose()) {
-
     // Calculate DeltaTime
     std::chrono::time_point currentTime = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float> elapsedTime = currentTime - lastTime;

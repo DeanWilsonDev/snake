@@ -15,6 +15,7 @@ struct GameSettings;
 class MainMenuUI final : public UserInterface::IGameUI {
  public:
   explicit MainMenuUI(UserInterface::IUserInterface& ui, GameSettings& settings);
+  ~MainMenuUI() override;
   void Render() override;
 private:
   char scoreBuffer[100] = {0};

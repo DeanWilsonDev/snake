@@ -9,6 +9,7 @@ namespace Game {
 struct AppleParams {
   GameSettings& settings;
   Physics::Components::ColliderComponent2D& colliderComponent;
+  Renderer2D::Component::IRenderComponent2D& renderComponent;
 };
 
 class Apple final : public Core::Entity {
@@ -24,11 +25,17 @@ class Apple final : public Core::Entity {
     return this->colliderComponent;
   }
 
+  [[nodiscard]] Renderer2D::Component::IRenderComponent2D& GetRendererComponent2D() const
+  {
+    return this->renderComponent;
+  }
+
   [[nodiscard]] float GetSize() const { return this->size; }
 
  private:
   GameSettings& settings;
   Physics::Components::ColliderComponent2D& colliderComponent;
+  Renderer2D::Component::IRenderComponent2D& renderComponent;
   float size = {10};
 };
 }  // namespace Game

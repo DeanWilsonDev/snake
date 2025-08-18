@@ -9,7 +9,7 @@
 #define DEFAULT_SCREEN_HEIGHT (720)
 #define GRID_COLUMNS (25);
 #define GRID_ROWS (25);
-#define DEBUG_ENABLED false;
+#define DEBUG_ENABLED true;
 #define DEFAULT_SNAKE_LENGTH (5);
 
 namespace Game {

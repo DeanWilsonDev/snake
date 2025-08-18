@@ -34,6 +34,12 @@ int main(int argc, char* argv[])
   auto projectSettings = Engine::Config::ProjectSettings("Snake");
 
   const auto renderer2d = injector.Resolve<Renderer2D::IRenderer>();
+  if (!renderer2d) {
+    LOG_FATAL("[Main] Renderer2D could not be instantiated!");
+    return -1;
+  }
+
+  LOG_TRACE("[Main] Setting up RenderComponent2DManager");
   auto renderManager = Renderer2D::RenderComponent2DManager(renderer2d);
 
   const auto params = Engine::ApplicationParams{
@@ -45,7 +51,7 @@ int main(int argc, char* argv[])
 
   auto application = Engine::Application(params);
 
-  std::shared_ptr<Core::IGame> game =
+  const std::shared_ptr<Core::IGame> game =
       std::make_shared<Game::Game>(injector, projectSettings, renderManager);
   application.SetGame(game);
 

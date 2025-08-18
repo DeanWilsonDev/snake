@@ -6,7 +6,7 @@
 #include "gameplay-state-machine.hpp"
 #include "game/settings/game-settings.h"
 #include "game/ui/main-menu-ui.hpp"
-#include  "platform/input/i-input.hpp"
+#include "platform/input/i-input.hpp"
 
 #include <cassert>
 
@@ -15,6 +15,10 @@ namespace Game {
 MainMenuState::MainMenuState(GameplayStateMachine& gameplayStateMachine)
     : gameplayStateMachine(gameplayStateMachine)
 {
+}
+
+void MainMenuState::Enter()
+{
   LOG_TRACE("[MainMenuState] Entering State");
 
   LOG_TRACE("[MainMenuState] Setting up Input");
@@ -22,7 +26,7 @@ MainMenuState::MainMenuState(GameplayStateMachine& gameplayStateMachine)
   assert(input);
 
   LOG_TRACE("[MainMenuState] Initializing Main Menu UI");
-  const auto gameSettings =  this->gameplayStateMachine.GetGameSettings();
+  const auto gameSettings = this->gameplayStateMachine.GetGameSettings();
   const auto userInterface = this->gameplayStateMachine.GetUserInterface();
   LOG_TRACE("[MainMenuState] Validating Game Settings");
   assert(gameSettings);
@@ -30,11 +34,6 @@ MainMenuState::MainMenuState(GameplayStateMachine& gameplayStateMachine)
   assert(userInterface);
   LOG_TRACE("[MainMenuState] Setting Main Menu UI");
   this->mainMenuUI = new MainMenuUI(*userInterface, *gameSettings);
-}
-
-void MainMenuState::Enter()
-{
-  LOG_TRACE("[MainMenuState] Entering State");
 
   LOG_TRACE("[MainMenuState] Setting Main Menu UI as Active Game UI");
   this->gameplayStateMachine.SetGameUI(*this->mainMenuUI);
@@ -42,7 +41,14 @@ void MainMenuState::Enter()
 
 void MainMenuState::Update(float deltaTime)
 {
+
+  if (!this->input) {
+    LOG_ERROR("[MainMenuState] Input is NULL");
+    return;
+  }
+
   if (this->input->IsKeyPressed(Platform::Input::KeyCode::KEY_ENTER)) {
+    LOG_TRACE("[MainMenuState] Changing to next state");
     this->gameplayStateMachine.Next();
   }
 }
@@ -50,7 +56,12 @@ void MainMenuState::Update(float deltaTime)
 void MainMenuState::Exit()
 {
   LOG_TRACE("[MainMenuState] Exiting State");
-  delete mainMenuUI;
+
+  if (mainMenuUI) {
+    delete mainMenuUI;
+    mainMenuUI = nullptr;
+  }
+  this->gameplayStateMachine.ClearUI();
 }
 
 }  // namespace Game

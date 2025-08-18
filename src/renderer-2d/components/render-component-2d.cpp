@@ -3,6 +3,9 @@
 //
 
 #include "renderer-2d/components/render-component-2d.h"
+
+#include "core.h"
+#include "log.h"
 #include "renderer-2d/i-renderer.h"
 
 namespace Renderer2D::Component {
@@ -23,7 +26,9 @@ RenderComponent2D::RenderComponent2D(
 
 void RenderComponent2D::Render(IRenderer& renderer) const
 {
-  // Side Quest [RenderComponent2D] Allow for rendering different shapes and Sprites
+  LOG_CORE_DEBUG("[RenderComponent2D] Drawing with renderer [{}]", static_cast<void*>(&renderer));
+
+  // Side Quest: [RenderComponent2D] Allow for rendering different shapes and Sprites
   renderer.DrawRectangle(position.x, position.y, size.GetWidth(), size.GetHeight(), color);
 }
 

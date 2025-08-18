@@ -24,5 +24,4 @@ void MainMenuUI::Render()
       "Press 'Enter' to start", (Core::Math::Vector2D){screenWidth / 2.0f, 200.0f}, 20
   );
 }
-
 }  // namespace Game

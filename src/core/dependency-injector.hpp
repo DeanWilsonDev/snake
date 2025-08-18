@@ -55,34 +55,37 @@ template <typename Interface>
 std::shared_ptr<Interface> DependencyInjector::Resolve()
 {
   const auto type = std::type_index(typeid(Interface));
+  LOG_CORE_TRACE("[DependencyInjector] Resolving {}", type.name());
 
   // Check if an instance already exists
   if (const auto itInstance = instances.find(type); itInstance != instances.end()) {
-    LOG_CORE_DEBUG("Instance for type: {} is being invoked", type.name());
+    LOG_CORE_TRACE("[DependencyInjector] Instance for type: {} is being invoked", type.name());
     return std::static_pointer_cast<Interface>(itInstance->second);
   }
 
   // Otherwise create a new instance using the factory
   if (const auto itFactory = factories.find(type); itFactory != factories.end()) {
     try {
-      LOG_CORE_DEBUG("Factory for type: {} is being invoked", type.name());
+      LOG_CORE_TRACE("[DependencyInjector] Factory for type: {} is being invoked", type.name());
       if (!itFactory->second) {
-        throw std::runtime_error("Factory function is not callable.");
+        throw std::runtime_error("[DependencyInjector] Factory function is not callable.");
       }
 
       const auto rawInstance = itFactory->second();
       if (!rawInstance) {
-        throw std::runtime_error("Factory returned nullptr for the requested dependency.");
+        throw std::runtime_error(
+            "[DependencyInjector] Factory returned nullptr for the requested dependency."
+        );
       }
       instances[type] = rawInstance;  // Cache the instance
       return std::static_pointer_cast<Interface>(rawInstance);
     }
     catch (const std::exception& e) {
-      throw std::runtime_error(std::string("Failed to resolve dependency: ", e.what()));
+      throw std::runtime_error(std::string("[DependencyInjector] Failed to resolve dependency: ", e.what()));
     }
   }
 
-  throw std::runtime_error("Dependency not registered!");
+  throw std::runtime_error("[DependencyInjector] Dependency not registered!");
 }
 
 template <typename Interface>

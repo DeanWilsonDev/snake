@@ -22,6 +22,11 @@ Snake* Snake::Initialize()
 {
   LOG_TRACE("[Snake] Initializing Snake");
 
+  if (!&this->settings) {
+    LOG_FATAL("[Snake] GameSettings is not Initialized");
+    return nullptr;
+  }
+
   this->size = static_cast<float>(this->settings.GetBoxSize());
 
   this->speed = this->size * 5.0f;
@@ -192,8 +197,7 @@ void Snake::Destroy()
   this->body.clear();
 
   if (head) {
-    // SIDE QUEST: [LOGGER] Support this style of logging
-    // LOG_DEBUG("Deleting head at address: {}", this->head);
+    LOG_DEBUG("Deleting head at address: {}", static_cast<void*>(&this->head));
     delete this->head;
     LOG_DEBUG("[Snake] Setting head to nullptr");
     this->head = nullptr;

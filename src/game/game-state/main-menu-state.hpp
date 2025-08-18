@@ -16,12 +16,13 @@ class MainMenuUI;
 class MainMenuState final : public Core::IGameState {
  public:
   explicit MainMenuState(GameplayStateMachine& gameplayStateMachine);
+  ~MainMenuState() override = default;
   void Enter() override;
   void Update(float deltaTime) override;
   void Exit() override;
 
  private:
-  GameplayStateMachine& gameplayStateMachine;
+  std::unique_ptr<GameplayStateMachine> gameplayStateMachine;
   MainMenuUI* mainMenuUI = nullptr;
   Platform::Input::IInput* input = nullptr;
 };

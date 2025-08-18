@@ -78,6 +78,11 @@ class Snake final : public Core::Entity {
   {
     return this->colliderComponent;
   }
+  [[nodiscard]] Renderer2D::Component::IRenderComponent2D& GetRendererComponent2D() const
+  {
+    return this->renderComponent;
+  }
+
 
   SnakeSegment* head{};
   std::deque<SnakeSegment*> body;

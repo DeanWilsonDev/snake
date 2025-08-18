@@ -4,7 +4,7 @@
 
 namespace Game {
 
-Apple::Apple(const AppleParams& params) : settings(params.settings), colliderComponent(params.colliderComponent)
+Apple::Apple(const AppleParams& params) : settings(params.settings), colliderComponent(params.colliderComponent), renderComponent(params.renderComponent)
 {
   this->Initialize();
 }

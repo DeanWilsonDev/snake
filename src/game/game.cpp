@@ -53,19 +53,22 @@ void Game::Initialize()
   auto settings = GameSettings{};
   settings.SetScreenResolution(window->GetScreenWidth(), window->GetScreenHeight());
 
-  // Initialize Snake
+  const auto vectorZero = Core::Math::Vector2D::Zero();
+  const auto sizeZero = Core::Math::Size2D::Zero();
 
+  // Initialize Snake
+  LOG_TRACE("[Game] Initializing Snake");
   auto snakeSize = static_cast<float>(settings.GetBoxSize());
 
-  auto* snakeTransform = new Core::Math::Transform2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
+  auto snakeTransform = Core::Math::Transform2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
 
-  auto snakeBounds = Core::Math::Geometry::Rectangle(*snakeTransform);
+  auto snakeBounds = Core::Math::Geometry::Rectangle(snakeTransform);
   const auto snakeColliderParams = Physics::Components::ColliderComponentParams{
-      .transform = *snakeTransform, .bounds = snakeBounds
+      .transform = snakeTransform, .bounds = snakeBounds
   };
 
   auto snakeRenderComponent = Renderer2D::Component::RenderComponent2D(
-      snakeTransform->position, snakeTransform->scale, Core::COLOR_GREEN
+      snakeTransform.position, snakeTransform.scale, Core::COLOR_GREEN
   );
 
   auto snakeColliderComponent = Physics::Components::ColliderComponent2D(snakeColliderParams);
@@ -77,28 +80,30 @@ void Game::Initialize()
       .settings = settings
   };
 
-  const auto snake = new Snake(snakeParams);
-  snake->Initialize();
+  auto snake = make_unique<Snake>(snakeParams);
+  LOG_DEBUG("[Game] Snake set to [{}]", static_cast<void*>(&snake));
 
   // Initialize Apple
+  LOG_TRACE("[Game] Initializing Snake");
 
-  auto* appleTransform =
-      new Core::Math::Transform2D(Core::Math::Vector2D::Zero(), 0.0f, Core::Math::Size2D::Zero());
+  auto appleTransform = Core::Math::Transform2D(vectorZero, 0.0f, sizeZero);
 
-  auto appleBounds = Core::Math::Geometry::Rectangle(*appleTransform);
+  auto appleBounds = Core::Math::Geometry::Rectangle(appleTransform);
   const auto appleColliderParams = Physics::Components::ColliderComponentParams{
-      .transform = *appleTransform, .bounds = appleBounds
+      .transform = appleTransform, .bounds = appleBounds
   };
 
   auto appleRenderComponent = Renderer2D::Component::RenderComponent2D(
-      appleTransform->position, appleTransform->scale, Core::COLOR_RED
+      appleTransform.position, appleTransform.scale, Core::COLOR_RED
   );
 
   const auto appleColliderComponent =
       new Physics::Components::ColliderComponent2D(appleColliderParams);
   const auto appleParams =
-      AppleParams{.settings = settings, .colliderComponent = *appleColliderComponent};
-  const auto apple = new Apple(appleParams);
+      AppleParams{.settings = settings, .colliderComponent = *appleColliderComponent, appleRenderComponent};
+  auto apple = make_unique<Apple>(appleParams);
+
+  LOG_DEBUG("[Game] Apple set to [{}]", static_cast<void*>(&apple));
 
   const auto renderer = injector.Resolve<Renderer2D::IRenderer>();
   if (!renderer) {
@@ -112,35 +117,47 @@ void Game::Initialize()
     assert(userInterface);
   }
 
+  LOG_DEBUG("[Game] Resolving GameplayStateMachine");
   const auto stateMachine = injector.Resolve<Core::IStateMachine>();
   this->gameplayStateMachine = dynamic_pointer_cast<GameplayStateMachine>(stateMachine);
+
+  LOG_DEBUG(
+      "[Game] GameplayStateMachine set to: [{}]", static_cast<void*>(&this->gameplayStateMachine)
+  );
 
   if (!this->gameplayStateMachine) {
     LOG_FATAL("[Game] Failed to initialize GameplayStateMachine");
     assert(this->gameplayStateMachine);
   }
 
+  Core::IGameState* initialState = new MainMenuState(*this->gameplayStateMachine);
   this->gameplayStateMachine->SetApple(*apple);
-  this->gameplayStateMachine->InitializeApple();
-
   this->gameplayStateMachine->SetSnake(*snake);
-  this->gameplayStateMachine->InitializeSnake();
 
-  this->gameplayStateMachine->SetRenderManager(renderManager);
+  this->gameplayStateMachine->SetRenderManager(this->renderManager);
   this->gameplayStateMachine->SetRenderer(*renderer);
   this->gameplayStateMachine->SetUserInterface(*userInterface);
   this->gameplayStateMachine->SetInput(*input);
+  this->gameplayStateMachine->SetGameSettings(settings);
 
+  this->gameplayStateMachine->ChangeState(initialState);
 }
 
 void Game::Update(const float deltaTime)
 {
+  LOG_DEBUG("[GAME] Game Update running...");
   this->gameplayStateMachine->Update(deltaTime);
 }
 
 void Game::Render()
 {
-  this->renderManager.RenderAll();
+  LOG_DEBUG(
+      "[GameplayStateMachine] checking RenderManager2D [{}]",
+      static_cast<void*>(&this->renderManager)
+  );
+  if (&this->renderManager) {
+    this->renderManager.RenderAll();
+  }
 }
 
 }  // namespace Game

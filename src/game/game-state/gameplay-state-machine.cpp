@@ -9,16 +9,11 @@
 #include "game/game-objects/snake.hpp"
 #include "user-interface/i-game-ui.hpp"
 
-#include <cassert>
-
 namespace Game {
 
 GameplayStateMachine::GameplayStateMachine(Core::IGameState* currentState)
     : currentState(currentState), score(0)
 {
-  if (!currentState) {
-    this->currentState = new MainMenuState(*this);
-  }
 }
 
 GameplayStateMachine::~GameplayStateMachine()
@@ -31,12 +26,16 @@ GameplayStateMachine::~GameplayStateMachine()
 
 void GameplayStateMachine::Update(float deltaTime)
 {
-  if (!this->currentState) return;
+  LOG_DEBUG(
+      "[GameplayStateMachine] checking CurrentState [{}]", static_cast<void*>(&this->currentState)
+  );
+  if (!this->currentState) {
+    return;
+  }
+
   this->currentState->Update(deltaTime);
 
-  if (this->renderManager)
-  this->renderManager->RenderAll();
-
+  LOG_DEBUG("[GameplayStateMachine] checking GameUI [{}]", static_cast<void*>(&this->gameUI));
   if (this->gameUI) {
     this->gameUI->Render();
   }
@@ -44,10 +43,12 @@ void GameplayStateMachine::Update(float deltaTime)
 
 void GameplayStateMachine::ChangeState(Core::IGameState* newState)
 {
+  LOG_DEBUG("[GameplayStateMachine] Changing State");
   if (currentState) {
     currentState->Exit();
-    delete this->currentState;
+    delete currentState;
   }
+  LOG_DEBUG("[GameplayStateMachine] Setting state to [{}]", static_cast<void*>(&newState));
   this->currentState = newState;
   if (currentState) {
     currentState->Enter();
@@ -60,46 +61,52 @@ void GameplayStateMachine::IncreaseScore()
 }
 void GameplayStateMachine::Next()
 {
+  LOG_TRACE("[GameplayStateMachine] Running Next state");
   if (!currentState) return;
-
   if (Core::IGameState* nextState = this->DetermineNextState()) {
+    LOG_DEBUG("[GameplayStateMachine] Next State: [{}]", static_cast<void*>(&nextState));
     this->ChangeState(nextState);
   }
 }
 void GameplayStateMachine::InitializeSnake() const
 {
-  this->snake->Initialize();
+  if (this->snake) {
+    this->snake->Initialize();
+  }
 }
+
 void GameplayStateMachine::InitializeApple() const
 {
-  this->apple->Initialize();
+  if (this->apple) {
+    this->apple->Initialize();
+  }
 }
 
 void GameplayStateMachine::SetSnake(Snake& snake)
 {
-  LOG_TRACE("Adding Snake to Game State");
+  LOG_TRACE("[GameplayStateMachine] Adding Snake to Game State");
   this->snake = &snake;
-  LOG_TRACE("Snake Added to Game State");
+  LOG_TRACE("[GameplayStateMachine] Snake Added to Game State");
 };
 
 void GameplayStateMachine::SetApple(Apple& apple)
 {
-  LOG_TRACE("Adding Apple to Game State");
+  LOG_TRACE("[GameplayStateMachine] Adding Apple to Game State");
   this->apple = &apple;
-  LOG_TRACE("Apple Added to Game State");
+  LOG_TRACE("[GameplayStateMachine] Apple Added to Game State");
 }
 
 Core::IGameState* GameplayStateMachine::DetermineNextState()
 {
-  if (dynamic_cast<MainMenuState*>(this->currentState)) {
+  if (dynamic_cast<MainMenuState*>(&*this->currentState)) {
     return new GameplayState(*this);
   }
 
-  if (dynamic_cast<GameplayState*>(this->currentState)) {
+  if (dynamic_cast<GameplayState*>(&*this->currentState)) {
     return new GameOverState(*this);
   }
 
-  if (dynamic_cast<GameOverState*>(this->currentState)) {
+  if (dynamic_cast<GameOverState*>(&*this->currentState)) {
     return new GameplayState(*this);
   }
 

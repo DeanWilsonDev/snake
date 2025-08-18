@@ -28,7 +28,9 @@ Game::Game(
     Core::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
     Renderer2D::RenderComponent2DManager& renderManager
 )
-    : injector(injector), projectSettings(projectSettings), renderManager(renderManager)
+    : injector(injector)
+    , projectSettings(projectSettings)
+    , renderManager(renderManager)
 {
 }
 Game::~Game()
@@ -72,9 +74,9 @@ void Game::Initialize()
   LOG_TRACE("[Game] Validating Window");
   assert(window);
 
+
   this->settings = new GameSettings{};
   settings->Print();
-  settings->SetScreenResolution(window->GetScreenWidth(), window->GetScreenHeight());
 
   const auto vectorZero = Core::Math::Vector2D::Zero();
   const auto sizeZero = Core::Math::Size2D::Zero();
@@ -174,12 +176,19 @@ void Game::Initialize()
       "[Game] Checking GameSettings on Snake [{}]",
       static_cast<void*>(&this->gameplayStateMachine->GetSnake()->GetGameSettings())
   );
+  this->snake->GetGameSettings().Print();
+
 
   this->gameplayStateMachine->SetRenderManager(this->renderManager);
   this->gameplayStateMachine->SetRenderer(*renderer);
   this->gameplayStateMachine->SetUserInterface(*userInterface);
   this->gameplayStateMachine->SetInput(*input);
   this->gameplayStateMachine->SetGameSettings(*settings);
+  LOG_DEBUG(
+      "[Game] Checking GameSettings on GameplayStateMachine [{}]",
+      static_cast<void*>(this->gameplayStateMachine->GetGameSettings())
+  );
+  this->gameplayStateMachine->GetGameSettings()->Print();
 
   this->gameplayStateMachine->ChangeState(initialState);
 

@@ -46,19 +46,8 @@ struct GameSettings {
     );
   }
 
-  void Print()
+  void Print() const
   {
-
-
-    int minBoxSize = DEFAULT_MIN_BOX_SIZE;
-    int maxBoxSize = DEFAULT_MAX_BOX_SIZE;
-    int gridWidth = GRID_COLUMNS;
-    int gridHeight = GRID_ROWS;
-    bool isDebugEnabled = DEBUG_ENABLED;
-    int defaultSnakeLength = DEFAULT_SNAKE_LENGTH;
-    int screenWidth = DEFAULT_SCREEN_WIDTH;
-    int screenHeight = DEFAULT_SCREEN_HEIGHT;
-
     LOG_INFO("------------ GAME SETTINGS -----------");
     LOG_INFO("Default Min Box Size: {}", this->minBoxSize);
     LOG_INFO("Default Max Box Size: {}", this->maxBoxSize);

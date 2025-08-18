@@ -14,7 +14,7 @@ namespace Game {
 class Snake;
 class Apple;
 class GameplayStateMachine;
-}
+}  // namespace Game
 namespace Core {
 class DependencyInjector;
 }
@@ -26,29 +26,27 @@ struct ProjectSettings;
 }
 namespace Game {
 
-class Game final: public Core::IGame {
+class Game final : public Core::IGame {
  public:
-
   explicit Game(
-    Core::DependencyInjector& injector,
-    Engine::Config::ProjectSettings& projectSettings,
-    Renderer2D::RenderComponent2DManager& renderManager
-    );
+      Core::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
+      Renderer2D::RenderComponent2DManager& renderManager
+  );
 
-  ~Game();
+  ~Game() override;
 
   void Initialize() override;
   void Update(float deltaTime) override;
   void Render() override;
 
-private:
+ private:
   Core::DependencyInjector& injector;
   Engine::Config::ProjectSettings& projectSettings;
   Renderer2D::RenderComponent2DManager& renderManager;
-  GameplayStateMachine* gameplayStateMachine;
-  GameSettings* settings;
-  Snake* snake;
-  Apple* apple;
+  GameplayStateMachine* gameplayStateMachine{nullptr};
+  GameSettings* settings{nullptr};
+  Snake* snake{nullptr};
+  Apple* apple{nullptr};
 };
 
-} // Game
+}  // namespace Game

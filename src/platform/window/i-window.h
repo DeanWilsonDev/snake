@@ -4,6 +4,7 @@ namespace Platform::Window {
 
 class IWindow {
  public:
+  // 1UP: [IWindow] Allow for passing in the window config settings for defaults
   virtual ~IWindow() = default;
   virtual void CreateWindow(int width, int height, char* title) = 0;
   virtual void CloseWindow() = 0;

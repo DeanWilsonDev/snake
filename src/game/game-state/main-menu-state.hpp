@@ -22,7 +22,7 @@ class MainMenuState final : public Core::IGameState {
   void Exit() override;
 
  private:
-  std::unique_ptr<GameplayStateMachine> gameplayStateMachine;
+  GameplayStateMachine* gameplayStateMachine = nullptr;
   MainMenuUI* mainMenuUI = nullptr;
   Platform::Input::IInput* input = nullptr;
 };

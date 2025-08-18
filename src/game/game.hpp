@@ -8,6 +8,11 @@
 #include <memory>
 
 namespace Game {
+struct GameSettings;
+}
+namespace Game {
+class Snake;
+class Apple;
 class GameplayStateMachine;
 }
 namespace Core {
@@ -30,6 +35,8 @@ class Game final: public Core::IGame {
     Renderer2D::RenderComponent2DManager& renderManager
     );
 
+  ~Game();
+
   void Initialize() override;
   void Update(float deltaTime) override;
   void Render() override;
@@ -38,7 +45,10 @@ private:
   Core::DependencyInjector& injector;
   Engine::Config::ProjectSettings& projectSettings;
   Renderer2D::RenderComponent2DManager& renderManager;
-  std::shared_ptr<GameplayStateMachine> gameplayStateMachine;
+  GameplayStateMachine* gameplayStateMachine;
+  GameSettings* settings;
+  Snake* snake;
+  Apple* apple;
 };
 
 } // Game

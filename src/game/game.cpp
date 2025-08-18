@@ -31,6 +31,28 @@ Game::Game(
     : injector(injector), projectSettings(projectSettings), renderManager(renderManager)
 {
 }
+Game::~Game()
+{
+  if (this->gameplayStateMachine) {
+    delete this->gameplayStateMachine;
+    this->gameplayStateMachine = nullptr;
+  }
+
+  if (this->snake) {
+    delete this->snake;
+    this->snake = nullptr;
+  }
+
+  if (this->apple) {
+    delete this->apple;
+    this->apple = nullptr;
+  }
+
+  if (this->settings) {
+    delete this->settings;
+    this->settings = nullptr;
+  }
+}
 
 void Game::Initialize()
 {
@@ -50,15 +72,16 @@ void Game::Initialize()
   LOG_TRACE("[Game] Validating Window");
   assert(window);
 
-  auto settings = GameSettings{};
-  settings.SetScreenResolution(window->GetScreenWidth(), window->GetScreenHeight());
+  this->settings = new GameSettings{};
+  settings->Print();
+  settings->SetScreenResolution(window->GetScreenWidth(), window->GetScreenHeight());
 
   const auto vectorZero = Core::Math::Vector2D::Zero();
   const auto sizeZero = Core::Math::Size2D::Zero();
 
   // Initialize Snake
-  LOG_TRACE("[Game] Initializing Snake");
-  auto snakeSize = static_cast<float>(settings.GetBoxSize());
+  LOG_TRACE("[Game] Setting up Snake GameObject");
+  auto snakeSize = static_cast<float>(settings->GetBoxSize());
 
   auto snakeTransform = Core::Math::Transform2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
 
@@ -77,14 +100,14 @@ void Game::Initialize()
       .renderComponent = snakeRenderComponent,
       .colliderComponent = snakeColliderComponent,
       .input = *input,
-      .settings = settings
+      .settings = *settings
   };
 
-  auto snake = make_unique<Snake>(snakeParams);
+  this->snake = new Snake(snakeParams);
   LOG_DEBUG("[Game] Snake set to [{}]", static_cast<void*>(&snake));
 
   // Initialize Apple
-  LOG_TRACE("[Game] Initializing Snake");
+  LOG_TRACE("[Game] Setting up Apple GameObject");
 
   auto appleTransform = Core::Math::Transform2D(vectorZero, 0.0f, sizeZero);
 
@@ -99,11 +122,12 @@ void Game::Initialize()
 
   const auto appleColliderComponent =
       new Physics::Components::ColliderComponent2D(appleColliderParams);
-  const auto appleParams =
-      AppleParams{.settings = settings, .colliderComponent = *appleColliderComponent, appleRenderComponent};
-  auto apple = make_unique<Apple>(appleParams);
+  const auto appleParams = AppleParams{
+      .settings = *settings, .colliderComponent = *appleColliderComponent, appleRenderComponent
+  };
+  this->apple = new Apple(appleParams);
 
-  LOG_DEBUG("[Game] Apple set to [{}]", static_cast<void*>(&apple));
+  LOG_DEBUG("[Game] Apple set to [{}]", static_cast<void*>(&this->apple));
 
   const auto renderer = injector.Resolve<Renderer2D::IRenderer>();
   if (!renderer) {
@@ -119,7 +143,7 @@ void Game::Initialize()
 
   LOG_DEBUG("[Game] Resolving GameplayStateMachine");
   const auto stateMachine = injector.Resolve<Core::IStateMachine>();
-  this->gameplayStateMachine = dynamic_pointer_cast<GameplayStateMachine>(stateMachine);
+  this->gameplayStateMachine = static_cast<GameplayStateMachine*>(stateMachine.get());
 
   LOG_DEBUG(
       "[Game] GameplayStateMachine set to: [{}]", static_cast<void*>(&this->gameplayStateMachine)
@@ -131,14 +155,19 @@ void Game::Initialize()
   }
 
   Core::IGameState* initialState = new MainMenuState(*this->gameplayStateMachine);
-  this->gameplayStateMachine->SetApple(*apple);
-  this->gameplayStateMachine->SetSnake(*snake);
+  this->gameplayStateMachine->SetApple(*this->apple);
+  this->gameplayStateMachine->SetSnake(*this->snake);
+
+  LOG_DEBUG(
+      "[Game] Checking GameSettings on Snake [{}]",
+      static_cast<void*>(&this->gameplayStateMachine->GetSnake()->GetGameSettings())
+  );
 
   this->gameplayStateMachine->SetRenderManager(this->renderManager);
   this->gameplayStateMachine->SetRenderer(*renderer);
   this->gameplayStateMachine->SetUserInterface(*userInterface);
   this->gameplayStateMachine->SetInput(*input);
-  this->gameplayStateMachine->SetGameSettings(settings);
+  this->gameplayStateMachine->SetGameSettings(*settings);
 
   this->gameplayStateMachine->ChangeState(initialState);
 }
@@ -155,9 +184,7 @@ void Game::Render()
       "[GameplayStateMachine] checking RenderManager2D [{}]",
       static_cast<void*>(&this->renderManager)
   );
-  if (&this->renderManager) {
-    this->renderManager.RenderAll();
-  }
+  this->renderManager.RenderAll();
 }
 
 }  // namespace Game

@@ -82,6 +82,10 @@ class Snake final : public Core::Entity {
   {
     return this->renderComponent;
   }
+  [[nodiscard]] GameSettings& GetGameSettings() const
+  {
+    return this->settings;
+  }
 
 
   SnakeSegment* head{};

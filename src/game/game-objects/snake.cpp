@@ -15,17 +15,35 @@ Snake::Snake(const SnakeParams& snakeParams)
     , input(snakeParams.input)
     , settings(snakeParams.settings)
 {
-  Initialize();
+  LOG_DEBUG(
+      "[Snake] Checking RenderComponent is Initialized: [{}]",
+      static_cast<void*>(&this->renderComponent)
+  );
+  LOG_DEBUG(
+      "[Snake] Checking ColliderComponent is Initialized: [{}]",
+      static_cast<void*>(&this->colliderComponent)
+  );
+  LOG_DEBUG("[Snake] Checking Input is Initialized: [{}]", static_cast<void*>(&this->input));
+  LOG_DEBUG(
+      "[Snake] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
+  );
 }
 
 Snake* Snake::Initialize()
 {
   LOG_TRACE("[Snake] Initializing Snake");
-
-  if (!&this->settings) {
-    LOG_FATAL("[Snake] GameSettings is not Initialized");
-    return nullptr;
-  }
+  LOG_DEBUG(
+      "[Snake] Checking RenderComponent is Initialized: [{}]",
+      static_cast<void*>(&this->renderComponent)
+  );
+  LOG_DEBUG(
+      "[Snake] Checking ColliderComponent is Initialized: [{}]",
+      static_cast<void*>(&this->colliderComponent)
+  );
+  LOG_DEBUG("[Snake] Checking Input is Initialized: [{}]", static_cast<void*>(&this->input));
+  LOG_DEBUG(
+      "[Snake] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
+  );
 
   this->size = static_cast<float>(this->settings.GetBoxSize());
 
@@ -42,6 +60,7 @@ Snake* Snake::Initialize()
   };
 
   this->head = new SnakeSegment(snakeSegmentParams);
+
 
   this->body.push_back(this->head);
 

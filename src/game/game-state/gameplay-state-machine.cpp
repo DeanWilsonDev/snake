@@ -86,14 +86,14 @@ void GameplayStateMachine::SetSnake(Snake& snake)
 {
   LOG_TRACE("[GameplayStateMachine] Adding Snake to Game State");
   this->snake = &snake;
-  LOG_TRACE("[GameplayStateMachine] Snake Added to Game State");
+  LOG_TRACE("[GameplayStateMachine] Snake [{}] Added to Game State", static_cast<void*>(&this->snake));
 };
 
 void GameplayStateMachine::SetApple(Apple& apple)
 {
   LOG_TRACE("[GameplayStateMachine] Adding Apple to Game State");
   this->apple = &apple;
-  LOG_TRACE("[GameplayStateMachine] Apple Added to Game State");
+  LOG_TRACE("[GameplayStateMachine] Apple [{}] Added to Game State", static_cast<void*>(&this->apple));
 }
 
 Core::IGameState* GameplayStateMachine::DetermineNextState()

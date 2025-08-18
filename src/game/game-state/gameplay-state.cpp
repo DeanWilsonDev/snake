@@ -115,7 +115,7 @@ void GameplayState::Exit()
 
   if (auto renderManager = this->gameplayStateMachine.GetRenderManager()) {
     LOG_DEBUG("[GameplayState] RenderManager set to [{}]", static_cast<void*>(&renderManager));
-    const Snake* snake = this->gameplayStateMachine.GetSnake();
+    Snake* snake = this->gameplayStateMachine.GetSnake();
     const Apple* apple = this->gameplayStateMachine.GetApple();
 
     if (!snake) {
@@ -130,6 +130,8 @@ void GameplayState::Exit()
 
     renderManager->Unregister(&snake->GetRendererComponent2D());
     renderManager->Unregister(&apple->GetRendererComponent2D());
+
+    snake->Destroy();
   }
 }
 

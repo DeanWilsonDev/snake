@@ -14,6 +14,7 @@ MainMenuUI::MainMenuUI(UserInterface::IUserInterface& ui, GameSettings& settings
     : settings(settings), ui(ui)
 {
 }
+MainMenuUI::~MainMenuUI() = default;
 
 void MainMenuUI::Render()
 {

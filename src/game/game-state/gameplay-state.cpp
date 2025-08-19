@@ -77,6 +77,8 @@ void GameplayState::Update(float deltaTime)
   assert(apple);
   LOG_TRACE("[GameplayState] Apple Initialization Verified: [{}]", static_cast<void*>(&apple));
 
+  snake->Update(deltaTime);
+
   if (snake->GetColliderComponent().Intersects(apple->GetColliderComponent())) {
     apple->transform.position = apple->GetNewPosition();
     this->gameplayStateMachine.IncreaseScore();
@@ -88,7 +90,7 @@ void GameplayState::Update(float deltaTime)
       break;
     }
 
-    LOG_DEBUG("Body[{}]", static_cast<void*>(snake->body[i]));
+    LOG_DEBUG("[GameplayState] Body[{}]", static_cast<void*>(snake->body[i]));
 
     if (snake->head != nullptr && snake->body[i] != snake->head) {
       // Side Quest: [Debug] Create a Debug module to allow for Debug drawing
@@ -98,7 +100,7 @@ void GameplayState::Update(float deltaTime)
 
       if (snake->head->GetColliderComponent()->Intersects(*snake->body[i]->GetColliderComponent()
           )) {
-        LOG_INFO("Head hit body part with index: {}", i);
+        LOG_INFO("[GameplayState] Head hit body part with index: {}", i);
         this->gameplayStateMachine.Next();
       }
     }

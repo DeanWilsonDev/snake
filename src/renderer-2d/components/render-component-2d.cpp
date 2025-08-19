@@ -28,7 +28,7 @@ RenderComponent2D::RenderComponent2D(
 void RenderComponent2D::Render(IRenderer& renderer) const
 {
   if (!enabled) {
-    LOG_CORE_TRACE("[RenderComponent2D] Component [{}] Disabled, skipping render", static_cast<void*>(const_cast<RenderComponent2D*>(this)));
+    LOG_CORE_TRACE("[RenderComponent2D] Component [{}] Disabled - Skipping Render", static_cast<void*>(const_cast<RenderComponent2D*>(this)));
     return;
   }
 

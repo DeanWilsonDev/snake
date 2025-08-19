@@ -34,7 +34,7 @@ void GameOverState::Exit()
 {
   LOG_TRACE("[GameOverState] Exiting State");
 
-  // Side Quest: [GameOverState] Hook up GameOverUI
+  // Main Quest: [GameOverState] Hook up GameOverUI
   // if (gameOverUI) {
   //   delete gameOverUI;
   //   gameOverUI = nullptr;

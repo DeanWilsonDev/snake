@@ -62,12 +62,18 @@ Snake* Snake::Initialize()
 
   this->head = new SnakeSegment(snakeSegmentParams);
 
-
   this->body.push_back(this->head);
 
   for (int i = 1; i < this->length; i++) {
     Core::Math::Transform2D nextSegmentTransform = headTransform;
-    nextSegmentTransform.position.x = headTransform.position.x - this->size * i;
+    nextSegmentTransform.position.x = headTransform.position.x - this->size * static_cast<float>(i);
+    LOG_DEBUG(
+        "Head Transform ({},{}), Next Segment Transform ({},{})",
+        headTransform.position.x,
+        headTransform.position.y,
+        nextSegmentTransform.position.x,
+        nextSegmentTransform.position.y
+    );
     this->body.push_back(new SnakeSegment({
         .index = i,
         .transform = nextSegmentTransform,
@@ -124,6 +130,7 @@ void Snake::Update(const float deltaTime)
 
 void Snake::Move() const
 {
+  LOG_TRACE("[Snake] Begin calling Move function");
   Core::Math::Vector2D previousPosition = this->head->transform.position;
   Core::Math::Vector2D nextPosition = previousPosition;
 
@@ -222,7 +229,7 @@ void Snake::Destroy()
   this->body.clear();
 
   if (head) {
-    LOG_DEBUG("Deleting head at address: {}", static_cast<void*>(&this->head));
+    LOG_DEBUG("[Snake] Deleting head at address: {}", static_cast<void*>(&this->head));
     delete this->head;
     LOG_DEBUG("[Snake] Setting head to nullptr");
     this->head = nullptr;

@@ -92,11 +92,11 @@ void Game::Initialize()
       .transform = snakeTransform, .bounds = snakeBounds
   };
 
-  auto snakeRenderComponent = new Renderer2D::Component::RenderComponent2D(
-      snakeTransform.position, snakeTransform.scale, Core::COLOR_GREEN
+  const auto snakeRenderComponent = new Renderer2D::Component::RenderComponent2D(
+      snakeTransform.position, snakeTransform.scale, Core::COLOR_GREEN, false
   );
 
-  auto snakeColliderComponent = new Physics::Components::ColliderComponent2D(snakeColliderParams);
+  const auto snakeColliderComponent = new Physics::Components::ColliderComponent2D(snakeColliderParams);
 
   const auto snakeParams = SnakeParams{
       .renderComponent = *snakeRenderComponent,
@@ -119,7 +119,7 @@ void Game::Initialize()
   };
 
   auto appleRenderComponent = new Renderer2D::Component::RenderComponent2D(
-      appleTransform.position, appleTransform.scale, Core::COLOR_RED
+      appleTransform.position, appleTransform.scale, Core::COLOR_RED, false
   );
 
   const auto appleColliderComponent = new Physics::Components::ColliderComponent2D(appleColliderParams);
@@ -157,7 +157,7 @@ void Game::Initialize()
 
   LOG_DEBUG("[Game] Resolving GameplayStateMachine");
   const auto stateMachine = injector.Resolve<Core::IStateMachine>();
-  this->gameplayStateMachine = static_cast<GameplayStateMachine*>(stateMachine.get());
+  this->gameplayStateMachine = dynamic_cast<GameplayStateMachine*>(stateMachine.get());
 
   LOG_DEBUG(
       "[Game] GameplayStateMachine set to: [{}]", static_cast<void*>(&this->gameplayStateMachine)

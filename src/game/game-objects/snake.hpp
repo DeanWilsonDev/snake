@@ -72,6 +72,7 @@ class Snake final : public Core::Entity {
   void Teleport() const;
   [[nodiscard]] Core::Math::Vector2D GetCenter() const;
   void SetGrow(const bool value) { this->grow = value; }
+  void SetEnabled(const bool enabled) override;
 
   // Getters
   [[nodiscard]] Physics::Components::ColliderComponent2D& GetColliderComponent() const

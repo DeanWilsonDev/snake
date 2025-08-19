@@ -20,10 +20,14 @@ class Entity {
   virtual ~Entity() = 0;
 
   virtual void Update(float deltaTime);
+  virtual void SetEnabled(const bool enabled) { this->enabled = enabled; }
 
   // Properties
  public:
   Math::Transform2D transform = {Math::Transform2D::Empty()};
+
+ private:
+  bool enabled{false};
 };
 }  // namespace Core
 #endif  // ENTITY_H

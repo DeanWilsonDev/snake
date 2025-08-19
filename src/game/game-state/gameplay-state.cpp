@@ -48,8 +48,8 @@ void GameplayState::Enter()
   if (auto renderManager = this->gameplayStateMachine.GetRenderManager()) {
     LOG_DEBUG("[GameplayState] RenderManager set to [{}]", static_cast<void*>(&renderManager));
 
-    const Snake* snake = this->gameplayStateMachine.GetSnake();
-    const Apple* apple = this->gameplayStateMachine.GetApple();
+    Snake* snake = this->gameplayStateMachine.GetSnake();
+    Apple* apple = this->gameplayStateMachine.GetApple();
 
     if (!snake) {
       LOG_FATAL("[GameplayState] Snake is not initialized");
@@ -61,8 +61,8 @@ void GameplayState::Enter()
       return;
     }
 
-    renderManager->Register(&snake->GetRendererComponent2D());
-    renderManager->Register(&apple->GetRendererComponent2D());
+    snake->SetEnabled(true);
+    apple->SetEnabled(true);
   }
 }
 
@@ -116,7 +116,7 @@ void GameplayState::Exit()
   if (auto renderManager = this->gameplayStateMachine.GetRenderManager()) {
     LOG_DEBUG("[GameplayState] RenderManager set to [{}]", static_cast<void*>(&renderManager));
     Snake* snake = this->gameplayStateMachine.GetSnake();
-    const Apple* apple = this->gameplayStateMachine.GetApple();
+    Apple* apple = this->gameplayStateMachine.GetApple();
 
     if (!snake) {
       LOG_FATAL("[GameplayState] Snake is not initialized");
@@ -128,8 +128,8 @@ void GameplayState::Exit()
       return;
     }
 
-    renderManager->Unregister(&snake->GetRendererComponent2D());
-    renderManager->Unregister(&apple->GetRendererComponent2D());
+    snake->SetEnabled(false);
+    apple->SetEnabled(false);
 
     snake->Destroy();
   }

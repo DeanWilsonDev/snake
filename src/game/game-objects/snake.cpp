@@ -4,6 +4,7 @@
 #include "snake-segment.hpp"
 #include "platform/input/key-codes.hpp"
 #include "platform/input/i-input.hpp"
+#include "renderer-2d/components/i-render-component-2d.h"
 
 namespace Game {
 
@@ -193,6 +194,11 @@ Core::Math::Vector2D Snake::GetCenter() const
       this->head->transform.position.x + boxSize / 2.0f,
       this->head->transform.position.y + boxSize / 2.0f,
   };
+}
+void Snake::SetEnabled(const bool enabled)
+{
+  Entity::SetEnabled(enabled);
+  this->renderComponent.SetEnabled(enabled);
 }
 
 void Snake::Destroy()

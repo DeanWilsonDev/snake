@@ -2,6 +2,9 @@
 
 #include "core/i-game-state.h"
 
+namespace Game {
+class GameOverUI;
+}
 namespace Platform::Input {
 class IInput;
 }
@@ -18,6 +21,7 @@ class GameOverState final : public Core::IGameState {
 
  private:
   GameplayStateMachine& gameplayStateMachine;
+  GameOverUI* gameOverUI = nullptr;
   Platform::Input::IInput* input = nullptr;
   char scoreBuffer[100] = {0};
 };

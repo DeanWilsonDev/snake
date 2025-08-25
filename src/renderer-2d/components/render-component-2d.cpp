@@ -11,14 +11,7 @@
 namespace Renderer2D::Component {
 
 RenderComponent2D::RenderComponent2D(
-    const float positionX, const float positionY, const float width, const float height,
-    const Core::Color color, const bool enabled = true
-)
-    : position({positionX, positionY}), size({width, height}), color(color), enabled(enabled)
-{
-}
-RenderComponent2D::RenderComponent2D(
-    const Core::Math::Vector2D position, const Core::Math::Size2D size, const Core::Color color,
+    Core::Math::Vector2D& position, Core::Math::Size2D& size, const Core::Color color,
     const bool enabled = true
 )
     : position(position), size(size), color(color), enabled(enabled)
@@ -28,7 +21,10 @@ RenderComponent2D::RenderComponent2D(
 void RenderComponent2D::Render(IRenderer& renderer) const
 {
   if (!enabled) {
-    LOG_CORE_TRACE("[RenderComponent2D] Component [{}] Disabled - Skipping Render", static_cast<void*>(const_cast<RenderComponent2D*>(this)));
+    LOG_CORE_TRACE(
+        "[RenderComponent2D] Component [{}] Disabled - Skipping Render",
+        static_cast<void*>(const_cast<RenderComponent2D*>(this))
+    );
     return;
   }
 
@@ -38,11 +34,6 @@ void RenderComponent2D::Render(IRenderer& renderer) const
   renderer.DrawRectangle(position.x, position.y, size.GetWidth(), size.GetHeight(), color);
 }
 
-void RenderComponent2D::SetPosition(const float x, const float y)
-{
-  this->position.x = x;
-  this->position.y = y;
-}
 float RenderComponent2D::GetX() const
 {
   return this->position.x;

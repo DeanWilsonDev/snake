@@ -5,7 +5,8 @@
 namespace Game {
 
 Apple::Apple(const AppleParams& params)
-    : settings(params.settings)
+    : Entity(params.transform)
+    , settings(params.settings)
     , colliderComponent(params.colliderComponent)
     , renderComponent(params.renderComponent)
 {
@@ -24,10 +25,16 @@ Apple::Apple(const AppleParams& params)
 
 void Apple::Update(float deltaTime) {}
 
-void Apple::Initialize()
+void Apple::Initialize() const
 {
   LOG_TRACE("[Apple] Initializing");
   this->transform.position = this->GetNewPosition();
+  LOG_DEBUG(
+      "[Apple] position changed to: ({}, {})",
+      this->transform.position.x,
+      this->transform.position.y
+  );
+
   LOG_TRACE("[Apple] Finished Initializing");
 };
 

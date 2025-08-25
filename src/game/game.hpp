@@ -4,9 +4,23 @@
 
 #pragma once
 #include "../core/i-game.hpp"
+#include "core/math/transform-2d.hpp"
+#include "renderer-2d/render-component-2d-manager.hpp"
 
 #include <memory>
 
+namespace Renderer2D::Component {
+class IRenderComponent2D;
+}
+namespace Core::Math::Geometry {
+struct Rectangle;
+}
+namespace Core::Math {
+struct Transform2D;
+}
+namespace Core::Math {
+struct Vector2D;
+}
 namespace Game {
 struct GameSettings;
 }
@@ -38,6 +52,7 @@ class Game final : public Core::IGame {
   void Initialize() override;
   void Update(float deltaTime) override;
   void Render() override;
+  void RegisterRenderComponent(Renderer2D::Component::IRenderComponent2D* component) const;
 
  private:
   Core::DependencyInjector& injector;
@@ -46,7 +61,11 @@ class Game final : public Core::IGame {
   GameplayStateMachine* gameplayStateMachine{nullptr};
   GameSettings* settings{nullptr};
   Snake* snake{nullptr};
+  Core::Math::Transform2D* snakeTransform{nullptr};
+  Core::Math::Geometry::Rectangle* snakeBounds{nullptr};
   Apple* apple{nullptr};
+  Core::Math::Transform2D* appleTransform{nullptr};
+  Core::Math::Geometry::Rectangle* appleBounds{nullptr};
 };
 
 }  // namespace Game

@@ -1,7 +1,7 @@
 #include "raylib-user-interface-facade.hpp"
 #include "raylib.h"
 #include "log.h"
-#include "core/entity.h"
+#include "../../core/entity/entity.h"
 
 namespace RaylibFacade::UserInterface {
 

@@ -42,8 +42,8 @@ add_executable(
         src/renderer-2d/components/render-component-2d.h
         src/renderer-2d/components/render-component-2d.cpp
         src/renderer-2d/i-renderable.h
-        src/core/entity.cpp
-        src/core/entity.h
+        src/core/entity/entity.cpp
+        src/core/entity/entity.h
         src/renderer-2d/render-component-2d-manager.cpp
         src/renderer-2d/render-component-2d-manager.hpp
         src/renderer-2d/components/i-render-component-2d.h
@@ -79,6 +79,11 @@ add_executable(
         src/user-interface/i-game-ui.hpp
         src/game/ui/gameplay-ui.cpp
         src/game/ui/gameplay-ui.hpp
+        src/core/entity/game-entity-manager.cpp
+        src/core/entity/game-entity-manager.hpp
+        src/core/entity/game-entity.cpp
+        src/core/entity/game-entity.hpp
+        src/core/entity/i-game-entity.hpp
 )
 
 # Include and Link Raylib in the game

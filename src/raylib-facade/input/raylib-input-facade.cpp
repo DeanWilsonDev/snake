@@ -15,7 +15,6 @@ RaylibInputFacade::RaylibInputFacade() = default;
 bool RaylibInputFacade::IsKeyPressed(const Platform::Input::KeyCode keyCode)
 {
   const bool pressed = ::IsKeyPressed(MapKeyCode(keyCode));
-  LOG_CORE_TRACE("[RaylibInputFacade] IsKeyPressed? {}", pressed);
   if (pressed) {
     LOG_CORE_TRACE("[RaylibInputFacade] Key Pressed trigger for key: {}", static_cast<int>(keyCode));
   }

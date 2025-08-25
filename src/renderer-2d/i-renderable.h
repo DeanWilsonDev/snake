@@ -4,8 +4,8 @@
 
 #pragma once
 
-namespace Component {
-class RenderComponent2D;
+namespace Renderer2D::Component {
+class IRenderComponent2D;
 }
 
 class IRenderer;
@@ -21,6 +21,6 @@ class IRenderable {
   [[nodiscard]] virtual float GetY() const = 0;
   [[nodiscard]] virtual float GetWidth() const = 0;
   [[nodiscard]] virtual float GetHeight() const = 0;
-  [[nodiscard]] virtual Component::RenderComponent2D GetRenderComponent2D() const = 0;
+  [[nodiscard]] virtual Component::IRenderComponent2D* GetRenderComponent2D() const = 0;
 };
 }  // namespace Component

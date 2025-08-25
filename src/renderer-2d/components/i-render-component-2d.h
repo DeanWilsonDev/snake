@@ -12,7 +12,6 @@ class IRenderComponent2D {
  public:
   virtual ~IRenderComponent2D() = default;
   virtual void Render(IRenderer& renderer) const = 0;
-  virtual void SetPosition(float x, float y) = 0;
   virtual void SetEnabled(bool enabled) = 0;
   [[nodiscard]] virtual float GetX() const = 0;
   [[nodiscard]] virtual float GetY() const = 0;

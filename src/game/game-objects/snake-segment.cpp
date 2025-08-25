@@ -5,17 +5,37 @@
 namespace Game {
 
 SnakeSegment::SnakeSegment(const SnakeSegmentParams& props)
-    : index(props.index), transform(props.transform)
+    : Entity(props.transform), index(props.index)
 {
-  auto bounds = Core::Math::Geometry::Rectangle(props.transform);
+  this->bounds = new Core::Math::Geometry::Rectangle(props.transform);
+
   const auto colliderParams =
-      Physics::Components::ColliderComponentParams{.bounds = bounds, .transform = props.transform};
+      Physics::Components::ColliderComponentParams{.bounds = *bounds, .transform = props.transform};
+
   this->colliderComponent = new Physics::Components::ColliderComponent2D(colliderParams);
+
+  this->renderComponent = new Renderer2D::Component::RenderComponent2D(
+      props.transform.position, props.transform.scale, Core::COLOR_GREEN, true
+  );
 }
 SnakeSegment::~SnakeSegment()
 {
-  delete colliderComponent;
+  if (this->colliderComponent) {
+    delete colliderComponent;
+    this->colliderComponent = nullptr;
+  }
+
+  if (this->renderComponent) {
+    delete renderComponent;
+    this->renderComponent = nullptr;
+  }
+
+  if (this->bounds) {
+    delete bounds;
+    this->bounds = nullptr;
+  }
 }
+
 SnakeSegment* SnakeSegment::Initialize(const int index, const Core::Math::Transform2D& transform)
 {
   LOG_TRACE("[SnakeSegment] Initializing New Snake Segment");

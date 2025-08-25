@@ -4,26 +4,14 @@
 #include "snake-segment.hpp"
 #include "platform/input/key-codes.hpp"
 #include "platform/input/i-input.hpp"
-#include "renderer-2d/components/i-render-component-2d.h"
 
 namespace Game {
 
 Snake::~Snake() = default;
 
 Snake::Snake(const SnakeParams& snakeParams)
-    : renderComponent(snakeParams.renderComponent)
-    , colliderComponent(snakeParams.colliderComponent)
-    , input(snakeParams.input)
-    , settings(snakeParams.settings)
+    : input(snakeParams.input), settings(snakeParams.settings)
 {
-  LOG_DEBUG(
-      "[Snake] Checking RenderComponent is Initialized: [{}]",
-      static_cast<void*>(&this->renderComponent)
-  );
-  LOG_DEBUG(
-      "[Snake] Checking ColliderComponent is Initialized: [{}]",
-      static_cast<void*>(&this->colliderComponent)
-  );
   LOG_DEBUG("[Snake] Checking Input is Initialized: [{}]", static_cast<void*>(&this->input));
   LOG_DEBUG(
       "[Snake] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
@@ -33,14 +21,6 @@ Snake::Snake(const SnakeParams& snakeParams)
 Snake* Snake::Initialize()
 {
   LOG_TRACE("[Snake] Initializing Snake");
-  LOG_DEBUG(
-      "[Snake] Checking RenderComponent is Initialized: [{}]",
-      static_cast<void*>(&this->renderComponent)
-  );
-  LOG_DEBUG(
-      "[Snake] Checking ColliderComponent is Initialized: [{}]",
-      static_cast<void*>(&this->colliderComponent)
-  );
   LOG_DEBUG("[Snake] Checking Input is Initialized: [{}]", static_cast<void*>(&this->input));
   LOG_DEBUG(
       "[Snake] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
@@ -53,32 +33,6 @@ Snake* Snake::Initialize()
   this->direction = {1.0f, 0.0f};
   this->grow = false;
 
-  auto headTransform = Core::Math::Transform2D{{100.f, 100.0f}, 0, {this->size, this->size}};
-
-  const auto snakeSegmentParams = SnakeSegmentParams{
-      .index = 0,
-      .transform = headTransform,
-  };
-
-  this->head = new SnakeSegment(snakeSegmentParams);
-
-  this->body.push_back(this->head);
-
-  for (int i = 1; i < this->length; i++) {
-    Core::Math::Transform2D nextSegmentTransform = headTransform;
-    nextSegmentTransform.position.x = headTransform.position.x - this->size * static_cast<float>(i);
-    LOG_DEBUG(
-        "Head Transform ({},{}), Next Segment Transform ({},{})",
-        headTransform.position.x,
-        headTransform.position.y,
-        nextSegmentTransform.position.x,
-        nextSegmentTransform.position.y
-    );
-    this->body.push_back(new SnakeSegment({
-        .index = i,
-        .transform = nextSegmentTransform,
-    }));
-  }
 
   LOG_TRACE("[Snake] Finished Initializing Snake");
   return this;
@@ -157,6 +111,34 @@ void Snake::Move() const
   this->head->Move(newPosition);
 }
 
+void Snake::CreateHead(Core::Math::Transform2D& transform)
+{
+  const auto snakeSegmentParams = SnakeSegmentParams{
+      .index = 0,
+      .transform = transform,
+  };
+  this->head = new SnakeSegment(snakeSegmentParams);
+  this->body.push_back(this->head);
+}
+void Snake::CreateBody(Core::Math::Transform2D& headTransform)
+{
+  for (int i = 1; i < this->length; i++) {
+    Core::Math::Transform2D nextSegmentTransform = headTransform;
+    nextSegmentTransform.position.x = headTransform.position.x - this->size * static_cast<float>(i);
+    LOG_DEBUG(
+        "Head Transform ({},{}), Next Segment Transform ({},{})",
+        headTransform.position.x,
+        headTransform.position.y,
+        nextSegmentTransform.position.x,
+        nextSegmentTransform.position.y
+    );
+    this->body.push_back(new SnakeSegment({
+        .index = i,
+        .transform = nextSegmentTransform,
+    }));
+  }
+}
+
 void Snake::CheckIfShouldGrow()
 {
   LOG_TRACE("[Snake] Checking if Snake should grow {}", this->grow);
@@ -202,10 +184,13 @@ Core::Math::Vector2D Snake::GetCenter() const
       this->head->transform.position.y + boxSize / 2.0f,
   };
 }
-void Snake::SetEnabled(const bool enabled)
+
+void Snake::SetEnabled(const bool enabled) const
 {
-  Entity::SetEnabled(enabled);
-  this->renderComponent.SetEnabled(enabled);
+  for (const auto& i : body) {
+    i->SetEnabled(enabled);
+  }
+  head->SetEnabled(enabled);
 }
 
 void Snake::Destroy()

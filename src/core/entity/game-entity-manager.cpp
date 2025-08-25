@@ -1,0 +1,36 @@
+//
+// Created by Dean Wilson on 25/8/2025.
+//
+
+#include "core/entity/game-entity-manager.hpp"
+
+#include "renderer-2d/components/render-component-2d.h"
+
+namespace Core {
+
+GameEntityManager::GameEntityManager(
+    const std::vector<Entity::GameEntity*>& entities,
+    const Renderer2D::RenderComponent2DManager& renderManager
+)
+    : renderManager(renderManager)
+{
+}
+
+void GameEntityManager::AddEntity(Entity::GameEntity* entity)
+{
+  this->entities.push_back(entity);
+  this->renderManager.Register(entity->GetComponent<Renderer2D::Component::IRenderComponent2D>());
+}
+
+void GameEntityManager::Update(const float deltaTime) const
+{
+  for (auto* object : this->entities) {
+    object->Update(deltaTime);
+  }
+}
+void GameEntityManager::Render() const
+{
+  this->renderManager.RenderAll();
+}
+
+}  // namespace Core

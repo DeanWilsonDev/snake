@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/entity.h"
+#include "../../core/entity/entity.h"
 #include <deque>
 
 namespace Platform::Input {
@@ -39,8 +39,6 @@ struct GameSettings;
  * configuration.
  */
 struct SnakeParams {
-  Renderer2D::Component::IRenderComponent2D& renderComponent;
-  Physics::Components::ColliderComponent2D& colliderComponent;
   Platform::Input::IInput& input;
   GameSettings& settings;
 };
@@ -59,42 +57,29 @@ struct SnakeParams {
  * @note The contained references to components must remain valid during the
  * lifetime of the Snake instance.
  */
-class Snake final : public Core::Entity {
+class Snake final {
  public:
-  ~Snake() override;
+  ~Snake();
   explicit Snake(const SnakeParams& snakeParams);
 
   Snake* Initialize();
-  void Update(float deltaTime) override;
+  void Update(float deltaTime);
   void Destroy();
   void Move() const;
   void CheckIfShouldGrow();
   void Teleport() const;
+  void CreateHead(Core::Math::Transform2D& transform);
+  void CreateBody(Core::Math::Transform2D& headTransform);
   [[nodiscard]] Core::Math::Vector2D GetCenter() const;
   void SetGrow(const bool value) { this->grow = value; }
-  void SetEnabled(const bool enabled) override;
+  void SetEnabled(bool enabled) const;
 
-  // Getters
-  [[nodiscard]] Physics::Components::ColliderComponent2D& GetColliderComponent() const
-  {
-    return this->colliderComponent;
-  }
-  [[nodiscard]] Renderer2D::Component::IRenderComponent2D& GetRendererComponent2D() const
-  {
-    return this->renderComponent;
-  }
-  [[nodiscard]] GameSettings& GetGameSettings() const
-  {
-    return this->settings;
-  }
-
+  [[nodiscard]] GameSettings& GetGameSettings() const { return this->settings; }
 
   SnakeSegment* head{};
   std::deque<SnakeSegment*> body;
 
  private:
-  Renderer2D::Component::IRenderComponent2D& renderComponent;
-  Physics::Components::ColliderComponent2D& colliderComponent;
   Platform::Input::IInput& input;
   GameSettings& settings;
   float accumulatedDistance = 0.0f;

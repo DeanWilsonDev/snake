@@ -79,7 +79,7 @@ void GameplayState::Update(float deltaTime)
 
   snake->Update(deltaTime);
 
-  if (snake->GetColliderComponent().Intersects(apple->GetColliderComponent())) {
+  if (snake->head->GetColliderComponent()->Intersects(apple->GetColliderComponent())) {
     apple->transform.position = apple->GetNewPosition();
     this->gameplayStateMachine.IncreaseScore();
     snake->SetGrow(true);
@@ -98,11 +98,11 @@ void GameplayState::Update(float deltaTime)
       //   DrawRectangleRec(snake->body[i]->GetBounds(), RED);
       // }
 
-      if (snake->head->GetColliderComponent()->Intersects(*snake->body[i]->GetColliderComponent()
-          )) {
-        LOG_INFO("[GameplayState] Head hit body part with index: {}", i);
-        this->gameplayStateMachine.Next();
-      }
+      // if (snake->head->GetColliderComponent()->Intersects(*snake->body[i]->GetColliderComponent()
+      //     )) {
+      //   LOG_INFO("[GameplayState] Head hit body part with index: {}", i);
+      //   this->gameplayStateMachine.Next();
+      // }
     }
   }
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "core/entity.h"
+#include "../../core/entity/entity.h"
 #include "user-interface/i-user-interface.hpp"
 
 class Vector2;

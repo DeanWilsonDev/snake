@@ -13,11 +13,12 @@ namespace Renderer2D::Component {
 
 class RenderComponent2D final : public IRenderComponent2D {
  public:
-  RenderComponent2D(float positionX, float positionY, float width, float height, Core::Color color, bool enabled);
-  RenderComponent2D(Core::Math::Vector2D position, Core::Math::Size2D size, Core::Color color, bool enabled);
+  RenderComponent2D(
+      Core::Math::Vector2D& position, Core::Math::Size2D& size, Core::Color color,
+      bool enabled
+  );
   ~RenderComponent2D() override = default;
   void Render(IRenderer& renderer) const override;
-  void SetPosition(float x, float y) override;
   void SetEnabled(bool enabled) override;
   [[nodiscard]] float GetX() const override;
   [[nodiscard]] float GetY() const override;
@@ -26,8 +27,8 @@ class RenderComponent2D final : public IRenderComponent2D {
   [[nodiscard]] bool GetEnabled() const override;
 
  private:
-  Core::Math::Vector2D position;
-  Core::Math::Size2D size;
+  const Core::Math::Vector2D& position;
+  const Core::Math::Size2D& size;
   Core::Color color;
   bool enabled;
 };

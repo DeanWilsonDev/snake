@@ -84,6 +84,10 @@ add_executable(
         src/core/entity/game-entity.cpp
         src/core/entity/game-entity.hpp
         src/core/entity/i-game-entity.hpp
+        src/core/components/i-component.hpp
+        src/core/components/transform-component-2d.cpp
+        src/core/components/transform-component-2d.hpp
+        src/core/math/i-transform-2d.hpp
 )
 
 # Include and Link Raylib in the game

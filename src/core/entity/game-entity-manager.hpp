@@ -4,9 +4,7 @@
 
 #pragma once
 #include "game-entity.hpp"
-#include "renderer-2d/i-renderable.h"
 #include "renderer-2d/render-component-2d-manager.hpp"
-#include "renderer-2d/components/i-render-component-2d.h"
 
 #include <vector>
 
@@ -19,15 +17,15 @@ class GameEntityManager {
  public:
 
   GameEntityManager(
-      const std::vector<Entity::GameEntity*>& entities,
+      const std::vector<Entity::Entity*>& entities,
       const Renderer2D::RenderComponent2DManager& renderManager
   );
-  void AddEntity(Entity::GameEntity* entity);
+  void AddEntity(Entity::Entity* entity);
   void Update(float deltaTime) const;
   void Render() const;
 
  private:
-  std::vector<Entity::GameEntity*> entities;
+  std::vector<Entity::Entity*> entities;
   Renderer2D::RenderComponent2DManager renderManager;
 };
 

@@ -3,10 +3,15 @@
 //
 
 #include "core/entity/game-entity.hpp"
+#include "core/components/transform-component-2d.hpp"
+#include "core/math/i-transform-2d.hpp"
 
 namespace Core::Entity {
 
-GameEntity::GameEntity(int id, Math::Transform2D& transform) : Entity(), transform(transform) {}
+GameEntity::GameEntity(Math::ITransform2D& transform)
+{
+  this->transform = new Components::TransformComponent2D(&transform);
+}
 
 void GameEntity::Update(const float deltaTime)
 {

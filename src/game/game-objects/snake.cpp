@@ -33,7 +33,6 @@ Snake* Snake::Initialize()
   this->direction = {1.0f, 0.0f};
   this->grow = false;
 
-
   LOG_TRACE("[Snake] Finished Initializing Snake");
   return this;
 }
@@ -85,24 +84,24 @@ void Snake::Update(const float deltaTime)
 void Snake::Move() const
 {
   LOG_TRACE("[Snake] Begin calling Move function");
-  Core::Math::Vector2D previousPosition = this->head->transform.position;
+  Core::Math::Vector2D previousPosition = this->head->transform->GetPosition();
   Core::Math::Vector2D nextPosition = previousPosition;
 
   for (int i = 1; i < this->length; i++) {
     if (this->body[i] && this->body[i - 1]) {
-      previousPosition = this->body[i]->transform.position;
+      previousPosition = this->body[i]->transform->GetPosition();
       this->body[i]->Move(nextPosition);
       nextPosition = previousPosition;
     }
   }
 
   Core::Math::Vector2D newPosition = {
-      this->head->transform.position.x + this->direction.x * this->size,
-      this->head->transform.position.y + this->direction.y * this->size,
+      this->head->transform->GetPosition().x + this->direction.x * this->size,
+      this->head->transform->GetPosition().y + this->direction.y * this->size,
   };
 
   LOG_DEBUG("[Snake] Direction: {}", this->direction.ToString());
-  LOG_DEBUG("[Snake] Head Position: {}", this->head->transform.position.ToString());
+  LOG_DEBUG("[Snake] Head Position: {}", this->head->transform->GetPosition().ToString());
   LOG_DEBUG("[Snake] New Position: {}", newPosition.ToString());
 
   newPosition.x = std::roundf(newPosition.x / this->size) * this->size;
@@ -111,30 +110,31 @@ void Snake::Move() const
   this->head->Move(newPosition);
 }
 
-void Snake::CreateHead(Core::Math::Transform2D& transform)
+void Snake::CreateHead(Core::Math::ITransform2D& transform)
 {
   const auto snakeSegmentParams = SnakeSegmentParams{
       .index = 0,
-      .transform = transform,
+      .transform = &transform,
   };
   this->head = new SnakeSegment(snakeSegmentParams);
   this->body.push_back(this->head);
 }
-void Snake::CreateBody(Core::Math::Transform2D& headTransform)
+void Snake::CreateBody(Core::Math::ITransform2D& headTransform)
 {
   for (int i = 1; i < this->length; i++) {
-    Core::Math::Transform2D nextSegmentTransform = headTransform;
-    nextSegmentTransform.position.x = headTransform.position.x - this->size * static_cast<float>(i);
+    Core::Math::ITransform2D& nextSegmentTransform = headTransform;
+    nextSegmentTransform.GetPosition().x =
+        headTransform.GetPosition().x - this->size * static_cast<float>(i);
     LOG_DEBUG(
         "Head Transform ({},{}), Next Segment Transform ({},{})",
-        headTransform.position.x,
-        headTransform.position.y,
-        nextSegmentTransform.position.x,
-        nextSegmentTransform.position.y
+        headTransform.GetPosition().x,
+        headTransform.GetPosition().y,
+        nextSegmentTransform.GetPosition().x,
+        nextSegmentTransform.GetPosition().y
     );
     this->body.push_back(new SnakeSegment({
         .index = i,
-        .transform = nextSegmentTransform,
+        .transform = &nextSegmentTransform,
     }));
   }
 }
@@ -143,9 +143,15 @@ void Snake::CheckIfShouldGrow()
 {
   LOG_TRACE("[Snake] Checking if Snake should grow {}", this->grow);
   if (this->grow) {
-    Core::Math::Transform2D newSegmentTransform = this->body.back()->transform;
-    const auto segmentParams =
-        SnakeSegmentParams{.index = this->length, .transform = newSegmentTransform};
+    const auto newSegmentTransformComponent = this->body.back()->transform;
+
+    const auto segmentParams = SnakeSegmentParams{
+        .index = this->length,
+        .transform = newSegmentTransformComponent,
+        .colliderComponent = nullptr,
+        .renderComponent = nullptr
+    };
+
     const auto segment = new SnakeSegment(segmentParams);
     this->body.push_back(segment);
     this->length++;
@@ -161,17 +167,17 @@ void Snake::Teleport() const
   const auto screenHeight = static_cast<float>(this->settings.GetScreenHeight());
 
   for (const auto segment : this->body) {
-    if (segment->transform.position.x > screenWidth) {
-      segment->transform.position.x = 0;
+    if (auto segmentPosition = segment->transform->GetPosition(); segmentPosition.x > screenWidth) {
+      segmentPosition.x = 0;
     }
-    else if (segment->transform.position.x < 0) {
-      segment->transform.position.x = screenWidth;
+    else if (segmentPosition.x < 0) {
+      segmentPosition.x = screenWidth;
     }
-    else if (segment->transform.position.y > screenHeight) {
-      segment->transform.position.y = 0;
+    else if (segmentPosition.y > screenHeight) {
+      segmentPosition.y = 0;
     }
-    else if (segment->transform.position.y < 0) {
-      segment->transform.position.y = screenHeight;
+    else if (segmentPosition.y < 0) {
+      segmentPosition.y = screenHeight;
     }
   }
 }
@@ -180,17 +186,28 @@ Core::Math::Vector2D Snake::GetCenter() const
 {
   const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
   return {
-      this->head->transform.position.x + boxSize / 2.0f,
-      this->head->transform.position.y + boxSize / 2.0f,
+      this->head->transform->GetPosition().x + boxSize / 2.0f,
+      this->head->transform->GetPosition().y + boxSize / 2.0f,
   };
 }
 
+/**
+ * @brief Enables or disables the Snake entity, including its head and body segments.
+ *
+ * This method sets the enabled state of the snake's rendering and active state
+ * for both the head and each individual body segment.
+ *
+ * @param enabled A boolean value indicating whether the snake should be enabled
+ * (true) or disabled (false).
+ */
 void Snake::SetEnabled(const bool enabled) const
 {
   for (const auto& i : body) {
-    i->SetEnabled(enabled);
+    i->GetRendererComponent2D()->SetEnabled(enabled);
+    i->SetActive(enabled);
   }
-  head->SetEnabled(enabled);
+  head->GetRendererComponent2D()->SetEnabled(enabled);
+  head->SetActive(enabled);
 }
 
 void Snake::Destroy()

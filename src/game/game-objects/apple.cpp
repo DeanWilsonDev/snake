@@ -1,11 +1,11 @@
 #include "apple.hpp"
-#include "snake.hpp"
 #include "core/core.h"
+#include "core/components/transform-component-2d.hpp"
 
 namespace Game {
 
 Apple::Apple(const AppleParams& params)
-    : Entity(params.transform)
+    : GameEntity(params.transform)
     , settings(params.settings)
     , colliderComponent(params.colliderComponent)
     , renderComponent(params.renderComponent)
@@ -25,14 +25,15 @@ Apple::Apple(const AppleParams& params)
 
 void Apple::Update(float deltaTime) {}
 
-void Apple::Initialize() const
+void Apple::Initialize()
 {
+  GameEntity::Initialize();
   LOG_TRACE("[Apple] Initializing");
-  this->transform.position = this->GetNewPosition();
+  this->transform->position = this->GetNewPosition();
   LOG_DEBUG(
       "[Apple] position changed to: ({}, {})",
-      this->transform.position.x,
-      this->transform.position.y
+      this->transform->position.x,
+      this->transform->position.y
   );
 
   LOG_TRACE("[Apple] Finished Initializing");
@@ -60,8 +61,8 @@ Core::Math::Vector2D Apple::GetCenter() const
 {
   const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
   return {
-      this->transform.position.x + (boxSize - boxSize / 2.0f) / 2.0f,
-      this->transform.position.y + (boxSize - boxSize / 2.0f) / 2.0f,
+      this->transform->position.x + (boxSize - boxSize / 2.0f) / 2.0f,
+      this->transform->position.y + (boxSize - boxSize / 2.0f) / 2.0f,
   };
 }
 

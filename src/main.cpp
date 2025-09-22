@@ -25,7 +25,8 @@ int main(int argc, char* argv[])
   injector.Register<Platform::Input::IInput, RaylibFacade::Input::RaylibInputFacade>();
   injector.Register<
       UserInterface::IUserInterface,
-      RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
+      RaylibFacade::UserInterface::RaylibUserInterfaceFacade
+  >();
   injector.Register<Core::IStateMachine, Game::GameplayStateMachine>();
 
   auto engineConfig = Engine::Config::EngineConfig();

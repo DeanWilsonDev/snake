@@ -19,6 +19,7 @@
 #include "settings/game-settings.h"
 #include "core/i-state-machine.hpp"
 #include "game-state/main-menu-state.hpp"
+#include "core/math/i-transform-2d.hpp"
 
 #include <cassert>
 

@@ -9,14 +9,14 @@
 namespace Core {
 
 GameEntityManager::GameEntityManager(
-    const std::vector<Entity::GameEntity*>& entities,
+    const std::vector<Entity::Entity*>& entities,
     const Renderer2D::RenderComponent2DManager& renderManager
 )
-    : renderManager(renderManager)
+    : entities(entities), renderManager(renderManager)
 {
 }
 
-void GameEntityManager::AddEntity(Entity::GameEntity* entity)
+void GameEntityManager::AddEntity(Entity::Entity* entity)
 {
   this->entities.push_back(entity);
   this->renderManager.Register(entity->GetComponent<Renderer2D::Component::IRenderComponent2D>());
@@ -25,7 +25,9 @@ void GameEntityManager::AddEntity(Entity::GameEntity* entity)
 void GameEntityManager::Update(const float deltaTime) const
 {
   for (auto* object : this->entities) {
-    object->Update(deltaTime);
+    if (object->IsActive()) {
+      object->Update(deltaTime);
+    }
   }
 }
 void GameEntityManager::Render() const

@@ -4,11 +4,12 @@
 
 #ifndef IRENDER_COMPONENT_H
 #define IRENDER_COMPONENT_H
+#include "core/components/i-component.hpp"
 
 namespace Renderer2D {
 class IRenderer;
 namespace Component {
-class IRenderComponent2D {
+class IRenderComponent2D: public Core::Components::IComponent {
  public:
   virtual ~IRenderComponent2D() = default;
   virtual void Render(IRenderer& renderer) const = 0;

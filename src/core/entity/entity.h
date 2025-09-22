@@ -3,20 +3,72 @@
 //
 #pragma once
 
+#include "core/components/i-component.hpp"
 #include "core/math/transform-2d.hpp"
+#include <cassert>
+#include <typeindex>
+#include <unordered_map>
 
 namespace Core::Entity {
 class Entity {
  public:
-  explicit Entity(int id);
+  explicit Entity();
   virtual ~Entity() = 0;
 
   virtual void Initialize();
   virtual void Update(float deltaTime);
   [[nodiscard]] int GetID() const;
+  [[nodiscard]] bool IsActive() const;
+  virtual void SetActive(bool active);
+
+  template <typename T, typename... Args>
+  void AddComponent(Args&&... args);
+
+  template <typename T>
+  T* GetComponent();
+
+  template <typename T>
+  void RemoveComponent();
 
 private:
-  int id{};
+  unordered_map<std::type_index, std::unique_ptr<Components::IComponent>> components{};
 
+  static int GenerateId();
+
+  const int id{};
+  bool active{};
 };
+
+
+template <typename T, typename... Args>
+void Entity::AddComponent(Args&&... args)
+{
+  // Ensure no duplicate components of the same type
+  const auto type = std::type_index(typeid(T));
+  assert(!components.contains(type) && "Component already added!");
+
+  // Emplace a new instance of T using perfect forwarding of arguments
+  components[type] = std::make_unique<T>(std::forward<Args>(args)...);
+}
+
+template <typename T>
+T* Entity::GetComponent()
+{
+  const auto type = std::type_index(typeid(T));
+
+  // Attempt to find the component
+  if (const auto it = components.find(type); it != components.end()) {
+    return static_cast<T*>(it->second.get());
+  }
+  return nullptr;
+}
+
+template <typename T>
+void Entity::RemoveComponent()
+{
+  const auto type = std::type_index(typeid(T));
+  this->components.erase(type);
+}
+
+
 }  // namespace Core::Entity

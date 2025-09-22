@@ -17,11 +17,11 @@ struct Rectangle {
   Rectangle(const Vector2D position, const Size2D size)
       : x(position.x), y(position.y), width(size.width), height(size.height) {};
 
-  explicit Rectangle(const Transform2D& transform)
-      : x(transform.position.x)
-      , y(transform.position.y)
-      , width(transform.scale.width)
-      , height(transform.scale.height) {};
+  explicit Rectangle(ITransform2D& transform)
+      : x(transform.GetPosition().x)
+      , y(transform.GetPosition().y)
+      , width(transform.GetScale().width)
+      , height(transform.GetScale().height) {};
 
   [[nodiscard]] bool Intersects(const Rectangle& other) const
   {

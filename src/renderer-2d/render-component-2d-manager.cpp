@@ -53,7 +53,10 @@ void RenderComponent2DManager::RenderAll() const
       LOG_CORE_TRACE("[RenderComponentManager] Component is a nullptr");
       return;
     }
-    component->Render(*this->renderer);
+
+    if (component->GetEnabled()) {
+      component->Render(*this->renderer);
+    }
   }
 }
 }  // namespace Renderer2D

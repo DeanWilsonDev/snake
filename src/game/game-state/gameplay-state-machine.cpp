@@ -7,7 +7,9 @@
 #include "main-menu-state.hpp"
 #include "game/game-objects/apple.hpp"
 #include "game/game-objects/snake.hpp"
+#include "game/ui/gameplay-ui.hpp"
 #include "user-interface/i-game-ui.hpp"
+#include "user-interface/i-user-interface.hpp"
 
 namespace Game {
 
@@ -24,19 +26,20 @@ GameplayStateMachine::~GameplayStateMachine()
   }
 }
 
-void GameplayStateMachine::Update(float deltaTime)
+void GameplayStateMachine::Update(const float deltaTime)
 {
-  LOG_DEBUG(
-      "[GameplayStateMachine] checking CurrentState [{}]", static_cast<void*>(&this->currentState)
-  );
+
+  LOG_DEBUG("[GameplayStateMachine] Running Update Function");
   if (!this->currentState) {
     return;
   }
 
+  LOG_DEBUG("[GameplayStateMachine] Running Current State Update Function");
   this->currentState->Update(deltaTime);
 
   LOG_DEBUG("[GameplayStateMachine] checking GameUI [{}]", static_cast<void*>(&this->gameUI));
   if (this->gameUI) {
+    LOG_DEBUG("[GameplayStateMachine] Rendering GameUI");
     this->gameUI->Render();
   }
 }
@@ -95,18 +98,33 @@ void GameplayStateMachine::SetApple(Apple& apple)
   this->apple = &apple;
   LOG_TRACE("[GameplayStateMachine] Apple [{}] Added to Game State", static_cast<void*>(&this->apple));
 }
+void GameplayStateMachine::SetUserInterface(UserInterface::IUserInterface& ui)
+{
+  if (this->userInterface != nullptr) {
+    this->userInterface = nullptr;
+  }
+  this->userInterface = &ui;
+}
+
+void GameplayStateMachine::SetGameUI(UserInterface::IGameUI& gameUI)
+{
+  if (this->gameUI != nullptr) {
+    this->gameUI = nullptr;
+  }
+  this->gameUI = &gameUI;
+}
 
 Core::IGameState* GameplayStateMachine::DetermineNextState()
 {
-  if (dynamic_cast<MainMenuState*>(&*this->currentState)) {
+  if (dynamic_cast<MainMenuState*>(this->currentState)) {
     return new GameplayState(*this);
   }
 
-  if (dynamic_cast<GameplayState*>(&*this->currentState)) {
+  if (dynamic_cast<GameplayState*>(this->currentState)) {
     return new GameOverState(*this);
   }
 
-  if (dynamic_cast<GameOverState*>(&*this->currentState)) {
+  if (dynamic_cast<GameOverState*>(this->currentState)) {
     return new GameplayState(*this);
   }
 

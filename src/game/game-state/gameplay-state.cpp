@@ -27,7 +27,7 @@ GameplayState::GameplayState(GameplayStateMachine& stateMachine)
   this->input = this->gameplayStateMachine.GetInput();
   assert(input);
 
-  LOG_TRACE("[GameplayState] Initializing Main Menu UI");
+  LOG_TRACE("[GameplayState] Initializing Gameplay UI");
   const auto gameSettings = this->gameplayStateMachine.GetGameSettings();
   const auto userInterface = this->gameplayStateMachine.GetUserInterface();
   int& score = this->gameplayStateMachine.GetScore();
@@ -35,7 +35,7 @@ GameplayState::GameplayState(GameplayStateMachine& stateMachine)
   assert(gameSettings);
   LOG_TRACE("[GameplayState] Validating User Interface");
   assert(userInterface);
-  LOG_TRACE("[GameplayState] Setting Main Menu UI");
+  LOG_TRACE("[GameplayState] Setting Gameplay UI");
   this->gameplayUI = new GameplayUI(*userInterface, *gameSettings, score);
 }
 
@@ -44,6 +44,7 @@ void GameplayState::Enter()
   LOG_TRACE("[GameplayState] Beginning New Game");
   this->gameplayStateMachine.InitializeSnake();
   this->gameplayStateMachine.InitializeApple();
+  LOG_DEBUG("[GameplayState] Logging GameUI: {}", static_cast<void*>(this->gameplayUI));
 
   if (auto renderManager = this->gameplayStateMachine.GetRenderManager()) {
     LOG_DEBUG("[GameplayState] RenderManager set to [{}]", static_cast<void*>(&renderManager));
@@ -64,6 +65,8 @@ void GameplayState::Enter()
     snake->SetEnabled(true);
     apple->SetActive(true);
   }
+
+  this->gameplayStateMachine.SetGameUI(*this->gameplayUI);
 }
 
 void GameplayState::Update(float deltaTime)
@@ -85,7 +88,7 @@ void GameplayState::Update(float deltaTime)
     snake->SetGrow(true);
   }
 
-  for (int i = 0; i < snake->body.size(); i++) {
+  for (size_t i = 0; i < snake->body.size(); i++) {
     if (snake->body[i] == nullptr) {
       break;
     }
@@ -109,10 +112,11 @@ void GameplayState::Update(float deltaTime)
 
 void GameplayState::Exit()
 {
-  if (gameplayUI) {
+  if (gameplayUI != nullptr) {
     delete gameplayUI;
     gameplayUI = nullptr;
   }
+
   this->gameplayStateMachine.ClearUI();
 
   if (auto renderManager = this->gameplayStateMachine.GetRenderManager()) {

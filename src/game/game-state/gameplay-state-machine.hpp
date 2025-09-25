@@ -62,9 +62,9 @@ class GameplayStateMachine final : public Core::IStateMachine {
   // Setters
   void SetSnake(Snake& snake);
   void SetApple(Apple& apple);
-  void SetUserInterface(UserInterface::IUserInterface& ui) { this->userInterface = &ui; }
+  void SetUserInterface(UserInterface::IUserInterface& ui);
   void SetInput(Platform::Input::IInput& input) { this->input = &input; }
-  void SetGameUI(UserInterface::IGameUI& gameUI) { this->gameUI = &gameUI; }
+  void SetGameUI(UserInterface::IGameUI& gameUI);
   void SetGameSettings(GameSettings& settings) { this->settings = &settings; }
   void SetRenderer(Renderer2D::IRenderer& renderer) { this->renderer = &renderer; }
   void SetRenderManager(Renderer2D::RenderComponent2DManager& renderManager)

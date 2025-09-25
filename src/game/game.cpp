@@ -20,6 +20,7 @@
 #include "core/i-state-machine.hpp"
 #include "game-state/main-menu-state.hpp"
 #include "core/math/i-transform-2d.hpp"
+#include "game-objects/snake-segment.hpp"
 
 #include <cassert>
 
@@ -133,9 +134,9 @@ void Game::Initialize()
 
   const auto appleParams = AppleParams{
       .settings = *settings,
-      .transform = *appleTransform,
       .colliderComponent = *appleColliderComponent,
-      .renderComponent = *appleRenderComponent
+      .renderComponent = *appleRenderComponent,
+      .transform = *appleTransform,
   };
   this->apple = new Apple(appleParams);
 
@@ -192,6 +193,17 @@ void Game::Initialize()
   this->gameplayStateMachine->SetUserInterface(*userInterface);
   this->gameplayStateMachine->SetInput(*input);
   this->gameplayStateMachine->SetGameSettings(*settings);
+
+
+  this->renderManager.Register(snake->head->GetRendererComponent2D());
+  for (const auto segment : this->snake->body)
+  {
+    if (const auto segmentRenderComponent = segment->GetRendererComponent2D()) {
+      this->renderManager.Register(segmentRenderComponent);
+    }
+  }
+  this->renderManager.Register(&apple->GetRendererComponent2D());
+
   LOG_DEBUG(
       "[Game] Checking GameSettings on GameplayStateMachine [{}]",
       static_cast<void*>(this->gameplayStateMachine->GetGameSettings())
@@ -211,11 +223,6 @@ void Game::Render()
 {
   LOG_DEBUG("[Game] checking RenderManager2D [{}]", static_cast<void*>(&this->renderManager));
   this->renderManager.RenderAll();
-}
-
-void Game::RegisterRenderComponent(Renderer2D::Component::IRenderComponent2D* component) const
-{
-  this->renderManager.Register(component);
 }
 
 }  // namespace Game

@@ -46,7 +46,9 @@ void RenderComponent2DManager::RenderAll() const
   }
 
   for (const auto* component : this->renderComponents) {
-    LOG_CORE_DEBUG("[RenderComponentManager] Rendering component: [{}]", static_cast<void*>(&component));
+    LOG_CORE_DEBUG(
+        "[RenderComponentManager] Rendering component: [{}]", static_cast<void*>(&component)
+    );
     LOG_CORE_DEBUG("[RenderComponentManager] Renderer: [{}]", static_cast<void*>(&*this->renderer));
 
     if (!component) {

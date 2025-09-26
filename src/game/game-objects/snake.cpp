@@ -1,6 +1,7 @@
 #include "game/game-objects/snake.hpp"
 #include "game/settings/game-settings.h"
 #include "log.h"
+#include "raylib.h"
 #include "snake-segment.hpp"
 #include "platform/input/key-codes.hpp"
 #include "platform/input/i-input.hpp"
@@ -110,32 +111,37 @@ void Snake::Move() const
   this->head->Move(newPosition);
 }
 
-void Snake::CreateHead(Core::Math::ITransform2D& transform)
+void Snake::CreateHead(Core::Components::TransformComponent2D& transform)
 {
   const auto snakeSegmentParams = SnakeSegmentParams{
       .index = 0,
       .transform = &transform,
   };
+
   this->head = new SnakeSegment(snakeSegmentParams);
   this->body.push_back(this->head);
 }
-void Snake::CreateBody(Core::Math::ITransform2D& headTransform)
+
+void Snake::CreateBody(Core::Components::TransformComponent2D& headTransformComponent)
 {
   for (int i = 1; i < this->length; i++) {
-    Core::Math::ITransform2D& nextSegmentTransform = headTransform;
-    nextSegmentTransform.GetPosition().x =
-        headTransform.GetPosition().x - this->size * static_cast<float>(i);
+    auto* nextSegmentTransform =
+        new Core::Components::TransformComponent2D(&headTransformComponent);
+    nextSegmentTransform->GetPosition().x =
+        headTransformComponent.GetPosition().x - this->size * static_cast<float>(i);
     LOG_DEBUG(
         "Head Transform ({},{}), Next Segment Transform ({},{})",
-        headTransform.GetPosition().x,
-        headTransform.GetPosition().y,
-        nextSegmentTransform.GetPosition().x,
-        nextSegmentTransform.GetPosition().y
+        headTransformComponent.GetPosition().x,
+        headTransformComponent.GetPosition().y,
+        nextSegmentTransform->GetPosition().x,
+        nextSegmentTransform->GetPosition().y
     );
-    this->body.push_back(new SnakeSegment({
-        .index = i,
-        .transform = &nextSegmentTransform,
-    }));
+    this->body.push_back(new SnakeSegment(
+        {.index = i,
+         .transform = nextSegmentTransform,
+         .colliderComponent = nullptr,
+         .renderComponent = nullptr}
+    ));
   }
 }
 

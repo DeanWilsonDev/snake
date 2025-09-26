@@ -18,8 +18,10 @@ SnakeSegment::SnakeSegment(const SnakeSegmentParams& props)
   this->colliderComponent = new Physics::Components::ColliderComponent2D(colliderParams);
 
   this->renderComponent = new Renderer2D::Component::RenderComponent2D(
-      props.transform->GetPosition(), props.transform->GetScale(), Core::COLOR_GREEN, true
+      *props.transform, Core::COLOR_GREEN, true
   );
+
+  this->transform = props.transform;
 }
 SnakeSegment::~SnakeSegment()
 {
@@ -45,13 +47,13 @@ SnakeSegment::~SnakeSegment()
 }
 
 SnakeSegment* SnakeSegment::InitializeSnakeSegment(
-    const int index, Core::Math::ITransform2D& transform
+    const int index, Core::Components::TransformComponent2D& transform
 )
 {
   LOG_TRACE("[SnakeSegment] Initializing New Snake Segment");
 
   this->index = index;
-  this->transform = new Core::Components::TransformComponent2D(&transform);
+  this->transform = &transform;
 
   LOG_TRACE(
       "[SnakeSegment] Creating SnakeBody with index: {} at position {}, with a scale of {}",

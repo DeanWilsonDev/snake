@@ -4,13 +4,12 @@
 
 #include "core/entity/game-entity.hpp"
 #include "core/components/transform-component-2d.hpp"
-#include "core/math/i-transform-2d.hpp"
 
 namespace Core::Entity {
 
-GameEntity::GameEntity(Math::ITransform2D& transform)
+GameEntity::GameEntity(Components::TransformComponent2D& transform)
 {
-  this->transform = new Components::TransformComponent2D(&transform);
+  this->transform = &transform;
 }
 
 void GameEntity::Update(const float deltaTime)

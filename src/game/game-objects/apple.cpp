@@ -1,4 +1,5 @@
 #include "apple.hpp"
+
 #include "core/core.h"
 #include "core/components/transform-component-2d.hpp"
 
@@ -23,7 +24,15 @@ Apple::Apple(const AppleParams& params)
   );
 }
 
-void Apple::Update(float deltaTime) {}
+void Apple::Update(const float deltaTime)
+{
+  LOG_DEBUG(
+      "[Apple] position changed to: ({}, {}) - Address ({})",
+      this->transform->position.x,
+      this->transform->position.y,
+      static_cast<void*>(&(this->transform->position))
+  );
+}
 
 void Apple::Initialize()
 {
@@ -31,9 +40,10 @@ void Apple::Initialize()
   LOG_TRACE("[Apple] Initializing");
   this->transform->position = this->GetNewPosition();
   LOG_DEBUG(
-      "[Apple] position changed to: ({}, {})",
+      "[Apple] position changed to: ({}, {}) - Address ({})",
       this->transform->position.x,
-      this->transform->position.y
+      this->transform->position.y,
+      static_cast<void*>(&(this->transform->position))
   );
 
   LOG_TRACE("[Apple] Finished Initializing");

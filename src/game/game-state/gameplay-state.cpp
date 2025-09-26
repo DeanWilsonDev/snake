@@ -81,6 +81,7 @@ void GameplayState::Update(float deltaTime)
   LOG_TRACE("[GameplayState] Apple Initialization Verified: [{}]", static_cast<void*>(&apple));
 
   snake->Update(deltaTime);
+  apple->Update(deltaTime);
 
   if (snake->head->GetColliderComponent()->Intersects(apple->GetColliderComponent())) {
     apple->transform->position = apple->GetNewPosition();

@@ -7,7 +7,6 @@
 #include "main-menu-state.hpp"
 #include "game/game-objects/apple.hpp"
 #include "game/game-objects/snake.hpp"
-#include "game/ui/gameplay-ui.hpp"
 #include "user-interface/i-game-ui.hpp"
 #include "user-interface/i-user-interface.hpp"
 

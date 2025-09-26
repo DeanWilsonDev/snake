@@ -5,6 +5,9 @@
 #include "core/math/size-2d.hpp"
 #include "core/math/vector-2d.hpp"
 
+namespace Core::Math {
+class ITransform2D;
+}
 namespace Renderer2D {
 class IRenderer;
 }
@@ -14,7 +17,7 @@ namespace Renderer2D::Component {
 class RenderComponent2D final : public IRenderComponent2D {
  public:
   RenderComponent2D(
-      Core::Math::Vector2D& position, Core::Math::Size2D& size, Core::Color color,
+      Core::Math::ITransform2D& transform, Core::Color color,
       bool enabled
   );
   ~RenderComponent2D() override = default;
@@ -27,8 +30,7 @@ class RenderComponent2D final : public IRenderComponent2D {
   [[nodiscard]] bool GetEnabled() const override;
 
  private:
-  const Core::Math::Vector2D& position;
-  const Core::Math::Size2D& size;
+  Core::Math::ITransform2D& transform;
   Core::Color color;
   bool enabled;
 };

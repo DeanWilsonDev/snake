@@ -23,13 +23,21 @@ class TransformComponent2D final : public IComponent, public Math::ITransform2D 
 
   TransformComponent2D();
 
+  // Prevent copy by deleting these funcitons
+  TransformComponent2D(const TransformComponent2D&) = delete;
+  TransformComponent2D& operator=(const TransformComponent2D&) = delete;
+
+  // Allow moving to transfer ownership
+  TransformComponent2D(TransformComponent2D&&) = default;
+  TransformComponent2D& operator=(TransformComponent2D&&) = default;
+
+
+
+
   [[nodiscard]] Math::Vector2D& GetPosition() override { return this->position; }
   [[nodiscard]] float& GetRotation() override { return this->rotation; };
   [[nodiscard]] Math::Size2D& GetScale() override { return this->scale; };
-  [[nodiscard]] Math::Transform2D GetTransform()
-  {
-    return {this->GetPosition(), this->GetRotation(), this->GetScale()};
-  }
+  [[nodiscard]] Math::Transform2D& GetTransform();
 };
 
 }  // namespace Core::Components

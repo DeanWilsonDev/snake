@@ -2,7 +2,6 @@
 
 #include "core/components/transform-component-2d.hpp"
 #include "core/entity/game-entity.hpp"
-#include "core/math/transform-2d.hpp"
 #include "core/math/geometry/rectangle.h"
 #include "renderer-2d/components/render-component-2d.h"
 
@@ -16,7 +15,7 @@ namespace Game {
 
 struct SnakeSegmentParams {
   int index;
-  Core::Math::ITransform2D* transform;
+  Core::Components::TransformComponent2D* transform;
   Physics::Components::ColliderComponent2D* colliderComponent;
   Renderer2D::Component::RenderComponent2D* renderComponent;
 };
@@ -42,7 +41,7 @@ class SnakeSegment final : public Core::Entity::GameEntity {
   }
 
   // Methods
-  SnakeSegment* InitializeSnakeSegment(int index, Core::Math::ITransform2D& transform);
+  SnakeSegment* InitializeSnakeSegment(int index, Core::Components::TransformComponent2D& transform);
 
   void Move(Core::Math::Vector2D newPosition);
 

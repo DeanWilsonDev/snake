@@ -11,7 +11,7 @@ struct AppleParams {
   GameSettings& settings;
   Physics::Components::ColliderComponent2D& colliderComponent;
   Renderer2D::Component::IRenderComponent2D& renderComponent;
-  Core::Math::Transform2D& transform;
+  Core::Components::TransformComponent2D& transform;
 };
 
 class Apple final : public Core::Entity::GameEntity {

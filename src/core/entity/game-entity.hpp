@@ -17,7 +17,7 @@ namespace Core::Entity {
 
 class GameEntity : public Entity {
  public:
-  explicit GameEntity(Math::ITransform2D& transform);
+  explicit GameEntity(Components::TransformComponent2D& transform);
 
   void Update(float deltaTime) override;
   void Initialize() override;

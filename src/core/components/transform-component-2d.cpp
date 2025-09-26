@@ -8,12 +8,28 @@ namespace Core::Components {
 
 TransformComponent2D::TransformComponent2D(
     const Math::Vector2D position, const float rotation, const Math::Size2D scale
-): position(position), rotation(rotation), scale(scale) {
+)
+    : position(position), rotation(rotation), scale(scale)
+{
 }
 
 TransformComponent2D::TransformComponent2D(ITransform2D* transform)
-      : position(transform->GetPosition()), rotation(transform->GetRotation()), scale(transform->GetScale()) {};
+    : position(transform->GetPosition())
+    , rotation(transform->GetRotation())
+    , scale(transform->GetScale()) {};
 
 TransformComponent2D::TransformComponent2D() = default;
+
+Math::Transform2D& TransformComponent2D::GetTransform()
+{
+  static Math::Transform2D tempTransform(
+      this->GetPosition(), this->GetRotation(), this->GetScale()
+  );
+  tempTransform.position = this->position;
+  tempTransform.rotation = this->rotation;
+  tempTransform.scale = this->scale;
+
+  return tempTransform;
+}
 
 }  // namespace Core::Components

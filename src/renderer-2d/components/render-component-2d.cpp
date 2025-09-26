@@ -6,15 +6,16 @@
 
 #include "core.h"
 #include "log.h"
+#include "core/math/i-transform-2d.hpp"
 #include "renderer-2d/i-renderer.h"
 
 namespace Renderer2D::Component {
 
 RenderComponent2D::RenderComponent2D(
-    Core::Math::Vector2D& position, Core::Math::Size2D& size, const Core::Color color,
+    Core::Math::ITransform2D& transform, const Core::Color color,
     const bool enabled = true
 )
-    : position(position), size(size), color(color), enabled(enabled)
+    : transform(transform), color(color), enabled(enabled)
 {
 }
 
@@ -28,27 +29,37 @@ void RenderComponent2D::Render(IRenderer& renderer) const
     return;
   }
 
-  LOG_CORE_DEBUG("[RenderComponent2D] Drawing with renderer [{}]", static_cast<void*>(&renderer));
+  auto position = transform.GetPosition();
+  const auto scale = transform.GetScale();
+
+  LOG_CORE_DEBUG(
+      "[RenderComponent2D] Drawing with renderer [{}]: at position ({}, {}), with width ({}, {})",
+      static_cast<void*>(&renderer),
+      position.x,
+      position.y,
+      scale.GetWidth(),
+      scale.GetHeight()
+  );
 
   // Side Quest: [RenderComponent2D] Allow for rendering different shapes and Sprites
-  renderer.DrawRectangle(position.x, position.y, size.GetWidth(), size.GetHeight(), color);
+  renderer.DrawRectangle(position.x, position.y, scale.GetWidth(), scale.GetHeight(), color);
 }
 
 float RenderComponent2D::GetX() const
 {
-  return this->position.x;
+  return this->transform.GetPosition().x;
 }
 float RenderComponent2D::GetY() const
 {
-  return this->position.y;
+  return this->transform.GetPosition().y;
 }
 float RenderComponent2D::GetWidth() const
 {
-  return this->size.GetWidth();
+  return this->transform.GetScale().GetWidth();
 }
 float RenderComponent2D::GetHeight() const
 {
-  return this->size.GetHeight();
+  return this->transform.GetScale().GetHeight();
 }
 bool RenderComponent2D::GetEnabled() const
 {

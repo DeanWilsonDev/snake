@@ -4,6 +4,7 @@
 
 #pragma once
 #include "../core/i-game.hpp"
+#include "core/components/transform-component-2d.hpp"
 #include "core/math/transform-2d.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
 
@@ -52,7 +53,6 @@ class Game final : public Core::IGame {
   void Initialize() override;
   void Update(float deltaTime) override;
   void Render() override;
-  void RegisterRenderComponent(Renderer2D::Component::IRenderComponent2D* component) const;
 
  private:
   Core::DependencyInjector& injector;
@@ -61,10 +61,10 @@ class Game final : public Core::IGame {
   GameplayStateMachine* gameplayStateMachine{nullptr};
   GameSettings* settings{nullptr};
   Snake* snake{nullptr};
-  Core::Math::Transform2D* snakeTransform{nullptr};
+  Core::Components::TransformComponent2D* snakeTransformComponent{nullptr};
   Core::Math::Geometry::Rectangle* snakeBounds{nullptr};
   Apple* apple{nullptr};
-  Core::Math::Transform2D* appleTransform{nullptr};
+  Core::Components::TransformComponent2D* appleTransformComponent{nullptr};
   Core::Math::Geometry::Rectangle* appleBounds{nullptr};
 };
 

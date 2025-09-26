@@ -4,6 +4,7 @@
 
 #include "game.hpp"
 
+#include "raylib.h"
 #include "core/dependency-injector.hpp"
 #include "core/math/geometry/rectangle.h"
 #include "game-objects/apple.hpp"
@@ -55,9 +56,9 @@ Game::~Game()
     this->settings = nullptr;
   }
 
-  if (this->snakeTransform) {
-    delete this->snakeTransform;
-    this->snakeTransform = nullptr;
+  if (this->snakeTransformComponent) {
+    delete this->snakeTransformComponent;
+    this->snakeTransformComponent = nullptr;
   }
 
   if (this->snakeBounds) {
@@ -65,9 +66,9 @@ Game::~Game()
     this->snakeBounds = nullptr;
   }
 
-  if (this->appleTransform) {
-    delete this->appleTransform;
-    this->appleTransform = nullptr;
+  if (this->appleTransformComponent) {
+    delete this->appleTransformComponent;
+    this->appleTransformComponent = nullptr;
   }
 
   if (this->appleBounds) {
@@ -104,29 +105,31 @@ void Game::Initialize()
   LOG_TRACE("[Game] Setting up Snake GameObject");
   auto snakeSize = static_cast<float>(settings->GetBoxSize());
 
-  this->snakeTransform = new Core::Math::Transform2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
-  this->snakeBounds = new Core::Math::Geometry::Rectangle(*snakeTransform);
+  this->snakeTransformComponent =
+      new Core::Components::TransformComponent2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
+  this->snakeBounds = new Core::Math::Geometry::Rectangle(*snakeTransformComponent);
 
   const auto snakeParams = SnakeParams{.input = *input, .settings = *settings};
 
   this->snake = new Snake(snakeParams);
   this->snake->Initialize();
-  this->snake->CreateHead(*this->snakeTransform);
-  this->snake->CreateBody(*this->snakeTransform);
+  this->snake->CreateHead(*this->snakeTransformComponent);
+  this->snake->CreateBody(*this->snakeTransformComponent);
   LOG_DEBUG("[Game] Snake set to [{}]", static_cast<void*>(&snake));
 
   // Initialize Apple
   LOG_TRACE("[Game] Setting up Apple GameObject");
 
-  this->appleTransform = new Core::Math::Transform2D(vectorZero, 0.0f, sizeZero);
-  this->appleBounds = new Core::Math::Geometry::Rectangle(*appleTransform);
+  this->appleTransformComponent =
+      new Core::Components::TransformComponent2D(vectorZero, 0.0f, sizeZero);
+  this->appleBounds = new Core::Math::Geometry::Rectangle(*appleTransformComponent);
 
   const auto appleColliderParams = Physics::Components::ColliderComponentParams{
-      .transform = *appleTransform, .bounds = *appleBounds
+      .transform = *appleTransformComponent, .bounds = *appleBounds
   };
 
   auto appleRenderComponent = new Renderer2D::Component::RenderComponent2D(
-      appleTransform->position, appleTransform->scale, Core::COLOR_RED, false
+      *appleTransformComponent, Core::COLOR_RED, false
   );
 
   const auto appleColliderComponent =
@@ -136,7 +139,7 @@ void Game::Initialize()
       .settings = *settings,
       .colliderComponent = *appleColliderComponent,
       .renderComponent = *appleRenderComponent,
-      .transform = *appleTransform,
+      .transform = *appleTransformComponent,
   };
   this->apple = new Apple(appleParams);
 
@@ -194,10 +197,8 @@ void Game::Initialize()
   this->gameplayStateMachine->SetInput(*input);
   this->gameplayStateMachine->SetGameSettings(*settings);
 
-
   this->renderManager.Register(snake->head->GetRendererComponent2D());
-  for (const auto segment : this->snake->body)
-  {
+  for (const auto segment : this->snake->body) {
     if (const auto segmentRenderComponent = segment->GetRendererComponent2D()) {
       this->renderManager.Register(segmentRenderComponent);
     }
@@ -221,6 +222,19 @@ void Game::Update(const float deltaTime)
 
 void Game::Render()
 {
+  const auto renderer = injector.Resolve<Renderer2D::IRenderer>();
+  // for (const auto segment : this->snake->body) {
+  //   segment->GetRendererComponent2D()->Render(*renderer);
+  // }
+
+  this->apple->GetRendererComponent2D().SetEnabled(true);
+
+  LOG_DEBUG(
+      "[Game] checking Apple Transform ({}, {})",
+      this->apple->transform->position.x,
+      this->apple->transform->position.y
+  );
+
   LOG_DEBUG("[Game] checking RenderManager2D [{}]", static_cast<void*>(&this->renderManager));
   this->renderManager.RenderAll();
 }

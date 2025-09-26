@@ -3,6 +3,9 @@
 #include "../../core/entity/entity.h"
 #include <deque>
 
+namespace Core::Components {
+class TransformComponent2D;
+}
 namespace Platform::Input {
 class IInput;
 }
@@ -68,8 +71,8 @@ class Snake final {
   void Move() const;
   void CheckIfShouldGrow();
   void Teleport() const;
-  void CreateHead(Core::Math::ITransform2D& transform);
-  void CreateBody(Core::Math::ITransform2D& headTransform);
+  void CreateHead(Core::Components::TransformComponent2D& transform);
+  void CreateBody(Core::Components::TransformComponent2D& headTransformComponent);
   [[nodiscard]] Core::Math::Vector2D GetCenter() const;
   void SetGrow(const bool value) { this->grow = value; }
   void SetEnabled(bool enabled) const;

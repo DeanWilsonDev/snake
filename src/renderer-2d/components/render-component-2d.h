@@ -17,21 +17,21 @@ namespace Renderer2D::Component {
 class RenderComponent2D final : public IRenderComponent2D {
  public:
   RenderComponent2D(
-      Core::Math::ITransform2D& transform, Core::Color color,
-      bool enabled
+      Core::Math::ITransform2D& transform,
+      Core::Color color,
+      bool& active
   );
   ~RenderComponent2D() override = default;
   void Render(IRenderer& renderer) const override;
-  void SetEnabled(bool enabled) override;
   [[nodiscard]] float GetX() const override;
   [[nodiscard]] float GetY() const override;
   [[nodiscard]] float GetWidth() const override;
   [[nodiscard]] float GetHeight() const override;
-  [[nodiscard]] bool GetEnabled() const override;
+  [[nodiscard]] bool GetActive() const override;
 
  private:
   Core::Math::ITransform2D& transform;
   Core::Color color;
-  bool enabled;
+  bool& active;
 };
 }  // namespace Renderer2D::Component

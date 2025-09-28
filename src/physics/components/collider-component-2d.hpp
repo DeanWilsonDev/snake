@@ -21,12 +21,9 @@ namespace Physics::Components {
  * @details
  * - `transform`: A reference to the `Transform2D` object representing the position, rotation,
  *    and scale of the collider.
- * - `bounds`: A reference to the `Rectangle` object representing the collider's geometric
- * boundaries.
  */
 struct ColliderComponentParams {
   Core::Math::ITransform2D& transform;
-  Core::Math::Geometry::Rectangle& bounds;
 };
 
 /**
@@ -48,11 +45,11 @@ class ColliderComponent2D: Core::Components::IComponent {
  public:
   explicit ColliderComponent2D(const ColliderComponentParams& params);
   [[nodiscard]] bool Intersects(const ColliderComponent2D& other) const;
-  [[nodiscard]] Core::Math::Geometry::Rectangle GetBounds() const { return this->bounds;}
+  [[nodiscard]] Core::Math::Geometry::Rectangle* GetBounds() const { return this->bounds;}
 
 private:
   Core::Math::ITransform2D& transform;
-  Core::Math::Geometry::Rectangle& bounds;
+  Core::Math::Geometry::Rectangle* bounds {nullptr};
 };
 } // namespace Physics::Components
 

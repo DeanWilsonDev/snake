@@ -1,28 +1,30 @@
 #include "log.h"
 #include "physics/components/collider-component-2d.hpp"
 #include "game/game-objects/snake-segment.hpp"
-#include "core/math/i-transform-2d.hpp"
+
+#include "snake.hpp"
 #include "core/components/transform-component-2d.hpp"
 
 namespace Game {
 
-SnakeSegment::SnakeSegment(const SnakeSegmentParams& props)
-    : GameEntity(*props.transform), index(props.index)
+SnakeSegment::SnakeSegment(const SnakeSegmentParams& params)
+    : GameEntity(params), index(params.index)
 {
-  this->bounds = new Core::Math::Geometry::Rectangle(*props.transform);
+  this->transform = new Core::Components::TransformComponent2D(params.initialTransform);
 
-  const auto colliderParams = Physics::Components::ColliderComponentParams{
-      .transform = *props.transform, .bounds = *bounds
-  };
+  this->bounds = new Core::Math::Geometry::Rectangle(*this->transform);
+
+  const auto colliderParams =
+      Physics::Components::ColliderComponentParams{.transform = *this->transform};
 
   this->colliderComponent = new Physics::Components::ColliderComponent2D(colliderParams);
 
   this->renderComponent = new Renderer2D::Component::RenderComponent2D(
-      *props.transform, Core::COLOR_GREEN, true
+      *this->transform, Core::COLOR_GREEN, this->Entity::GetActive()
   );
 
-  this->transform = props.transform;
 }
+
 SnakeSegment::~SnakeSegment()
 {
   if (this->colliderComponent) {

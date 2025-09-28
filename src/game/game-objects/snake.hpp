@@ -71,11 +71,11 @@ class Snake final {
   void Move() const;
   void CheckIfShouldGrow();
   void Teleport() const;
-  void CreateHead(Core::Components::TransformComponent2D& transform);
-  void CreateBody(Core::Components::TransformComponent2D& headTransformComponent);
+  void CreateHead();
+  void CreateBody();
   [[nodiscard]] Core::Math::Vector2D GetCenter() const;
   void SetGrow(const bool value) { this->grow = value; }
-  void SetEnabled(bool enabled) const;
+  void SetActive(bool enabled) const;
 
   [[nodiscard]] GameSettings& GetGameSettings() const { return this->settings; }
 
@@ -93,5 +93,6 @@ class Snake final {
   Core::Math::Vector2D direction{};
   bool grow = false;
   bool debugEnabled = false;
+  Core::Math::Transform2D transform = Core::Math::Transform2D::Empty();
 };
 }  // namespace Game

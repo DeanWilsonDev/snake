@@ -13,11 +13,9 @@ class ColliderComponent2D;
 }
 namespace Game {
 
-struct SnakeSegmentParams {
-  int index;
-  Core::Components::TransformComponent2D* transform;
-  Physics::Components::ColliderComponent2D* colliderComponent;
-  Renderer2D::Component::RenderComponent2D* renderComponent;
+struct SnakeSegmentParams: Core::Entity::GameEntityParams {
+  int index{};
+  Core::Math::Transform2D initialTransform;
 };
 
 class SnakeSegment final : public Core::Entity::GameEntity {
@@ -26,7 +24,7 @@ class SnakeSegment final : public Core::Entity::GameEntity {
   int index = {0};
 
   // Constructor
-  explicit SnakeSegment(const SnakeSegmentParams& props);
+  explicit SnakeSegment(const SnakeSegmentParams& params);
   ~SnakeSegment() override;
 
   // Getters
@@ -41,7 +39,9 @@ class SnakeSegment final : public Core::Entity::GameEntity {
   }
 
   // Methods
-  SnakeSegment* InitializeSnakeSegment(int index, Core::Components::TransformComponent2D& transform);
+  SnakeSegment* InitializeSnakeSegment(
+      int index, Core::Components::TransformComponent2D& transform
+  );
 
   void Move(Core::Math::Vector2D newPosition);
 

@@ -9,10 +9,15 @@
 #include <typeindex>
 #include <unordered_map>
 
+
+struct EntityParams {
+  bool active = true;
+};
+
 namespace Core::Entity {
 class Entity {
  public:
-  explicit Entity();
+  explicit Entity(const EntityParams& params);
   virtual ~Entity() = 0;
 
   virtual void Initialize();
@@ -20,6 +25,7 @@ class Entity {
   [[nodiscard]] int GetID() const;
   [[nodiscard]] bool IsActive() const;
   virtual void SetActive(bool active);
+  virtual bool& GetActive();
 
   template <typename T, typename... Args>
   void AddComponent(Args&&... args);
@@ -35,8 +41,8 @@ private:
 
   static int GenerateId();
 
-  const int id{};
-  bool active{};
+  const int id{GenerateId()};
+  bool active{true};
 };
 
 

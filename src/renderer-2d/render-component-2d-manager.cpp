@@ -56,7 +56,7 @@ void RenderComponent2DManager::RenderAll() const
       return;
     }
 
-    if (component->GetEnabled()) {
+    if (component->GetActive()) {
       component->Render(*this->renderer);
     }
   }

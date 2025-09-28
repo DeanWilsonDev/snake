@@ -62,7 +62,7 @@ void GameplayState::Enter()
       return;
     }
 
-    snake->SetEnabled(true);
+    snake->SetActive(true);
     apple->SetActive(true);
   }
 
@@ -83,7 +83,7 @@ void GameplayState::Update(float deltaTime)
   snake->Update(deltaTime);
   apple->Update(deltaTime);
 
-  if (snake->head->GetColliderComponent()->Intersects(apple->GetColliderComponent())) {
+  if (snake->head->GetColliderComponent()->Intersects(*apple->GetColliderComponent())) {
     apple->transform->position = apple->GetNewPosition();
     this->gameplayStateMachine.IncreaseScore();
     snake->SetGrow(true);
@@ -135,7 +135,7 @@ void GameplayState::Exit()
       return;
     }
 
-    snake->SetEnabled(false);
+    snake->SetActive(false);
     apple->SetActive(false);
     snake->Destroy();
   }

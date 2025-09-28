@@ -20,19 +20,20 @@ struct Transform2D final : public ITransform2D {
       : position(position), rotation(rotation), scale(scale) {};
 
   explicit Transform2D(ITransform2D& transform)
-      : position(transform.GetPosition()), rotation(transform.GetRotation()), scale(GetScale()) {};
+      : position(transform.GetPosition()), rotation(transform.GetRotation()), scale(transform.GetScale())
+  {
+  }
 
-  ~Transform2D() override = default;
-
-  // Prevent copy by deleting these funcitons
-  Transform2D(const Transform2D&) = delete;
-  Transform2D& operator=(const Transform2D&) = delete;
+  Transform2D(const Transform2D& other)
+      : position(other.position), rotation(other.rotation), scale(other.scale)
+  {
+  }
 
   // Allow moving to transfer ownership
   Transform2D(Transform2D&&) = default;
   Transform2D& operator=(Transform2D&&) = default;
 
-
+  ~Transform2D() override = default;
 
   static Transform2D Empty();
   [[nodiscard]] Vector2D& GetPosition() override { return this->position; };

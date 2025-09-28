@@ -2,15 +2,20 @@
 
 #include "core/core.h"
 #include "core/components/transform-component-2d.hpp"
+#include "renderer-2d/components/render-component-2d.h"
 
 namespace Game {
 
-Apple::Apple(const AppleParams& params)
-    : GameEntity(params.transform)
-    , settings(params.settings)
-    , colliderComponent(params.colliderComponent)
-    , renderComponent(params.renderComponent)
+Apple::Apple(const AppleParams& params) : GameEntity(params), settings(params.settings)
 {
+  this->renderComponent = new Renderer2D::Component::RenderComponent2D(
+      *this->transform, Core::COLOR_RED, this->Entity::GetActive()
+  );
+
+  const auto appleColliderParams =
+      Physics::Components::ColliderComponentParams{.transform = *this->transform};
+  this->colliderComponent = new Physics::Components::ColliderComponent2D(appleColliderParams);
+
   LOG_DEBUG(
       "[Apple] Checking RenderComponent is Initialized: [{}]",
       static_cast<void*>(&this->renderComponent)
@@ -24,7 +29,7 @@ Apple::Apple(const AppleParams& params)
   );
 }
 
-void Apple::Update(const float deltaTime)
+void Apple::Update([[maybe_unused]] const float deltaTime)
 {
   LOG_DEBUG(
       "[Apple] position changed to: ({}, {}) - Address ({})",
@@ -74,6 +79,16 @@ Core::Math::Vector2D Apple::GetCenter() const
       this->transform->position.x + (boxSize - boxSize / 2.0f) / 2.0f,
       this->transform->position.y + (boxSize - boxSize / 2.0f) / 2.0f,
   };
+}
+
+Physics::Components::ColliderComponent2D* Apple::GetColliderComponent() const
+{
+  return this->colliderComponent;
+}
+
+Renderer2D::Component::RenderComponent2D* Apple::GetRendererComponent2D() const
+{
+  return this->renderComponent;
 }
 
 }  // namespace Game

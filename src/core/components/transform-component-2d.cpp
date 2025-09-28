@@ -13,6 +13,13 @@ TransformComponent2D::TransformComponent2D(
 {
 }
 
+TransformComponent2D::TransformComponent2D(const Math::Transform2D& transform)
+    : position(transform.position)
+    , rotation(transform.rotation)
+    , scale(transform.scale)
+{
+}
+
 TransformComponent2D::TransformComponent2D(ITransform2D* transform)
     : position(transform->GetPosition())
     , rotation(transform->GetRotation())

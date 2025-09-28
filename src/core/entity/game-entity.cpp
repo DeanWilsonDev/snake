@@ -7,9 +7,23 @@
 
 namespace Core::Entity {
 
-GameEntity::GameEntity(Components::TransformComponent2D& transform)
+GameEntity::GameEntity(const GameEntityParams& params) : Entity(params)
 {
-  this->transform = &transform;
+  this->transform = params.transform;
+
+  if (this->transform == nullptr) {
+    this->transform = new Components::TransformComponent2D(
+        Math::Vector2D::Zero(), 0.0f, Core::Math::Size2D::Zero()
+    );
+  }
+}
+
+GameEntity::~GameEntity()
+{
+  if (this->transform != nullptr) {
+    delete this->transform;
+    this->transform = nullptr;
+  }
 }
 
 void GameEntity::Update(const float deltaTime)
@@ -21,4 +35,4 @@ void GameEntity::Initialize()
   Entity::Initialize();
 }
 
-}  // namespace Core
+}  // namespace Core::Entity

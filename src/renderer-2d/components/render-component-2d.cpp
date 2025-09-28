@@ -12,16 +12,15 @@
 namespace Renderer2D::Component {
 
 RenderComponent2D::RenderComponent2D(
-    Core::Math::ITransform2D& transform, const Core::Color color,
-    const bool enabled = true
+    Core::Math::ITransform2D& transform, const Core::Color color, bool& active
 )
-    : transform(transform), color(color), enabled(enabled)
+    : transform(transform), color(color), active(active)
 {
 }
 
 void RenderComponent2D::Render(IRenderer& renderer) const
 {
-  if (!enabled) {
+  if (!active) {
     LOG_CORE_TRACE(
         "[RenderComponent2D] Component [{}] Disabled - Skipping Render",
         static_cast<void*>(const_cast<RenderComponent2D*>(this))
@@ -61,12 +60,8 @@ float RenderComponent2D::GetHeight() const
 {
   return this->transform.GetScale().GetHeight();
 }
-bool RenderComponent2D::GetEnabled() const
+bool RenderComponent2D::GetActive() const
 {
-  return this->enabled;
-}
-void RenderComponent2D::SetEnabled(const bool enabled)
-{
-  this->enabled = enabled;
+  return this->active;
 }
 }  // namespace Renderer2D::Component

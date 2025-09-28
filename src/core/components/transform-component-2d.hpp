@@ -18,14 +18,11 @@ class TransformComponent2D final : public IComponent, public Math::ITransform2D 
   Math::Size2D scale = Math::Size2D::Zero();
 
   TransformComponent2D(Math::Vector2D position, float rotation, Math::Size2D scale);
+  explicit TransformComponent2D(const Math::Transform2D& transform);
 
   explicit TransformComponent2D(ITransform2D* transform);
 
   TransformComponent2D();
-
-  // Prevent copy by deleting these funcitons
-  TransformComponent2D(const TransformComponent2D&) = delete;
-  TransformComponent2D& operator=(const TransformComponent2D&) = delete;
 
   // Allow moving to transfer ownership
   TransformComponent2D(TransformComponent2D&&) = default;

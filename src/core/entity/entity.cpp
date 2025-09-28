@@ -4,7 +4,7 @@
 #include "core/entity/entity.h"
 
 namespace Core::Entity {
-Entity::Entity() : components(), id(GenerateId()), active(true) {}
+Entity::Entity(const EntityParams& params) : active(params.active){};
 Entity::~Entity() = default;
 void Entity::Initialize() {}
 void Entity::Update([[maybe_unused]] float deltaTime) {}
@@ -20,6 +20,10 @@ bool Entity::IsActive() const
 void Entity::SetActive(const bool active)
 {
   this->active = active;
+}
+bool& Entity::GetActive()
+{
+  return this->active;
 }
 
 int Entity::GenerateId()

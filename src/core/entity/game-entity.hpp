@@ -4,6 +4,7 @@
 
 #pragma once
 #include "entity.h"
+#include "log.h"
 #include "core/components/transform-component-2d.hpp"
 
 namespace Core::Components {
@@ -15,15 +16,35 @@ struct Transform2D;
 
 namespace Core::Entity {
 
+struct GameEntityParams : EntityParams {
+  Components::TransformComponent2D* transform = {nullptr};
+};
+
 class GameEntity : public Entity {
  public:
-  explicit GameEntity(Components::TransformComponent2D& transform);
+  explicit GameEntity(const GameEntityParams& params);
+
+  GameEntity(const GameEntity& other)
+      : Entity({.active = other.IsActive()}), transform(other.transform)
+  {
+  }
+
+  ~GameEntity() override;
+
+
+  GameEntity& operator=(const GameEntity& other)
+  {
+    if (this != &other) {
+      this->transform = other.transform;
+    }
+    LOG_CORE_DEBUG("[GameEntity] GameEntity slice-assigned!");
+    return *this;
+  }
 
   void Update(float deltaTime) override;
   void Initialize() override;
 
   // Properties
-  Components::TransformComponent2D* transform;
-
+  Components::TransformComponent2D* transform{nullptr};
 };
 }  // namespace Core::Entity

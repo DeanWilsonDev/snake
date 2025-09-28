@@ -10,7 +10,6 @@
 #include "game-objects/apple.hpp"
 #include "game-objects/snake.hpp"
 #include "game-state/gameplay-state-machine.hpp"
-#include "physics/components/collider-component-2d.hpp"
 #include "platform/window/i-window.h"
 #include "platform/input/i-input.hpp"
 #include "renderer-2d/i-renderer.h"
@@ -20,7 +19,6 @@
 #include "settings/game-settings.h"
 #include "core/i-state-machine.hpp"
 #include "game-state/main-menu-state.hpp"
-#include "core/math/i-transform-2d.hpp"
 #include "game-objects/snake-segment.hpp"
 
 #include <cassert>
@@ -55,26 +53,6 @@ Game::~Game()
     delete this->settings;
     this->settings = nullptr;
   }
-
-  if (this->snakeTransformComponent) {
-    delete this->snakeTransformComponent;
-    this->snakeTransformComponent = nullptr;
-  }
-
-  if (this->snakeBounds) {
-    delete this->snakeBounds;
-    this->snakeBounds = nullptr;
-  }
-
-  if (this->appleTransformComponent) {
-    delete this->appleTransformComponent;
-    this->appleTransformComponent = nullptr;
-  }
-
-  if (this->appleBounds) {
-    delete this->appleBounds;
-    this->appleBounds = nullptr;
-  }
 }
 
 void Game::Initialize()
@@ -98,58 +76,22 @@ void Game::Initialize()
   this->settings = new GameSettings{};
   settings->Print();
 
-  const auto vectorZero = Core::Math::Vector2D::Zero();
-  const auto sizeZero = Core::Math::Size2D::Zero();
-
   // Initialize Snake
   LOG_TRACE("[Game] Setting up Snake GameObject");
-  auto snakeSize = static_cast<float>(settings->GetBoxSize());
-
-  this->snakeTransformComponent =
-      new Core::Components::TransformComponent2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
-  this->snakeBounds = new Core::Math::Geometry::Rectangle(*snakeTransformComponent);
 
   const auto snakeParams = SnakeParams{.input = *input, .settings = *settings};
 
   this->snake = new Snake(snakeParams);
   this->snake->Initialize();
-  this->snake->CreateHead(*this->snakeTransformComponent);
-  this->snake->CreateBody(*this->snakeTransformComponent);
   LOG_DEBUG("[Game] Snake set to [{}]", static_cast<void*>(&snake));
 
   // Initialize Apple
   LOG_TRACE("[Game] Setting up Apple GameObject");
 
-  this->appleTransformComponent =
-      new Core::Components::TransformComponent2D(vectorZero, 0.0f, sizeZero);
-  this->appleBounds = new Core::Math::Geometry::Rectangle(*appleTransformComponent);
-
-  const auto appleColliderParams = Physics::Components::ColliderComponentParams{
-      .transform = *appleTransformComponent, .bounds = *appleBounds
-  };
-
-  auto appleRenderComponent = new Renderer2D::Component::RenderComponent2D(
-      *appleTransformComponent, Core::COLOR_RED, false
-  );
-
-  const auto appleColliderComponent =
-      new Physics::Components::ColliderComponent2D(appleColliderParams);
-
-  const auto appleParams = AppleParams{
+  this->apple = new Apple({
       .settings = *settings,
-      .colliderComponent = *appleColliderComponent,
-      .renderComponent = *appleRenderComponent,
-      .transform = *appleTransformComponent,
-  };
-  this->apple = new Apple(appleParams);
+  });
 
-  LOG_DEBUG(
-      "[Game] Apple RenderComponent is Initialized: [{}]", static_cast<void*>(&appleRenderComponent)
-  );
-  LOG_DEBUG(
-      "[Game] Apple ColliderComponent is Initialized: [{}]",
-      static_cast<void*>(appleColliderComponent)
-  );
   LOG_DEBUG(
       "[Apple] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
   );
@@ -189,7 +131,6 @@ void Game::Initialize()
       "[Game] Checking GameSettings on Snake [{}]",
       static_cast<void*>(&this->gameplayStateMachine->GetSnake()->GetGameSettings())
   );
-  this->snake->GetGameSettings().Print();
 
   this->gameplayStateMachine->SetRenderManager(this->renderManager);
   this->gameplayStateMachine->SetRenderer(*renderer);
@@ -203,7 +144,7 @@ void Game::Initialize()
       this->renderManager.Register(segmentRenderComponent);
     }
   }
-  this->renderManager.Register(&apple->GetRendererComponent2D());
+  this->renderManager.Register(apple->GetRendererComponent2D());
 
   LOG_DEBUG(
       "[Game] Checking GameSettings on GameplayStateMachine [{}]",
@@ -217,24 +158,13 @@ void Game::Initialize()
 void Game::Update(const float deltaTime)
 {
   LOG_DEBUG("[Game] Game Update running...");
-  this->gameplayStateMachine->Update(deltaTime);
+  if (this->gameplayStateMachine != nullptr) {
+    this->gameplayStateMachine->Update(deltaTime);
+  }
 }
 
 void Game::Render()
 {
-  const auto renderer = injector.Resolve<Renderer2D::IRenderer>();
-  // for (const auto segment : this->snake->body) {
-  //   segment->GetRendererComponent2D()->Render(*renderer);
-  // }
-
-  this->apple->GetRendererComponent2D().SetEnabled(true);
-
-  LOG_DEBUG(
-      "[Game] checking Apple Transform ({}, {})",
-      this->apple->transform->position.x,
-      this->apple->transform->position.y
-  );
-
   LOG_DEBUG("[Game] checking RenderManager2D [{}]", static_cast<void*>(&this->renderManager));
   this->renderManager.RenderAll();
 }

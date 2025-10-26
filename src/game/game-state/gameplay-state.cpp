@@ -42,8 +42,8 @@ GameplayState::GameplayState(GameplayStateMachine& stateMachine)
 void GameplayState::Enter()
 {
   LOG_TRACE("[GameplayState] Beginning New Game");
-  this->gameplayStateMachine.InitializeSnake();
-  this->gameplayStateMachine.InitializeApple();
+  // this->gameplayStateMachine.InitializeSnake();
+  // this->gameplayStateMachine.InitializeApple();
   LOG_DEBUG("[GameplayState] Logging GameUI: {}", static_cast<void*>(this->gameplayUI));
 
   if (auto renderManager = this->gameplayStateMachine.GetRenderManager()) {

@@ -94,30 +94,30 @@ void Snake::Update(const float deltaTime)
 void Snake::Move() const
 {
   LOG_TRACE("[Snake] Begin calling Move function");
-  Core::Math::Vector2D previousPosition = this->head->transform->GetPosition();
-  Core::Math::Vector2D nextPosition = previousPosition;
-
-  for (int i = 1; i < this->length; i++) {
-    if (this->body[i] && this->body[i - 1]) {
-      previousPosition = this->body[i]->transform->GetPosition();
-      this->body[i]->Move(nextPosition);
-      nextPosition = previousPosition;
-    }
-  }
 
   Core::Math::Vector2D newPosition = {
       this->head->transform->GetPosition().x + this->direction.x * this->size,
       this->head->transform->GetPosition().y + this->direction.y * this->size,
   };
 
-  LOG_DEBUG("[Snake] Direction: {}", this->direction.ToString());
-  LOG_DEBUG("[Snake] Head Position: {}", this->head->transform->GetPosition().ToString());
-  LOG_DEBUG("[Snake] New Position: {}", newPosition.ToString());
-
   newPosition.x = std::roundf(newPosition.x / this->size) * this->size;
   newPosition.y = std::roundf(newPosition.y / this->size) * this->size;
 
   this->head->Move(newPosition);
+
+  Core::Math::Vector2D nextPosition = newPosition;
+
+  for (int i = 1; i < this->length; i++) {
+    if (this->body[i] && this->body[i - 1]) {
+      const Core::Math::Vector2D previousPosition = this->body[i]->transform->GetPosition();
+      this->body[i]->Move(nextPosition);
+      nextPosition = previousPosition;
+    }
+  }
+
+  LOG_DEBUG("[Snake] Direction: {}", this->direction.ToString());
+  LOG_DEBUG("[Snake] Head Position: {}", this->head->transform->GetPosition().ToString());
+  LOG_DEBUG("[Snake] New Position: {}", newPosition.ToString());
 }
 
 void Snake::CreateHead()
@@ -139,8 +139,13 @@ void Snake::CreateBody()
   LOG_TRACE("[Snake] Creating snake body");
   for (int i = 1; i < this->length; i++) {
     auto nextSegmentTransform = Core::Math::Transform2D(this->transform);
-    nextSegmentTransform.position.x =
-        this->transform.position.x - this->size * static_cast<float>(i);
+
+    nextSegmentTransform.position.x = std::round(
+        (this->transform.position.x - this->size * static_cast<float>(i) / this->size) * this->size
+    );
+    nextSegmentTransform.position.y =
+        std::round((this->transform.position.y / this->size) * this->size);
+
     LOG_DEBUG(
         "Head Transform ({},{}), Next Segment Transform ({},{})",
         this->transform.position.x,
@@ -148,6 +153,7 @@ void Snake::CreateBody()
         nextSegmentTransform.position.x,
         nextSegmentTransform.position.y
     );
+
     auto params = SnakeSegmentParams{.index = i, .initialTransform = nextSegmentTransform};
     this->body.push_back(new SnakeSegment(params));
   }

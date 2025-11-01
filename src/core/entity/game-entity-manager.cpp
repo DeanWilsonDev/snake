@@ -3,8 +3,10 @@
 //
 
 #include "core/entity/game-entity-manager.hpp"
-
-#include "renderer-2d/components/render-component-2d.h"
+#include "core/entity/entity.h"
+#include "renderer-2d/components/i-render-component-2d.h"
+#include "renderer-2d/render-component-2d-manager.hpp"
+#include <vector>
 
 namespace Core {
 

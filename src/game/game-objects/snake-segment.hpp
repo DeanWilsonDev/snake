@@ -3,7 +3,9 @@
 #include "core/components/transform-component-2d.hpp"
 #include "core/entity/game-entity.hpp"
 #include "core/math/geometry/rectangle.h"
+#include "renderer-2d/components/i-render-component-2d.h"
 #include "renderer-2d/components/render-component-2d.h"
+#include "core/math/vector-2d.hpp"
 
 namespace Core::Components {
 class TransformComponent2D;
@@ -13,7 +15,7 @@ class ColliderComponent2D;
 }
 namespace Game {
 
-struct SnakeSegmentParams: Core::Entity::GameEntityParams {
+struct SnakeSegmentParams : Core::Entity::GameEntityParams {
   int index{};
   Core::Math::Transform2D initialTransform;
 };

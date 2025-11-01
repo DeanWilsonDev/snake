@@ -5,10 +5,7 @@
 #pragma once
 #include "../core/i-game.hpp"
 #include "core/components/transform-component-2d.hpp"
-#include "core/math/transform-2d.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
-
-#include <memory>
 
 namespace Renderer2D::Component {
 class IRenderComponent2D;

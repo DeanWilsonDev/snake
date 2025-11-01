@@ -6,6 +6,8 @@
 #include "i-component.hpp"
 #include "core/math/transform-2d.hpp"
 #include "core/math/i-transform-2d.hpp"
+#include "core/math/size-2d.hpp"
+#include "core/math/vector-2d.hpp"
 
 namespace Core::Components {
 
@@ -27,9 +29,6 @@ class TransformComponent2D final : public IComponent, public Math::ITransform2D 
   // Allow moving to transfer ownership
   TransformComponent2D(TransformComponent2D&&) = default;
   TransformComponent2D& operator=(TransformComponent2D&&) = default;
-
-
-
 
   [[nodiscard]] Math::Vector2D& GetPosition() override { return this->position; }
   [[nodiscard]] float& GetRotation() override { return this->rotation; };

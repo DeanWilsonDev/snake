@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include "game-entity.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
+#include "core/entity/entity.h"
 
 #include <vector>
 
@@ -15,7 +15,6 @@ namespace Core {
 
 class GameEntityManager {
  public:
-
   GameEntityManager(
       const std::vector<Entity::Entity*>& entities,
       const Renderer2D::RenderComponent2DManager& renderManager

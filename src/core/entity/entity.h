@@ -4,11 +4,10 @@
 #pragma once
 
 #include "core/components/i-component.hpp"
-#include "core/math/transform-2d.hpp"
 #include <cassert>
 #include <typeindex>
 #include <unordered_map>
-
+#include <memory>
 
 struct EntityParams {
   bool active = true;
@@ -36,15 +35,14 @@ class Entity {
   template <typename T>
   void RemoveComponent();
 
-private:
-  unordered_map<std::type_index, std::unique_ptr<Components::IComponent>> components{};
+ private:
+  std::unordered_map<std::type_index, std::unique_ptr<Components::IComponent>> components{};
 
   static int GenerateId();
 
   const int id{GenerateId()};
   bool active{true};
 };
-
 
 template <typename T, typename... Args>
 void Entity::AddComponent(Args&&... args)
@@ -75,6 +73,5 @@ void Entity::RemoveComponent()
   const auto type = std::type_index(typeid(T));
   this->components.erase(type);
 }
-
 
 }  // namespace Core::Entity

@@ -4,9 +4,8 @@
 
 #include "game.hpp"
 
-#include "raylib.h"
+#include "log.h"
 #include "core/dependency-injector.hpp"
-#include "core/math/geometry/rectangle.h"
 #include "game-objects/apple.hpp"
 #include "game-objects/snake.hpp"
 #include "game-state/gameplay-state-machine.hpp"
@@ -22,6 +21,7 @@
 #include "game-objects/snake-segment.hpp"
 
 #include <cassert>
+#include <memory>
 
 namespace Game {
 

@@ -1,7 +1,7 @@
 #include "raylib-user-interface-facade.hpp"
 #include "raylib.h"
 #include "log.h"
-#include "../../core/entity/entity.h"
+#include "core/math/vector-2d.hpp"
 
 namespace RaylibFacade::UserInterface {
 
@@ -18,4 +18,4 @@ void RaylibUserInterfaceFacade::DrawTextCentered(
   DrawText(text, position.x, position.y, fontSize, {255, 255, 255, 255});
 }
 
-}  // namespace RaylibAdapter::UserInterface
+}  // namespace RaylibFacade::UserInterface

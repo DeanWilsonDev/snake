@@ -63,15 +63,9 @@ struct Vector2D {
 
   friend Vector2D operator-(const Vector2D& v) { return {-v.x, -v.y}; }
 
-  friend Vector2D operator+(const Vector2D& a, const Vector2D& b)
-  {
-    return {a.x + b.x, a.y + b.y};
-  }
+  friend Vector2D operator+(const Vector2D& a, const Vector2D& b) { return {a.x + b.x, a.y + b.y}; }
 
-  friend Vector2D operator-(const Vector2D& a, const Vector2D& b)
-  {
-    return {a.x - b.x, a.y - b.y};
-  }
+  friend Vector2D operator-(const Vector2D& a, const Vector2D& b) { return {a.x - b.x, a.y - b.y}; }
 
   inline static float Magnitude(const Vector2D& v) { return (sqrt((v.x * v.x) + (v.y * v.y))); }
 

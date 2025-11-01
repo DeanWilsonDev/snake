@@ -4,7 +4,6 @@
 
 #pragma once
 #include "entity.h"
-#include "log.h"
 #include "core/components/transform-component-2d.hpp"
 
 namespace Core::Components {
@@ -31,13 +30,11 @@ class GameEntity : public Entity {
 
   ~GameEntity() override;
 
-
   GameEntity& operator=(const GameEntity& other)
   {
     if (this != &other) {
       this->transform = other.transform;
     }
-    LOG_CORE_DEBUG("[GameEntity] GameEntity slice-assigned!");
     return *this;
   }
 

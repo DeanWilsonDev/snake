@@ -4,6 +4,9 @@
 
 #include "core/entity/game-entity.hpp"
 #include "core/components/transform-component-2d.hpp"
+#include "core/entity/entity.h"
+#include "core/math/vector-2d.hpp"
+#include "core/math/size-2d.hpp"
 
 namespace Core::Entity {
 

@@ -1,7 +1,7 @@
 #pragma once
-
-#include "../../core/entity/entity.h"
 #include <deque>
+#include "core/math/vector-2d.hpp"
+#include "core/math/transform-2d.hpp"
 
 namespace Core::Components {
 class TransformComponent2D;

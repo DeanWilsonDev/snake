@@ -17,7 +17,8 @@ class MainMenuUI final : public UserInterface::IGameUI {
   explicit MainMenuUI(UserInterface::IUserInterface& ui, GameSettings& settings);
   ~MainMenuUI() override;
   void Render() override;
-private:
+
+ private:
   char scoreBuffer[100] = {0};
   GameSettings& settings;
   UserInterface::IUserInterface& ui;

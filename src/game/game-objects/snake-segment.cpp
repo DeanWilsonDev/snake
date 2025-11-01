@@ -1,8 +1,14 @@
+#include "snake.hpp"
 #include "log.h"
 #include "physics/components/collider-component-2d.hpp"
 #include "game/game-objects/snake-segment.hpp"
+#include "core/entity/entity.h"
+#include "core/entity/game-entity.hpp"
+#include "core/color.h"
+#include "core/math/geometry/rectangle.h"
+#include "core/math/vector-2d.hpp"
+#include "renderer-2d/components/render-component-2d.h"
 
-#include "snake.hpp"
 #include "core/components/transform-component-2d.hpp"
 
 namespace Game {
@@ -22,7 +28,6 @@ SnakeSegment::SnakeSegment(const SnakeSegmentParams& params)
   this->renderComponent = new Renderer2D::Component::RenderComponent2D(
       *this->transform, Core::COLOR_GREEN, this->Entity::GetActive()
   );
-
 }
 
 SnakeSegment::~SnakeSegment()

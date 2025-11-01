@@ -1,11 +1,14 @@
 #include "game/game-objects/snake.hpp"
 #include "game/settings/game-settings.h"
 #include "log.h"
-#include "raylib.h"
 #include "snake-segment.hpp"
 #include "platform/input/key-codes.hpp"
 #include "platform/input/i-input.hpp"
-#include "physics/components/collider-component-2d.hpp"
+#include "core/math/vector-2d.hpp"
+#include "core/math/transform-2d.hpp"
+
+#include <cmath>
+#include <utility>
 
 namespace Game {
 
@@ -52,7 +55,7 @@ void Snake::Update(const float deltaTime)
   LOG_TRACE("[Snake] Snake Update Begin");
   Core::Math::Vector2D newDirection = this->direction;
 
-  // Side Quest: [Snake] Input should really be handled by the gameplay state rather than the
+  // SIDE QUEST: [Snake] Input should really be handled by the gameplay state rather than the
   // gameobject
   if (this->direction.y != 0 && !directionChanged) {
     if (this->input.IsKeyPressed(Platform::Input::KEY_A)) {
@@ -77,6 +80,7 @@ void Snake::Update(const float deltaTime)
   }
   accumulatedDistance += this->speed * deltaTime;
 
+  LOG_ERROR("[Snake] About to check accumulatedDistance");
   if (accumulatedDistance >= this->size) {
     this->Move();
     this->CheckIfShouldGrow();
@@ -87,6 +91,7 @@ void Snake::Update(const float deltaTime)
       directionChanged = false;
     }
 
+    LOG_ERROR("[Snake] About to call Teleport");
     this->Teleport();
   }
 }
@@ -181,15 +186,33 @@ void Snake::CheckIfShouldGrow()
 
 void Snake::Teleport() const
 {
+  LOG_ERROR("[Snake] Teleport Function Called!");
   const auto screenWidth = static_cast<float>(this->settings.GetScreenWidth());
   const auto screenHeight = static_cast<float>(this->settings.GetScreenHeight());
 
-  for (const auto segment : this->body) {
-    if (auto segmentPosition = segment->transform->GetPosition(); segmentPosition.x > screenWidth) {
+  for (const auto* segment : this->body) {
+    auto& segmentPosition = segment->transform->GetPosition();
+    LOG_ERROR("[Snake] Teleport Segment!");
+    if (segmentPosition.x > screenWidth) {
       segmentPosition.x = 0;
+
+      LOG_ERROR(
+          "[Snake] Snake Teleported position: ({}, {}), Snake Actual Position: ({}, {})",
+          segmentPosition.x,
+          segmentPosition.y,
+          segment->transform->GetPosition().x,
+          segment->transform->GetPosition().y
+      );
     }
     else if (segmentPosition.x < 0) {
       segmentPosition.x = screenWidth;
+      LOG_ERROR(
+          "[Snake] Snake Teleported position: ({}, {}), Snake Actual Position: ({}, {})",
+          segmentPosition.x,
+          segmentPosition.y,
+          segment->transform->GetPosition().x,
+          segment->transform->GetPosition().y
+      );
     }
     else if (segmentPosition.y > screenHeight) {
       segmentPosition.y = 0;

@@ -6,8 +6,8 @@
 
 #include "core/math/vector-2d.hpp"
 #include "game/settings/game-settings.h"
-#include "platform/window/window-manager.hpp"
 #include "user-interface/i-user-interface.hpp"
+#include <cstdio>
 
 namespace Game {
 

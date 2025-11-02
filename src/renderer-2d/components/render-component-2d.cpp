@@ -4,8 +4,7 @@
 
 #include "renderer-2d/components/render-component-2d.h"
 
-#include "core.h"
-#include "log.h"
+#include <umbra/log.h>
 #include "core/math/i-transform-2d.hpp"
 #include "renderer-2d/i-renderer.h"
 

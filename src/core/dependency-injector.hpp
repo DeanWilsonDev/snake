@@ -3,9 +3,7 @@
 //
 
 #pragma once
-#include "log.h"
-
-#include <core.h>
+#include <umbra/log.h>
 #include <functional>
 #include <memory>
 #include <unordered_map>
@@ -81,7 +79,9 @@ std::shared_ptr<Interface> DependencyInjector::Resolve()
       return std::static_pointer_cast<Interface>(rawInstance);
     }
     catch (const std::exception& e) {
-      throw std::runtime_error(std::string("[DependencyInjector] Failed to resolve dependency: ", e.what()));
+      throw std::runtime_error(
+          std::string("[DependencyInjector] Failed to resolve dependency: ", e.what())
+      );
     }
   }
 

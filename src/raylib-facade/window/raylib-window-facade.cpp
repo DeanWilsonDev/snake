@@ -1,12 +1,12 @@
 #include "raylib-window-facade.hpp"
-#include "log.h"
+#include <umbra/log.h>
 #include "raylib.h"
 
 namespace RaylibFacade::Window {
 
 RaylibWindowFacade::RaylibWindowFacade()
 {
-  LOG_TRACE("Initializing Window");
+  LOG_CORE_TRACE("Initializing Window");
 }
 
 RaylibWindowFacade::~RaylibWindowFacade()
@@ -16,7 +16,7 @@ RaylibWindowFacade::~RaylibWindowFacade()
 
 void RaylibWindowFacade::CreateWindow(int width, int height, char* title)
 {
-  LOG_TRACE("Creating Window");
+  LOG_CORE_TRACE("Creating Window");
   ::InitWindow(width, height, title);
 }
 
@@ -50,4 +50,4 @@ void RaylibWindowFacade::SetWindowSize(const int width, const int height)
   ::SetWindowSize(width, height);
 }
 
-}  // namespace RaylibAdapter::Window
+}  // namespace RaylibFacade::Window

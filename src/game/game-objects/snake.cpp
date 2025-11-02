@@ -1,6 +1,6 @@
 #include "game/game-objects/snake.hpp"
 #include "game/settings/game-settings.h"
-#include "log.h"
+#include <umbra/log.h>
 #include "snake-segment.hpp"
 #include "platform/input/key-codes.hpp"
 #include "platform/input/i-input.hpp"

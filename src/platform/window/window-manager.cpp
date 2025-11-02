@@ -5,7 +5,7 @@
 #include "window-manager.hpp"
 
 #include "i-window.h"
-#include "log.h"
+#include <umbra/log.h>
 
 namespace Platform::Window {
 
@@ -14,11 +14,10 @@ WindowManager::WindowManager() = default;
 int WindowManager::GetScreenWidth()
 {
   try {
-
-  if (IsInitialized()) {
-    return backend->GetScreenWidth();
-  }
-  return 0;
+    if (IsInitialized()) {
+      return backend->GetScreenWidth();
+    }
+    return 0;
   }
   catch (const std::exception& e) {
     LOG_CORE_FATAL("Error getting screen width {}", e.what());

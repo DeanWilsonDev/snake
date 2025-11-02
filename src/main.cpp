@@ -1,6 +1,6 @@
 #include "engine/application.h"
 #include "raylib-facade/window/raylib-window-facade.hpp"
-#include "log.h"
+#include <umbra/log.h>
 #include "core/dependency-injector.hpp"
 #include "engine/config/project-settings.hpp"
 #include "game/game.hpp"
@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 {
   // Initialize Logging
   constexpr bool debugEnabled = DEBUG_ENABLED;
-  Umbra::Logging::Log::init(debugEnabled);
+  Umbra::Logging::Log::init("logs/log.txt", debugEnabled);
   Core::DependencyInjector injector;
 
   injector.Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
@@ -25,8 +25,7 @@ int main(int argc, char* argv[])
   injector.Register<Platform::Input::IInput, RaylibFacade::Input::RaylibInputFacade>();
   injector.Register<
       UserInterface::IUserInterface,
-      RaylibFacade::UserInterface::RaylibUserInterfaceFacade
-  >();
+      RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
   injector.Register<Core::IStateMachine, Game::GameplayStateMachine>();
 
   auto engineConfig = Engine::Config::EngineConfig();

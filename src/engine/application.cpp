@@ -1,5 +1,5 @@
 #include "application.h"
-#include "log.h"
+#include <umbra/log.h>
 #include "config/project-settings.hpp"
 #include "core/dependency-injector.hpp"
 #include "core/color.h"

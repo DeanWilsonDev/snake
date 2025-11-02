@@ -5,7 +5,7 @@
 #pragma once
 #include <core.h>
 #include <memory>
-#include "log.h"
+#include <umbra/log.h>
 
 namespace Core {
 

@@ -4,6 +4,5 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/build/_deps/raylib-src" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/build/_deps/umbralogging-src" vcs="Git" />
   </component>
 </project>

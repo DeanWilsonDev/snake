@@ -1,7 +1,7 @@
 
 #include "gameplay-state.hpp"
 #include "game/settings/game-settings.h"
-#include "log.h"
+#include <umbra/log.h>
 #include "gameplay-state-machine.hpp"
 #include "game/game-objects/snake.hpp"
 #include "game/game-objects/apple.hpp"

@@ -4,10 +4,6 @@
 
 #include "dependency-injector.hpp"
 
-#include "log.h"
-
-#include <core.h>
-
 namespace Core {
 
 DependencyInjector::~DependencyInjector()
@@ -15,12 +11,10 @@ DependencyInjector::~DependencyInjector()
   Teardown();
 }
 
-
 void DependencyInjector::Teardown()
 {
   instances.clear();
   factories.clear();
 }
-
 
 }  // namespace Core

@@ -2,7 +2,7 @@
 #include "platform/input/i-input.hpp"
 #include "gameplay-state-machine.hpp"
 #include "game/ui/game-over-ui.hpp"
-#include "log.h"
+#include <umbra/log.h>
 
 #include <cassert>
 
@@ -29,7 +29,8 @@ void GameOverState::Enter()
   LOG_TRACE("[GameOverState] Validating User Interface");
   assert(userInterface);
   LOG_TRACE("[GameOverState] Setting Game Over UI");
-  this->gameOverUI = new GameOverUI(*userInterface, *gameSettings, this->gameplayStateMachine.GetScore());
+  this->gameOverUI =
+      new GameOverUI(*userInterface, *gameSettings, this->gameplayStateMachine.GetScore());
 
   LOG_TRACE("[GameOverState] Setting Game Over UI as Active Game UI");
   this->gameplayStateMachine.SetGameUI(*this->gameOverUI);
@@ -38,7 +39,6 @@ void GameOverState::Enter()
 
 void GameOverState::Update(float deltaTime)
 {
-
   if (this->input->IsKeyPressed(Platform::Input::KeyCode::KEY_ENTER)) {
     this->gameplayStateMachine.Next();
   }

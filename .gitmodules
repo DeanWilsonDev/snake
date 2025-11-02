@@ -1,0 +1,3 @@
+[submodule "external/UmbraLog"]
+	path = external/UmbraLog
+	url = git@github.com:UmbraEngine/UmbraLog.git

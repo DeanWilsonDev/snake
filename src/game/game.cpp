@@ -4,7 +4,7 @@
 
 #include "game.hpp"
 
-#include "log.h"
+#include <umbra/log.h>
 #include "core/dependency-injector.hpp"
 #include "game-objects/apple.hpp"
 #include "game-objects/snake.hpp"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "log.h"
+#include <umbra/log.h>
 
 #define DEFAULT_BOX_SIZE (20);
 #define DEFAULT_MIN_BOX_SIZE (10);

@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 {
   // Initialize Logging
   constexpr bool debugEnabled = DEBUG_ENABLED;
-  Umbra::Logging::Log::init("logs/log.txt", debugEnabled);
+  Umbra::Logging::Log::init("log.csv", debugEnabled);
   Core::DependencyInjector injector;
 
   injector.Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();

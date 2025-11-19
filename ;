@@ -1,0 +1,37 @@
+#pragma once
+
+#include "debug.hpp"
+#include <string>
+
+namespace Debug {
+class DebugHUD {
+ public:
+  DebugHUD() = default;
+
+  void AddLine(const std::string& key, const std::string& value);
+  void Render();
+  void ClearFrameData();
+
+  void Set(const std::string& path, DebugValue value)
+  {
+    auto parts = this.SplitPath(path);
+    if (parts.empty()) return;
+
+    DebugMap* current = &this.root;
+
+    for(size_t i = 0; i < parts.size(); ++i){
+      const auto& key = parts[i];
+
+      if(i == parts.size() - 1){
+        (*current)[key] = std::make_unique<DebugNode>();
+        (*current)[key]->data = DebugMap{}
+
+      }
+
+    }
+
+  }
+
+ private:
+};
+}  // namespace Debug

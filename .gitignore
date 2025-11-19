@@ -1,3 +1,28 @@
-build
-.idea
+# Build files
+/build/
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+*.a
+*.lib
 
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# macOS files
+.DS_Store
+
+# Logs
+*.log
+log/*
+
+# Generated files
+*.swp
+*~
+*.tmp
+*.cache/*

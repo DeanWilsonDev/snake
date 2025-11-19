@@ -100,7 +100,7 @@ class DebugHUD {
     return out;
   }
 
-  static void PrintNode(const std::string& key, const DebugNode* node, int indent)
+  static void PrintNode(const std::string& key, DebugNode* node, int indent)
   {
     std::string pad(indent, ' ');
     if (!node) return;

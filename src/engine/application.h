@@ -1,6 +1,5 @@
 #pragma once
 #include "config/engine-config.h"
-
 #include <memory.h>
 
 namespace Renderer2D {

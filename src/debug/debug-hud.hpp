@@ -1,14 +1,13 @@
 #pragma once
 
-#include "debug.hpp"
 #include <string>
 #include <vector>
 #include <cstddef>
-#include <memory>
-#include <utility>
-#include <iostream>
+#include "debug-node.hpp"
+#include "debug-value.hpp"
 
 namespace Debug {
+
 class DebugHUD {
  public:
   DebugHUD() = default;
@@ -17,97 +16,21 @@ class DebugHUD {
   void Render();
   void ClearFrameData();
 
-  void Set(const std::string& path, DebugValue value)
-  {
-    auto parts = this->SplitPath(path);
-    if (parts.empty()) return;
+  void Set(const std::string& path, DebugValue value);
 
-    DebugMap* current = &this->root;
+  void Remove(const std::string& path);
 
-    for (size_t i = 0; i < parts.size(); ++i) {
-      const auto& key = parts[i];
+  void ClearAll();
 
-      if (i == parts.size() - 1) {
-        (*current)[key] = std::make_unique<DebugNode>();
-        (*current)[key]->data = std::move(value);
-      }
-      else {
-        auto it = current->find(key);
-        if (it == current->end() || !(it->second->IsMap())) {
-          (*current)[key] = std::make_unique<DebugNode>();
-          (*current)[key]->data = DebugMap{};
-        }
-        current = (*current)[key]->AsMap();
-      }
-    }
-  }
-
-  void Remove(const std::string& path)
-  {
-    auto parts = this->SplitPath(path);
-    if (parts.empty()) return;
-
-    DebugMap* current = &this->root;
-    std::vector<DebugMap*> maps;
-    std::vector<std::string> keys;
-    maps.push_back(current);
-
-    for (size_t i = 0; i < parts.size(); ++i) {
-      const auto& key = parts[i];
-      auto it = current->find(key);
-      if (it == current->end()) return;
-      if (i == parts.size() - 1) {
-        current->erase(it);
-        return;
-      }
-      if (!(it->second->IsMap())) return;
-      current = it->second->AsMap();
-      maps.push_back(current);
-    }
-  }
-
-  void ClearAll() { this->root.clear(); }
-
-  void RenderToConsole() const
-  {
-    for (const auto& [k, nodePtr] : this->root) {
-      PrintNode(k, nodePtr.get(), 0);
-    }
-  }
+  void RenderToConsole() const;
 
  private:
   DebugMap root;
 
-  static std::vector<std::string> SplitPath(const std::string& path)
-  {
-    std::vector<std::string> out;
-    std::string temp;
+  static std::vector<std::string> SplitPath(const std::string& path);
 
-    for (char c : path) {
-      if (c == '/') {
-        if (!temp.empty()) {
-          out.push_back(temp);
-          temp.clear();
-        }
-      }
-      else {
-        temp.push_back(c);
-      }
-    }
-    if (!temp.empty()) {
-      out.push_back(temp);
-    }
-    return out;
-  }
+  DebugNode& GetOrCreateNode(const std::vector<std::string>& parts);
 
-  static void PrintNode(const std::string& key, DebugNode* node, int indent)
-  {
-    std::string pad(indent, ' ');
-    if (!node) return;
-
-    if (node->IsValue()) {
-      std::cout << pad << key << ": " << node->AsValue()->ToString() << std::endl;
-    }
-  }
+  static void PrintNode(const std::string& key, DebugNode* node, int indent);
 };
 }  // namespace Debug

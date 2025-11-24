@@ -87,7 +87,14 @@ add_executable(
   src/core/components/i-component.hpp
   src/core/components/transform-component-2d.cpp
   src/core/components/transform-component-2d.hpp
-  src/core/math/i-transform-2d.hpp)
+  src/core/math/i-transform-2d.hpp
+  src/debug/debug-hud.cpp
+  src/debug/debug-hud.hpp
+  src/debug/debug-node.hpp
+  src/debug/debug-value.hpp
+  src/debug/debug.hpp
+  src/debug/debug.cpp
+)
 
 # Include and Link Raylib in the game
 target_link_libraries(${PROJECT_NAME} raylib)

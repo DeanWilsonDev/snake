@@ -1,6 +1,7 @@
 #include "engine/application.h"
 #include "raylib-facade/window/raylib-window-facade.hpp"
-#include <umbra/log.h>
+#include "debug/debug-hud.hpp"
+#include "debug/i-debug-hud.hpp"
 #include "core/dependency-injector.hpp"
 #include "engine/config/project-settings.hpp"
 #include "game/game.hpp"
@@ -10,6 +11,9 @@
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
 #include "raylib-facade/user-interface/raylib-user-interface-facade.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
+
+#include <umbra/log.h>
+#include <memory>
 
 class IWindow;
 
@@ -27,6 +31,7 @@ int main(int argc, char* argv[])
       UserInterface::IUserInterface,
       RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
   injector.Register<Core::IStateMachine, Game::GameplayStateMachine>();
+  injector.Register<Debug::IDebugHUD, Debug::DebugHUD>();
 
   auto engineConfig = Engine::Config::EngineConfig();
 

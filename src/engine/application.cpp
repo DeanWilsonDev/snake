@@ -6,7 +6,11 @@
 #include "renderer-2d/i-renderer.h"
 #include "platform/input/i-input.hpp"
 #include "user-interface/i-user-interface.hpp"
+#include "debug/i-debug-hud.hpp"
 
+#include <chrono>
+
+#include <memory>
 #include <cassert>
 #include <cstring>
 #include "game/game-state/gameplay-state-machine.hpp"
@@ -27,12 +31,14 @@ Application::Application(const ApplicationParams& params)
   this->stateMachine = injector.Resolve<Core::IStateMachine>();
   this->input = injector.Resolve<Platform::Input::IInput>();
   this->userInterface = injector.Resolve<UserInterface::IUserInterface>();
+  this->debugHud = injector.Resolve<Debug::IDebugHUD>();
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&window));
   LOG_CORE_TRACE("[Application] Renderer2D set to {}", static_cast<void*>(&renderer2d));
   LOG_CORE_TRACE("[Application] StateMachine set to {}", static_cast<void*>(&stateMachine));
   LOG_CORE_TRACE("[Application] Input set to {}", static_cast<void*>(&input));
   LOG_CORE_TRACE("[Application] UserInterface set to {}", static_cast<void*>(&userInterface));
+  LOG_CORE_TRACE("[Application] DebugHUD set to {}", static_cast<void*>(&debugHud));
 
   LOG_CORE_TRACE("[Application] Validating Dependencies");
   assert(this->window);
@@ -90,6 +96,13 @@ void Application::Run() const
     if (game) {
       this->game->Render();
     }
+
+    // MAIN QUEST: add debug mode check
+    if (this->debugHud) {
+      // MAIN QUEST: Enable Debug HUD
+      // this->userInterface->RenderDebugHUD(this->debugHud)
+    }
+
     this->renderer2d->EndDrawing();
   }
   this->window->CloseWindow();

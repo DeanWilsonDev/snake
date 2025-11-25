@@ -1,6 +1,8 @@
 #include "debug-hud.hpp"
 #include "debug-node.hpp"
 #include "debug-value.hpp"
+
+#include <functional>
 #include <memory>
 #include <utility>
 #include <string>
@@ -9,6 +11,12 @@
 #include <cstddef>
 
 namespace Debug {
+
+DebugHUD::DebugHUD() {}
+DebugHUD::~DebugHUD() {}
+
+void DebugHUD::AddLine(const std::string& key, const std::string& value) {}
+void DebugHUD::ClearFrameData() {};
 
 std::vector<std::string> DebugHUD::SplitPath(const std::string& path)
 {
@@ -124,6 +132,28 @@ void DebugHUD::RenderToConsole() const
 {
   for (const auto& [k, nodePtr] : this->root) {
     PrintNode(k, nodePtr.get(), 0);
+  }
+}
+
+void DebugHUD::Visit(
+    std::function<void(const std::string& key, const DebugNode& child, int depth)> callback
+) const
+{
+  for (auto& [key, child] : this->root) {
+    this->VisitNode(key, *child, 0, callback);
+  }
+}
+
+void DebugHUD::VisitNode(
+    const std::string& key, const DebugNode& node, const int depth, auto& callback
+) const
+{
+  callback(key, node, depth);
+
+  if (node.IsMap()) {
+    for (auto& [childKey, childNode] : *const_cast<DebugNode&>(node).AsMap()) {
+      this->VisitNode(childKey, *childNode, depth + 1, callback);
+    }
   }
 }
 

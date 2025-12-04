@@ -15,6 +15,7 @@ public:
 
   // Called every frame to handle game-specific logic
   virtual void Update(float deltaTime)=0;
+  virtual void DebugUpdate() = 0; 
 
   // Called every frame to handle game-specific rendering
   virtual void Render() = 0;

@@ -11,10 +11,10 @@ class IDebugHUD {
   public:
   virtual ~IDebugHUD() = default;
 
-  virtual void AddLine(const std::string& key, const std::string& value) = 0;
   virtual void Visit(
-      std::function<void(const std::string& key, const DebugNode&, int depth)> callback
+      std::function<void(const std::string& key, const DebugNode& node, int depth)> callback
   ) const = 0;
+  
   virtual void ClearFrameData() = 0;
 
   virtual void Set(const std::string& path, DebugValue value) = 0;

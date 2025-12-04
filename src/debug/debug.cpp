@@ -1,8 +1,18 @@
 #include "debug.hpp"
-#include "debug-hud.hpp"
+#include <utility>
+#include <memory>
+#include "i-debug-hud.hpp"
 
 namespace Debug {
 
-DebugHUD& GetHUD();
+static std::shared_ptr<IDebugHUD> ActiveDebugHUD;
 
+IDebugHUD& GetActiveDebugHUD()
+{
+  return *ActiveDebugHUD;
 }
+
+void SetActiveDebugHUD(std::shared_ptr<IDebugHUD> hud){
+  ActiveDebugHUD = std::move(hud);
+}
+}  // namespace Debug

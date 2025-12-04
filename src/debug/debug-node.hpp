@@ -20,7 +20,9 @@ struct DebugNode {
   bool IsValue() const { return std::holds_alternative<DebugValue>(data); }
   bool IsMap() const { return std::holds_alternative<DebugMap>(data); }
 
-  DebugValue* AsValue() { return IsValue() ? &std::get<DebugValue>(data) : nullptr; }
+  const DebugValue* AsValue() const { return IsValue() ? &std::get<DebugValue>(data) : nullptr; }
+
   DebugMap* AsMap() { return IsMap() ? &std::get<DebugMap>(data) : nullptr; }
+  const DebugMap* AsMap() const { return IsMap() ? &std::get<DebugMap>(data) : nullptr; }
 };
 }  // namespace Debug

@@ -1,27 +1,28 @@
 #pragma once
 
-#include "debug-hud.hpp"
+#include <memory>
+#include "debug/i-debug-hud.hpp"
 
 namespace Debug {
 
-DebugHUD& GetHUD();
-
+IDebugHUD& GetActiveDebugHUD();
+void SetActiveDebugHUD(std::shared_ptr<IDebugHUD> hud);
 }
 
 #ifdef NDEBUG
 
 // Generic Debug setter
-#define UMBRA_DEBUG(path, value) ::Debug::GetHUD().Set((path), (value))
+#define UMBRA_DEBUG(path, value) ::Debug::GetActiveDebugHUD().Set((path), (value))
 
 // Type convenience macros
 #define UMBRA_DEBUG_STR(path, value) \
-  ::Debug::GetHUD().Set((path), ::Debug::DebugValue::FromString(value))
+  ::Debug::GetActiveDebugHUD().Set((path), ::Debug::DebugValue::FromString(value))
 
 #define UMBRA_DEBUG_NUM(path, value) \
-  ::Debug::GetHUD().Set((path), ::Debug::DebugValue::FromNumber(number))
+  ::Debug::GetActiveDebugHUD().Set((path), ::Debug::DebugValue::FromNumber(number))
 
 #define UMBRA_DEBUG_BOOL(path, value) \
-  ::Debug::GetHUD().Set((path), ::Debug::DebugValue::FromBool(value))
+  ::Debug::GetActiveDebugHUD().Set((path), ::Debug::DebugValue::FromBool(value))
 
 #else
 

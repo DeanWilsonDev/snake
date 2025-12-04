@@ -3,6 +3,7 @@
 #include "config/project-settings.hpp"
 #include "core/dependency-injector.hpp"
 #include "core/color.h"
+#include "debug/debug.hpp"
 #include "renderer-2d/i-renderer.h"
 #include "platform/input/i-input.hpp"
 #include "user-interface/i-user-interface.hpp"
@@ -13,6 +14,7 @@
 #include <memory>
 #include <cassert>
 #include <cstring>
+#include <_string.h>
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "platform/window/i-window.h"
 #include "core/i-game.hpp"
@@ -31,7 +33,7 @@ Application::Application(const ApplicationParams& params)
   this->stateMachine = injector.Resolve<Core::IStateMachine>();
   this->input = injector.Resolve<Platform::Input::IInput>();
   this->userInterface = injector.Resolve<UserInterface::IUserInterface>();
-  this->debugHud = injector.Resolve<Debug::IDebugHUD>();
+  Debug::SetActiveDebugHUD(injector.Resolve<Debug::IDebugHUD>());
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&window));
   LOG_CORE_TRACE("[Application] Renderer2D set to {}", static_cast<void*>(&renderer2d));
@@ -87,22 +89,27 @@ void Application::Run() const
     const float deltaTime = elapsedTime.count();
     lastTime = currentTime;
 
+    // UPDATE GAME:
     if (game) {
       this->game->Update(deltaTime);
     }
 
+    // RENDERING:
     this->renderer2d->BeginDrawing();
     this->renderer2d->ClearBackground(Core::COLOR_BLACK);
     if (game) {
       this->game->Render();
     }
 
-    // MAIN QUEST: add debug mode check
-    if (this->debugHud) {
-      // MAIN QUEST: Enable Debug HUD
-      // this->userInterface->RenderDebugHUD(this->debugHud)
-    }
 
+    // DEBUGGING:
+    this->game->DebugUpdate();
+
+    if (this->debugHud) {
+      this->userInterface->RenderDebugHUD(Debug::GetActiveDebugHUD());
+    }
+  
+    // FINISH:
     this->renderer2d->EndDrawing();
   }
   this->window->CloseWindow();

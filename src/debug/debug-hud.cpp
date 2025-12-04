@@ -2,6 +2,7 @@
 #include "debug-node.hpp"
 #include "debug-value.hpp"
 
+#include <umbra/log.h>
 #include <functional>
 #include <memory>
 #include <utility>
@@ -15,7 +16,6 @@ namespace Debug {
 DebugHUD::DebugHUD() {}
 DebugHUD::~DebugHUD() {}
 
-void DebugHUD::AddLine(const std::string& key, const std::string& value) {}
 void DebugHUD::ClearFrameData() {};
 
 std::vector<std::string> DebugHUD::SplitPath(const std::string& path)
@@ -48,7 +48,7 @@ DebugNode& DebugHUD::GetOrCreateNode(const std::vector<std::string>& parts)
   for (std::size_t i = 0; i < parts.size(); ++i) {
     const auto& key = parts[i];
 
-    // Ensure Key exists
+   // Ensure Key exists
     auto it = currentMap->find(key);
     if (it == currentMap->end()) {
       auto node = std::make_unique<DebugNode>();
@@ -136,11 +136,12 @@ void DebugHUD::RenderToConsole() const
 }
 
 void DebugHUD::Visit(
-    std::function<void(const std::string& key, const DebugNode& child, int depth)> callback
+    std::function<void(const std::string& key, const DebugNode& node, int depth)> callback
 ) const
 {
-  for (auto& [key, child] : this->root) {
-    this->VisitNode(key, *child, 0, callback);
+  LOG_CORE_DEBUG("root: {}", this->root.size());
+  for (auto& [key, node] : this->root) {
+    this->VisitNode(key, *node, 0, callback);
   }
 }
 

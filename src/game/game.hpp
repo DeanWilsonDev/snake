@@ -5,6 +5,7 @@
 #pragma once
 #include "../core/i-game.hpp"
 #include "core/components/transform-component-2d.hpp"
+#include "core/i-game-state.h"
 #include "renderer-2d/render-component-2d-manager.hpp"
 
 namespace Renderer2D::Component {
@@ -49,6 +50,7 @@ class Game final : public Core::IGame {
 
   void Initialize() override;
   void Update(float deltaTime) override;
+  void DebugUpdate() override;
   void Render() override;
 
  private:

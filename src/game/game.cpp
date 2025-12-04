@@ -6,6 +6,8 @@
 
 #include <umbra/log.h>
 #include "core/dependency-injector.hpp"
+#include "core/i-game-state.h"
+#include "debug/debug.hpp"
 #include "game-objects/apple.hpp"
 #include "game-objects/snake.hpp"
 #include "game-state/gameplay-state-machine.hpp"
@@ -160,6 +162,18 @@ void Game::Update(const float deltaTime)
   LOG_DEBUG("[Game] Game Update running...");
   if (this->gameplayStateMachine != nullptr) {
     this->gameplayStateMachine->Update(deltaTime);
+  }
+}
+
+void Game::DebugUpdate()
+{
+  UMBRA_DEBUG_NUM("Player/Health", 100);
+  if (this->snake) {
+    if (this->snake->head) {
+      LOG_DEBUG("Snake Position RENDER HERE");
+      UMBRA_DEBUG_NUM("Player/Position/X", this->snake->head->transform->GetPosition()->x);
+      UMBRA_DEBUG_NUM("Player/Position/Y", this->snake->head->transform->GetPosition()->y);
+    }
   }
 }
 

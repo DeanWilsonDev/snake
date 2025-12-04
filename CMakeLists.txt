@@ -77,6 +77,7 @@ add_executable(
   src/core/i-game.hpp
   src/core/math/size-2d.hpp
   src/user-interface/i-game-ui.hpp
+  src/user-interface/i-user-interface.hpp
   src/game/ui/gameplay-ui.cpp
   src/game/ui/gameplay-ui.hpp
   src/core/entity/game-entity-manager.cpp
@@ -94,8 +95,7 @@ add_executable(
   src/debug/debug-value.hpp
   src/debug/debug.hpp
   src/debug/debug.cpp
-  src/debug/i-debug-hud.hpp
-)
+  src/debug/i-debug-hud.hpp)
 
 # Include and Link Raylib in the game
 target_link_libraries(${PROJECT_NAME} raylib)

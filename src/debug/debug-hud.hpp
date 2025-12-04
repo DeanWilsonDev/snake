@@ -15,9 +15,8 @@ class DebugHUD : public IDebugHUD {
   DebugHUD();
   ~DebugHUD() override;
 
-  void AddLine(const std::string& key, const std::string& value) override;
   void Visit(
-      std::function<void(const std::string& key, const DebugNode&, int depth)> callback
+      std::function<void(const std::string& key, const DebugNode& node, int depth)> callback
   ) const override;
   void ClearFrameData() override;
 

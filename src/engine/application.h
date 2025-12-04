@@ -1,6 +1,6 @@
 #pragma once
 #include "config/engine-config.h"
-#include "debug/debug-hud.hpp"
+#include "debug/i-debug-hud.hpp"
 #include <memory>
 
 namespace Renderer2D {
@@ -62,7 +62,7 @@ class Application {
   std::shared_ptr<Renderer2D::IRenderer> renderer2d = nullptr;
   std::shared_ptr<Platform::Input::IInput> input = nullptr;
   std::shared_ptr<UserInterface::IUserInterface> userInterface = nullptr;
-  std::shared_ptr<Debug::DebugHUD> debugHud = nullptr;
+  std::shared_ptr<Debug::IDebugHUD> debugHud = nullptr;
   Renderer2D::RenderComponent2DManager& renderComponent2dManager;
 };
 }  // namespace Engine

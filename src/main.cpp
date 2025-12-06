@@ -20,8 +20,10 @@ class IWindow;
 
 int main(int argc, char* argv[])
 {
-  // Initialize Logging
   constexpr bool debugEnabled = DEBUG_ENABLED;
+  Debug::System.SetDebugMode(debugEnabled);
+
+  // Initialize Logging
   Umbra::Logging::Log::init("log.csv", debugEnabled);
   Core::DependencyInjector injector;
 

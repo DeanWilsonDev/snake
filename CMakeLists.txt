@@ -94,7 +94,8 @@ add_executable(
   src/debug/debug-node.hpp
   src/debug/debug-value.hpp
   src/debug/debug.hpp
-  src/debug/debug.cpp
+  src/debug/debug-system.hpp
+  src/debug/debug-system.cpp
   src/debug/i-debug-hud.hpp)
 
 # Include and Link Raylib in the game

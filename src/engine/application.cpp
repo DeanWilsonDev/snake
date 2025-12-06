@@ -33,7 +33,7 @@ Application::Application(const ApplicationParams& params)
   this->stateMachine = injector.Resolve<Core::IStateMachine>();
   this->input = injector.Resolve<Platform::Input::IInput>();
   this->userInterface = injector.Resolve<UserInterface::IUserInterface>();
-  Debug::SetActiveDebugHUD(injector.Resolve<Debug::IDebugHUD>());
+  Debug::System.SetActiveDebugHUD(injector.Resolve<Debug::IDebugHUD>());
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&window));
   LOG_CORE_TRACE("[Application] Renderer2D set to {}", static_cast<void*>(&renderer2d));
@@ -101,11 +101,12 @@ void Application::Run() const
       this->game->Render();
     }
 
-
     // DEBUGGING:
-    this->game->DebugUpdate();
-    this->userInterface->RenderDebugHUD(Debug::GetActiveDebugHUD());
-  
+    if (Debug::System.GetDebugMode()) {
+      this->game->DebugUpdate();
+      this->userInterface->RenderDebugHUD(Debug::System.GetActiveDebugHUD());
+    }
+
     // FINISH:
     this->renderer2d->EndDrawing();
   }

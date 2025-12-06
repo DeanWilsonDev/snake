@@ -21,14 +21,26 @@ void RaylibUserInterfaceFacade::DrawTextCentered(
   DrawText(text, position.x, position.y, fontSize, {255, 255, 255, 255});
 }
 
-int y = 10;
-
 void RaylibUserInterfaceFacade::RenderDebugHUD(const Debug::IDebugHUD& debugHud) const
 {
-  LOG_CORE_DEBUG("RAYLIB UI RUNNING");
+  int y = 10;
+  int lineCount = 0;
+  debugHud.Visit([&](const std::string&, const Debug::DebugNode&, int) {
+    lineCount++;
+  });
+
+  int lineHeight = 20;
+  int bgX = 0;
+  int bgY = 0;
+  int bgWidth = 350;
+  int bgHeight = lineCount * lineHeight + 20;
+
+  Color bgColor = {0, 0, 0, 155};
+
+  DrawRectangle(bgX, bgY, bgWidth, bgHeight, bgColor);
+
   debugHud.Visit([&](const std::string& key, const Debug::DebugNode& node, int depth) {
     int x = 10 + depth * 20;
-    LOG_CORE_DEBUG("RAYLIB UI DRAWING");
 
     if (node.IsValue()) {
       DrawText(
@@ -39,7 +51,6 @@ void RaylibUserInterfaceFacade::RenderDebugHUD(const Debug::IDebugHUD& debugHud)
       DrawText(key.c_str(), x, y, 16, YELLOW);
     }
     y += 20;
-
   });
 }
 

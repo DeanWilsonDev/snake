@@ -4,6 +4,8 @@
 #include <string>
 #include <memory.h>
 
+namespace Debug {
+
 struct DebugValue {
   enum class Type { String, Number, Bool };
   Type type;
@@ -40,3 +42,4 @@ struct DebugValue {
     }
   }
 };
+}  // namespace Debug

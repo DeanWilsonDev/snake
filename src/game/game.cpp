@@ -171,15 +171,14 @@ void Game::DebugUpdate()
   if (this->snake) {
     if (this->snake->head) {
       LOG_DEBUG("Snake Position RENDER HERE");
-      UMBRA_DEBUG_NUM("Player/Position/X", this->snake->head->transform->GetPosition()->x);
-      UMBRA_DEBUG_NUM("Player/Position/Y", this->snake->head->transform->GetPosition()->y);
+      UMBRA_DEBUG_NUM("Player/Position/X", this->snake->head->transform->GetPosition().x);
+      UMBRA_DEBUG_NUM("Player/Position/Y", this->snake->head->transform->GetPosition().y);
     }
   }
 }
 
 void Game::Render()
 {
-  LOG_DEBUG("[Game] checking RenderManager2D [{}]", static_cast<void*>(&this->renderManager));
   this->renderManager.RenderAll();
 }
 

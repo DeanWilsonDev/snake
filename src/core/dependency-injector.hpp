@@ -4,7 +4,10 @@
 
 #pragma once
 #include <umbra/log.h>
+#include <exception>
+#include <stdexcept>
 #include <functional>
+#include <string>
 #include <memory>
 #include <unordered_map>
 #include <typeindex>
@@ -21,6 +24,9 @@ class DependencyInjector {
 
   template <typename Interface>
   void RegisterInstance(const std::shared_ptr<Interface>& instance);
+
+  template <typename Interface, typename Implementation>
+  void RegisterSingleton();
 
   template <typename Interface>
   std::shared_ptr<Interface> Resolve();
@@ -47,6 +53,13 @@ template <typename Interface>
 void DependencyInjector::RegisterInstance(const std::shared_ptr<Interface>& instance)
 {
   instances[std::type_index(typeid(Interface))] = instance;
+}
+
+template <typename Interface, typename Implementation>
+void DependencyInjector::RegisterSingleton(){
+
+  auto instance = std::make_shared<Implementation>(); 
+  this->instances[std::type_index(typeid(Interface))] = instance;
 }
 
 template <typename Interface>

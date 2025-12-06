@@ -1,3 +1,4 @@
+#include "debug/debug.hpp"
 #include "engine/application.h"
 #include "raylib-facade/window/raylib-window-facade.hpp"
 #include "debug/debug-hud.hpp"
@@ -31,7 +32,9 @@ int main(int argc, char* argv[])
       UserInterface::IUserInterface,
       RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
   injector.Register<Core::IStateMachine, Game::GameplayStateMachine>();
-  injector.Register<Debug::IDebugHUD, Debug::DebugHUD>();
+
+  auto hud = std::make_shared<Debug::DebugHUD>();
+  injector.RegisterInstance<Debug::IDebugHUD>(hud);
 
   auto engineConfig = Engine::Config::EngineConfig();
 

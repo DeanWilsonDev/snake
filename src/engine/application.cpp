@@ -104,10 +104,7 @@ void Application::Run() const
 
     // DEBUGGING:
     this->game->DebugUpdate();
-
-    if (this->debugHud) {
-      this->userInterface->RenderDebugHUD(Debug::GetActiveDebugHUD());
-    }
+    this->userInterface->RenderDebugHUD(Debug::GetActiveDebugHUD());
   
     // FINISH:
     this->renderer2d->EndDrawing();

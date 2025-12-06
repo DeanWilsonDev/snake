@@ -1,6 +1,5 @@
 #include "game/game-objects/snake.hpp"
 #include "game/settings/game-settings.h"
-#include <umbra/log.h>
 #include "snake-segment.hpp"
 #include "platform/input/key-codes.hpp"
 #include "platform/input/i-input.hpp"
@@ -17,10 +16,6 @@ Snake::~Snake() = default;
 Snake::Snake(const SnakeParams& snakeParams)
     : input(snakeParams.input), settings(snakeParams.settings)
 {
-  LOG_DEBUG("[Snake] Checking Input is Initialized: [{}]", static_cast<void*>(&this->input));
-  LOG_DEBUG(
-      "[Snake] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
-  );
 
   auto snakeSize = static_cast<float>(settings.GetBoxSize());
 
@@ -29,12 +24,6 @@ Snake::Snake(const SnakeParams& snakeParams)
 
 Snake* Snake::Initialize()
 {
-  LOG_TRACE("[Snake] Initializing Snake");
-  LOG_DEBUG("[Snake] Checking Input is Initialized: [{}]", static_cast<void*>(&this->input));
-  LOG_DEBUG(
-      "[Snake] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
-  );
-
   this->size = static_cast<float>(this->settings.GetBoxSize());
 
   this->speed = this->size * 5.0f;
@@ -45,14 +34,12 @@ Snake* Snake::Initialize()
   this->CreateHead();
   this->CreateBody();
 
-  LOG_TRACE("[Snake] Finished Initializing Snake");
 
   return this;
 }
 
 void Snake::Update(const float deltaTime)
 {
-  LOG_TRACE("[Snake] Snake Update Begin");
   Core::Math::Vector2D newDirection = this->direction;
 
   // SIDE QUEST: [Snake] Input should really be handled by the gameplay state rather than the
@@ -80,7 +67,6 @@ void Snake::Update(const float deltaTime)
   }
   accumulatedDistance += this->speed * deltaTime;
 
-  LOG_ERROR("[Snake] About to check accumulatedDistance");
   if (accumulatedDistance >= this->size) {
     this->Move();
     this->CheckIfShouldGrow();
@@ -91,14 +77,12 @@ void Snake::Update(const float deltaTime)
       directionChanged = false;
     }
 
-    LOG_ERROR("[Snake] About to call Teleport");
     this->Teleport();
   }
 }
 
 void Snake::Move() const
 {
-  LOG_TRACE("[Snake] Begin calling Move function");
 
   Core::Math::Vector2D newPosition = {
       this->head->transform->GetPosition().x + this->direction.x * this->size,
@@ -120,14 +104,10 @@ void Snake::Move() const
     }
   }
 
-  LOG_DEBUG("[Snake] Direction: {}", this->direction.ToString());
-  LOG_DEBUG("[Snake] Head Position: {}", this->head->transform->GetPosition().ToString());
-  LOG_DEBUG("[Snake] New Position: {}", newPosition.ToString());
 }
 
 void Snake::CreateHead()
 {
-  LOG_TRACE("[Snake] Creating snake head");
 
   const auto snakeSegmentParams = SnakeSegmentParams{
       .index = 0,
@@ -135,13 +115,11 @@ void Snake::CreateHead()
   };
 
   this->head = new SnakeSegment(snakeSegmentParams);
-  LOG_TRACE("[Snake] Assigning head to body");
   this->body.push_back(this->head);
 }
 
 void Snake::CreateBody()
 {
-  LOG_TRACE("[Snake] Creating snake body");
   for (int i = 1; i < this->length; i++) {
     auto nextSegmentTransform = Core::Math::Transform2D(this->transform);
 
@@ -151,13 +129,6 @@ void Snake::CreateBody()
     nextSegmentTransform.position.y =
         std::round((this->transform.position.y / this->size) * this->size);
 
-    LOG_DEBUG(
-        "Head Transform ({},{}), Next Segment Transform ({},{})",
-        this->transform.position.x,
-        this->transform.position.y,
-        nextSegmentTransform.position.x,
-        nextSegmentTransform.position.y
-    );
 
     auto params = SnakeSegmentParams{.index = i, .initialTransform = nextSegmentTransform};
     this->body.push_back(new SnakeSegment(params));
@@ -166,7 +137,6 @@ void Snake::CreateBody()
 
 void Snake::CheckIfShouldGrow()
 {
-  LOG_TRACE("[Snake] Checking if Snake should grow {}", this->grow);
   if (this->grow) {
     Core::Math::Transform2D newSegmentTransformComponent =
         std::move(this->body.back()->transform->GetTransform());
@@ -180,39 +150,21 @@ void Snake::CheckIfShouldGrow()
     this->length++;
     this->grow = false;
 
-    LOG_TRACE("[Snake] Snake Grew Successfully");
   }
 }
 
 void Snake::Teleport() const
 {
-  LOG_ERROR("[Snake] Teleport Function Called!");
   const auto screenWidth = static_cast<float>(this->settings.GetScreenWidth());
   const auto screenHeight = static_cast<float>(this->settings.GetScreenHeight());
 
   for (const auto* segment : this->body) {
     auto& segmentPosition = segment->transform->GetPosition();
-    LOG_ERROR("[Snake] Teleport Segment!");
     if (segmentPosition.x > screenWidth) {
       segmentPosition.x = 0;
-
-      LOG_ERROR(
-          "[Snake] Snake Teleported position: ({}, {}), Snake Actual Position: ({}, {})",
-          segmentPosition.x,
-          segmentPosition.y,
-          segment->transform->GetPosition().x,
-          segment->transform->GetPosition().y
-      );
     }
     else if (segmentPosition.x < 0) {
       segmentPosition.x = screenWidth;
-      LOG_ERROR(
-          "[Snake] Snake Teleported position: ({}, {}), Snake Actual Position: ({}, {})",
-          segmentPosition.x,
-          segmentPosition.y,
-          segment->transform->GetPosition().x,
-          segment->transform->GetPosition().y
-      );
     }
     else if (segmentPosition.y > screenHeight) {
       segmentPosition.y = 0;
@@ -257,27 +209,19 @@ void Snake::Destroy()
 
   for (const auto segment : body) {
     if (segment) {
-      int index = segment->index;
-      LOG_TRACE("[Snake] Deleting segment with index: {}", index);
       delete segment;
-      LOG_TRACE("[Snake] Successfully deleted segment with index: {}", index);
     }
     else {
-      LOG_ERROR("[Snake] Found null segment in body!");
     }
   }
 
   this->body.clear();
 
   if (head) {
-    LOG_DEBUG("[Snake] Deleting head at address: {}", static_cast<void*>(&this->head));
     delete this->head;
-    LOG_DEBUG("[Snake] Setting head to nullptr");
     this->head = nullptr;
-    LOG_DEBUG("[Snake] Head successfully destroyed");
   }
   else {
-    LOG_DEBUG("[Snake] Found null segment in head!");
   }
 }
 }  // namespace Game

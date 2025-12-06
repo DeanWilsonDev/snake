@@ -4,7 +4,7 @@
 
 #include "raylib-input-facade.hpp"
 
-#include <umbra/log.h>
+#include "platform/input/key-codes.hpp"
 #include "raylib.h"
 
 namespace RaylibFacade::Input {
@@ -14,11 +14,6 @@ RaylibInputFacade::RaylibInputFacade() = default;
 bool RaylibInputFacade::IsKeyPressed(const Platform::Input::KeyCode keyCode)
 {
   const bool pressed = ::IsKeyPressed(MapKeyCode(keyCode));
-  if (pressed) {
-    LOG_CORE_TRACE(
-        "[RaylibInputFacade] Key Pressed trigger for key: {}", static_cast<int>(keyCode)
-    );
-  }
   return pressed;
 }
 

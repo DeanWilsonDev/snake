@@ -2,7 +2,6 @@
 #include "debug-node.hpp"
 #include "debug-value.hpp"
 
-#include <umbra/log.h>
 #include <fmtmsg.h>
 #include <functional>
 #include <memory>
@@ -85,7 +84,6 @@ void DebugHUD::Set(const std::string& path, DebugValue value)
 
   DebugNode& node = this->GetOrCreateNode(parts);
   node.data = std::move(value);
-  LOG_CORE_DEBUG("[DebugHUD] Set called on HUD ptr={}", static_cast<void*>(this));
 }
 
 void DebugHUD::Remove(const std::string& path)
@@ -141,7 +139,6 @@ void DebugHUD::Visit(
     std::function<void(const std::string& key, const DebugNode& node, int depth)> callback
 ) const
 {
-  LOG_CORE_DEBUG("root: {}", this->root.size());
   for (auto& [key, node] : this->root) {
     this->VisitNode(key, *node, 0, callback);
   }

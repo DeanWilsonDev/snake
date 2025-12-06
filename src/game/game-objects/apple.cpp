@@ -1,5 +1,9 @@
 #include "apple.hpp"
-
+#include "core/entity/game-entity.hpp"
+#include "core/entity/entity.h"
+#include "core/color.h"
+#include "physics/components/collider-component-2d.hpp"
+#include "core/math/vector-2d.hpp"
 #include "core/core.h"
 #include "core/components/transform-component-2d.hpp"
 #include "renderer-2d/components/render-component-2d.h"
@@ -15,43 +19,14 @@ Apple::Apple(const AppleParams& params) : GameEntity(params), settings(params.se
   const auto appleColliderParams =
       Physics::Components::ColliderComponentParams{.transform = *this->transform};
   this->colliderComponent = new Physics::Components::ColliderComponent2D(appleColliderParams);
-
-  LOG_DEBUG(
-      "[Apple] Checking RenderComponent is Initialized: [{}]",
-      static_cast<void*>(&this->renderComponent)
-  );
-  LOG_DEBUG(
-      "[Apple] Checking ColliderComponent is Initialized: [{}]",
-      static_cast<void*>(&this->colliderComponent)
-  );
-  LOG_DEBUG(
-      "[Apple] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
-  );
 }
 
-void Apple::Update([[maybe_unused]] const float deltaTime)
-{
-  LOG_DEBUG(
-      "[Apple] position changed to: ({}, {}) - Address ({})",
-      this->transform->position.x,
-      this->transform->position.y,
-      static_cast<void*>(&(this->transform->position))
-  );
-}
+void Apple::Update([[maybe_unused]] const float deltaTime) {}
 
 void Apple::Initialize()
 {
   GameEntity::Initialize();
-  LOG_TRACE("[Apple] Initializing");
   this->transform->position = this->GetNewPosition();
-  LOG_DEBUG(
-      "[Apple] position changed to: ({}, {}) - Address ({})",
-      this->transform->position.x,
-      this->transform->position.y,
-      static_cast<void*>(&(this->transform->position))
-  );
-
-  LOG_TRACE("[Apple] Finished Initializing");
 };
 
 Core::Math::Vector2D Apple::GetNewPosition() const

@@ -4,7 +4,6 @@
 
 #include "renderer-2d/components/render-component-2d.h"
 
-#include <umbra/log.h>
 #include "core/math/i-transform-2d.hpp"
 #include "renderer-2d/i-renderer.h"
 
@@ -20,24 +19,11 @@ RenderComponent2D::RenderComponent2D(
 void RenderComponent2D::Render(IRenderer& renderer) const
 {
   if (!active) {
-    LOG_CORE_TRACE(
-        "[RenderComponent2D] Component [{}] Disabled - Skipping Render",
-        static_cast<void*>(const_cast<RenderComponent2D*>(this))
-    );
     return;
   }
 
   auto position = transform.GetPosition();
   const auto scale = transform.GetScale();
-
-  LOG_CORE_DEBUG(
-      "[RenderComponent2D] Drawing with renderer [{}]: at position ({}, {}), with width ({}, {})",
-      static_cast<void*>(&renderer),
-      position.x,
-      position.y,
-      scale.GetWidth(),
-      scale.GetHeight()
-  );
 
   // Side Quest: [RenderComponent2D] Allow for rendering different shapes and Sprites
   renderer.DrawRectangle(position.x, position.y, scale.GetWidth(), scale.GetHeight(), color);

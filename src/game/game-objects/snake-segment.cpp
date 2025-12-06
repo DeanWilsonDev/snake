@@ -57,29 +57,14 @@ SnakeSegment* SnakeSegment::InitializeSnakeSegment(
     const int index, Core::Components::TransformComponent2D& transform
 )
 {
-  LOG_TRACE("[SnakeSegment] Initializing New Snake Segment");
-
   this->index = index;
   this->transform = &transform;
-
-  LOG_TRACE(
-      "[SnakeSegment] Creating SnakeBody with index: {} at position {}, with a scale of {}",
-      this->index,
-      this->transform->position.ToString(),
-      this->transform->scale.ToString()
-  );
   return this;
 };
 
 void SnakeSegment::Move(const Core::Math::Vector2D newPosition)
 {
-  LOG_TRACE("[SnakeSegment] Initializing New Snake Segment");
   this->transform->position.x = newPosition.x;
   this->transform->position.y = newPosition.y;
-  LOG_TRACE(
-      "[SnakeSegment] Segment at index {} has new position {}",
-      this->index,
-      this->transform->position.ToString()
-  );
 }
 }  // namespace Game

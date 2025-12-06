@@ -2,7 +2,6 @@
 
 #include "game-over-state.hpp"
 #include "gameplay-state.hpp"
-#include <umbra/log.h>
 #include "main-menu-state.hpp"
 #include "game/game-objects/apple.hpp"
 #include "game/game-objects/snake.hpp"
@@ -26,29 +25,23 @@ GameplayStateMachine::~GameplayStateMachine()
 
 void GameplayStateMachine::Update(const float deltaTime)
 {
-  LOG_DEBUG("[GameplayStateMachine] Running Update Function");
   if (!this->currentState) {
     return;
   }
 
-  LOG_DEBUG("[GameplayStateMachine] Running Current State Update Function");
   this->currentState->Update(deltaTime);
 
-  LOG_DEBUG("[GameplayStateMachine] checking GameUI [{}]", static_cast<void*>(&this->gameUI));
   if (this->gameUI) {
-    LOG_DEBUG("[GameplayStateMachine] Rendering GameUI");
     this->gameUI->Render();
   }
 }
 
 void GameplayStateMachine::ChangeState(Core::IGameState* newState)
 {
-  LOG_DEBUG("[GameplayStateMachine] Changing State");
   if (currentState) {
     currentState->Exit();
     delete currentState;
   }
-  LOG_DEBUG("[GameplayStateMachine] Setting state to [{}]", static_cast<void*>(&newState));
   this->currentState = newState;
   if (currentState) {
     currentState->Enter();
@@ -61,10 +54,8 @@ void GameplayStateMachine::IncreaseScore()
 }
 void GameplayStateMachine::Next()
 {
-  LOG_TRACE("[GameplayStateMachine] Running Next state");
   if (!currentState) return;
   if (Core::IGameState* nextState = this->DetermineNextState()) {
-    LOG_DEBUG("[GameplayStateMachine] Next State: [{}]", static_cast<void*>(&nextState));
     this->ChangeState(nextState);
   }
 }
@@ -84,20 +75,12 @@ void GameplayStateMachine::InitializeApple() const
 
 void GameplayStateMachine::SetSnake(Snake& snake)
 {
-  LOG_TRACE("[GameplayStateMachine] Adding Snake to Game State");
   this->snake = &snake;
-  LOG_TRACE(
-      "[GameplayStateMachine] Snake [{}] Added to Game State", static_cast<void*>(&this->snake)
-  );
 };
 
 void GameplayStateMachine::SetApple(Apple& apple)
 {
-  LOG_TRACE("[GameplayStateMachine] Adding Apple to Game State");
   this->apple = &apple;
-  LOG_TRACE(
-      "[GameplayStateMachine] Apple [{}] Added to Game State", static_cast<void*>(&this->apple)
-  );
 }
 void GameplayStateMachine::SetUserInterface(UserInterface::IUserInterface& ui)
 {

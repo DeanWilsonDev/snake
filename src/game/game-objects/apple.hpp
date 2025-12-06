@@ -3,6 +3,7 @@
 #include "game/settings/game-settings.h"
 #include "core/entity/game-entity.hpp"
 #include "physics/components/collider-component-2d.hpp"
+#include "core/math/vector-2d.hpp"
 
 namespace Renderer2D::Component {
 class RenderComponent2D;

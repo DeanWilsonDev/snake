@@ -148,10 +148,6 @@ void Game::Initialize()
   }
   this->renderManager.Register(apple->GetRendererComponent2D());
 
-  LOG_DEBUG(
-      "[Game] Checking GameSettings on GameplayStateMachine [{}]",
-      static_cast<void*>(this->gameplayStateMachine->GetGameSettings())
-  );
   this->gameplayStateMachine->GetGameSettings()->Print();
 
   this->gameplayStateMachine->ChangeState(initialState);
@@ -159,7 +155,6 @@ void Game::Initialize()
 
 void Game::Update(const float deltaTime)
 {
-  LOG_DEBUG("[Game] Game Update running...");
   if (this->gameplayStateMachine != nullptr) {
     this->gameplayStateMachine->Update(deltaTime);
   }
@@ -170,7 +165,6 @@ void Game::DebugUpdate()
   UMBRA_DEBUG_NUM("Player/Health", 100);
   if (this->snake) {
     if (this->snake->head) {
-      LOG_DEBUG("Snake Position RENDER HERE");
       UMBRA_DEBUG_NUM("Player/Position/X", this->snake->head->transform->GetPosition().x);
       UMBRA_DEBUG_NUM("Player/Position/Y", this->snake->head->transform->GetPosition().y);
     }

@@ -1,5 +1,6 @@
 #include "snake.hpp"
 #include <umbra/log.h>
+#include "debug/debug.hpp"
 #include "physics/components/collider-component-2d.hpp"
 #include "game/game-objects/snake-segment.hpp"
 #include "core/entity/entity.h"
@@ -66,5 +67,11 @@ void SnakeSegment::Move(const Core::Math::Vector2D newPosition)
 {
   this->transform->position.x = newPosition.x;
   this->transform->position.y = newPosition.y;
+}
+
+
+void SnakeSegment::DebugUpdate(){
+      UMBRA_DEBUG(this->transform->GetPosition().x, "Snake/Segment-{}/Position/X", this->index);
+      UMBRA_DEBUG(this->transform->GetPosition().y, "Snake/Segment-{}/Position/Y", this->index);
 }
 }  // namespace Game

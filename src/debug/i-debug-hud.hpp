@@ -1,23 +1,61 @@
 #pragma once
 
+#include <format>
 #include <string>
+#include <variant>
+#include <string_view>
+#include <type_traits>
 #include <functional>
+#include <variant>
 #include "debug-node.hpp"
 #include "debug-value.hpp"
 
 namespace Debug {
 
 class IDebugHUD {
-  public:
+ public:
   virtual ~IDebugHUD() = default;
 
   virtual void Visit(
       std::function<void(const std::string& key, const DebugNode& node, int depth)> callback
   ) const = 0;
-  
+
   virtual void ClearFrameData() = 0;
 
-  virtual void Set(const std::string& path, DebugValue value) = 0;
+  template <typename... Args>
+  void FormatPathAndSet(
+      std::variant<int, float, std::string, bool> value, const std::format_string<Args...> format,
+      Args&&... args
+  )
+  {
+    DebugValue debugValue{};
+    std::visit(
+        [&](const auto& x) {
+          using T = std::decay_t<decltype(x)>;
+          if constexpr (std::is_same_v<T, int>) {
+            debugValue = DebugValue::FromNumber(x);
+          }
+          if constexpr (std::is_same_v<T, float>) {
+            debugValue = DebugValue::FromNumber(x);
+          }
+          if constexpr (std::is_same_v<T, double>) {
+            debugValue = DebugValue::FromNumber(x);
+          }
+          if constexpr (std::is_same_v<T, std::string>) {
+            debugValue = DebugValue::FromString(x);
+          }
+          if constexpr (std::is_same_v<T, bool>) {
+            debugValue = DebugValue::FromBool(x);
+          }
+        },
+        value
+    );
+
+    std::string path = std::format(format, std::forward<Args>(args)...);
+    this->Set(path, debugValue);
+  }
+
+  virtual void Set(const std::string_view path, DebugValue value) = 0;
 
   virtual void Remove(const std::string& path) = 0;
 

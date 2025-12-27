@@ -21,6 +21,7 @@ class Entity {
 
   virtual void Initialize();
   virtual void Update(float deltaTime);
+  virtual void DebugUpdate();
   [[nodiscard]] int GetID() const;
   [[nodiscard]] bool IsActive() const;
   virtual void SetActive(bool active);

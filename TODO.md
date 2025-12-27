@@ -13,9 +13,10 @@ These markers may also be found through out the codebase
 
 ## MAIN QUESTS
 
-- [] Fix apple so that it is rendered properly and moves around after being eaten
+- [X] Fix apple so that it is rendered properly and moves around after being eaten
 - [] Fix the size of the grid so that it matches the resolution of the window
-- [] Make sure dying still works
+- [] Fix collisions 
+- [] Fix the order of the snake segments (they are out of order on the hud, maybe in game too?)
 - [] Fix Game over GUI and make sure all menus are navigatable
 
 ## SIDE QUESTS
@@ -24,6 +25,6 @@ These markers may also be found through out the codebase
 
 ## RAID BOSS
 
-- [] Extend UmbraLog so that it can output to a file.
+- [X] Extend UmbraLog so that it can output to a file.
 
 ## WORLD BOSS

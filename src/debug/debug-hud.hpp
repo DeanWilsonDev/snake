@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 #include <vector>
 #include <cstddef>
 #include <functional>
@@ -20,7 +21,7 @@ class DebugHUD : public IDebugHUD {
   ) const override;
   void ClearFrameData() override;
 
-  void Set(const std::string& path, DebugValue value) override;
+  void Set(const std::string_view path, DebugValue value) override;
 
   void Remove(const std::string& path) override;
 
@@ -31,7 +32,7 @@ class DebugHUD : public IDebugHUD {
  private:
   DebugMap root;
 
-  static std::vector<std::string> SplitPath(const std::string& path);
+  static std::vector<std::string> SplitPath(const std::string_view path);
 
   DebugNode& GetOrCreateNode(const std::vector<std::string>& parts);
 

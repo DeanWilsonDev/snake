@@ -3,6 +3,7 @@
 #include "debug/debug-node.hpp"
 #include "raylib.h"
 #include <umbra/log.h>
+#include <memory>
 #include <string>
 #include "core/math/vector-2d.hpp"
 
@@ -21,13 +22,11 @@ void RaylibUserInterfaceFacade::DrawTextCentered(
   DrawText(text, position.x, position.y, fontSize, {255, 255, 255, 255});
 }
 
-void RaylibUserInterfaceFacade::RenderDebugHUD(const Debug::IDebugHUD& debugHud) const
+void RaylibUserInterfaceFacade::RenderDebugHUD(const Debug::IDebugHUD& debugHUD) 
 {
   int y = 10;
   int lineCount = 0;
-  debugHud.Visit([&](const std::string&, const Debug::DebugNode&, int) {
-    lineCount++;
-  });
+  debugHUD.Visit([&](const std::string&, const Debug::DebugNode&, int) { lineCount++; });
 
   int lineHeight = 20;
   int bgX = 0;
@@ -39,7 +38,7 @@ void RaylibUserInterfaceFacade::RenderDebugHUD(const Debug::IDebugHUD& debugHud)
 
   DrawRectangle(bgX, bgY, bgWidth, bgHeight, bgColor);
 
-  debugHud.Visit([&](const std::string& key, const Debug::DebugNode& node, int depth) {
+  debugHUD.Visit([&](const std::string& key, const Debug::DebugNode& node, int depth) {
     int x = 10 + depth * 20;
 
     if (node.IsValue()) {

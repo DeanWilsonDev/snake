@@ -1,6 +1,6 @@
-#include "debug/debug.hpp"
 #include "engine/application.h"
 #include "raylib-facade/window/raylib-window-facade.hpp"
+#include "debug/debug.hpp"
 #include "debug/debug-hud.hpp"
 #include "debug/i-debug-hud.hpp"
 #include "core/dependency-injector.hpp"

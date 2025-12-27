@@ -14,6 +14,7 @@ struct Size2D {
 
   Size2D() = default;
   Size2D(const float w, const float h) : width(w), height(h) {}
+  Size2D(const float size) : width(size), height(size) {}
 
   [[nodiscard]] float GetWidth() const { return this->width; }
   [[nodiscard]] float GetHeight() const { return this->height; }

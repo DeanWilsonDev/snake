@@ -8,6 +8,7 @@ Entity::Entity(const EntityParams& params) : active(params.active){};
 Entity::~Entity() = default;
 void Entity::Initialize() {}
 void Entity::Update([[maybe_unused]] float deltaTime) {}
+void Entity::DebugUpdate() {}
 int Entity::GetID() const
 {
   return this->id;

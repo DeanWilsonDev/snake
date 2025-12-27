@@ -103,6 +103,7 @@ void Application::Run() const
 
     // DEBUGGING:
     if (Debug::System.GetDebugMode()) {
+      // TODO: [APPLICATION]: have the ECS run the debug update function on all entities
       this->game->DebugUpdate();
       this->userInterface->RenderDebugHUD(Debug::System.GetActiveDebugHUD());
     }

@@ -19,6 +19,7 @@ class Apple final : public Core::Entity::GameEntity {
  public:
   explicit Apple(const AppleParams& params);
   void Update(float deltaTime) override;
+  void DebugUpdate() override;
   void Initialize() override;
   [[nodiscard]] Core::Math::Vector2D GetNewPosition() const;
   [[nodiscard]] Core::Math::Vector2D GetCenter() const;

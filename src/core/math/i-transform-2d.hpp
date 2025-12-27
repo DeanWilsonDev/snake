@@ -14,6 +14,9 @@ public:
   virtual Vector2D& GetPosition() = 0;
   virtual float& GetRotation() = 0;
   virtual Size2D& GetScale() = 0;
+  virtual void SetPosition(const Math::Vector2D value) = 0; 
+  virtual void SetRotation(const float value) = 0;
+  virtual void SetScale(const Math::Size2D& value) = 0;
 };
 
 }  // namespace Core::Math

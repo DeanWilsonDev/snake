@@ -33,6 +33,11 @@ class TransformComponent2D final : public IComponent, public Math::ITransform2D 
   [[nodiscard]] Math::Vector2D& GetPosition() override { return this->position; }
   [[nodiscard]] float& GetRotation() override { return this->rotation; };
   [[nodiscard]] Math::Size2D& GetScale() override { return this->scale; };
+
+  void SetPosition(const Math::Vector2D value) override { this->position = value; }
+  void SetRotation(const float value) override { this->rotation = value; };
+  void SetScale(const Math::Size2D& value) override { this->scale = value; };
+
   [[nodiscard]] Math::Transform2D& GetTransform();
 };
 

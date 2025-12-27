@@ -2,6 +2,7 @@
 #include "debug-node.hpp"
 #include "debug-value.hpp"
 
+#include <string_view>
 #include <fmtmsg.h>
 #include <functional>
 #include <memory>
@@ -18,7 +19,7 @@ DebugHUD::~DebugHUD() {}
 
 void DebugHUD::ClearFrameData() {};
 
-std::vector<std::string> DebugHUD::SplitPath(const std::string& path)
+std::vector<std::string> DebugHUD::SplitPath(const std::string_view path)
 {
   std::vector<std::string> out;
   std::string current;
@@ -75,7 +76,7 @@ DebugNode& DebugHUD::GetOrCreateNode(const std::vector<std::string>& parts)
   return *currentNode;  // fallback: should never reach
 }
 
-void DebugHUD::Set(const std::string& path, DebugValue value)
+void DebugHUD::Set(const std::string_view path, DebugValue value)
 {
   auto parts = SplitPath(path);
   if (parts.empty()) {

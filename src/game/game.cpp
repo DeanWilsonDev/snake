@@ -162,12 +162,15 @@ void Game::Update(const float deltaTime)
 
 void Game::DebugUpdate()
 {
-  UMBRA_DEBUG_NUM("Player/Health", 100);
+
   if (this->snake) {
-    if (this->snake->head) {
-      UMBRA_DEBUG_NUM("Player/Position/X", this->snake->head->transform->GetPosition().x);
-      UMBRA_DEBUG_NUM("Player/Position/Y", this->snake->head->transform->GetPosition().y);
+    for (const auto& segment : this->snake->body) {
+      segment->DebugUpdate();
     }
+  }
+
+  if (this->apple) {
+    this->apple->DebugUpdate();
   }
 }
 

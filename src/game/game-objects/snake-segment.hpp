@@ -29,6 +29,8 @@ class SnakeSegment final : public Core::Entity::GameEntity {
   explicit SnakeSegment(const SnakeSegmentParams& params);
   ~SnakeSegment() override;
 
+  void DebugUpdate() override;
+
   // Getters
   [[nodiscard]] Renderer2D::Component::IRenderComponent2D* GetRendererComponent2D() const
   {

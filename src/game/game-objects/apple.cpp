@@ -2,9 +2,11 @@
 #include "core/entity/game-entity.hpp"
 #include "core/entity/entity.h"
 #include "core/color.h"
+#include "debug/debug.hpp"
 #include "physics/components/collider-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/core.h"
+#include "core/math/size-2d.hpp"
 #include "core/components/transform-component-2d.hpp"
 #include "renderer-2d/components/render-component-2d.h"
 
@@ -12,6 +14,10 @@ namespace Game {
 
 Apple::Apple(const AppleParams& params) : GameEntity(params), settings(params.settings)
 {
+  this->transform = new Core::Components::TransformComponent2D(
+      this->GetNewPosition(), 0, Core::Math::Size2D(this->size)
+  );
+
   this->renderComponent = new Renderer2D::Component::RenderComponent2D(
       *this->transform, Core::COLOR_RED, this->Entity::GetActive()
   );
@@ -23,10 +29,20 @@ Apple::Apple(const AppleParams& params) : GameEntity(params), settings(params.se
 
 void Apple::Update([[maybe_unused]] const float deltaTime) {}
 
+void Apple::DebugUpdate()
+{
+  UMBRA_DEBUG(this->transform->GetPosition().x, "Apple/Position/X");
+  UMBRA_DEBUG(this->transform->GetPosition().y, "Apple/Position/Y");
+  UMBRA_DEBUG(this->transform->GetScale().GetWidth(), "Apple/Scale/Width");
+  UMBRA_DEBUG(this->transform->GetScale().GetHeight(), "Apple/Scale/Height");
+  UMBRA_DEBUG(this->GetSize(), "Apple/Size");
+  UMBRA_DEBUG(this->GetActive(), "Apple/Active");
+}
+
 void Apple::Initialize()
 {
   GameEntity::Initialize();
-  this->transform->position = this->GetNewPosition();
+  this->transform->SetPosition(this->GetNewPosition());
 };
 
 Core::Math::Vector2D Apple::GetNewPosition() const

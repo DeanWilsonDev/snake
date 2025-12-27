@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "core/math/vector-2d.hpp"
 #include "debug/i-debug-hud.hpp"
 #include "user-interface/i-user-interface.hpp"
@@ -12,7 +13,7 @@ class RaylibUserInterfaceFacade final : public ::UserInterface::IUserInterface {
  public:
   explicit RaylibUserInterfaceFacade();
   void DrawTextCentered(const char* text, Core::Math::Vector2D position, float fontSize) override;
-  void RenderDebugHUD(const Debug::IDebugHUD& debugHud) const override;
+  void RenderDebugHUD(const Debug::IDebugHUD& debugHUD) override;
 };
 
 }  // namespace RaylibFacade::UserInterface

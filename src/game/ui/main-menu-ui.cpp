@@ -20,9 +20,9 @@ void MainMenuUI::Render()
 {
   const auto screenWidth = static_cast<float>(this->settings.GetScreenWidth());
 
-  this->ui.DrawTextCentered("Snake", (Core::Math::Vector2D){screenWidth / 2.0f, 40.0f}, 80);
+  this->ui.DrawTextCentered("Snake", Core::Math::Vector2D{screenWidth / 2.0f, 40.0f}, 80);
   this->ui.DrawTextCentered(
-      "Press 'Enter' to start", (Core::Math::Vector2D){screenWidth / 2.0f, 200.0f}, 20
+      "Press 'Enter' to start", Core::Math::Vector2D{screenWidth / 2.0f, 200.0f}, 20
   );
 }
 }  // namespace Game

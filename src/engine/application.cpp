@@ -61,9 +61,16 @@ void Application::SetGame(std::shared_ptr<Core::IGame> game)
 void Application::Run() const
 {
   LOG_CORE_TRACE("[Application] Beginning Application");
-  const char* title = projectSettings.GetTitle() ?: engineConfig.window.title;
+  const char* title = projectSettings.GetTitle() ? projectSettings.GetTitle() : engineConfig.window.title;
   LOG_CORE_INFO("[Application] Starting Game: {}", title);
+
+  // TODO: Extract this into a utils function
+#if defined(_WIN32)
+  char* windowTitle = _strdup(title);
+#else
   char* windowTitle = strdup(title);
+#endif
+
   LOG_CORE_DEBUG("[Application] Window Title set: {}", windowTitle);
   assert(windowTitle);
 

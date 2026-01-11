@@ -1,30 +1,45 @@
 cmake_minimum_required(VERSION 3.25)
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 
 project(Snake LANGUAGES CXX)
 
+
+# ----- Global Project Settings -----
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Generate compile_commands.json
+set(CMAKE_EXPORT_COMPILE_COMMANDS  ON)
+
+
 include(FetchContent)
 
-# Download Raylib
+
+# ------ Dependencies ---------
+
+# Raylib
+
+set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(BUILD_GAMES OFF CACHE BOOL "" FORCE)
+
 FetchContent_Declare(
   raylib
   GIT_REPOSITORY "https://github.com/raysan5/raylib.git"
-  GIT_TAG 5.5)
+  GIT_TAG 5.5
+)
 FetchContent_MakeAvailable(raylib)
 
-# Download UmbraLog
+
+# UmbraLog
 FetchContent_Declare(
   UmbraLog
   GIT_REPOSITORY "https://github.com/UmbraEngine/UmbraLog.git"
   GIT_TAG main)
-
 FetchContent_MakeAvailable(UmbraLog)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY
-    ${CMAKE_BINARY_DIR}/bin/${CMAKE_SYSTEM_PROCESSOR}/${PROJECT_NAME})
 
+# ---- Game target ----
 add_executable(
   ${PROJECT_NAME}
   src/main.cpp
@@ -94,28 +109,41 @@ add_executable(
   src/debug/debug-node.hpp
   src/debug/debug-value.hpp
   src/debug/debug.hpp
-  src/debug/i-debug-hud.hpp)
+  src/debug/i-debug-hud.hpp
+)
 
-# Include and Link Raylib in the game
-target_link_libraries(${PROJECT_NAME} raylib)
-include_directories(${raylib_SOURCE_DIR}/src)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+
+# Include and Link Libraries
+target_link_libraries(${PROJECT_NAME} 
+  PRIVATE
+  raylib
+  umbra_log
+)
+
 message(STATUS "The raylib directory is: ${raylib_SOURCE_DIR}/src")
 
-# Include and Link Umbra Libraries
-target_link_libraries(${PROJECT_NAME} umbra_log)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG
-                                                 ${CMAKE_CURRENT_SOURCE_DIR})
+# ---- Compiler-specific options (portable) ----
+if(MSVC)
+  target_compile_options(${PROJECT_NAME} PRIVATE /W4 /EHsc)
+else()
+  target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+endif()
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src
-                                                   ${raylib_SOURCE_DIR}/src)
 
-enable_testing()
-add_subdirectory(tests)
+# ---- Output dirs (portable acreoss single/multi-config) ----
+set_target_properties(${PROJECT_NAME} PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+  ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+)
 
-# Setup system link to compile_commands directory for LSP config
-add_custom_command(
-  TARGET ${PROJECT_NAME}
-  POST_BUILD
-  COMMAND ln -sf ${CMAKE_BINARY_DIR}/compile_commands.json
-          ~/.config/clangd/compile_commands/compile_commands.json)
+
+# ---- Tests ----
+option(SNAKE_BUILD_TESTS "Build tests" OFF)
+if(SNAKE_BUILD_TESTS)
+  enable_testing()
+  add_subdirectory(tests)
+endif()

@@ -9,12 +9,9 @@
 #include "user-interface/i-user-interface.hpp"
 #include "debug/i-debug-hud.hpp"
 
-#include <chrono>
-
 #include <memory>
 #include <cassert>
-#include <cstring>
-#include <_string.h>
+#include <string.h>
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "platform/window/i-window.h"
 #include "core/i-game.hpp"

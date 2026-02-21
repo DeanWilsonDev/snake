@@ -1,12 +1,12 @@
+#include "physics/collision/rectangle-collider-2d.hpp"
 #include "snake.hpp"
 #include <umbra/log.h>
+#include <memory>
 #include "debug/debug.hpp"
-#include "physics/components/collider-component-2d.hpp"
+#include "physics/collision/components/collider-component-2d.hpp"
 #include "game/game-objects/snake-segment.hpp"
-#include "core/entity/entity.h"
 #include "core/entity/game-entity.hpp"
 #include "core/color.h"
-#include "core/math/geometry/rectangle.h"
 #include "core/math/vector-2d.hpp"
 #include "renderer-2d/components/render-component-2d.h"
 
@@ -17,61 +17,69 @@ namespace Game {
 SnakeSegment::SnakeSegment(const SnakeSegmentParams& params)
     : GameEntity(params), index(params.index)
 {
-  this->transform = new Core::Components::TransformComponent2D(params.initialTransform);
+  this->transformComponent =
+      make_unique<Core::Components::TransformComponent2D>(&params.initialTransform);
 
-  this->bounds = new Core::Math::Geometry::Rectangle(*this->transform);
+  const auto colliderParams = Physics::Collision::Components::ColliderComponentParams{
+      .transform = this->transformComponent.get()
+  };
 
-  const auto colliderParams =
-      Physics::Components::ColliderComponentParams{.transform = *this->transform};
+  this->colliderComponent =
+      std::make_unique<Physics::Collision::Components::ColliderComponent2D>(colliderParams);
 
-  this->colliderComponent = new Physics::Components::ColliderComponent2D(colliderParams);
-
-  this->renderComponent = new Renderer2D::Component::RenderComponent2D(
-      *this->transform, Core::COLOR_GREEN, this->Entity::GetActive()
+  this->renderComponent = make_unique<Renderer2D::Component::RenderComponent2D>(
+      *this->transformComponent, Core::COLOR_GREEN, this->GetActive()
   );
 }
 
-SnakeSegment::~SnakeSegment()
-{
-  if (this->colliderComponent) {
-    delete colliderComponent;
-    this->colliderComponent = nullptr;
-  }
-
-  if (this->renderComponent) {
-    delete renderComponent;
-    this->renderComponent = nullptr;
-  }
-
-  if (this->bounds) {
-    delete bounds;
-    this->bounds = nullptr;
-  }
-
-  if (this->transform) {
-    delete transform;
-    this->transform = nullptr;
-  }
-}
-
-SnakeSegment* SnakeSegment::InitializeSnakeSegment(
-    const int index, Core::Components::TransformComponent2D& transform
-)
-{
-  this->index = index;
-  this->transform = &transform;
-  return this;
-};
+SnakeSegment::~SnakeSegment() {}
 
 void SnakeSegment::Move(const Core::Math::Vector2D newPosition)
 {
-  this->transform->position.x = newPosition.x;
-  this->transform->position.y = newPosition.y;
+  this->GetTransformComponent().GetPosition().x = newPosition.x;
+  this->GetTransformComponent().GetPosition().y = newPosition.y;
 }
 
+void SnakeSegment::DebugUpdate()
+{
+  if (index == 0) {
+    UMBRA_DEBUG(this->GetActive(), "Snake/Segment-{}/Active", this->index);
 
-void SnakeSegment::DebugUpdate(){
-      UMBRA_DEBUG(this->transform->GetPosition().x, "Snake/Segment-{}/Position/X", this->index);
-      UMBRA_DEBUG(this->transform->GetPosition().y, "Snake/Segment-{}/Position/Y", this->index);
+    UMBRA_DEBUG(
+        this->GetTransformComponent().GetScale().width, "Snake/Segment-{}/Scale/Width", this->index
+    );
+    UMBRA_DEBUG(
+        this->GetTransformComponent().GetScale().height,
+        "Snake/Segment-{}/Scale/Height",
+        this->index
+    );
+
+    UMBRA_DEBUG(
+        this->GetTransformComponent().GetPosition().x, "Snake/Segment-{}/Position/X", this->index
+    );
+    UMBRA_DEBUG(
+        this->GetTransformComponent().GetPosition().y, "Snake/Segment-{}/Position/Y", this->index
+    );
+    UMBRA_DEBUG(
+        this->GetColliderComponent().GetCollider().GetWorldRect().x,
+        "Snake/Segment-{}/Collision/X",
+        this->index
+    );
+    UMBRA_DEBUG(
+        this->GetColliderComponent().GetCollider().GetWorldRect().y,
+        "Snake/Segment-{}/Collision/Y",
+        this->index
+    );
+    UMBRA_DEBUG(
+        this->GetColliderComponent().GetCollider().GetWorldRect().width,
+        "Snake/Segment-{}/Collision/width",
+        this->index
+    );
+    UMBRA_DEBUG(
+        this->GetColliderComponent().GetCollider().GetWorldRect().height,
+        "Snake/Segment-{}/Collision/height",
+        this->index
+    );
+  }
 }
 }  // namespace Game

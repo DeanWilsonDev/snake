@@ -1,48 +1,80 @@
 #include "apple.hpp"
+#include <memory>
 #include "core/entity/game-entity.hpp"
-#include "core/entity/entity.h"
 #include "core/color.h"
 #include "debug/debug.hpp"
-#include "physics/components/collider-component-2d.hpp"
+#include "physics/collision/components/collider-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/core.h"
 #include "core/math/size-2d.hpp"
 #include "core/components/transform-component-2d.hpp"
 #include "renderer-2d/components/render-component-2d.h"
+#include "renderer-2d/components/i-render-component-2d.h"
+#include "umbra/log.h"
 
 namespace Game {
 
-Apple::Apple(const AppleParams& params) : GameEntity(params), settings(params.settings)
+Apple::Apple(const AppleParams& params)
+    : Core::Entity::GameEntity(params), settings(params.settings)
 {
-  this->transform = new Core::Components::TransformComponent2D(
+  LOG_TRACE("[Apple] Initializing Apple from Constructor");
+
+  this->transformComponent = make_unique<Core::Components::TransformComponent2D>(
       this->GetNewPosition(), 0, Core::Math::Size2D(this->size)
   );
 
-  this->renderComponent = new Renderer2D::Component::RenderComponent2D(
-      *this->transform, Core::COLOR_RED, this->Entity::GetActive()
+  LOG_TRACE(
+      "[Apple] Checking TransformComponent2D is Initialized: [{}]",
+      static_cast<void*>(&this->transformComponent)
   );
 
-  const auto appleColliderParams =
-      Physics::Components::ColliderComponentParams{.transform = *this->transform};
-  this->colliderComponent = new Physics::Components::ColliderComponent2D(appleColliderParams);
+  this->renderComponent = make_unique<Renderer2D::Component::RenderComponent2D>(
+      *this->transformComponent, Core::COLOR_RED, this->GetActive()
+  );
+
+  LOG_TRACE(
+      "[Apple] Checking RenderComponent2D is Initialized: [{}]",
+      static_cast<void*>(&this->renderComponent)
+  );
+
+  const auto appleColliderParams = Physics::Collision::Components::ColliderComponentParams{
+      .transform = this->transformComponent.get()
+  };
+
+  this->colliderComponent =
+      make_unique<Physics::Collision::Components::ColliderComponent2D>(appleColliderParams);
+
+  LOG_TRACE(
+      "[Apple] Checking ColliderComponent2D is Initialized: [{}]",
+      static_cast<void*>(&this->colliderComponent)
+  );
 }
 
 void Apple::Update([[maybe_unused]] const float deltaTime) {}
 
 void Apple::DebugUpdate()
 {
-  UMBRA_DEBUG(this->transform->GetPosition().x, "Apple/Position/X");
-  UMBRA_DEBUG(this->transform->GetPosition().y, "Apple/Position/Y");
-  UMBRA_DEBUG(this->transform->GetScale().GetWidth(), "Apple/Scale/Width");
-  UMBRA_DEBUG(this->transform->GetScale().GetHeight(), "Apple/Scale/Height");
+  UMBRA_DEBUG(this->transformComponent->GetPosition().x, "Apple/Position/X");
+  UMBRA_DEBUG(this->transformComponent->GetPosition().y, "Apple/Position/Y");
+  UMBRA_DEBUG(this->transformComponent->GetScale().GetWidth(), "Apple/Scale/Width");
+  UMBRA_DEBUG(this->transformComponent->GetScale().GetHeight(), "Apple/Scale/Height");
   UMBRA_DEBUG(this->GetSize(), "Apple/Size");
   UMBRA_DEBUG(this->GetActive(), "Apple/Active");
+
+  UMBRA_DEBUG(this->GetColliderComponent().GetCollider().GetWorldRect().x, "Apple/Collision/X");
+  UMBRA_DEBUG(this->GetColliderComponent().GetCollider().GetWorldRect().y, "Apple/Collision/Y");
+  UMBRA_DEBUG(
+      this->GetColliderComponent().GetCollider().GetWorldRect().width, "Apple/Collision/width"
+  );
+  UMBRA_DEBUG(
+      this->GetColliderComponent().GetCollider().GetWorldRect().height, "Apple/Collision/height"
+  );
 }
 
 void Apple::Initialize()
 {
   GameEntity::Initialize();
-  this->transform->SetPosition(this->GetNewPosition());
+  this->transformComponent->SetPosition(this->GetNewPosition());
 };
 
 Core::Math::Vector2D Apple::GetNewPosition() const
@@ -67,19 +99,19 @@ Core::Math::Vector2D Apple::GetCenter() const
 {
   const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
   return {
-      this->transform->position.x + (boxSize - boxSize / 2.0f) / 2.0f,
-      this->transform->position.y + (boxSize - boxSize / 2.0f) / 2.0f,
+      this->transformComponent->position.x + (boxSize - boxSize / 2.0f) / 2.0f,
+      this->transformComponent->position.y + (boxSize - boxSize / 2.0f) / 2.0f,
   };
 }
 
-Physics::Components::ColliderComponent2D* Apple::GetColliderComponent() const
+Physics::Collision::Components::ColliderComponent2D& Apple::GetColliderComponent() const
 {
-  return this->colliderComponent;
+  return *this->colliderComponent;
 }
 
-Renderer2D::Component::RenderComponent2D* Apple::GetRendererComponent2D() const
+Renderer2D::Component::IRenderComponent2D& Apple::GetRendererComponent2D() const
 {
-  return this->renderComponent;
+  return *this->renderComponent;
 }
 
 }  // namespace Game

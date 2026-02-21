@@ -38,7 +38,7 @@ class TransformComponent2D final : public IComponent, public Math::ITransform2D 
   void SetRotation(const float value) override { this->rotation = value; };
   void SetScale(const Math::Size2D& value) override { this->scale = value; };
 
-  [[nodiscard]] Math::Transform2D& GetTransform();
+  [[nodiscard]] Math::ITransform2D& GetTransform();
 };
 
 }  // namespace Core::Components

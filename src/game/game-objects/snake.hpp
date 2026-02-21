@@ -1,5 +1,6 @@
 #pragma once
 #include <deque>
+#include <memory>
 #include "core/math/vector-2d.hpp"
 #include "core/math/transform-2d.hpp"
 
@@ -80,7 +81,7 @@ class Snake final {
   [[nodiscard]] GameSettings& GetGameSettings() const { return this->settings; }
 
   SnakeSegment* head{};
-  std::deque<SnakeSegment*> body;
+  std::deque<std::unique_ptr<SnakeSegment>> body;
 
  private:
   Platform::Input::IInput& input;

@@ -3,9 +3,9 @@
 //
 
 #pragma once
+#include <memory>
 #include "../core/i-game.hpp"
 #include "core/components/transform-component-2d.hpp"
-#include "core/i-game-state.h"
 #include "renderer-2d/render-component-2d-manager.hpp"
 
 namespace Renderer2D::Component {
@@ -55,16 +55,12 @@ class Game final : public Core::IGame {
 
  private:
   Core::DependencyInjector& injector;
+  unique_ptr<GameSettings> settings{nullptr};
   Engine::Config::ProjectSettings& projectSettings;
   Renderer2D::RenderComponent2DManager& renderManager;
   GameplayStateMachine* gameplayStateMachine{nullptr};
-  GameSettings* settings{nullptr};
-  Snake* snake{nullptr};
-  Core::Components::TransformComponent2D* snakeTransformComponent{nullptr};
-  Core::Math::Geometry::Rectangle* snakeBounds{nullptr};
-  Apple* apple{nullptr};
-  Core::Components::TransformComponent2D* appleTransformComponent{nullptr};
-  Core::Math::Geometry::Rectangle* appleBounds{nullptr};
+  unique_ptr<Snake> snake{nullptr};
+  unique_ptr<Apple> apple{nullptr};
 };
 
 }  // namespace Game

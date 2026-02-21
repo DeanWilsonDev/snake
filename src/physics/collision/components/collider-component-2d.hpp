@@ -4,11 +4,12 @@
 
 #pragma once
 
+#include <memory>
 #include "core/components/i-component.hpp"
-#include "core/math/transform-2d.hpp"
-#include "core/math/geometry/rectangle.h"
+#include "core/math/i-transform-2d.hpp"
+#include "physics/collision/rectangle-collider-2d.hpp"
 
-namespace Physics::Components {
+namespace Physics::Collision::Components {
 
 /**
  * @struct ColliderComponentParams
@@ -23,7 +24,7 @@ namespace Physics::Components {
  *    and scale of the collider.
  */
 struct ColliderComponentParams {
-  Core::Math::ITransform2D& transform;
+  Core::Math::ITransform2D* transform;
 };
 
 /**
@@ -45,11 +46,11 @@ class ColliderComponent2D: Core::Components::IComponent {
  public:
   explicit ColliderComponent2D(const ColliderComponentParams& params);
   [[nodiscard]] bool Intersects(const ColliderComponent2D& other) const;
-  [[nodiscard]] Core::Math::Geometry::Rectangle* GetBounds() const { return this->bounds;}
+  [[nodiscard]] Physics::Collision::RectangleCollider2D& GetCollider() const { return *this->collider;}
 
 private:
   Core::Math::ITransform2D& transform;
-  Core::Math::Geometry::Rectangle* bounds {nullptr};
+  std::unique_ptr<Physics::Collision::RectangleCollider2D> collider;
 };
 } // namespace Physics::Components
 

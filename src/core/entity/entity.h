@@ -9,11 +9,14 @@
 #include <unordered_map>
 #include <memory>
 
+namespace Core::Entity {
+
 struct EntityParams {
   bool active = true;
+
+  EntityParams(bool active = true) : active(active) {}
 };
 
-namespace Core::Entity {
 class Entity {
  public:
   explicit Entity(const EntityParams& params);

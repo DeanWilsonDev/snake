@@ -3,6 +3,10 @@
 //
 
 #include "transform-component-2d.hpp"
+#include "core/math/size-2d.hpp"
+#include "core/math/vector-2d.hpp"
+#include "core/math/transform-2d.hpp"
+#include "core/math/i-transform-2d.hpp"
 
 namespace Core::Components {
 
@@ -14,20 +18,18 @@ TransformComponent2D::TransformComponent2D(
 }
 
 TransformComponent2D::TransformComponent2D(const Math::Transform2D& transform)
-    : position(transform.position)
-    , rotation(transform.rotation)
-    , scale(transform.scale)
+    : position(transform.position), rotation(transform.rotation), scale(transform.scale)
 {
 }
 
 TransformComponent2D::TransformComponent2D(ITransform2D* transform)
-    : position(transform->GetPosition())
-    , rotation(transform->GetRotation())
-    , scale(transform->GetScale()) {};
+    : position(transform != nullptr ? transform->GetPosition() : Core::Math::Vector2D::Zero())
+    , rotation(transform != nullptr ? transform->GetRotation() : 0)
+    , scale(transform != nullptr ? transform->GetScale() : Core::Math::Size2D::Zero()) {};
 
 TransformComponent2D::TransformComponent2D() = default;
 
-Math::Transform2D& TransformComponent2D::GetTransform()
+Math::ITransform2D& TransformComponent2D::GetTransform()
 {
   static Math::Transform2D tempTransform(
       this->GetPosition(), this->GetRotation(), this->GetScale()

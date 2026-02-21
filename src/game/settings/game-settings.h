@@ -1,17 +1,17 @@
 #pragma once
 
 #include <umbra/log.h>
-#include <algorithm> 
+#include <algorithm>
 
-#define DEFAULT_BOX_SIZE (20);
-#define DEFAULT_MIN_BOX_SIZE (10);
-#define DEFAULT_MAX_BOX_SIZE (40);
+#define DEFAULT_BOX_SIZE (20)
+#define DEFAULT_MIN_BOX_SIZE (10)
+#define DEFAULT_MAX_BOX_SIZE (40)
 #define DEFAULT_SCREEN_WIDTH (1280)
 #define DEFAULT_SCREEN_HEIGHT (720)
-#define GRID_COLUMNS (25);
-#define GRID_ROWS (25);
-#define DEBUG_ENABLED true;
-#define DEFAULT_SNAKE_LENGTH (5);
+#define GRID_COLUMNS (25)
+#define GRID_ROWS (25)
+#define DEBUG_ENABLED (true)
+#define DEFAULT_SNAKE_LENGTH (5)
 
 namespace Game {
 

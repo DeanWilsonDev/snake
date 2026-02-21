@@ -3,7 +3,8 @@
 #include "gameplay-state-machine.hpp"
 #include "game/game-objects/snake.hpp"
 #include "game/game-objects/apple.hpp"
-#include "physics/components/collider-component-2d.hpp"
+#include "physics/collision/components/collider-component-2d.hpp"
+#include "physics/collision/rectangle-collider-2d.hpp"
 #include "game/game-objects/snake-segment.hpp"
 #include "game/ui/gameplay-ui.hpp"
 #include "umbra/log.h"
@@ -46,6 +47,9 @@ void GameplayState::Enter()
     return;
   }
 
+  LOG_DEBUG("[GameplayState] Initializing Apple");
+  apple->Initialize();
+
   snake->SetActive(true);
   apple->SetActive(true);
 
@@ -62,8 +66,12 @@ void GameplayState::Update(float deltaTime)
   snake->Update(deltaTime);
   apple->Update(deltaTime);
 
-  if (snake->head->GetColliderComponent()->Intersects(*apple->GetColliderComponent())) {
-    apple->transform->position = apple->GetNewPosition();
+  if (Physics::Collision::RectangleCollider2D::Intersects(
+          snake->head->GetColliderComponent().GetCollider().GetWorldRect(),
+          apple->GetColliderComponent().GetCollider().GetWorldRect()
+      )) {
+    LOG_DEBUG("[GameplayState] Snake got the Apple!");
+    apple->GetTransformComponent().SetPosition(apple->GetNewPosition());
     this->gameplayStateMachine.IncreaseScore();
     snake->SetGrow(true);
   }
@@ -73,7 +81,7 @@ void GameplayState::Update(float deltaTime)
       break;
     }
 
-    if (snake->head != nullptr && snake->body[i] != snake->head) {
+    if (snake->head != nullptr && snake->body[i].get() != snake->head) {
       // Side Quest: [Debug] Create a Debug module to allow for Debug drawing
       // if (this->debugEnabled) {
       //   DrawRectangleRec(snake->body[i]->GetBounds(), RED);

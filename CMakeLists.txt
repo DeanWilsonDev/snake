@@ -51,65 +51,24 @@ add_executable(
   src/raylib-facade/user-interface/raylib-user-interface-facade.cpp
   src/game/game-objects/snake-segment.cpp
   src/game/game-objects/snake.cpp
-  src/game/game-state/gameplay-state-machine.hpp
   src/game/game-state/gameplay-state-machine.cpp
   src/game/game-state/gameplay-state.cpp
-  src/renderer-2d/components/render-component-2d.h
   src/renderer-2d/components/render-component-2d.cpp
-  src/renderer-2d/i-renderable.h
   src/core/entity/entity.cpp
-  src/core/entity/entity.h
   src/renderer-2d/render-component-2d-manager.cpp
-  src/renderer-2d/render-component-2d-manager.hpp
-  src/renderer-2d/components/i-render-component-2d.h
-  src/game/ui/main-menu-ui.hpp
   src/game/ui/main-menu-ui.cpp
-  src/engine/config/engine-config.h
-  src/platform/window/config/window-config.hpp
   src/game/game-state/main-menu-state.cpp
-  src/game/game-state/main-menu-state.hpp
-  src/platform/input/key-codes.hpp
   src/raylib-facade/input/raylib-input-facade.cpp
-  src/raylib-facade/input/raylib-input-facade.hpp
-  src/platform/input/i-input.hpp
   src/game/ui/game-over-ui.cpp
-  src/game/ui/game-over-ui.hpp
-  src/core/math/transform-2d.hpp
-  src/core/math/vector-2d.hpp
-  src/core/math/quaternion.hpp
-  src/platform/window/screen.hpp
   src/raylib-facade/core/raylib-core-facade.cpp
-  src/raylib-facade/core/raylib-core-facade.hpp
-  src/core/math/geometry/Rectangle.h
-  src/physics/components/collider-component-2d.cpp
-  src/physics/components/collider-component-2d.hpp
-  src/core/core.h
-  src/engine/config/project-settings.hpp
+  src/physics/collision/components/collider-component-2d.cpp
   src/core/dependency-injector.cpp
-  src/core/dependency-injector.hpp
   src/game/game.cpp
-  src/game/game.hpp
-  src/core/i-game.hpp
-  src/core/math/size-2d.hpp
-  src/user-interface/i-game-ui.hpp
-  src/user-interface/i-user-interface.hpp
   src/game/ui/gameplay-ui.cpp
-  src/game/ui/gameplay-ui.hpp
   src/core/entity/game-entity-manager.cpp
-  src/core/entity/game-entity-manager.hpp
   src/core/entity/game-entity.cpp
-  src/core/entity/game-entity.hpp
-  src/core/entity/i-game-entity.hpp
-  src/core/components/i-component.hpp
   src/core/components/transform-component-2d.cpp
-  src/core/components/transform-component-2d.hpp
-  src/core/math/i-transform-2d.hpp
   src/debug/debug-hud.cpp
-  src/debug/debug-hud.hpp
-  src/debug/debug-node.hpp
-  src/debug/debug-value.hpp
-  src/debug/debug.hpp
-  src/debug/i-debug-hud.hpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)

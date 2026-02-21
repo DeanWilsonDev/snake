@@ -7,7 +7,6 @@
 #include <umbra/log.h>
 #include "core/dependency-injector.hpp"
 #include "core/i-game-state.h"
-#include "debug/debug.hpp"
 #include "game-objects/apple.hpp"
 #include "game-objects/snake.hpp"
 #include "game-state/gameplay-state-machine.hpp"
@@ -40,21 +39,6 @@ Game::~Game()
     delete this->gameplayStateMachine;
     this->gameplayStateMachine = nullptr;
   }
-
-  if (this->snake) {
-    delete this->snake;
-    this->snake = nullptr;
-  }
-
-  if (this->apple) {
-    delete this->apple;
-    this->apple = nullptr;
-  }
-
-  if (this->settings) {
-    delete this->settings;
-    this->settings = nullptr;
-  }
 }
 
 void Game::Initialize()
@@ -75,7 +59,10 @@ void Game::Initialize()
   LOG_TRACE("[Game] Validating Window");
   assert(window);
 
-  this->settings = new GameSettings{};
+  this->settings = make_unique<GameSettings>();
+
+  LOG_DEBUG("[Game] GameSettings is set to [{}]", static_cast<void*>(&this->settings));
+
   settings->Print();
 
   // Initialize Snake
@@ -83,20 +70,21 @@ void Game::Initialize()
 
   const auto snakeParams = SnakeParams{.input = *input, .settings = *settings};
 
-  this->snake = new Snake(snakeParams);
-  this->snake->Initialize();
+  this->snake = make_unique<Snake>(snakeParams);
+
   LOG_DEBUG("[Game] Snake set to [{}]", static_cast<void*>(&snake));
 
+  this->snake->Initialize();
+
+  //
   // Initialize Apple
+  //
+
+  AppleParams appleParams = AppleParams(*settings);
+
   LOG_TRACE("[Game] Setting up Apple GameObject");
 
-  this->apple = new Apple({
-      .settings = *settings,
-  });
-
-  LOG_DEBUG(
-      "[Apple] Checking GameSettings is Initialized: [{}]", static_cast<void*>(&this->settings)
-  );
+  this->apple = make_unique<Apple>(appleParams);
 
   LOG_DEBUG("[Game] Apple set to [{}]", static_cast<void*>(&this->apple));
 
@@ -129,24 +117,28 @@ void Game::Initialize()
   this->gameplayStateMachine->SetApple(*this->apple);
   this->gameplayStateMachine->SetSnake(*this->snake);
 
-  LOG_DEBUG(
-      "[Game] Checking GameSettings on Snake [{}]",
-      static_cast<void*>(&this->gameplayStateMachine->GetSnake()->GetGameSettings())
-  );
+  LOG_TRACE("[Game] Setup Gameplay State Machine");
 
   this->gameplayStateMachine->SetRenderManager(this->renderManager);
+
+  LOG_TRACE("[Game] Set Renderer on Gameplay State Machine");
+  assert(renderer);
   this->gameplayStateMachine->SetRenderer(*renderer);
+  LOG_TRACE("[Game] Set UserInterface on Gameplay State Machine");
+  assert(userInterface);
   this->gameplayStateMachine->SetUserInterface(*userInterface);
+  LOG_TRACE("[Game] Set Input on Gameplay State Machine");
+  assert(input);
   this->gameplayStateMachine->SetInput(*input);
+  LOG_TRACE("[Game] Set Settings on Gameplay State Machine");
+  assert(settings);
   this->gameplayStateMachine->SetGameSettings(*settings);
 
-  this->renderManager.Register(snake->head->GetRendererComponent2D());
-  for (const auto segment : this->snake->body) {
-    if (const auto segmentRenderComponent = segment->GetRendererComponent2D()) {
-      this->renderManager.Register(segmentRenderComponent);
-    }
+  for (const auto& segment : this->snake->body) {
+    assert(segment);
+    this->renderManager.Register(&segment->GetRendererComponent2D());
   }
-  this->renderManager.Register(apple->GetRendererComponent2D());
+  this->renderManager.Register(&apple->GetRendererComponent2D());
 
   this->gameplayStateMachine->GetGameSettings()->Print();
 
@@ -162,7 +154,6 @@ void Game::Update(const float deltaTime)
 
 void Game::DebugUpdate()
 {
-
   if (this->snake) {
     for (const auto& segment : this->snake->body) {
       segment->DebugUpdate();

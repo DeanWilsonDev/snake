@@ -7,7 +7,7 @@
 #include "core/math/transform-2d.hpp"
 
 #include <cmath>
-#include <utility>
+#include <memory>
 
 namespace Game {
 
@@ -16,7 +16,6 @@ Snake::~Snake() = default;
 Snake::Snake(const SnakeParams& snakeParams)
     : input(snakeParams.input), settings(snakeParams.settings)
 {
-
   auto snakeSize = static_cast<float>(settings.GetBoxSize());
 
   this->transform = Core::Math::Transform2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
@@ -31,9 +30,7 @@ Snake* Snake::Initialize()
   this->direction = {1.0f, 0.0f};
   this->grow = false;
 
-  this->CreateHead();
   this->CreateBody();
-
 
   return this;
 }
@@ -83,10 +80,9 @@ void Snake::Update(const float deltaTime)
 
 void Snake::Move() const
 {
-
   Core::Math::Vector2D newPosition = {
-      this->head->transform->GetPosition().x + this->direction.x * this->size,
-      this->head->transform->GetPosition().y + this->direction.y * this->size,
+      this->head->GetTransformComponent().GetPosition().x + this->direction.x * this->size,
+      this->head->GetTransformComponent().GetPosition().y + this->direction.y * this->size,
   };
 
   newPosition.x = std::roundf(newPosition.x / this->size) * this->size;
@@ -98,58 +94,42 @@ void Snake::Move() const
 
   for (int i = 1; i < this->length; i++) {
     if (this->body[i] && this->body[i - 1]) {
-      const Core::Math::Vector2D previousPosition = this->body[i]->transform->GetPosition();
+      const Core::Math::Vector2D previousPosition =
+          this->body[i]->GetTransformComponent().GetPosition();
       this->body[i]->Move(nextPosition);
       nextPosition = previousPosition;
     }
   }
-
-}
-
-void Snake::CreateHead()
-{
-
-  const auto snakeSegmentParams = SnakeSegmentParams{
-      .index = 0,
-      .initialTransform = this->transform,
-  };
-
-  this->head = new SnakeSegment(snakeSegmentParams);
-  this->body.push_back(this->head);
 }
 
 void Snake::CreateBody()
 {
-  for (int i = 1; i < this->length; i++) {
+  for (int i = 0; i < this->length; i++) {
     auto nextSegmentTransform = Core::Math::Transform2D(this->transform);
 
     nextSegmentTransform.position.x = std::round(
-        (this->transform.position.x - this->size * static_cast<float>(i) / this->size) * this->size
+        (this->transform.position.x - this->size * static_cast<float>(i)) * this->size
     );
     nextSegmentTransform.position.y =
         std::round((this->transform.position.y / this->size) * this->size);
 
-
-    auto params = SnakeSegmentParams{.index = i, .initialTransform = nextSegmentTransform};
-    this->body.push_back(new SnakeSegment(params));
+    auto params = SnakeSegmentParams{i, &nextSegmentTransform};
+    this->body.push_back(std::make_unique<SnakeSegment>(params));
   }
+
+  this->head = this->body.front().get();
 }
 
 void Snake::CheckIfShouldGrow()
 {
   if (this->grow) {
-    Core::Math::Transform2D newSegmentTransformComponent =
-        std::move(this->body.back()->transform->GetTransform());
-
     const auto segmentParams = SnakeSegmentParams{
-        .index = this->length, .initialTransform = std::move(newSegmentTransformComponent)
+        this->length, &this->body.back()->GetTransformComponent().GetTransform()
     };
 
-    const auto segment = new SnakeSegment(segmentParams);
-    this->body.push_back(segment);
+    this->body.push_back(make_unique<SnakeSegment>(segmentParams));
     this->length++;
     this->grow = false;
-
   }
 }
 
@@ -158,8 +138,8 @@ void Snake::Teleport() const
   const auto screenWidth = static_cast<float>(this->settings.GetScreenWidth());
   const auto screenHeight = static_cast<float>(this->settings.GetScreenHeight());
 
-  for (const auto* segment : this->body) {
-    auto& segmentPosition = segment->transform->GetPosition();
+  for (auto& segment : this->body) {
+    auto& segmentPosition = segment->GetTransformComponent().GetPosition();
     if (segmentPosition.x > screenWidth) {
       segmentPosition.x = 0;
     }
@@ -179,8 +159,8 @@ Core::Math::Vector2D Snake::GetCenter() const
 {
   const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
   return {
-      this->head->transform->GetPosition().x + boxSize / 2.0f,
-      this->head->transform->GetPosition().y + boxSize / 2.0f,
+      this->head->GetTransformComponent().GetPosition().x + boxSize / 2.0f,
+      this->head->GetTransformComponent().GetPosition().y + boxSize / 2.0f,
   };
 }
 
@@ -203,25 +183,7 @@ void Snake::SetActive(const bool enabled) const
 
 void Snake::Destroy()
 {
-  if (!body.empty() && body.front() == head) {
-    body.pop_front();
-  }
-
-  for (const auto segment : body) {
-    if (segment) {
-      delete segment;
-    }
-    else {
-    }
-  }
-
   this->body.clear();
-
-  if (head) {
-    delete this->head;
-    this->head = nullptr;
-  }
-  else {
-  }
+  this->head = nullptr;
 }
 }  // namespace Game

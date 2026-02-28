@@ -5,7 +5,7 @@
 #include "core/entity/game-entity.hpp"
 #include <memory>
 #include "core/components/transform-component-2d.hpp"
-#include "core/entity/entity.h"
+#include "core/entity/entity.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/math/size-2d.hpp"
 #include "umbra/log.h"
@@ -16,7 +16,7 @@ GameEntity::GameEntity(const GameEntityParams& params) : Entity(params)
 {
   LOG_TRACE("[GameEntity] Setting up new GameEntity");
 
-  if(params.transform){
+  if (params.transform) {
     this->transformComponent = std::make_unique<Components::TransformComponent2D>(params.transform);
   }
 
@@ -33,6 +33,11 @@ GameEntity::GameEntity(const GameEntityParams& params) : Entity(params)
 }
 
 GameEntity::~GameEntity() {}
+
+void GameEntity::DebugUpdate()
+{
+  Entity::DebugUpdate();
+}
 
 void GameEntity::Update(const float deltaTime)
 {

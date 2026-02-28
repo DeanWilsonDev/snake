@@ -3,8 +3,9 @@
 //
 
 #include "render-component-2d-manager.hpp"
-#include "components/i-render-component-2d.h"
+#include "components/i-render-component-2d.hpp"
 #include <umbra/log.h>
+#include <memory>
 
 #include <cassert>
 

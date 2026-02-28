@@ -1,5 +1,5 @@
 #include "game/game-objects/snake.hpp"
-#include "game/settings/game-settings.h"
+#include "game/settings/game-settings.hpp"
 #include "snake-segment.hpp"
 #include "platform/input/key-codes.hpp"
 #include "platform/input/i-input.hpp"

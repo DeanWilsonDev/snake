@@ -3,18 +3,15 @@
 //
 
 #include "core/entity/game-entity-manager.hpp"
-#include "core/entity/entity.h"
-#include "renderer-2d/components/i-render-component-2d.h"
+#include "core/entity/entity.hpp"
+#include "renderer-2d/components/i-render-component-2d.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
 #include <vector>
 
 namespace Core {
 
-GameEntityManager::GameEntityManager(
-    const std::vector<Entity::Entity*>& entities,
-    const Renderer2D::RenderComponent2DManager& renderManager
-)
-    : entities(entities), renderManager(renderManager)
+GameEntityManager::GameEntityManager(const Renderer2D::RenderComponent2DManager& renderManager)
+    : renderManager(renderManager)
 {
 }
 
@@ -32,6 +29,7 @@ void GameEntityManager::Update(const float deltaTime) const
     }
   }
 }
+
 void GameEntityManager::Render() const
 {
   this->renderManager.RenderAll();

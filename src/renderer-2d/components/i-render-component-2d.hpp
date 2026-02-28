@@ -9,7 +9,7 @@
 namespace Renderer2D {
 class IRenderer;
 namespace Component {
-class IRenderComponent2D: public Core::Components::IComponent {
+class IRenderComponent2D : public Core::Components::IComponent {
  public:
   virtual ~IRenderComponent2D() = default;
   virtual void Render(IRenderer& renderer) const = 0;

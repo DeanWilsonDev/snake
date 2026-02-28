@@ -1,6 +1,8 @@
 #pragma once
 
-#include "core/i-game-state.h"
+#include "core/i-game-state.hpp"
+#include "game/game-state/gameplay-state-machine.hpp"
+#include <memory>
 
 namespace Platform::Input {
 class IInput;
@@ -18,15 +20,20 @@ class GameplayStateMachine;
 
 class GameplayState final : public Core::IGameState {
  public:
-  explicit GameplayState(GameplayStateMachine& stateMachine);
+  explicit GameplayState(GameContext& context);
 
   void Enter() override;
-  void Update(float deltaTime) override;
+  void Update([[maybe_unused]] float deltaTime) override;
+  void DebugUpdate() override;
   void Exit() override;
+  std::unique_ptr<Core::IGameState> GetNextState() override;
 
  private:
-  GameplayStateMachine& gameplayStateMachine;
+  GameContext& gameContext;
   GameplayUI* gameplayUI = nullptr;
   Platform::Input::IInput* input = nullptr;
+
+  std::unique_ptr<Snake> snake = nullptr;
+  std::unique_ptr<Apple> apple = nullptr;
 };
 }  // namespace Game

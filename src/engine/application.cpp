@@ -1,10 +1,10 @@
-#include "application.h"
+#include "application.hpp"
 #include <umbra/log.h>
 #include "config/project-settings.hpp"
 #include "core/dependency-injector.hpp"
-#include "core/color.h"
+#include "core/color.hpp"
 #include "debug/debug.hpp"
-#include "renderer-2d/i-renderer.h"
+#include "renderer-2d/i-renderer.hpp"
 #include "platform/input/i-input.hpp"
 #include "user-interface/i-user-interface.hpp"
 #include "debug/i-debug-hud.hpp"
@@ -12,6 +12,7 @@
 #include <memory>
 #include <cassert>
 #include <string.h>
+#include <chrono>
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "platform/window/i-window.h"
 #include "core/i-game.hpp"
@@ -61,7 +62,8 @@ void Application::SetGame(std::shared_ptr<Core::IGame> game)
 void Application::Run() const
 {
   LOG_CORE_TRACE("[Application] Beginning Application");
-  const char* title = projectSettings.GetTitle() ? projectSettings.GetTitle() : engineConfig.window.title;
+  const char* title =
+      projectSettings.GetTitle() ? projectSettings.GetTitle() : engineConfig.window.title;
   LOG_CORE_INFO("[Application] Starting Game: {}", title);
 
   // TODO: Extract this into a utils function

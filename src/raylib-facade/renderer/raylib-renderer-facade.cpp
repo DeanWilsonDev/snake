@@ -1,7 +1,7 @@
 #include "raylib-renderer-facade.hpp"
 #include <umbra/log.h>
 #include "raylib.h"
-#include "core/color.h"
+#include "core/color.hpp"
 
 namespace RaylibFacade::Renderer {
 

@@ -3,6 +3,8 @@
 //
 
 #include "main-menu-state.hpp"
+#include "core/i-game-state.hpp"
+#include "game/game-state/gameplay-state.hpp"
 #include "gameplay-state-machine.hpp"
 #include "umbra/log.h"
 #include "platform/input/key-codes.hpp"
@@ -10,17 +12,14 @@
 #include "platform/input/i-input.hpp"
 
 #include <cassert>
+#include <memory>
 
 namespace Game {
 
-MainMenuState::MainMenuState(GameplayStateMachine& gameplayStateMachine)
-    : gameplayStateMachine(&gameplayStateMachine)
-{
-}
+MainMenuState::MainMenuState(GameContext& gameContext) : gameContext(gameContext) {}
 
 void MainMenuState::Enter()
 {
-
   this->input = this->gameplayStateMachine->GetInput();
   assert(input);
 
@@ -33,9 +32,8 @@ void MainMenuState::Enter()
   this->gameplayStateMachine->SetGameUI(*this->mainMenuUI);
 }
 
-void MainMenuState::Update(float deltaTime)
+void MainMenuState::Update(float)
 {
-
   if (!this->input) {
     LOG_ERROR("[MainMenuState] Input is NULL");
     return;
@@ -53,6 +51,11 @@ void MainMenuState::Exit()
     this->mainMenuUI = nullptr;
   }
   this->gameplayStateMachine->ClearUI();
+}
+
+std::unique_ptr<Core::IGameState> MainMenuState::GetNextState()
+{
+  return std::make_unique<GameplayState>(this->gameContext);
 }
 
 }  // namespace Game

@@ -1,12 +1,12 @@
+
 #include "gameplay-state.hpp"
-#include "debug/debug.hpp"
-#include "game/game-state/game-over-state.hpp"
 #include "gameplay-state-machine.hpp"
 #include "game/game-objects/snake.hpp"
 #include "game/game-objects/apple.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "physics/collision/rectangle-collider-2d.hpp"
 #include "game/game-objects/snake-segment.hpp"
+#include "debug/debug.h"
 #include "game/ui/gameplay-ui.hpp"
 #include "umbra/log.h"
 
@@ -75,18 +75,16 @@ void GameplayState::Enter()
   // this->gameplayStateMachine.SetGameUI(*this->gameplayUI);
 }
 
-void GameplayState::Update(float)
+void GameplayState::Update(float deltaTime)
 {
   if (Physics::Collision::RectangleCollider2D::Intersects(
           this->snake->head->GetColliderComponent().GetCollider().GetWorldRect(),
           this->apple->GetColliderComponent().GetCollider().GetWorldRect()
       )) {
     LOG_DEBUG("[GameplayState] Snake got the Apple!");
-    this->apple->GetTransformComponent().SetPosition(this->apple->GetNewPosition());
-
-    this->gameContext.score += 10;
-
-    this->snake->SetGrow(true);
+    apple->GetTransformComponent().SetPosition(apple->GetNewPosition());
+    gameContext.score += 10
+    snake->SetGrow(true);
   }
 
   for (size_t i = 0; i < snake->body.size(); i++) {
@@ -116,17 +114,29 @@ void GameplayState::DebugUpdate()
 
 void GameplayState::Exit()
 {
-  // MAIN QUEST: FIX UI
-  // if (gameplayUI != nullptr) {
-  //   delete gameplayUI;
-  //   gameplayUI = nullptr;
-  // }
-  //
-  // this->gameplayStateMachine.ClearUI();
-}
+  if (gameplayUI != nullptr) {
+    delete gameplayUI;
+    gameplayUI = nullptr;
+  }
 
-std::unique_ptr<Core::IGameState> GameplayState::GetNextState() {
-  return std::make_unique<GameOverState>(this->gameContext);
-};
+  this->gameplayStateMachine.ClearUI();
+
+  Snake* snake = this->gameplayStateMachine.GetSnake();
+  Apple* apple = this->gameplayStateMachine.GetApple();
+
+  if (!snake) {
+    LOG_FATAL("[GameplayState] Snake is not initialized");
+    return;
+  }
+
+  if (!apple) {
+    LOG_FATAL("[GameplayState] Snake is not initialized");
+    return;
+  }
+
+  snake->SetActive(false);
+  apple->SetActive(false);
+  snake->Destroy();
+}
 
 }  // namespace Game

@@ -2,11 +2,11 @@
 
 #include <memory>
 #include "core/math/i-transform-2d.hpp"
-#include "game/settings/game-settings.h"
+#include "game/settings/game-settings.hpp"
 #include "core/entity/game-entity.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
-#include "renderer-2d/components/i-render-component-2d.h"
+#include "renderer-2d/components/i-render-component-2d.hpp"
 
 namespace Renderer2D::Component {
 class RenderComponent2D;

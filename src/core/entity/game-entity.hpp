@@ -4,7 +4,7 @@
 
 #pragma once
 #include <memory>
-#include "entity.h"
+#include "entity.hpp"
 #include "core/components/transform-component-2d.hpp"
 #include "core/math/i-transform-2d.hpp"
 
@@ -35,8 +35,9 @@ class GameEntity : public Entity {
 
   ~GameEntity() override;
 
-  void Update(float deltaTime) override;
-  void Initialize() override;
+  virtual void Update(float deltaTime) override;
+  virtual void DebugUpdate() override;
+  virtual void Initialize() override;
   Components::TransformComponent2D& GetTransformComponent() { return *this->transformComponent; }
 
   // Properties

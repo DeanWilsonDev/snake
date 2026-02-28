@@ -1,5 +1,5 @@
 #pragma once
-#include "core/color.h"
+#include "core/color.hpp"
 class Color;
 
 namespace Renderer2D {

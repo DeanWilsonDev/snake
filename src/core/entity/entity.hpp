@@ -4,6 +4,7 @@
 #pragma once
 
 #include "core/components/i-component.hpp"
+#include "core/i-debugable.hpp"
 #include <cassert>
 #include <typeindex>
 #include <unordered_map>
@@ -17,14 +18,14 @@ struct EntityParams {
   EntityParams(bool active = true) : active(active) {}
 };
 
-class Entity {
+class Entity : public Core::IDebugable {
  public:
   explicit Entity(const EntityParams& params);
   virtual ~Entity() = 0;
 
   virtual void Initialize();
-  virtual void Update(float deltaTime);
-  virtual void DebugUpdate();
+  virtual void Update([[maybe_unused]] float deltaTime);
+  virtual void DebugUpdate() override;
   [[nodiscard]] int GetID() const;
   [[nodiscard]] bool IsActive() const;
   virtual void SetActive(bool active);
@@ -38,6 +39,7 @@ class Entity {
 
   template <typename T>
   void RemoveComponent();
+
 
  private:
   std::unordered_map<std::type_index, std::unique_ptr<Components::IComponent>> components{};

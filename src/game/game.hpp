@@ -4,8 +4,11 @@
 
 #pragma once
 #include <memory>
-#include "../core/i-game.hpp"
-#include "core/components/transform-component-2d.hpp"
+#include <vector>
+#include <core/i-debugable.hpp>
+#include <core/i-updatable.hpp>
+#include "core/i-game.hpp"
+#include "core/entity/game-entity-manager.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
 
 namespace Renderer2D::Component {
@@ -55,12 +58,16 @@ class Game final : public Core::IGame {
 
  private:
   Core::DependencyInjector& injector;
-  unique_ptr<GameSettings> settings{nullptr};
+  std::unique_ptr<GameSettings> settings{nullptr};
   Engine::Config::ProjectSettings& projectSettings;
   Renderer2D::RenderComponent2DManager& renderManager;
-  GameplayStateMachine* gameplayStateMachine{nullptr};
-  unique_ptr<Snake> snake{nullptr};
-  unique_ptr<Apple> apple{nullptr};
+  std::shared_ptr<Core::GameEntityManager> gameEntityManager;
+  std::shared_ptr<GameplayStateMachine> gameplayStateMachine;
+  std::unique_ptr<Snake> snake{nullptr};
+  std::unique_ptr<Apple> apple{nullptr};
+
+  std::vector<Core::IDebugable*> debugables{};
+  std::vector<Core::IUpdatable*> updatables{};
 };
 
 }  // namespace Game

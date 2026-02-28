@@ -2,10 +2,10 @@
 // Created by Dean Wilson on 28/5/2025.
 //
 
-#include "renderer-2d/components/render-component-2d.h"
-
+#include "renderer-2d/components/render-component-2d.hpp"
+#include "core/color.hpp"
 #include "core/math/i-transform-2d.hpp"
-#include "renderer-2d/i-renderer.h"
+#include "renderer-2d/i-renderer.hpp"
 
 namespace Renderer2D::Component {
 

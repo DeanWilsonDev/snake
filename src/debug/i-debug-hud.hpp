@@ -6,6 +6,7 @@
 #include <string_view>
 #include <type_traits>
 #include <functional>
+#include <cstddef>
 #include <variant>
 #include "debug-node.hpp"
 #include "debug-value.hpp"
@@ -24,8 +25,8 @@ class IDebugHUD {
 
   template <typename... Args>
   void FormatPathAndSet(
-      std::variant<int, float, std::string, bool> value, const std::format_string<Args...> format,
-      Args&&... args
+      std::variant<int, size_t, float, std::string, bool> value,
+      const std::format_string<Args...> format, Args&&... args
   )
   {
     DebugValue debugValue{};
@@ -33,6 +34,9 @@ class IDebugHUD {
         [&](const auto& x) {
           using T = std::decay_t<decltype(x)>;
           if constexpr (std::is_same_v<T, int>) {
+            debugValue = DebugValue::FromNumber(x);
+          }
+          if constexpr (std::is_same_v<T, size_t>) {
             debugValue = DebugValue::FromNumber(x);
           }
           if constexpr (std::is_same_v<T, float>) {

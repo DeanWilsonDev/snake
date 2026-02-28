@@ -1,4 +1,5 @@
-#include "engine/application.h"
+#include "core/entity/game-entity-manager.hpp"
+#include "engine/application.hpp"
 #include "raylib-facade/window/raylib-window-facade.hpp"
 #include "debug/debug.hpp"
 #include "debug/debug-hud.hpp"
@@ -7,7 +8,7 @@
 #include "engine/config/project-settings.hpp"
 #include "game/game.hpp"
 #include "game/game-state/gameplay-state-machine.hpp"
-#include "game/settings/game-settings.h"
+#include "game/settings/game-settings.hpp"
 #include "raylib-facade/input/raylib-input-facade.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
 #include "raylib-facade/user-interface/raylib-user-interface-facade.hpp"
@@ -56,7 +57,7 @@ int main(int argc, char* argv[])
       .injector = injector,
       .engineConfig = engineConfig,
       .projectSettings = projectSettings,
-      .renderComponent2dManager = renderManager
+      .renderComponent2dManager = renderManager,
   };
 
   auto application = Engine::Application(params);

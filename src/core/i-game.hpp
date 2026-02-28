@@ -4,9 +4,11 @@
 
 #pragma once
 
+#include "core/i-debugable.hpp"
+
 namespace Core {
 
-class IGame {
+class IGame: public IDebugable {
 public:
   virtual ~IGame() = default;
 
@@ -14,8 +16,8 @@ public:
   virtual void Initialize() = 0;
 
   // Called every frame to handle game-specific logic
-  virtual void Update(float deltaTime)=0;
-  virtual void DebugUpdate() = 0; 
+  virtual void Update([[maybe_unused]] float deltaTime)=0;
+  [[maybe_unused]] virtual void DebugUpdate() = 0; 
 
   // Called every frame to handle game-specific rendering
   virtual void Render() = 0;

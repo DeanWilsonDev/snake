@@ -1,10 +1,10 @@
 //
 // Created by Dean Wilson on 29/5/2025.
 //
-#include "core/entity/entity.h"
+#include "core/entity/entity.hpp"
 
 namespace Core::Entity {
-Entity::Entity(const EntityParams& params) : active(params.active){};
+Entity::Entity(const EntityParams& params) : active(params.active) {};
 Entity::~Entity() = default;
 void Entity::Initialize() {}
 void Entity::Update([[maybe_unused]] float deltaTime) {}

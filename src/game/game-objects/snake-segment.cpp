@@ -6,9 +6,9 @@
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "game/game-objects/snake-segment.hpp"
 #include "core/entity/game-entity.hpp"
-#include "core/color.h"
+#include "core/color.hpp"
 #include "core/math/vector-2d.hpp"
-#include "renderer-2d/components/render-component-2d.h"
+#include "renderer-2d/components/render-component-2d.hpp"
 
 #include "core/components/transform-component-2d.hpp"
 

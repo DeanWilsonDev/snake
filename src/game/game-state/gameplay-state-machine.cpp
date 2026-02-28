@@ -1,87 +1,57 @@
-#include "gameplay-state-machine.hpp"
 
+#include "gameplay-state-machine.hpp"
+#include "core/state-machine.hpp"
+#include "core/entity/game-entity-manager.hpp"
 #include "game-over-state.hpp"
 #include "gameplay-state.hpp"
 #include "main-menu-state.hpp"
-#include "game/game-objects/apple.hpp"
-#include "game/game-objects/snake.hpp"
 #include "user-interface/i-game-ui.hpp"
 #include "user-interface/i-user-interface.hpp"
+#include "core/i-game-state.hpp"
+
+#include <umbra/log.h>
+#include <memory>
+#include <assert.h>
+#include <utility>
 
 namespace Game {
 
-GameplayStateMachine::GameplayStateMachine(Core::IGameState* currentState)
-    : currentState(currentState), score(0)
+GameplayStateMachine::GameplayStateMachine(std::unique_ptr<Core::IGameState> currentState)
+    : StateMachine(std::move(currentState))
 {
-}
-
-GameplayStateMachine::~GameplayStateMachine()
-{
-  if (currentState) {
-    currentState->Exit();
-    delete this->currentState;
+  if (!currentState) {
+    this->ChangeState(std::make_unique<MainMenuState>(this->gameContext));
   }
 }
+
+GameplayStateMachine::~GameplayStateMachine() {}
 
 void GameplayStateMachine::Update(const float deltaTime)
 {
-  if (!this->currentState) {
-    return;
-  }
+  this->gameEntityManager->Update(deltaTime);
 
-  this->currentState->Update(deltaTime);
+  Core::StateMachine::Update(deltaTime);
 
+  // REAPER: Curious... This should go somewhere else
   if (this->gameUI) {
     this->gameUI->Render();
   }
 }
 
-void GameplayStateMachine::ChangeState(Core::IGameState* newState)
+void GameplayStateMachine::DebugUpdate()
 {
-  if (currentState) {
-    currentState->Exit();
-    delete currentState;
-  }
-  this->currentState = newState;
-  if (currentState) {
-    currentState->Enter();
+  if (this->gameEntityManager) {
+    this->gameEntityManager->DebugUpdate();
   }
 }
 
-void GameplayStateMachine::IncreaseScore()
+void GameplayStateMachine::SetGameEntityManager(
+    std::shared_ptr<Core::GameEntityManager> gameEntityManager
+)
 {
-  this->score += 10;
-}
-void GameplayStateMachine::Next()
-{
-  if (!currentState) return;
-  if (Core::IGameState* nextState = this->DetermineNextState()) {
-    this->ChangeState(nextState);
-  }
-}
-void GameplayStateMachine::InitializeSnake() const
-{
-  if (this->snake) {
-    this->snake->Initialize();
-  }
+  this->gameEntityManager = gameEntityManager;
 }
 
-void GameplayStateMachine::InitializeApple() const
-{
-  if (this->apple) {
-    this->apple->Initialize();
-  }
-}
-
-void GameplayStateMachine::SetSnake(Snake& snake)
-{
-  this->snake = &snake;
-};
-
-void GameplayStateMachine::SetApple(Apple& apple)
-{
-  this->apple = &apple;
-}
 void GameplayStateMachine::SetUserInterface(UserInterface::IUserInterface& ui)
 {
   if (this->userInterface != nullptr) {
@@ -97,22 +67,5 @@ void GameplayStateMachine::SetGameUI(UserInterface::IGameUI& gameUI)
   }
   this->gameUI = &gameUI;
 }
-
-Core::IGameState* GameplayStateMachine::DetermineNextState()
-{
-  if (dynamic_cast<MainMenuState*>(this->currentState)) {
-    return new GameplayState(*this);
-  }
-
-  if (dynamic_cast<GameplayState*>(this->currentState)) {
-    return new GameOverState(*this);
-  }
-
-  if (dynamic_cast<GameOverState*>(this->currentState)) {
-    return new GameplayState(*this);
-  }
-
-  return nullptr;
-};
 
 }  // namespace Game

@@ -2,8 +2,8 @@
 
 #include <memory>
 #include "core/entity/game-entity.hpp"
-#include "renderer-2d/components/i-render-component-2d.h"
-#include "renderer-2d/components/render-component-2d.h"
+#include "renderer-2d/components/i-render-component-2d.hpp"
+#include "renderer-2d/components/render-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "core/math/i-transform-2d.hpp"

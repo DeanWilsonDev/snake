@@ -1,5 +1,6 @@
 #pragma once
 #include "config/engine-config.h"
+#include "core/entity/game-entity-manager.hpp"
 #include "debug/i-debug-hud.hpp"
 #include <memory>
 
@@ -64,5 +65,6 @@ class Application {
   std::shared_ptr<UserInterface::IUserInterface> userInterface = nullptr;
   std::shared_ptr<Debug::IDebugHUD> debugHud = nullptr;
   Renderer2D::RenderComponent2DManager& renderComponent2dManager;
+  Core::GameEntityManager& gameEntityManager;
 };
 }  // namespace Engine

@@ -5,7 +5,7 @@
 #include "main-menu-ui.hpp"
 
 #include "core/math/vector-2d.hpp"
-#include "game/settings/game-settings.h"
+#include "game/settings/game-settings.hpp"
 #include "user-interface/i-user-interface.hpp"
 
 namespace Game {

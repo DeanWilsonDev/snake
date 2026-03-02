@@ -1,11 +1,11 @@
 #include "application.hpp"
 #include <umbra/log.h>
 #include "config/project-settings.hpp"
-#include "core/dependency-injector.hpp"
+#include "engine/dependency-injection/dependency-injector.hpp"
 #include "core/color.hpp"
 #include "debug/debug.hpp"
 #include "renderer-2d/i-renderer.hpp"
-#include "platform/input/i-input.hpp"
+#include "platform/input/i-input-backend.hpp"
 #include "user-interface/i-user-interface.hpp"
 #include "debug/i-debug-hud.hpp"
 
@@ -24,12 +24,13 @@ Application::Application(const ApplicationParams& params)
     , engineConfig(params.engineConfig)
     , projectSettings(params.projectSettings)
     , renderComponent2dManager(params.renderComponent2dManager)
+
 {
   LOG_CORE_TRACE("[Application] Initializing");
   this->window = injector.Resolve<Platform::Window::IWindow>();
   this->renderer2d = injector.Resolve<Renderer2D::IRenderer>();
   this->stateMachine = injector.Resolve<Core::IStateMachine>();
-  this->input = injector.Resolve<Platform::Input::IInput>();
+  this->input = injector.Resolve<Platform::Input::IInputBackend>();
   this->userInterface = injector.Resolve<UserInterface::IUserInterface>();
   Debug::System.SetActiveDebugHUD(injector.Resolve<Debug::IDebugHUD>());
 

@@ -1,7 +1,17 @@
 #pragma once
 
+#include "engine/input/input-action.hpp"
+#include "engine/input/input-system.hpp"
+#include "engine/input/key-code.hpp"
+
 #include <umbra/log.h>
+#include <array>
+#include <vector>
 #include <algorithm>
+#include <cstddef>
+
+using KeyCode = Engine::Input::KeyCode;
+using InputAction = Engine::Input::Action;
 
 #define DEFAULT_BOX_SIZE (20)
 #define DEFAULT_MIN_BOX_SIZE (10)
@@ -29,6 +39,14 @@ struct GameSettings {
   int defaultSnakeLength = DEFAULT_SNAKE_LENGTH;
   int screenWidth = DEFAULT_SCREEN_WIDTH;
   int screenHeight = DEFAULT_SCREEN_HEIGHT;
+
+  Engine::Input::KeyMap keyMap = {
+      /* Action::MoveUp    */ std::vector{KeyCode::W, KeyCode::Up},
+      /* Action::MoveLeft  */ std::vector{KeyCode::A, KeyCode::Left},
+      /* Action::MoveDown  */ std::vector{KeyCode::S, KeyCode::Down},
+      /* Action::MoveRight */ std::vector{KeyCode::D, KeyCode::Right},
+      /* Action::Confirm   */ std::vector{KeyCode::Enter}
+  };
 
   [[nodiscard]] int GetScreenWidth() const { return this->screenWidth; }
   [[nodiscard]] int GetScreenHeight() const { return this->screenHeight; }

@@ -31,21 +31,23 @@ class Snake;
 class Apple;
 class GameplayStateMachine;
 }  // namespace Game
-namespace Core {
-class DependencyInjector;
-}
+
 namespace Renderer2D {
 class RenderComponent2DManager;
 }
-namespace Engine::Config {
+namespace Engine {
+class DependencyInjector;
+namespace Config {
 struct ProjectSettings;
 }
+
+}  // namespace Engine
 namespace Game {
 
 class Game final : public Core::IGame {
  public:
   explicit Game(
-      Core::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
+      Engine::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
       Renderer2D::RenderComponent2DManager& renderManager
   );
 
@@ -57,7 +59,7 @@ class Game final : public Core::IGame {
   void Render() override;
 
  private:
-  Core::DependencyInjector& injector;
+  Engine::DependencyInjector& injector;
   std::unique_ptr<GameSettings> settings{nullptr};
   Engine::Config::ProjectSettings& projectSettings;
   Renderer2D::RenderComponent2DManager& renderManager;

@@ -3,6 +3,7 @@
 #include "core/entity/game-entity-manager.hpp"
 #include "core/state-machine.hpp"
 #include "core/i-game-state.hpp"
+#include "engine/input/input-system.hpp"
 
 namespace Platform::Input {
 class IInput;
@@ -32,6 +33,7 @@ class Snake;
 struct GameContext {
   int score = {0};
   std::unique_ptr<GameSettings> settings = {nullptr};
+  std::unique_ptr<Engine::Input::InputSystem> input = {nullptr};
 };
 
 class GameplayStateMachine final : public Core::StateMachine {

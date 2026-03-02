@@ -7,14 +7,12 @@
 #include <core/i-debugable.hpp>
 #include <core/i-updatable.hpp>
 #include <umbra/log.h>
-#include "core/dependency-injector.hpp"
+#include "engine/dependency-injection/dependency-injector.hpp"
 #include "core/entity/game-entity-manager.hpp"
-#include "core/i-game-state.hpp"
 #include "game-objects/apple.hpp"
 #include "game-objects/snake.hpp"
 #include "game-state/gameplay-state-machine.hpp"
 #include "platform/window/i-window.h"
-#include "platform/input/i-input.hpp"
 #include "renderer-2d/i-renderer.hpp"
 #include "user-interface/i-user-interface.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
@@ -30,7 +28,7 @@
 namespace Game {
 
 Game::Game(
-    Core::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
+    Engine::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
     Renderer2D::RenderComponent2DManager& renderManager
 )
     : injector(injector), projectSettings(projectSettings), renderManager(renderManager)

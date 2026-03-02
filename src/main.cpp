@@ -1,10 +1,9 @@
-#include "core/entity/game-entity-manager.hpp"
 #include "engine/application.hpp"
 #include "raylib-facade/window/raylib-window-facade.hpp"
 #include "debug/debug.hpp"
 #include "debug/debug-hud.hpp"
 #include "debug/i-debug-hud.hpp"
-#include "core/dependency-injector.hpp"
+#include "engine/dependency-injection/dependency-injector.hpp"
 #include "engine/config/project-settings.hpp"
 #include "game/game.hpp"
 #include "game/game-state/gameplay-state-machine.hpp"
@@ -26,7 +25,7 @@ int main(int argc, char* argv[])
 
   // Initialize Logging
   Umbra::Logging::Log::init("log.csv", debugEnabled);
-  Core::DependencyInjector injector;
+  Engine::DependencyInjector injector;
 
   injector.Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
   injector.Register<Renderer2D::IRenderer, RaylibFacade::Renderer::RaylibRendererFacade>();

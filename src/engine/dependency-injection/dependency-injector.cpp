@@ -4,7 +4,7 @@
 
 #include "dependency-injector.hpp"
 
-namespace Core {
+namespace Engine {
 
 DependencyInjector::~DependencyInjector()
 {
@@ -17,4 +17,4 @@ void DependencyInjector::Teardown()
   factories.clear();
 }
 
-}  // namespace Core
+}  // namespace Engine

@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <typeindex>
 
-namespace Core {
+namespace Engine {
 
 class DependencyInjector {
  public:
@@ -56,9 +56,9 @@ void DependencyInjector::RegisterInstance(const std::shared_ptr<Interface>& inst
 }
 
 template <typename Interface, typename Implementation>
-void DependencyInjector::RegisterSingleton(){
-
-  auto instance = std::make_shared<Implementation>(); 
+void DependencyInjector::RegisterSingleton()
+{
+  auto instance = std::make_shared<Implementation>();
   this->instances[std::type_index(typeid(Interface))] = instance;
 }
 
@@ -108,4 +108,4 @@ void DependencyInjector::Unregister()
   instances.erase(type);
   factories.erase(type);
 }
-}  // namespace Core
+}  // namespace Engine

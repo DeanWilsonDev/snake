@@ -20,7 +20,7 @@ GameplayStateMachine::GameplayStateMachine(std::unique_ptr<Core::IGameState> cur
     : StateMachine(std::move(currentState))
 {
   if (!currentState) {
-    this->ChangeState(std::make_unique<MainMenuState>(this->gameContext));
+    Core::StateMachine::ChangeState(std::make_unique<MainMenuState>(this->gameContext));
   }
 }
 
@@ -33,9 +33,9 @@ void GameplayStateMachine::Update(const float deltaTime)
   Core::StateMachine::Update(deltaTime);
 
   // REAPER: Curious... This should go somewhere else
-  if (this->gameUI) {
-    this->gameUI->Render();
-  }
+  // if (this->gameUI) {
+  //   this->gameUI->Render();
+  // }
 }
 
 void GameplayStateMachine::DebugUpdate()
@@ -50,22 +50,6 @@ void GameplayStateMachine::SetGameEntityManager(
 )
 {
   this->gameEntityManager = gameEntityManager;
-}
-
-void GameplayStateMachine::SetUserInterface(UserInterface::IUserInterface& ui)
-{
-  if (this->userInterface != nullptr) {
-    this->userInterface = nullptr;
-  }
-  this->userInterface = &ui;
-}
-
-void GameplayStateMachine::SetGameUI(UserInterface::IGameUI& gameUI)
-{
-  if (this->gameUI != nullptr) {
-    this->gameUI = nullptr;
-  }
-  this->gameUI = &gameUI;
 }
 
 }  // namespace Game

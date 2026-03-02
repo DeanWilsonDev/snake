@@ -4,12 +4,11 @@
 
 #include "main-menu-state.hpp"
 #include "core/i-game-state.hpp"
+#include "engine/input/input-action.hpp"
 #include "game/game-state/gameplay-state.hpp"
 #include "gameplay-state-machine.hpp"
 #include "umbra/log.h"
-#include "platform/input/key-codes.hpp"
 #include "game/ui/main-menu-ui.hpp"
-#include "platform/input/i-input.hpp"
 
 #include <cassert>
 #include <memory>
@@ -20,37 +19,32 @@ MainMenuState::MainMenuState(GameContext& gameContext) : gameContext(gameContext
 
 void MainMenuState::Enter()
 {
-  this->input = this->gameplayStateMachine->GetInput();
-  assert(input);
 
-  const auto gameSettings = this->gameplayStateMachine->GetGameSettings();
-  const auto userInterface = this->gameplayStateMachine->GetUserInterface();
-  assert(gameSettings);
-  assert(userInterface);
-  this->mainMenuUI = new MainMenuUI(*userInterface, *gameSettings);
-
-  this->gameplayStateMachine->SetGameUI(*this->mainMenuUI);
+  // const auto gameSettings = this->gameplayStateMachine->GetGameSettings();
+  // const auto userInterface = this->gameplayStateMachine->GetUserInterface();
+  // assert(gameSettings);
+  // assert(userInterface);
+  // this->mainMenuUI = new MainMenuUI(*userInterface, *gameSettings);
+  //
+  // this->gameplayStateMachine->SetGameUI(*this->mainMenuUI);
 }
 
 void MainMenuState::Update(float)
 {
-  if (!this->input) {
-    LOG_ERROR("[MainMenuState] Input is NULL");
-    return;
-  }
-
-  if (this->input->IsKeyPressed(Platform::Input::KeyCode::KEY_ENTER)) {
-    this->gameplayStateMachine->Next();
+  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::Confirm)) {
+    this->GetNextState();
   }
 }
 
+void MainMenuState::DebugUpdate() {}
+
 void MainMenuState::Exit()
 {
-  if (this->mainMenuUI) {
-    delete this->mainMenuUI;
-    this->mainMenuUI = nullptr;
-  }
-  this->gameplayStateMachine->ClearUI();
+  // if (this->mainMenuUI) {
+  //   delete this->mainMenuUI;
+  //   this->mainMenuUI = nullptr;
+  // }
+  // this->gameplayStateMachine->ClearUI();
 }
 
 std::unique_ptr<Core::IGameState> MainMenuState::GetNextState()

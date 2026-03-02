@@ -16,9 +16,9 @@ class StateMachine : public IStateMachine {
   ~StateMachine() = default;
   virtual void Update(float deltaTime) override;
   virtual void DebugUpdate() override;
-  virtual void Next() override;
   void ChangeState(std::unique_ptr<IGameState> newState) override;
   [[nodiscard]] IGameState& GetCurrentState() override;
+
  private:
   std::unique_ptr<IGameState> currentState = nullptr;
 };

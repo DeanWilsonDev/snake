@@ -42,10 +42,4 @@ IGameState& StateMachine::GetCurrentState()
   return *this->currentState;
 }
 
-void StateMachine::Next()
-{
-  if (!currentState) return;
-  this->ChangeState(this->DetermineNextState());
-}
-
 }  // namespace Core

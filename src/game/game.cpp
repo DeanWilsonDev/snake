@@ -12,6 +12,7 @@
 #include "game-objects/apple.hpp"
 #include "game-objects/snake.hpp"
 #include "game-state/gameplay-state-machine.hpp"
+#include "platform/input/i-input-backend.hpp"
 #include "platform/window/i-window.h"
 #include "renderer-2d/i-renderer.hpp"
 #include "user-interface/i-user-interface.hpp"
@@ -48,7 +49,7 @@ void Game::Initialize()
   const shared_ptr<Platform::Window::IWindow> window =
       injector.Resolve<Platform::Window::IWindow>();
 
-  const auto input = injector.Resolve<Platform::Input::IInput>();
+  const auto input = injector.Resolve<Platform::Input::IInputBackend>();
   if (!input) {
     LOG_FATAL("[Game] Failed to initialize Input");
     assert(input);
@@ -105,26 +106,11 @@ void Game::Initialize()
   assert(this->gameEntityManager);
   this->gameplayStateMachine->SetGameEntityManager(this->gameEntityManager);
 
-  LOG_TRACE("[Game] Set UserInterface on Gameplay State Machine");
-  assert(userInterface);
-  this->gameplayStateMachine->SetUserInterface(*userInterface);
-
-  LOG_TRACE("[Game] Set Input on Gameplay State Machine");
-  assert(input);
-  this->gameplayStateMachine->SetInput(*input);
-
-  LOG_TRACE("[Game] Set Settings on Gameplay State Machine");
-  assert(settings);
-  this->gameplayStateMachine->SetGameSettings(*settings);
-
   for (const auto& segment : this->snake->body) {
     assert(segment);
     this->renderManager.Register(&segment->GetRendererComponent2D());
   }
   this->renderManager.Register(&apple->GetRendererComponent2D());
-
-  this->gameplayStateMachine->GetGameSettings()->Print();
-
 }
 
 void Game::Update(const float deltaTime)

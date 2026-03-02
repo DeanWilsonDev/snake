@@ -16,6 +16,5 @@ class IStateMachine : public IUpdatable, IDebugable {
   virtual void Update(float deltaTime) = 0;
   virtual void DebugUpdate() = 0;
   [[nodiscard]] virtual IGameState& GetCurrentState() = 0;
-  virtual void Next() = 0;
 };
 }  // namespace Core

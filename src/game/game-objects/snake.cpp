@@ -1,8 +1,6 @@
 #include "game/game-objects/snake.hpp"
 #include "game/settings/game-settings.hpp"
 #include "snake-segment.hpp"
-#include "platform/input/key-codes.hpp"
-#include "platform/input/i-input.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/math/transform-2d.hpp"
 
@@ -13,8 +11,7 @@ namespace Game {
 
 Snake::~Snake() = default;
 
-Snake::Snake(const SnakeParams& snakeParams)
-    : input(snakeParams.input), settings(snakeParams.settings)
+Snake::Snake(const SnakeParams& snakeParams) : settings(snakeParams.settings)
 {
   auto snakeSize = static_cast<float>(settings.GetBoxSize());
 
@@ -37,31 +34,6 @@ Snake* Snake::Initialize()
 
 void Snake::Update(const float deltaTime)
 {
-  Core::Math::Vector2D newDirection = this->direction;
-
-  // SIDE QUEST: [Snake] Input should really be handled by the gameplay state rather than the
-  // gameobject
-  if (this->direction.y != 0 && !directionChanged) {
-    if (this->input.IsKeyPressed(Platform::Input::KEY_A)) {
-      newDirection = {-1.0f, 0.0f};
-    }
-    if (this->input.IsKeyPressed(Platform::Input::KEY_D)) {
-      newDirection = {1.0f, 0.0f};
-    }
-  }
-  if (this->direction.x != 0 && !directionChanged) {
-    if (this->input.IsKeyPressed(Platform::Input::KEY_S)) {
-      newDirection = {0.0f, 1.0f};
-    }
-    if (this->input.IsKeyPressed(Platform::Input::KEY_W)) {
-      newDirection = {0.0f, -1.0f};
-    }
-  }
-
-  if (newDirection.x != this->direction.x && newDirection.y != this->direction.y) {
-    directionChanged = true;
-    this->direction = newDirection;
-  }
   accumulatedDistance += this->speed * deltaTime;
 
   if (accumulatedDistance >= this->size) {
@@ -70,12 +42,16 @@ void Snake::Update(const float deltaTime)
 
     accumulatedDistance -= this->size;
 
-    if (directionChanged) {
-      directionChanged = false;
-    }
-
     this->Teleport();
   }
+}
+
+void Snake::SetDirection(Core::Math::Vector2D desiredDirection)
+{
+  if (desiredDirection.x == -this->direction.x && desiredDirection.y == -this->direction.y) {
+    return;
+  }
+  this->direction = desiredDirection;
 }
 
 void Snake::Move() const
@@ -107,9 +83,8 @@ void Snake::CreateBody()
   for (int i = 0; i < this->length; i++) {
     auto nextSegmentTransform = Core::Math::Transform2D(this->transform);
 
-    nextSegmentTransform.position.x = std::round(
-        (this->transform.position.x - this->size * static_cast<float>(i)) * this->size
-    );
+    nextSegmentTransform.position.x =
+        std::round((this->transform.position.x - this->size * static_cast<float>(i)) * this->size);
     nextSegmentTransform.position.y =
         std::round((this->transform.position.y / this->size) * this->size);
 
@@ -164,15 +139,6 @@ Core::Math::Vector2D Snake::GetCenter() const
   };
 }
 
-/**
- * @brief Enables or disables the Snake entity, including its head and body segments.
- *
- * This method sets the enabled state of the snake's rendering and active state
- * for both the head and each individual body segment.
- *
- * @param enabled A boolean value indicating whether the snake should be enabled
- * (true) or disabled (false).
- */
 void Snake::SetActive(const bool enabled) const
 {
   for (const auto& i : body) {

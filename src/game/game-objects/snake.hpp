@@ -7,9 +7,6 @@
 namespace Core::Components {
 class TransformComponent2D;
 }
-namespace Platform::Input {
-class IInput;
-}
 namespace Physics::Components {
 class ColliderComponent2D;
 }
@@ -25,7 +22,6 @@ class SnakeSegment;
 struct GameSettings;
 
 struct SnakeParams {
-  Platform::Input::IInput& input;
   GameSettings& settings;
 };
 
@@ -43,8 +39,10 @@ class Snake final {
   void CreateHead();
   void CreateBody();
   [[nodiscard]] Core::Math::Vector2D GetCenter() const;
+  [[nodiscard]] Core::Math::Vector2D GetDirection() { return this->direction; }
   void SetGrow(const bool value) { this->grow = value; }
   void SetActive(bool enabled) const;
+  void SetDirection(Core::Math::Vector2D direction);
 
   [[nodiscard]] GameSettings& GetGameSettings() const { return this->settings; }
 
@@ -52,7 +50,6 @@ class Snake final {
   std::deque<std::unique_ptr<SnakeSegment>> body;
 
  private:
-  Platform::Input::IInput& input;
   GameSettings& settings;
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;

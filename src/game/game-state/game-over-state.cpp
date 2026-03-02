@@ -1,9 +1,8 @@
 #include "game-over-state.hpp"
+#include "engine/input/input-action.hpp"
 #include "game/game-state/gameplay-state.hpp"
-#include "platform/input/i-input.hpp"
 #include "gameplay-state-machine.hpp"
 #include "game/ui/game-over-ui.hpp"
-#include "platform/input/key-codes.hpp"
 
 #include <cassert>
 #include <memory>
@@ -30,10 +29,12 @@ void GameOverState::Enter()
 
 void GameOverState::Update(float)
 {
-  if (this->input->IsKeyPressed(Platform::Input::KeyCode::KEY_ENTER)) {
+  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::Confirm)) {
     this->GetNextState();
   }
 }
+
+void GameOverState::DebugUpdate() {}
 
 void GameOverState::Exit()
 {

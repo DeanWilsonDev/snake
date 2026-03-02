@@ -8,7 +8,7 @@
 #include "game/game.hpp"
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "game/settings/game-settings.hpp"
-#include "raylib-facade/input/raylib-input-facade.hpp"
+#include "raylib-facade/input/raylib-input-backend-facade.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
 #include "raylib-facade/user-interface/raylib-user-interface-facade.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
@@ -29,7 +29,8 @@ int main(int argc, char* argv[])
 
   injector.Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
   injector.Register<Renderer2D::IRenderer, RaylibFacade::Renderer::RaylibRendererFacade>();
-  injector.Register<Platform::Input::IInput, RaylibFacade::Input::RaylibInputFacade>();
+  injector
+      .Register<Platform::Input::IInputBackend, RaylibFacade::Input::RaylibInputBackendFacade>();
   injector.Register<
       UserInterface::IUserInterface,
       RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();

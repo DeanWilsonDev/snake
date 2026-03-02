@@ -1,5 +1,6 @@
 #include "gameplay-state.hpp"
 #include "debug/debug.hpp"
+#include "engine/input/input-action.hpp"
 #include "game/game-state/game-over-state.hpp"
 #include "gameplay-state-machine.hpp"
 #include "game/game-objects/snake.hpp"
@@ -24,10 +25,7 @@ GameplayState::GameplayState(GameContext& gameContext) : gameContext(gameContext
 {
   // Initialize Snake
   LOG_TRACE("[GameplayState] Setting up Snake GameObject");
-  const auto snakeParams = SnakeParams{
-      .input = *input,  //  MAIN QUEST: Fix how input works
-      .settings = *gameContext.settings
-  };
+  const auto snakeParams = SnakeParams{.settings = *gameContext.settings};
   this->snake = make_unique<Snake>(snakeParams);
   LOG_DEBUG("[GameplayState] Snake set to [{}]", static_cast<void*>(&snake));
   this->snake->Initialize();
@@ -41,11 +39,6 @@ GameplayState::GameplayState(GameContext& gameContext) : gameContext(gameContext
   this->apple = make_unique<Apple>(appleParams);
   LOG_DEBUG("[Game] Apple set to [{}]", static_cast<void*>(&this->apple));
 
-  // REAPER: I have neglected input. this needs cleaning up
-  // this->input = this->gameplayStateMachine.GetInput();
-  // assert(input);
-
-  // const auto gameSettings = this->gameplayStateMachine.GetGameSettings();
   // const auto userInterface = this->gameplayStateMachine.GetUserInterface();
 
   // assert(gameSettings);
@@ -77,6 +70,19 @@ void GameplayState::Enter()
 
 void GameplayState::Update(float)
 {
+  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::MoveLeft)) {
+    this->snake->SetDirection({-1.0f, 0.0f});
+  }
+  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::MoveRight)) {
+    this->snake->SetDirection({1.0f, 0.0f});
+  }
+  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::MoveDown)) {
+    this->snake->SetDirection({0.0f, 1.0f});
+  }
+  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::MoveUp)) {
+    this->snake->SetDirection({0.0f, -1.0f});
+  }
+
   if (Physics::Collision::RectangleCollider2D::Intersects(
           this->snake->head->GetColliderComponent().GetCollider().GetWorldRect(),
           this->apple->GetColliderComponent().GetCollider().GetWorldRect()
@@ -125,7 +131,8 @@ void GameplayState::Exit()
   // this->gameplayStateMachine.ClearUI();
 }
 
-std::unique_ptr<Core::IGameState> GameplayState::GetNextState() {
+std::unique_ptr<Core::IGameState> GameplayState::GetNextState()
+{
   return std::make_unique<GameOverState>(this->gameContext);
 };
 

@@ -23,11 +23,11 @@ using KeyMap = std::array<std::vector<KeyCode>, static_cast<size_t>(Action::Coun
 class InputSystem {
  public:
   InputSystem(Platform::Input::IInputBackend& inputBackend);
-
+  ~InputSystem() = default;
   void SetKeyMap(const KeyMap& map);
-  bool IsActionPressed(const Action action);
-  bool IsActionDown(const Action action);
-  bool IsActionReleased(const Action action);
+  bool IsActionPressed(const Action action) const;
+  bool IsActionDown(const Action action) const;
+  bool IsActionReleased(const Action action) const;
 
  private:
   KeyMap keyMap;

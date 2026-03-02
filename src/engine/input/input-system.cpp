@@ -2,8 +2,7 @@
 #include "engine/input/input-action.hpp"
 #include "engine/input/key-code.hpp"
 #include "platform/input/i-input-backend.hpp"
-#include <vector>
-#include <array>
+#include <cstddef>
 
 namespace Engine::Input {
 using KeyCode = Engine::Input::KeyCode;
@@ -17,9 +16,9 @@ void InputSystem::SetKeyMap(const KeyMap& map)
   this->keyMap = map;
 }
 
-bool InputSystem::IsActionPressed(const Action action)
+bool InputSystem::IsActionPressed(const Action action) const
 {
-  for (KeyCode keyCode : this->keyMap[action]) {
+  for (KeyCode keyCode : this->keyMap[static_cast<size_t>(action)]) {
     if (this->inputBackend.IsKeyPressed(keyCode)) {
       return true;
     }
@@ -27,8 +26,24 @@ bool InputSystem::IsActionPressed(const Action action)
   return false;
 }
 
-bool InputSystem::IsActionDown(const Action action) {}
+bool InputSystem::IsActionDown(const Action action) const
+{
+  for (KeyCode keyCode : this->keyMap[static_cast<size_t>(action)]) {
+    if (this->inputBackend.IsKeyDown(keyCode)) {
+      return true;
+    }
+  }
+  return false;
+}
 
-bool InputSystem::IsActionReleased(const Action action) {}
+bool InputSystem::IsActionReleased(const Action action) const
+{
+  for (KeyCode keyCode : this->keyMap[static_cast<size_t>(action)]) {
+    if (this->inputBackend.IsKeyReleased(keyCode)) {
+      return true;
+    }
+  }
+  return false;
+}
 
 }  // namespace Engine::Input

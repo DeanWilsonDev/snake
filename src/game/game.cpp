@@ -14,14 +14,15 @@
 #include "game-state/gameplay-state-machine.hpp"
 #include "platform/input/i-input-backend.hpp"
 #include "platform/window/i-window.h"
-#include "renderer-2d/i-renderer.hpp"
+#include "core/i-renderer.hpp"
 #include "user-interface/i-user-interface.hpp"
-#include "renderer-2d/render-component-2d-manager.hpp"
+#include "core/render-component-2d-manager.hpp"
 #include "renderer-2d/components/render-component-2d.hpp"
 #include "settings/game-settings.hpp"
 #include "core/i-state-machine.hpp"
 #include "game-state/main-menu-state.hpp"
 #include "game-objects/snake-segment.hpp"
+#include "core/user-interface-manager.hpp"
 
 #include <cassert>
 #include <memory>
@@ -30,7 +31,7 @@ namespace Game {
 
 Game::Game(
     Engine::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
-    Renderer2D::RenderComponent2DManager& renderManager
+    Core::RenderComponent2DManager& renderManager
 )
     : injector(injector), projectSettings(projectSettings), renderManager(renderManager)
 {
@@ -61,13 +62,16 @@ void Game::Initialize()
   LOG_TRACE("[Game] Setting up GameEntityManager");
   this->gameEntityManager = std::make_shared<Core::GameEntityManager>(this->renderManager);
 
+  LOG_TRACE("[Game] Setting up GameEntityManager");
+  this->userInterfaceManager = std::make_shared<Core::UserInterfaceManager>(this->renderManager);
+
   this->settings = make_unique<GameSettings>();
 
   LOG_DEBUG("[Game] GameSettings is set to [{}]", static_cast<void*>(&this->settings));
 
   settings->Print();
 
-  const auto renderer = injector.Resolve<Renderer2D::IRenderer>();
+  const auto renderer = injector.Resolve<Core::IRenderer>();
   if (!renderer) {
     LOG_FATAL("[Game] Failed to initialize Renderer");
     assert(renderer);
@@ -113,11 +117,16 @@ void Game::Initialize()
   this->renderManager.Register(&apple->GetRendererComponent2D());
 }
 
+// MAIN QUEST: Think about renderables and updatables and who should be responsible for rendering
+// them? GameEntityManager?
+
 void Game::Update(const float deltaTime)
 {
   if (this->gameplayStateMachine) {
     this->gameplayStateMachine->Update(deltaTime);
   }
+
+  this->userInterfaceManager->Update(deltaTime);
 }
 
 void Game::DebugUpdate()
@@ -125,13 +134,20 @@ void Game::DebugUpdate()
   if (this->gameplayStateMachine) {
     this->gameplayStateMachine->DebugUpdate();
   }
+
+  this->userInterfaceManager->DebugUpdate();
 }
 
-// MAIN QUEST: Think about renderables and who should be responsible for rendering them?
-// GameEntityManager?
+void Game::DebugRender()
+{
+  this->userInterfaceManager->DebugRender();
+}
+
 void Game::Render()
 {
-  this->renderManager.RenderAll();
+  this->gameEntityManager->Render();
+
+  this->userInterfaceManager->DebugRender();
 }
 
 }  // namespace Game

@@ -5,7 +5,7 @@
 #include "game-over-state.hpp"
 #include "gameplay-state.hpp"
 #include "main-menu-state.hpp"
-#include "user-interface/i-game-ui.hpp"
+#include "core/i-game-ui.hpp"
 #include "user-interface/i-user-interface.hpp"
 #include "core/i-game-state.hpp"
 

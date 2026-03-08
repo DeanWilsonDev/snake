@@ -3,14 +3,14 @@
 //
 
 #pragma once
-#include "user-interface/i-game-ui.hpp"
+#include "core/i-game-ui.hpp"
 
 namespace UserInterface {
 class IUserInterface;
 }
 namespace Game {
 struct GameSettings;
-class GameOverUI final : public UserInterface::IGameUI {
+class GameOverUI final : public Core::IGameUI {
  public:
   explicit GameOverUI(UserInterface::IUserInterface& ui, GameSettings& settings, int& score);
   ~GameOverUI() override = default;

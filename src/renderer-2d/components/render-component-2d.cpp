@@ -5,9 +5,9 @@
 #include "renderer-2d/components/render-component-2d.hpp"
 #include "core/color.hpp"
 #include "core/math/i-transform-2d.hpp"
-#include "renderer-2d/i-renderer.hpp"
+#include "core/i-renderer.hpp"
 
-namespace Renderer2D::Component {
+namespace Renderer2D::Components {
 
 RenderComponent2D::RenderComponent2D(
     Core::Math::ITransform2D& transform, const Core::Color color, bool& active
@@ -16,7 +16,7 @@ RenderComponent2D::RenderComponent2D(
 {
 }
 
-void RenderComponent2D::Render(IRenderer& renderer) const
+void RenderComponent2D::Render(Core::IRenderer& renderer) const
 {
   if (!active) {
     return;
@@ -49,4 +49,4 @@ bool RenderComponent2D::GetActive() const
 {
   return this->active;
 }
-}  // namespace Renderer2D::Component
+}  // namespace Renderer2D::Components

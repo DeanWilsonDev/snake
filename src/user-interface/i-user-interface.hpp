@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "debug/i-debug-hud.hpp"
 namespace Core::Math {
 struct Vector2D;

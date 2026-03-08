@@ -2,8 +2,7 @@
 
 #include <memory>
 #include "core/entity/game-entity.hpp"
-#include "renderer-2d/components/i-render-component-2d.hpp"
-#include "renderer-2d/components/render-component-2d.hpp"
+#include "core/components/i-render-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "core/math/i-transform-2d.hpp"
@@ -40,7 +39,7 @@ class SnakeSegment final : public Core::Entity::GameEntity {
   void DebugUpdate() override;
 
   // Getters
-  [[nodiscard]] Renderer2D::Component::IRenderComponent2D& GetRendererComponent2D()
+  [[nodiscard]] Core::Components::IRenderComponent2D& GetRendererComponent2D()
   {
     return *this->renderComponent;
   }
@@ -53,7 +52,7 @@ class SnakeSegment final : public Core::Entity::GameEntity {
   void Move(Core::Math::Vector2D newPosition);
 
  private:
-  std::unique_ptr<Renderer2D::Component::RenderComponent2D> renderComponent{nullptr};
+  std::unique_ptr<Core::Components::IRenderComponent2D> renderComponent{nullptr};
   std::unique_ptr<Physics::Collision::Components::ColliderComponent2D> colliderComponent{nullptr};
 };
 }  // namespace Game

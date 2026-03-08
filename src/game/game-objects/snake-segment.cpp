@@ -27,7 +27,7 @@ SnakeSegment::SnakeSegment(const SnakeSegmentParams& params)
   this->colliderComponent =
       std::make_unique<Physics::Collision::Components::ColliderComponent2D>(colliderParams);
 
-  this->renderComponent = make_unique<Renderer2D::Component::RenderComponent2D>(
+  this->renderComponent = make_unique<Renderer2D::Components::RenderComponent2D>(
       *this->transformComponent, Core::COLOR_GREEN, this->GetActive()
   );
 }

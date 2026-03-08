@@ -1,22 +1,24 @@
 #pragma once
 
-#include "renderer-2d/components/i-render-component-2d.hpp"
+#include "core/components/i-render-component-2d.hpp"
 #include "core/color.hpp"
 
-namespace Core::Math {
+namespace Core {
+class IRenderer;
+
+namespace Math {
 class ITransform2D;
 }
-namespace Renderer2D {
-class IRenderer;
-}
 
-namespace Renderer2D::Component {
+}  // namespace Core
 
-class RenderComponent2D final : public IRenderComponent2D {
+namespace Renderer2D::Components {
+
+class RenderComponent2D final : public Core::Components::IRenderComponent2D {
  public:
   RenderComponent2D(Core::Math::ITransform2D& transform, Core::Color color, bool& active);
   ~RenderComponent2D() override = default;
-  void Render(IRenderer& renderer) const override;
+  void Render(Core::IRenderer& renderer) const override;
   [[nodiscard]] float GetX() const override;
   [[nodiscard]] float GetY() const override;
   [[nodiscard]] float GetWidth() const override;
@@ -28,4 +30,4 @@ class RenderComponent2D final : public IRenderComponent2D {
   Core::Color color;
   bool& active;
 };
-}  // namespace Renderer2D::Component
+}  // namespace Renderer2D::Components

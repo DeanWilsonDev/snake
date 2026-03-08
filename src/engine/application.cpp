@@ -4,7 +4,7 @@
 #include "engine/dependency-injection/dependency-injector.hpp"
 #include "core/color.hpp"
 #include "debug/debug.hpp"
-#include "renderer-2d/i-renderer.hpp"
+#include "core/i-renderer.hpp"
 #include "platform/input/i-input-backend.hpp"
 #include "user-interface/i-user-interface.hpp"
 #include "debug/i-debug-hud.hpp"
@@ -28,7 +28,7 @@ Application::Application(const ApplicationParams& params)
 {
   LOG_CORE_TRACE("[Application] Initializing");
   this->window = injector.Resolve<Platform::Window::IWindow>();
-  this->renderer2d = injector.Resolve<Renderer2D::IRenderer>();
+  this->renderer2d = injector.Resolve<Core::IRenderer>();
   this->stateMachine = injector.Resolve<Core::IStateMachine>();
   this->input = injector.Resolve<Platform::Input::IInputBackend>();
   this->userInterface = injector.Resolve<UserInterface::IUserInterface>();

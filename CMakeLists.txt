@@ -54,7 +54,8 @@ add_executable(
   src/game/game-state/gameplay-state.cpp
   src/renderer-2d/components/render-component-2d.cpp
   src/core/entity/entity.cpp
-  src/renderer-2d/render-component-2d-manager.cpp
+  src/core/render-component-2d-manager.cpp
+  src/core/user-interface-manager.cpp
   src/game/ui/main-menu-ui.cpp
   src/game/game-state/main-menu-state.cpp
   src/raylib-facade/input/raylib-input-backend-facade.cpp

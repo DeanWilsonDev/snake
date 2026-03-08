@@ -40,6 +40,7 @@ GameplayState::GameplayState(GameContext& gameContext) : gameContext(gameContext
   LOG_DEBUG("[Game] Apple set to [{}]", static_cast<void*>(&this->apple));
 
   // const auto userInterface = this->gameplayStateMachine.GetUserInterface();
+  gameContext.gameUI = std::make_unique<GameplayUI>(this->gameContext);
 
   // assert(gameSettings);
   // assert(userInterface);
@@ -66,6 +67,9 @@ void GameplayState::Enter()
 
   // MAIN QUEST: Display UI Dynamically
   // this->gameplayStateMachine.SetGameUI(*this->gameplayUI);
+
+
+  
 }
 
 void GameplayState::Update(float)

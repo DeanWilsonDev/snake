@@ -6,14 +6,14 @@
 
 #include <vector>
 #include <memory>
+#include "core/components/i-render-component-2d.hpp"
 
-namespace Renderer2D {
+namespace Core {
 
 class IRenderable;
 class IRenderer;
 
-namespace Component {
-
+namespace Components {
 class IRenderComponent2D;
 }
 
@@ -21,12 +21,12 @@ class RenderComponent2DManager {
  public:
   explicit RenderComponent2DManager(const std::shared_ptr<IRenderer>& renderer);
   ~RenderComponent2DManager() = default;
-  void Register(Component::IRenderComponent2D* component);
-  void Unregister(Component::IRenderComponent2D* component);
+  void Register(Components::IRenderComponent2D* component);
+  void Unregister(Components::IRenderComponent2D* component);
   void RenderAll() const;
 
  private:
-  std::vector<Component::IRenderComponent2D*> renderComponents;
+  std::vector<Components::IRenderComponent2D*> renderComponents;
   std::shared_ptr<IRenderer> renderer;
 };
-}  // namespace Renderer2D
+}  // namespace Core

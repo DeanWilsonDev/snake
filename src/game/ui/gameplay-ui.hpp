@@ -3,7 +3,8 @@
 //
 
 #pragma once
-#include "user-interface/i-game-ui.hpp"
+#include "game/game-state/gameplay-state-machine.hpp"
+#include "core/i-game-ui.hpp"
 
 namespace UserInterface {
 class IUserInterface;
@@ -12,15 +13,13 @@ class IUserInterface;
 namespace Game {
 struct GameSettings;
 
-class GameplayUI final : public UserInterface::IGameUI {
+class GameplayUI final : public Core::IGameUI {
  public:
-  explicit GameplayUI(UserInterface::IUserInterface& ui, GameSettings& settings, int& score);
+  explicit GameplayUI(GameContext& gameContext);
   void Render() override;
 
  private:
-  UserInterface::IUserInterface& ui;
-  GameSettings& settings;
   char scoreBuffer[100] = {0};
-  int& score;
+  GameContext& gameContext;
 };
 }  // namespace Game

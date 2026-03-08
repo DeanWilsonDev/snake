@@ -21,6 +21,7 @@ class IDebugable {
  public:
   virtual ~IDebugable() = default;
   [[maybe_unused]] virtual void DebugUpdate() {};
+  [[maybe_unused]] virtual void DebugRender() {};
 };
 
 }  // namespace Core

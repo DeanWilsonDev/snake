@@ -3,13 +3,14 @@
 //
 
 #include "render-component-2d-manager.hpp"
-#include "components/i-render-component-2d.hpp"
+#include "core/components/i-render-component-2d.hpp"
+#include "core/i-renderer.hpp"
 #include <umbra/log.h>
 #include <memory>
 
 #include <cassert>
 
-namespace Renderer2D {
+namespace Core {
 
 RenderComponent2DManager::RenderComponent2DManager(const std::shared_ptr<IRenderer>& renderer)
     : renderer(renderer)
@@ -17,7 +18,7 @@ RenderComponent2DManager::RenderComponent2DManager(const std::shared_ptr<IRender
   assert(renderer);
 }
 
-void RenderComponent2DManager::Register(Component::IRenderComponent2D* component)
+void RenderComponent2DManager::Register(Components::IRenderComponent2D* component)
 {
   if (!component) {
     return;
@@ -25,7 +26,7 @@ void RenderComponent2DManager::Register(Component::IRenderComponent2D* component
   this->renderComponents.push_back(component);
 }
 
-void RenderComponent2DManager::Unregister(Component::IRenderComponent2D* component)
+void RenderComponent2DManager::Unregister(Components::IRenderComponent2D* component)
 {
   if (!component) {
     LOG_CORE_ERROR("[RenderComponent2DManager] Component set to nullptr, cannot Unregister");
@@ -51,4 +52,4 @@ void RenderComponent2DManager::RenderAll() const
     }
   }
 }
-}  // namespace Renderer2D
+}  // namespace Core

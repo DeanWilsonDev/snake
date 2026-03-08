@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace UserInterface {
+namespace Core {
 
 class IGameUI {
  public:

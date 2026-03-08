@@ -4,13 +4,14 @@
 
 #pragma once
 
-namespace Renderer2D::Component {
-class IRenderComponent2D;
-}
 
 class IRenderer;
 
-namespace Renderer2D {
+namespace Core {
+namespace Core::Component {
+class IRenderComponent2D;
+}
+
 
 class IRenderable {
  public:

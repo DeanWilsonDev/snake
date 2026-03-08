@@ -8,8 +8,8 @@
 #include "core/core.hpp"
 #include "core/math/size-2d.hpp"
 #include "core/components/transform-component-2d.hpp"
+#include "core/components/i-render-component-2d.hpp"
 #include "renderer-2d/components/render-component-2d.hpp"
-#include "renderer-2d/components/i-render-component-2d.hpp"
 #include "umbra/log.h"
 
 namespace Game {
@@ -28,7 +28,8 @@ Apple::Apple(const AppleParams& params)
       static_cast<void*>(&this->transformComponent)
   );
 
-  this->renderComponent = make_unique<Renderer2D::Component::RenderComponent2D>(
+  // SIDE QUEST: Ideally, the Game should just be able to call a factory to get a IRenderComponent2D and have the factory determine which component we are using
+  this->renderComponent = make_unique<Renderer2D::Components::RenderComponent2D>(
       *this->transformComponent, Core::COLOR_RED, this->GetActive()
   );
 
@@ -109,7 +110,7 @@ Physics::Collision::Components::ColliderComponent2D& Apple::GetColliderComponent
   return *this->colliderComponent;
 }
 
-Renderer2D::Component::IRenderComponent2D& Apple::GetRendererComponent2D() const
+Core::Components::IRenderComponent2D& Apple::GetRendererComponent2D() const
 {
   return *this->renderComponent;
 }

@@ -1,14 +1,16 @@
 #pragma once
 #include "core/color.hpp"
-#include "renderer-2d/i-renderer.hpp"
+#include "core/i-renderer.hpp"
 
-namespace Renderer2D {
+struct Color;  // Raylib Color
+
+namespace Core {
 class IRenderer;
 }
 
 namespace RaylibFacade::Renderer {
 
-class RaylibRendererFacade final : public Renderer2D::IRenderer {
+class RaylibRendererFacade final : public Core::IRenderer {
  public:
   explicit RaylibRendererFacade();
   ~RaylibRendererFacade() override;
@@ -20,4 +22,4 @@ class RaylibRendererFacade final : public Renderer2D::IRenderer {
   void DrawRectangle(float x, float y, float width, float height, Core::Color) override;
   static Color ConvertToRaylibColor(Core::Color color);
 };
-}  // namespace RaylibAdapter::Renderer
+}  // namespace RaylibFacade::Renderer

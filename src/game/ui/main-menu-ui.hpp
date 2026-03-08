@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include "user-interface/i-game-ui.hpp"
+#include "core/i-game-ui.hpp"
 
 namespace UserInterface {
 class IUserInterface;
@@ -12,7 +12,7 @@ class IUserInterface;
 namespace Game {
 struct GameSettings;
 
-class MainMenuUI final : public UserInterface::IGameUI {
+class MainMenuUI final : public Core::IGameUI {
  public:
   explicit MainMenuUI(UserInterface::IUserInterface& ui, GameSettings& settings);
   ~MainMenuUI() override;

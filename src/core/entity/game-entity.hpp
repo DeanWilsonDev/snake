@@ -15,9 +15,9 @@ class IComponent;
 namespace Core::Entity {
 
 struct GameEntityParams : EntityParams {
-  Core::Math::ITransform2D* transform = {nullptr};
+  Math::ITransform2D* transform = {nullptr};
 
-  GameEntityParams(Core::Math::ITransform2D* transform = nullptr, bool active = true)
+  GameEntityParams(Math::ITransform2D* transform = nullptr, bool active = true)
       : EntityParams(active), transform(transform)
   {
   }

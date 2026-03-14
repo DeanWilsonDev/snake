@@ -1,13 +1,13 @@
 
 #include "state-machine.hpp"
-#include "core/i-game-state.hpp"
+#include "core/state/i-game-state.hpp"
 
 #include <umbra/log.h>
 
 #include <memory>
 #include <utility>
 
-namespace Core {
+namespace Core::State {
 
 StateMachine::StateMachine(std::unique_ptr<IGameState> currentState)
     : currentState(std::move(currentState))
@@ -42,4 +42,4 @@ IGameState& StateMachine::GetCurrentState()
   return *this->currentState;
 }
 
-}  // namespace Core
+}  // namespace Core::State

@@ -1,15 +1,19 @@
 #pragma once
 #include "engine/dependency-injection/dependency-injector.hpp"
 #include "config/engine-config.hpp"
-#include "debug/i-debug-hud.hpp"
+#include "core/debug/i-debug-hud.hpp"
 #include <memory>
 
 namespace Core {
 class IGame;
+namespace State{
 class IStateMachine;
 class IGameState;
+}
+namespace Rendering {
 class RenderComponent2DManager;
 class IRenderer;
+}  // namespace Rendering
 }  // namespace Core
 
 namespace UserInterface {
@@ -36,7 +40,7 @@ struct ApplicationParams {
   Engine::DependencyInjector& injector;
   Config::EngineConfig& engineConfig;
   Config::ProjectSettings& projectSettings;
-  Core::RenderComponent2DManager& renderComponent2dManager;
+  Core::Rendering::RenderComponent2DManager& renderComponent2dManager;
 };
 
 class Application {
@@ -52,12 +56,12 @@ class Application {
   Config::EngineConfig& engineConfig;
   Config::ProjectSettings& projectSettings;
   std::shared_ptr<Core::IGame> game = nullptr;
-  std::shared_ptr<Core::IStateMachine> stateMachine = nullptr;
+  std::shared_ptr<Core::State::IStateMachine> stateMachine = nullptr;
   std::shared_ptr<Platform::Window::IWindow> window = nullptr;
-  std::shared_ptr<Core::IRenderer> renderer2d = nullptr;
+  std::shared_ptr<Core::Rendering::IRenderer> renderer2d = nullptr;
   std::shared_ptr<Platform::Input::IInputBackend> input = nullptr;
   std::shared_ptr<UserInterface::IUserInterface> userInterface = nullptr;
-  std::shared_ptr<Debug::IDebugHUD> debugHud = nullptr;
-  Core::RenderComponent2DManager& renderComponent2dManager;
+  std::shared_ptr<Core::Debug::IDebugHUD> debugHud = nullptr;
+  Core::Rendering::RenderComponent2DManager& renderComponent2dManager;
 };
 }  // namespace Engine

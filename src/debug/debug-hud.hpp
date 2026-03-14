@@ -1,5 +1,10 @@
 #pragma once
 
+#include <format>
+#include <variant>
+#include <type_traits>
+#include <cstddef>
+#include <variant>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -7,11 +12,11 @@
 #include <functional>
 #include "debug-node.hpp"
 #include "debug-value.hpp"
-#include "debug/i-debug-hud.hpp"
+#include "core/debug/i-debug-hud.hpp"
 
 namespace Debug {
 
-class DebugHUD : public IDebugHUD {
+class DebugHUD : public Core::Debug::IDebugHUD {
  public:
   DebugHUD();
   ~DebugHUD() override;
@@ -41,5 +46,42 @@ class DebugHUD : public IDebugHUD {
   ) const;
 
   static void PrintNode(const std::string& key, DebugNode* node, int indent);
+
+  template <typename... Args>
+  void FormatPathAndSet(
+      std::variant<int, size_t, float, std::string, bool> value,
+      const std::format_string<Args...> format, Args&&... args
+  )
+  {
+    DebugValue debugValue{};
+    std::visit(
+        [&](const auto& x) {
+          using T = std::decay_t<decltype(x)>;
+          if constexpr (std::is_same_v<T, int>) {
+            debugValue = DebugValue::FromNumber(x);
+          }
+          if constexpr (std::is_same_v<T, size_t>) {
+            debugValue = DebugValue::FromNumber(x);
+          }
+          if constexpr (std::is_same_v<T, float>) {
+            debugValue = DebugValue::FromNumber(x);
+          }
+          if constexpr (std::is_same_v<T, double>) {
+            debugValue = DebugValue::FromNumber(x);
+          }
+          if constexpr (std::is_same_v<T, std::string>) {
+            debugValue = DebugValue::FromString(x);
+          }
+          if constexpr (std::is_same_v<T, bool>) {
+            debugValue = DebugValue::FromBool(x);
+          }
+        },
+        value
+    );
+
+    std::string path = std::format(format, std::forward<Args>(args)...);
+    this->Set(path, debugValue);
+  }
 };
+
 }  // namespace Debug

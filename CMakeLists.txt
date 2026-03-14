@@ -54,8 +54,8 @@ add_executable(
   src/game/game-state/gameplay-state.cpp
   src/renderer-2d/components/render-component-2d.cpp
   src/core/entity/entity.cpp
-  src/core/render-component-2d-manager.cpp
-  src/core/user-interface-manager.cpp
+  src/core/rendering/render-component-2d-manager.cpp
+  src/core/user-interface/user-interface-manager.cpp
   src/game/ui/main-menu-ui.cpp
   src/game/game-state/main-menu-state.cpp
   src/raylib-facade/input/raylib-input-backend-facade.cpp
@@ -67,8 +67,10 @@ add_executable(
   src/game/ui/gameplay-ui.cpp
   src/core/entity/game-entity-manager.cpp
   src/core/entity/game-entity.cpp
-  src/core/state-machine.cpp
+  src/core/state/state-machine.cpp
   src/core/components/transform-component-2d.cpp
+  src/core/color/color-rgba.cpp
+  src/core/color/color-hex.cpp
   src/debug/debug-hud.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)

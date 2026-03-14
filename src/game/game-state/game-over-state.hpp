@@ -1,14 +1,14 @@
 #pragma once
 
 #include "game/game-state/gameplay-state-machine.hpp"
-#include "core/i-game-state.hpp"
+#include "core/state/i-game-state.hpp"
 #include <memory>
 
 namespace Game {
 
 class GameOverUI;
 
-class GameOverState final : public Core::IGameState {
+class GameOverState final : public Core::State::IGameState {
  public:
   explicit GameOverState(GameContext& gameContext);
   ~GameOverState() override = default;
@@ -17,7 +17,7 @@ class GameOverState final : public Core::IGameState {
   void Update([[maybe_unused]] float deltaTime) override;
   void DebugUpdate() override;
   void Exit() override;
-  std::unique_ptr<Core::IGameState> GetNextState() override;
+  virtual std::unique_ptr<Core::State::IGameState> GetNextState() override;
 
  private:
   GameContext& gameContext;

@@ -1,13 +1,13 @@
 #include "application.hpp"
 #include <umbra/log.h>
 #include "config/project-settings.hpp"
+#include "core/color/color.hpp"
 #include "engine/dependency-injection/dependency-injector.hpp"
-#include "core/color.hpp"
+#include "core/debug/i-debug-hud.hpp"
 #include "debug/debug.hpp"
-#include "core/i-renderer.hpp"
+#include "core/rendering/i-renderer.hpp"
 #include "platform/input/i-input-backend.hpp"
 #include "user-interface/i-user-interface.hpp"
-#include "debug/i-debug-hud.hpp"
 
 #include <memory>
 #include <cassert>
@@ -28,11 +28,11 @@ Application::Application(const ApplicationParams& params)
 {
   LOG_CORE_TRACE("[Application] Initializing");
   this->window = injector.Resolve<Platform::Window::IWindow>();
-  this->renderer2d = injector.Resolve<Core::IRenderer>();
-  this->stateMachine = injector.Resolve<Core::IStateMachine>();
+  this->renderer2d = injector.Resolve<Core::Rendering::IRenderer>();
+  this->stateMachine = injector.Resolve<Core::State::IStateMachine>();
   this->input = injector.Resolve<Platform::Input::IInputBackend>();
   this->userInterface = injector.Resolve<UserInterface::IUserInterface>();
-  Debug::System.SetActiveDebugHUD(injector.Resolve<Debug::IDebugHUD>());
+  Debug::System.SetActiveDebugHUD(injector.Resolve<Core::Debug::IDebugHUD>());
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&window));
   LOG_CORE_TRACE("[Application] Renderer2D set to {}", static_cast<void*>(&renderer2d));
@@ -103,7 +103,7 @@ void Application::Run() const
 
     // RENDERING:
     this->renderer2d->BeginDrawing();
-    this->renderer2d->ClearBackground(Core::COLOR_BLACK);
+    this->renderer2d->ClearBackground(Core::Color::Black);
     if (game) {
       this->game->Render();
     }

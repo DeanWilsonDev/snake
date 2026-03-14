@@ -4,21 +4,25 @@
 
 #include "core/entity/game-entity-manager.hpp"
 #include "core/entity/entity.hpp"
-#include "core/components/i-render-component-2d.hpp"
-#include "core/render-component-2d-manager.hpp"
+#include "core/rendering/components/i-render-component.hpp"
+#include "core/rendering/i-renderer.hpp"
+#include "core/rendering/render-component-2d-manager.hpp"
 #include <vector>
 
 namespace Core {
 
-GameEntityManager::GameEntityManager(const RenderComponent2DManager& renderManager)
+GameEntityManager::GameEntityManager(Rendering::RenderComponent2DManager* renderManager)
     : renderManager(renderManager)
 {
 }
 
 void GameEntityManager::AddEntity(Entity::Entity* entity)
 {
+  if (!entity) {
+    return;
+  }
   this->entities.push_back(entity);
-  this->renderManager.Register(entity->GetComponent<Component::IRenderComponent2D>());
+  this->renderManager->Register(entity->GetComponent<Rendering::Components::IRenderComponent>());
 }
 
 void GameEntityManager::Update(const float deltaTime)
@@ -39,9 +43,9 @@ void GameEntityManager::DebugUpdate()
   }
 }
 
-void GameEntityManager::Render() const
+void GameEntityManager::Render(const Rendering::IRenderer& renderer) const
 {
-  this->renderManager.RenderAll();
+  this->renderManager->Render(renderer);
 }
 
 }  // namespace Core

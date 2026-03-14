@@ -16,6 +16,7 @@
  */
 
 namespace Core {
+namespace Debug {
 
 class IDebugable {
  public:
@@ -24,4 +25,5 @@ class IDebugable {
   [[maybe_unused]] virtual void DebugRender() {};
 };
 
+}  // namespace Debug
 }  // namespace Core

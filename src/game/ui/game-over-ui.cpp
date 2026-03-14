@@ -16,7 +16,7 @@ GameOverUI::GameOverUI(UserInterface::IUserInterface& ui, GameSettings& settings
 {
 }
 
-void GameOverUI::Render()
+void GameOverUI::OnDrawUI()
 {
   const auto screenWidth = static_cast<float>(this->settings.GetScreenWidth());
 
@@ -25,6 +25,6 @@ void GameOverUI::Render()
 
   std::snprintf(this->scoreBuffer, sizeof(this->scoreBuffer), "Score: %d", this->score);
   this->ui.DrawTextCentered(this->scoreBuffer, {screenWidth / 2.0f, 150.0f}, 20);
-}
+};
 
 }  // namespace Game

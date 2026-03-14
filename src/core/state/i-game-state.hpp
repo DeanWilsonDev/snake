@@ -1,11 +1,12 @@
 #pragma once
 
 #include <memory>
-#include "core/i-debugable.hpp"
+#include "core/debug/i-debugable.hpp"
 #include "core/i-updatable.hpp"
 namespace Core {
+namespace State {
 
-class IGameState : public IUpdatable, IDebugable {
+class IGameState : public IUpdatable, Debug::IDebugable {
  public:
   virtual ~IGameState() = default;
   virtual void Enter() = 0;
@@ -14,4 +15,5 @@ class IGameState : public IUpdatable, IDebugable {
   virtual void Exit() = 0;
   virtual std::unique_ptr<IGameState> GetNextState() = 0;
 };
+}  // namespace State
 }  // namespace Core

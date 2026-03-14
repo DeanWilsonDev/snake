@@ -9,27 +9,26 @@
 #include <core/i-updatable.hpp>
 #include "core/i-game.hpp"
 #include "core/entity/game-entity-manager.hpp"
-#include "core/render-component-2d-manager.hpp"
+#include "core/rendering/render-component-2d-manager.hpp"
 #include "core/user-interface-manager.hpp"
 
 namespace Core {
-class RenderComponent2DManager;
 class UserInterfaceManager;
 
+namespace Math {
+struct Transform2D;
+struct Vector2D;
+}  // namespace Math
+namespace Geometry {
+struct Rectangle;
+}  // namespace Geometry
+
+namespace Rendering {
+class RenderComponent2DManager;
 namespace Components {
 class IRenderComponent2D;
 }
-
-namespace Core::Math {
-struct Transform2D;
-struct Vector2D;
-
-namespace Geometry {
-struct Rectangle;
-
-}
-
-}  // namespace Core::Math
+}  // namespace Rendering
 }  // namespace Core
 
 namespace Engine {
@@ -51,7 +50,7 @@ class Game final : public Core::IGame {
  public:
   explicit Game(
       Engine::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
-      Core::RenderComponent2DManager& renderManager
+      Core::Rendering::RenderComponent2DManager& renderManager
   );
 
   ~Game() override;
@@ -66,7 +65,7 @@ class Game final : public Core::IGame {
   Engine::DependencyInjector& injector;
   std::unique_ptr<GameSettings> settings{nullptr};
   Engine::Config::ProjectSettings& projectSettings;
-  Core::RenderComponent2DManager& renderManager;
+  Core::Rendering::RenderComponent2DManager& renderManager;
   std::shared_ptr<Core::GameEntityManager> gameEntityManager;
   std::shared_ptr<Core::UserInterfaceManager> userInterfaceManager;
   std::shared_ptr<GameplayStateMachine> gameplayStateMachine;

@@ -14,13 +14,12 @@
 #include "game-state/gameplay-state-machine.hpp"
 #include "platform/input/i-input-backend.hpp"
 #include "platform/window/i-window.h"
-#include "core/i-renderer.hpp"
+#include "core/rendering/i-renderer.hpp"
 #include "user-interface/i-user-interface.hpp"
-#include "core/render-component-2d-manager.hpp"
+#include "core/rendering/render-component-2d-manager.hpp"
 #include "renderer-2d/components/render-component-2d.hpp"
 #include "settings/game-settings.hpp"
 #include "core/i-state-machine.hpp"
-#include "game-state/main-menu-state.hpp"
 #include "game-objects/snake-segment.hpp"
 #include "core/user-interface-manager.hpp"
 
@@ -31,7 +30,7 @@ namespace Game {
 
 Game::Game(
     Engine::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
-    Core::RenderComponent2DManager& renderManager
+    Core::Rendering::RenderComponent2DManager& renderManager
 )
     : injector(injector), projectSettings(projectSettings), renderManager(renderManager)
 {
@@ -61,8 +60,9 @@ void Game::Initialize()
 
   LOG_TRACE("[Game] Setting up GameEntityManager");
   this->gameEntityManager = std::make_shared<Core::GameEntityManager>(this->renderManager);
+  assert(this->gameEntityManager);
 
-  LOG_TRACE("[Game] Setting up GameEntityManager");
+  LOG_TRACE("[Game] Setting up UserInterfaceManager");
   this->userInterfaceManager = std::make_shared<Core::UserInterfaceManager>(this->renderManager);
 
   this->settings = make_unique<GameSettings>();
@@ -71,7 +71,7 @@ void Game::Initialize()
 
   settings->Print();
 
-  const auto renderer = injector.Resolve<Core::IRenderer>();
+  const auto renderer = injector.Resolve<Core::Rendering::IRenderer>();
   if (!renderer) {
     LOG_FATAL("[Game] Failed to initialize Renderer");
     assert(renderer);
@@ -107,14 +107,14 @@ void Game::Initialize()
   this->gameplayStateMachine->SetRenderer(*renderer);
 
   LOG_TRACE("[Game] Set GameEntityMangager on Gameplay State Machine");
-  assert(this->gameEntityManager);
   this->gameplayStateMachine->SetGameEntityManager(this->gameEntityManager);
 
-  for (const auto& segment : this->snake->body) {
-    assert(segment);
-    this->renderManager.Register(&segment->GetRendererComponent2D());
-  }
-  this->renderManager.Register(&apple->GetRendererComponent2D());
+  
+  // for (const auto& segment : this->snake->body) {
+  //   assert(segment);
+  //   this->renderManager.Register(&segment->GetRendererComponent2D());
+  // }
+  // this->renderManager.Register(&apple->GetRendererComponent2D());
 }
 
 // MAIN QUEST: Think about renderables and updatables and who should be responsible for rendering

@@ -1,9 +1,8 @@
 #include "raylib-user-interface-facade.hpp"
-#include "debug/i-debug-hud.hpp"
+#include "core/debug/i-debug-hud.hpp"
 #include "debug/debug-node.hpp"
 #include "raylib.h"
 #include <umbra/log.h>
-#include <memory>
 #include <string>
 #include "core/math/vector-2d.hpp"
 
@@ -22,7 +21,7 @@ void RaylibUserInterfaceFacade::DrawTextCentered(
   DrawText(text, position.x, position.y, fontSize, {255, 255, 255, 255});
 }
 
-void RaylibUserInterfaceFacade::RenderDebugHUD(const Debug::IDebugHUD& debugHUD) 
+void RaylibUserInterfaceFacade::RenderDebugHUD(const Core::Debug::IDebugHUD& debugHUD)
 {
   int y = 10;
   int lineCount = 0;

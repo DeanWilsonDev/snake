@@ -1,14 +1,14 @@
 #include "apple.hpp"
 #include <memory>
 #include "core/entity/game-entity.hpp"
-#include "core/color.hpp"
+#include "core/color/color.hpp"
 #include "debug/debug.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/core.hpp"
 #include "core/math/size-2d.hpp"
 #include "core/components/transform-component-2d.hpp"
-#include "core/components/i-render-component-2d.hpp"
+#include "core/rendering/components/i-render-component-2d.hpp"
 #include "renderer-2d/components/render-component-2d.hpp"
 #include "umbra/log.h"
 
@@ -28,9 +28,10 @@ Apple::Apple(const AppleParams& params)
       static_cast<void*>(&this->transformComponent)
   );
 
-  // SIDE QUEST: Ideally, the Game should just be able to call a factory to get a IRenderComponent2D and have the factory determine which component we are using
+  // SIDE QUEST: Ideally, the Game should just be able to call a factory to get a IRenderComponent2D
+  // and have the factory determine which component we are using
   this->renderComponent = make_unique<Renderer2D::Components::RenderComponent2D>(
-      *this->transformComponent, Core::COLOR_RED, this->GetActive()
+      *this->transformComponent, Core::Color::Red, this->GetActive()
   );
 
   LOG_TRACE(
@@ -110,7 +111,7 @@ Physics::Collision::Components::ColliderComponent2D& Apple::GetColliderComponent
   return *this->colliderComponent;
 }
 
-Core::Components::IRenderComponent2D& Apple::GetRendererComponent2D() const
+Core::Rendering::Components::IRenderComponent2D& Apple::GetRendererComponent2D() const
 {
   return *this->renderComponent;
 }

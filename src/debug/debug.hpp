@@ -1,30 +1,30 @@
 #pragma once
 #include <utility>
 #include <memory>
-#include "i-debug-hud.hpp"
+#include "core/debug/i-debug-hud.hpp"
 
 namespace Debug {
 
 class DebugSystem {
  public:
-  IDebugHUD& GetActiveDebugHUD() const;
-  void SetActiveDebugHUD(std::shared_ptr<IDebugHUD> hud);
+  Core::Debug::IDebugHUD& GetActiveDebugHUD() const;
+  void SetActiveDebugHUD(std::shared_ptr<Core::Debug::IDebugHUD> hud);
   bool GetDebugMode() const;
   void SetDebugMode(bool enabled);
 
  private:
   bool debugMode = {true};
-  std::shared_ptr<IDebugHUD> activeDebugHUD;
+  std::shared_ptr<Core::Debug::IDebugHUD> activeDebugHUD;
 };
 
 inline DebugSystem System;
 
-inline IDebugHUD& DebugSystem::GetActiveDebugHUD() const
+inline Core::Debug::IDebugHUD& DebugSystem::GetActiveDebugHUD() const
 {
   return *this->activeDebugHUD;
 }
 
-inline void DebugSystem::SetActiveDebugHUD(std::shared_ptr<IDebugHUD> hud)
+inline void DebugSystem::SetActiveDebugHUD(std::shared_ptr<Core::Debug::IDebugHUD> hud)
 {
   this->activeDebugHUD = std::move(hud);
 }

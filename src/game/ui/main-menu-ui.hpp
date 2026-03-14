@@ -16,7 +16,11 @@ class MainMenuUI final : public Core::IGameUI {
  public:
   explicit MainMenuUI(UserInterface::IUserInterface& ui, GameSettings& settings);
   ~MainMenuUI() override;
+
   void Render() override;
+  [[maybe_unused]] virtual void Update([[maybe_unused]] float deltaTime) override;
+  [[maybe_unused]] virtual void DebugRender() override;
+  [[maybe_unused]] virtual void DebugUpdate() override;
 
  private:
   char scoreBuffer[100] = {0};

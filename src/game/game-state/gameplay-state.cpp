@@ -67,9 +67,6 @@ void GameplayState::Enter()
 
   // MAIN QUEST: Display UI Dynamically
   // this->gameplayStateMachine.SetGameUI(*this->gameplayUI);
-
-
-  
 }
 
 void GameplayState::Update(float)

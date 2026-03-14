@@ -11,7 +11,7 @@
 #include "raylib-facade/input/raylib-input-backend-facade.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
 #include "raylib-facade/user-interface/raylib-user-interface-facade.hpp"
-#include "core/render-component-2d-manager.hpp"
+#include "core/rendering/render-component-2d-manager.hpp"
 
 #include <umbra/log.h>
 #include <memory>
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
   Engine::DependencyInjector injector;
 
   injector.Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
-  injector.Register<Core::IRenderer, RaylibFacade::Renderer::RaylibRendererFacade>();
+  injector.Register<Core::Rendering::IRenderer, RaylibFacade::Renderer::RaylibRendererFacade>();
   injector
       .Register<Platform::Input::IInputBackend, RaylibFacade::Input::RaylibInputBackendFacade>();
   injector.Register<
@@ -44,14 +44,14 @@ int main(int argc, char* argv[])
   // 1UP: Need a better way of defining ProjectSettings in the future
   auto projectSettings = Engine::Config::ProjectSettings("Snake");
 
-  const auto renderer2d = injector.Resolve<Core::IRenderer>();
+  const auto renderer2d = injector.Resolve<Core::Rendering::IRenderer>();
   if (!renderer2d) {
     LOG_FATAL("[Main] Renderer2D could not be instantiated!");
     return -1;
   }
 
   LOG_TRACE("[Main] Setting up RenderComponent2DManager");
-  auto renderManager = Core::RenderComponent2DManager(renderer2d);
+  auto renderManager = Core::Rendering::RenderComponent2DManager(renderer2d);
 
   const auto params = Engine::ApplicationParams{
       .injector = injector,

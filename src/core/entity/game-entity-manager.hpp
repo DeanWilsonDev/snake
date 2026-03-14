@@ -3,25 +3,31 @@
 //
 
 #pragma once
-#include "core/i-debugable.hpp"
+#include "core/debug/i-debugable.hpp"
 #include "core/i-updatable.hpp"
-#include "core/render-component-2d-manager.hpp"
+#include "core/rendering/i-render-manager.hpp"
 #include "core/entity/entity.hpp"
+#include "core/rendering/render-component-2d-manager.hpp"
 
 #include <vector>
 
 namespace Core {
-class GameEntityManager : public IUpdatable, IDebugable {
+
+namespace Rendering {
+class IRenderer;
+}
+
+class GameEntityManager : public IUpdatable, Debug::IDebugable, Rendering::IRenderManager {
  public:
-  GameEntityManager(const RenderComponent2DManager& renderManager);
+  GameEntityManager(Rendering::RenderComponent2DManager* renderManager);
   void AddEntity(Entity::Entity* entity);
   void Update(float deltaTime) override;
   void DebugUpdate() override;
-  void Render() const;
+  void Render(const Rendering::IRenderer& renderer) const override;
 
  private:
   std::vector<Entity::Entity*> entities;
-  RenderComponent2DManager renderManager;
+  Rendering::RenderComponent2DManager* renderManager;
 };
 
 }  // namespace Core

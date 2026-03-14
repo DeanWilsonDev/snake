@@ -4,7 +4,7 @@
 #pragma once
 
 #include "core/components/i-component.hpp"
-#include "core/i-debugable.hpp"
+#include "core/debug/i-debugable.hpp"
 #include <cassert>
 #include <typeindex>
 #include <unordered_map>
@@ -18,7 +18,7 @@ struct EntityParams {
   EntityParams(bool active = true) : active(active) {}
 };
 
-class Entity : public Core::IDebugable {
+class Entity : public Core::Debug::IDebugable {
  public:
   explicit Entity(const EntityParams& params);
   virtual ~Entity() = 0;

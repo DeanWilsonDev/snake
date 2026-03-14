@@ -1,16 +1,17 @@
 #pragma once
 #include "core/entity/game-entity-manager.hpp"
-#include "core/state-machine.hpp"
-#include "core/i-game-state.hpp"
+#include "core/state/state-machine.hpp"
+#include "core/state/i-game-state.hpp"
 #include "engine/input/input-system.hpp"
 #include "game/settings/game-settings.hpp"
-#include "core/i-game-ui.hpp"
 
 #include <memory>
 
 namespace Core {
+namespace Rendering {
 class IRenderer;
 class RenderComponent2DManager;
+}  // namespace Rendering
 }  // namespace Core
 
 namespace Game {
@@ -22,18 +23,17 @@ struct GameContext {
   int score = {0};
   std::unique_ptr<GameSettings> settings = {nullptr};
   std::unique_ptr<Engine::Input::InputSystem> input = {nullptr};
-  std::unique_ptr<Core::IGameUI> gameUI = {nullptr};
 };
 
-class GameplayStateMachine final : public Core::StateMachine {
+class GameplayStateMachine final : public Core::State::StateMachine {
  public:
-  explicit GameplayStateMachine(std::unique_ptr<Core::IGameState> currentState = nullptr);
+  explicit GameplayStateMachine(std::unique_ptr<Core::State::IGameState> currentState = nullptr);
   ~GameplayStateMachine() override;
   void Update(float deltaTime) override;
   void DebugUpdate() override;
 
-  [[nodiscard]] Core::IRenderer* GetRenderer() const { return this->renderer; }
-  [[nodiscard]] Core::RenderComponent2DManager* GetRenderManager() const
+  [[nodiscard]] Core::Rendering::IRenderer* GetRenderer() const { return this->renderer; }
+  [[nodiscard]] Core::Rendering::RenderComponent2DManager* GetRenderManager() const
   {
     return this->renderManager;
   }
@@ -42,8 +42,8 @@ class GameplayStateMachine final : public Core::StateMachine {
   void SetSnake(Snake& snake);
   void SetApple(Apple& apple);
   void SetGameEntityManager(std::shared_ptr<Core::GameEntityManager> gameEntityManager);
-  void SetRenderer(Core::IRenderer& renderer) { this->renderer = &renderer; }
-  void SetRenderManager(Core::RenderComponent2DManager& renderManager)
+  void SetRenderer(Core::Rendering::IRenderer& renderer) { this->renderer = &renderer; }
+  void SetRenderManager(Core::Rendering::RenderComponent2DManager& renderManager)
   {
     this->renderManager = &renderManager;
   }
@@ -51,8 +51,8 @@ class GameplayStateMachine final : public Core::StateMachine {
 
  private:
   GameContext gameContext;
-  Core::RenderComponent2DManager* renderManager = nullptr;
+  Core::Rendering::RenderComponent2DManager* renderManager = nullptr;
   std::shared_ptr<Core::GameEntityManager> gameEntityManager = nullptr;
-  Core::IRenderer* renderer = nullptr;
+  Core::Rendering::IRenderer* renderer = nullptr;
 };
 }  // namespace Game

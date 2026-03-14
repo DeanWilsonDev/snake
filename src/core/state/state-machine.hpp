@@ -4,11 +4,14 @@
 
 #pragma once
 
-#include "core/i-state-machine.hpp"
-#include "core/i-game-state.hpp"
+#include "core/state/i-state-machine.hpp"
+#include "core/state/i-game-state.hpp"
 #include <memory>
 
 namespace Core {
+
+  namespace State{
+
 
 class StateMachine : public IStateMachine {
  public:
@@ -24,3 +27,5 @@ class StateMachine : public IStateMachine {
 };
 
 }  // namespace Core
+  }
+

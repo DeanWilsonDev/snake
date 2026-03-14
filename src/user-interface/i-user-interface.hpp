@@ -1,6 +1,6 @@
 #pragma once
 
-#include "debug/i-debug-hud.hpp"
+#include "core/debug/i-debug-hud.hpp"
 namespace Core::Math {
 struct Vector2D;
 }
@@ -10,7 +10,9 @@ namespace UserInterface {
 class IUserInterface {
  public:
   virtual ~IUserInterface() = default;
-  virtual void DrawTextCentered(const char* text, Core::Math::Vector2D position, float fontSize) = 0;
-  virtual void RenderDebugHUD(const Debug::IDebugHUD& debugHUD) = 0;
+  virtual void DrawTextCentered(
+      const char* text, Core::Math::Vector2D position, float fontSize
+  ) = 0;
+  virtual void RenderDebugHUD(const Core::Debug::IDebugHUD& debugHUD) = 0;
 };
 }  // namespace UserInterface

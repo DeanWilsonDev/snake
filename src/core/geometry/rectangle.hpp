@@ -15,8 +15,7 @@ struct Rectangle {
   Rectangle(const float x, const float y, const float width, const float height)
       : x(x), y(y), width(width), height(height) {};
 
-  Rectangle(const Core::Math::Vector2D position, const Core::Math::Size2D size)
+  Rectangle(const Math::Vector2D position, const Math::Size2D size)
       : x(position.x), y(position.y), width(size.width), height(size.height) {};
-
 };
 }  // namespace Core::Geometry

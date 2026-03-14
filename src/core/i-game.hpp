@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include "core/i-debugable.hpp"
+#include "core/debug/i-debugable.hpp"
 
 namespace Core {
 
-class IGame: public IDebugable {
+class IGame: public Debug::IDebugable {
 public:
   virtual ~IGame() = default;
 

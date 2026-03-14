@@ -3,21 +3,30 @@
 //
 
 #pragma once
-#include "core/i-game-ui.hpp"
+#include <memory>
+#include "core/rendering/components/i-render-component-ui.hpp"
+#include "core/user-interface/i-game-ui.hpp"
 
 namespace UserInterface {
 class IUserInterface;
 }
 namespace Game {
 struct GameSettings;
-class GameOverUI final : public Core::IGameUI {
+class GameOverUI final : public Core::UserInterface::IGameUI {
  public:
   explicit GameOverUI(UserInterface::IUserInterface& ui, GameSettings& settings, int& score);
-  ~GameOverUI() override = default;
-  void Render() override;
+  virtual ~GameOverUI() override {};
+  virtual void OnDrawUI() override;
+
+  [[nodiscard]] virtual Core::Rendering::Components::IRenderComponentUI&
+  GetRenderComponentUI() const override
+  {
+    return *this->renderComponent;
+  };
 
  private:
   UserInterface::IUserInterface& ui;
+  std::unique_ptr<Core::Rendering::Components::IRenderComponentUI> renderComponent;
   GameSettings& settings;
   int& score;
   char scoreBuffer[100] = {0};

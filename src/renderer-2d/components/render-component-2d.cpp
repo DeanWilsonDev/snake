@@ -3,20 +3,20 @@
 //
 
 #include "renderer-2d/components/render-component-2d.hpp"
-#include "core/color.hpp"
+#include "core/color/color-rgba.hpp"
 #include "core/math/i-transform-2d.hpp"
-#include "core/i-renderer.hpp"
+#include "core/rendering/i-renderer.hpp"
 
 namespace Renderer2D::Components {
 
 RenderComponent2D::RenderComponent2D(
-    Core::Math::ITransform2D& transform, const Core::Color color, bool& active
+    Core::Math::ITransform2D& transform, const Core::Color::ColorRGBA color, bool& active
 )
     : transform(transform), color(color), active(active)
 {
 }
 
-void RenderComponent2D::Render(Core::IRenderer& renderer) const
+void RenderComponent2D::Render(Core::Rendering::IRenderer& renderer) const
 {
   if (!active) {
     return;

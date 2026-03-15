@@ -1,13 +1,19 @@
 #include "application.hpp"
-#include <umbra/log.h>
 #include "config/project-settings.hpp"
 #include "core/color/color.hpp"
+#include "core/user-interface/user-interface-manager.hpp"
+#include "core/user-interface/i-user-interface-manager.hpp"
+#include "engine/config/application-config.hpp"
 #include "engine/dependency-injection/dependency-injector.hpp"
 #include "core/debug/i-debug-hud.hpp"
 #include "debug/debug.hpp"
+#include "debug/debug-hud.hpp"
 #include "core/rendering/i-renderer.hpp"
 #include "platform/input/i-input-backend.hpp"
 #include "user-interface/i-user-interface.hpp"
+#include "core/i-dependency-injector.hpp"
+
+#include <umbra/log.h>
 
 #include <memory>
 #include <cassert>
@@ -16,23 +22,21 @@
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "platform/window/i-window.h"
 #include "core/i-game.hpp"
+#include "engine/game/game.hpp"
+#include <utility>
 
 namespace Engine {
 
-Application::Application(const ApplicationParams& params)
-    : injector(params.injector)
-    , engineConfig(params.engineConfig)
-    , projectSettings(params.projectSettings)
-    , renderComponent2dManager(params.renderComponent2dManager)
-
+Application::Application(std::unique_ptr<Game> game)
+    : game(std::move(game)), injector(std::make_unique<DependencyInjector>())
 {
   LOG_CORE_TRACE("[Application] Initializing");
-  this->window = injector.Resolve<Platform::Window::IWindow>();
-  this->renderer2d = injector.Resolve<Core::Rendering::IRenderer>();
-  this->stateMachine = injector.Resolve<Core::State::IStateMachine>();
-  this->input = injector.Resolve<Platform::Input::IInputBackend>();
-  this->userInterface = injector.Resolve<UserInterface::IUserInterface>();
-  Debug::System.SetActiveDebugHUD(injector.Resolve<Core::Debug::IDebugHUD>());
+  this->window = this->injector->Resolve<Platform::Window::IWindow>();
+  this->renderer2d = this->injector->Resolve<Core::Rendering::IRenderer>();
+  this->stateMachine = this->injector->Resolve<Core::State::IStateMachine>();
+  this->input = this->injector->Resolve<Platform::Input::IInputBackend>();
+  this->userInterface = this->injector->Resolve<UserInterface::IUserInterface>();
+  Debug::System.SetActiveDebugHUD(this->injector->Resolve<Core::Debug::IDebugHUD>());
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&window));
   LOG_CORE_TRACE("[Application] Renderer2D set to {}", static_cast<void*>(&renderer2d));
@@ -51,20 +55,15 @@ Application::Application(const ApplicationParams& params)
 
 Application::~Application() = default;
 
-void Application::SetGame(std::shared_ptr<Core::IGame> game)
+void Application::Initialize()
 {
-  LOG_CORE_TRACE("[Application] Setting Game to {}", static_cast<void*>(&game));
-  this->game = game;
-  if (this->game) {
-    this->game->Initialize();
-  }
-}
+  const auto& debug = this->GetConfig().engine.debug;
+  Debug::System.SetDebugMode(debug.enabled);
+  Umbra::Logging::Log::init("log.csv", debug.enabled);
 
-void Application::Run() const
-{
   LOG_CORE_TRACE("[Application] Beginning Application");
-  const char* title =
-      projectSettings.GetTitle() ? projectSettings.GetTitle() : engineConfig.window.title;
+  const char* title = GetConfig().project.title;
+
   LOG_CORE_INFO("[Application] Starting Game: {}", title);
 
   // TODO: Extract this into a utils function
@@ -83,11 +82,38 @@ void Application::Run() const
   }
   this->window->CreateWindow(engineConfig.window.width, engineConfig.window.height, windowTitle);
   this->window->SetTargetFPS(engineConfig.window.targetFPS);
+}
 
+void Application::RegisterDependencies(Core::IDependencyInjector& injector)
+{
+  injector.Register<
+      Core::UserInterface::IUserInterfaceManager,
+      Core::UserInterface::UserInterfaceManager>();
+
+  // Debug
+  auto hud = std::make_shared<Debug::DebugHUD>();
+  injector.RegisterInstance<Core::Debug::IDebugHUD>(hud);
+}
+
+void Application::SetGame(std::unique_ptr<Core::IGame> game)
+{
+  LOG_CORE_TRACE("[Application] Setting Game to {}", static_cast<void*>(&game));
+  this->game = std::move(game);
+  if (this->game) {
+    this->game->Initialize();
+  }
+}
+
+void Application::Run()
+{
+  this->Configure(this->config);
+
+  this->RegisterDependencies(*this->injector);
+
+  this->Initialize();
   LOG_CORE_DEBUG("[Application] Window Should Close {}", this->window->ShouldClose());
 
   std::chrono::time_point lastTime = std::chrono::high_resolution_clock::now();
-
   LOG_CORE_TRACE("[Application] Beginning application loop");
   while (!this->window->ShouldClose()) {
     // Calculate DeltaTime
@@ -96,28 +122,56 @@ void Application::Run() const
     const float deltaTime = elapsedTime.count();
     lastTime = currentTime;
 
-    // UPDATE GAME:
-    if (game) {
-      this->game->Update(deltaTime);
-    }
+    this->Update(deltaTime);
 
-    // RENDERING:
-    this->renderer2d->BeginDrawing();
-    this->renderer2d->ClearBackground(Core::Color::Black);
-    if (game) {
-      this->game->Render();
-    }
+    this->DebugUpdate();
 
-    // DEBUGGING:
-    if (Debug::System.GetDebugMode()) {
-      // TODO: [APPLICATION]: have the ECS run the debug update function on all entities
-      this->game->DebugUpdate();
-      this->userInterface->RenderDebugHUD(Debug::System.GetActiveDebugHUD());
-    }
+    this->Render();
+
+    this->DebugRender();
 
     // FINISH:
     this->renderer2d->EndDrawing();
   }
+  Shutdown();
+  this->injector->Teardown();
+}
+
+void Application::Update(float deltaTime)
+{
+  if (this->game) {
+    this->game->Update(deltaTime);
+  }
+}
+
+void Application::DebugUpdate()
+{
+  // DEBUGGING:
+  if (Debug::System.GetDebugMode()) {
+    this->game->DebugUpdate();
+  }
+}
+
+void Application::Render()
+{
+  // RENDERING:
+  this->renderer2d->BeginDrawing();
+  this->renderer2d->ClearBackground(Core::Color::Black);
+  // MAIN QUEST: Sort out who is rendering and updating etc
+  if (game) {
+    this->game->Render();
+  }
+}
+void Application::DebugRender()
+{
+  if (this->GetConfig().debug.showDebugHud) {
+    this->game->DebugRender(Debug::System.GetActiveDebugHUD());
+  }
+}
+
+void Application::ShutDown()
+{
   this->window->CloseWindow();
 }
+
 }  // namespace Engine

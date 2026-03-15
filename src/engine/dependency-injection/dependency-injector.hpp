@@ -3,18 +3,19 @@
 //
 
 #pragma once
-#include <umbra/log.h>
-#include <exception>
-#include <stdexcept>
+
+#include "core/i-dependency-injector.hpp"
+
+#include <typeindex>
+#include <any>
 #include <functional>
-#include <string>
 #include <memory>
 #include <unordered_map>
 #include <typeindex>
 
 namespace Engine {
 
-class DependencyInjector {
+class DependencyInjector : public Core::IDependencyInjector {
  public:
   DependencyInjector() = default;
   ~DependencyInjector();
@@ -31,81 +32,23 @@ class DependencyInjector {
   template <typename Interface>
   std::shared_ptr<Interface> Resolve();
 
-  void Teardown();
+  virtual void Teardown() override;
 
   template <typename Interface>
   void Unregister();
 
+ protected:
+  virtual std::any ResolveImplementation(std::type_index type) override;
+  virtual void RegisterImplementation(
+      std::type_index type, std::function<std::any()> factory
+  ) override;
+  virtual void RegisterInstanceImplementation(std::type_index type, std::any instance) override;
+  virtual void RegisterSingletonImplementation(std::type_index type, std::any instance) override;
+  virtual void UnregisterImplementation(std::type_index type) override;
+
  private:
-  std::unordered_map<std::type_index, std::function<std::shared_ptr<void>()>> factories;
-  std::unordered_map<std::type_index, std::shared_ptr<void>> instances;
+  std::unordered_map<std::type_index, std::function<std::any()>> factories;
+  std::unordered_map<std::type_index, std::any> instances;
 };
 
-template <typename Interface, typename Implementation>
-void DependencyInjector::Register()
-{
-  factories[std::type_index(typeid(Interface))] = []() -> std::shared_ptr<void> {
-    return std::make_shared<Implementation>();
-  };
-}
-
-template <typename Interface>
-void DependencyInjector::RegisterInstance(const std::shared_ptr<Interface>& instance)
-{
-  instances[std::type_index(typeid(Interface))] = instance;
-}
-
-template <typename Interface, typename Implementation>
-void DependencyInjector::RegisterSingleton()
-{
-  auto instance = std::make_shared<Implementation>();
-  this->instances[std::type_index(typeid(Interface))] = instance;
-}
-
-template <typename Interface>
-std::shared_ptr<Interface> DependencyInjector::Resolve()
-{
-  const auto type = std::type_index(typeid(Interface));
-  LOG_CORE_TRACE("[DependencyInjector] Resolving {}", type.name());
-
-  // Check if an instance already exists
-  if (const auto itInstance = instances.find(type); itInstance != instances.end()) {
-    LOG_CORE_TRACE("[DependencyInjector] Instance for type: {} is being invoked", type.name());
-    return std::static_pointer_cast<Interface>(itInstance->second);
-  }
-
-  // Otherwise create a new instance using the factory
-  if (const auto itFactory = factories.find(type); itFactory != factories.end()) {
-    try {
-      LOG_CORE_TRACE("[DependencyInjector] Factory for type: {} is being invoked", type.name());
-      if (!itFactory->second) {
-        throw std::runtime_error("[DependencyInjector] Factory function is not callable.");
-      }
-
-      const auto rawInstance = itFactory->second();
-      if (!rawInstance) {
-        throw std::runtime_error(
-            "[DependencyInjector] Factory returned nullptr for the requested dependency."
-        );
-      }
-      instances[type] = rawInstance;  // Cache the instance
-      return std::static_pointer_cast<Interface>(rawInstance);
-    }
-    catch (const std::exception& e) {
-      throw std::runtime_error(
-          std::string("[DependencyInjector] Failed to resolve dependency: ", e.what())
-      );
-    }
-  }
-
-  throw std::runtime_error("[DependencyInjector] Dependency not registered!");
-}
-
-template <typename Interface>
-void DependencyInjector::Unregister()
-{
-  const auto type = std::type_index(typeid(Interface));
-  instances.erase(type);
-  factories.erase(type);
-}
 }  // namespace Engine

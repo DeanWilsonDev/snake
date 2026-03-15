@@ -6,7 +6,7 @@
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "game/game-objects/snake-segment.hpp"
 #include "core/entity/game-entity.hpp"
-#include "core/color.hpp"
+#include "core/color/color.hpp"
 #include "core/math/vector-2d.hpp"
 #include "renderer-2d/components/render-component-2d.hpp"
 
@@ -28,7 +28,7 @@ SnakeSegment::SnakeSegment(const SnakeSegmentParams& params)
       std::make_unique<Physics::Collision::Components::ColliderComponent2D>(colliderParams);
 
   this->renderComponent = make_unique<Renderer2D::Components::RenderComponent2D>(
-      *this->transformComponent, Core::COLOR_GREEN, this->GetActive()
+      *this->transformComponent, Core::Color::Green, this->GetActive()
   );
 }
 

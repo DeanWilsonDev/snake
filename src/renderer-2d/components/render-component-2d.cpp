@@ -16,7 +16,7 @@ RenderComponent2D::RenderComponent2D(
 {
 }
 
-void RenderComponent2D::Render(Core::Rendering::IRenderer& renderer) const
+void RenderComponent2D::Render(const Core::Rendering::IRenderer& renderer) const
 {
   if (!active) {
     return;

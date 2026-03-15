@@ -5,14 +5,14 @@
 #pragma once
 
 #include <memory>
-#include "core/i-game-state.hpp"
+#include "core/state/i-game-state.hpp"
 #include "gameplay-state-machine.hpp"
 
 namespace Game {
 
 class MainMenuUI;
 
-class MainMenuState final : public Core::IGameState {
+class MainMenuState final : public Core::State::IGameState {
  public:
   explicit MainMenuState(GameContext& context);
   ~MainMenuState() override = default;
@@ -21,7 +21,7 @@ class MainMenuState final : public Core::IGameState {
   void Update([[maybe_unused]] float deltaTime) override;
   void DebugUpdate() override;
   void Exit() override;
-  std::unique_ptr<Core::IGameState> GetNextState() override;
+  std::unique_ptr<Core::State::IGameState> GetNextState() override;
 
  private:
   GameContext& gameContext;

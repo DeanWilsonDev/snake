@@ -3,12 +3,10 @@
 //
 
 #include "main-menu-state.hpp"
-#include "core/i-game-state.hpp"
+#include "core/state/i-game-state.hpp"
 #include "engine/input/input-action.hpp"
 #include "game/game-state/gameplay-state.hpp"
 #include "gameplay-state-machine.hpp"
-#include "umbra/log.h"
-#include "game/ui/main-menu-ui.hpp"
 
 #include <cassert>
 #include <memory>
@@ -47,7 +45,7 @@ void MainMenuState::Exit()
   // this->gameplayStateMachine->ClearUI();
 }
 
-std::unique_ptr<Core::IGameState> MainMenuState::GetNextState()
+std::unique_ptr<Core::State::IGameState> MainMenuState::GetNextState()
 {
   return std::make_unique<GameplayState>(this->gameContext);
 }

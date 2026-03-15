@@ -13,9 +13,6 @@
 #include <vector>
 
 namespace Core {
-namespace UserInterface {
-class IGameUI;
-}
 
 namespace Math {
 struct Vector2D;
@@ -24,6 +21,9 @@ struct Vector2D;
 namespace Rendering {
 class IRenderer;
 }
+
+namespace UserInterface {
+class IGameUI;
 
 class UserInterfaceManager final : public IUpdatable, Debug::IDebugable, Rendering::IRenderManager {
  public:
@@ -42,4 +42,5 @@ class UserInterfaceManager final : public IUpdatable, Debug::IDebugable, Renderi
  private:
   std::vector<std::unique_ptr<UserInterface::IGameUI>> gameUIs;
 };
+}  // namespace UserInterface
 }  // namespace Core

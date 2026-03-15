@@ -10,8 +10,7 @@
 
 namespace Core {
 
-  namespace State{
-
+namespace State {
 
 class StateMachine : public IStateMachine {
  public:
@@ -26,6 +25,5 @@ class StateMachine : public IStateMachine {
   std::unique_ptr<IGameState> currentState = nullptr;
 };
 
+}  // namespace State
 }  // namespace Core
-  }
-

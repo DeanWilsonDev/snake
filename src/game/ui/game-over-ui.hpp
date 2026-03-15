@@ -25,8 +25,8 @@ class GameOverUI final : public Core::UserInterface::IGameUI {
   };
 
  private:
-  UserInterface::IUserInterface& ui;
   std::unique_ptr<Core::Rendering::Components::IRenderComponentUI> renderComponent;
+  UserInterface::IUserInterface& ui;
   GameSettings& settings;
   int& score;
   char scoreBuffer[100] = {0};

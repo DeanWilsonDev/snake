@@ -4,15 +4,12 @@
 
 #pragma once
 
+#include <string>
+
 namespace Engine::Config {
 
 struct ProjectSettings {
- public:
-  explicit ProjectSettings(const char* title):title(title){}
-  [[nodiscard]] const char* GetTitle() const { return this->title; }
-
- private:
-  const char* title = nullptr;
+  std::string title = "My Game";
 };
 
 }  // namespace Engine::Config

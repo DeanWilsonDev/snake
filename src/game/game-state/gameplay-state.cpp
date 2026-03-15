@@ -1,4 +1,5 @@
 #include "gameplay-state.hpp"
+#include "core/state/i-game-state.hpp"
 #include "debug/debug.hpp"
 #include "engine/input/input-action.hpp"
 #include "game/game-state/game-over-state.hpp"
@@ -40,7 +41,7 @@ GameplayState::GameplayState(GameContext& gameContext) : gameContext(gameContext
   LOG_DEBUG("[Game] Apple set to [{}]", static_cast<void*>(&this->apple));
 
   // const auto userInterface = this->gameplayStateMachine.GetUserInterface();
-  gameContext.gameUI = std::make_unique<GameplayUI>(this->gameContext);
+  // gameContext.gameUI = std::make_unique<GameplayUI>(this->gameContext);
 
   // assert(gameSettings);
   // assert(userInterface);
@@ -132,7 +133,7 @@ void GameplayState::Exit()
   // this->gameplayStateMachine.ClearUI();
 }
 
-std::unique_ptr<Core::IGameState> GameplayState::GetNextState()
+std::unique_ptr<Core::State::IGameState> GameplayState::GetNextState()
 {
   return std::make_unique<GameOverState>(this->gameContext);
 };

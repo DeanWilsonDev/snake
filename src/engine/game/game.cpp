@@ -4,37 +4,28 @@
 
 #include "game.hpp"
 
-#include <core/i-debugable.hpp>
+#include <core/debug/i-debugable.hpp>
 #include <core/i-updatable.hpp>
 #include <umbra/log.h>
 #include "engine/dependency-injection/dependency-injector.hpp"
 #include "core/entity/game-entity-manager.hpp"
-#include "game-objects/apple.hpp"
-#include "game-objects/snake.hpp"
 #include "game-state/gameplay-state-machine.hpp"
-#include "platform/input/i-input-backend.hpp"
 #include "platform/window/i-window.h"
-#include "core/rendering/i-renderer.hpp"
-#include "user-interface/i-user-interface.hpp"
 #include "core/rendering/render-component-2d-manager.hpp"
-#include "renderer-2d/components/render-component-2d.hpp"
-#include "settings/game-settings.hpp"
-#include "core/i-state-machine.hpp"
-#include "game-objects/snake-segment.hpp"
-#include "core/user-interface-manager.hpp"
 
 #include <cassert>
 #include <memory>
 
-namespace Game {
+namespace Engine {
 
 Game::Game(
     Engine::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
     Core::Rendering::RenderComponent2DManager& renderManager
 )
-    : injector(injector), projectSettings(projectSettings), renderManager(renderManager)
+    : projectSettings(projectSettings), injector(&injector), renderManager(&renderManager)
 {
 }
+
 Game::~Game() {}
 
 void Game::Initialize()
@@ -46,10 +37,10 @@ void Game::Initialize()
 
   LOG_TRACE("[Game] Initializing Game");
   LOG_TRACE("[Game] Resolving Window");
-  const shared_ptr<Platform::Window::IWindow> window =
-      injector.Resolve<Platform::Window::IWindow>();
+  const std::shared_ptr<Platform::Window::IWindow> window =
+      this->injector->Resolve<Platform::Window::IWindow>();
 
-  const auto input = injector.Resolve<Platform::Input::IInputBackend>();
+  const auto input = this->injector->Resolve<Platform::Input::IInputBackend>();
   if (!input) {
     LOG_FATAL("[Game] Failed to initialize Input");
     assert(input);
@@ -59,33 +50,37 @@ void Game::Initialize()
   assert(window);
 
   LOG_TRACE("[Game] Setting up GameEntityManager");
-  this->gameEntityManager = std::make_shared<Core::GameEntityManager>(this->renderManager);
+  this->gameEntityManager = std::make_unique<Core::GameEntityManager>(this->renderManager);
   assert(this->gameEntityManager);
 
   LOG_TRACE("[Game] Setting up UserInterfaceManager");
-  this->userInterfaceManager = std::make_shared<Core::UserInterfaceManager>(this->renderManager);
+  this->userInterfaceManager = this->injector->Resolve<Core::UserInterface::IUserInterfaceManager>();
 
-  this->settings = make_unique<GameSettings>();
+  this->settings = std::make_unique<GameSettings>();
 
   LOG_DEBUG("[Game] GameSettings is set to [{}]", static_cast<void*>(&this->settings));
 
   settings->Print();
 
-  const auto renderer = injector.Resolve<Core::Rendering::IRenderer>();
+  this->renderer = injector->Resolve<Core::Rendering::IRenderer>();
   if (!renderer) {
     LOG_FATAL("[Game] Failed to initialize Renderer");
     assert(renderer);
   }
 
-  const auto userInterface = injector.Resolve<UserInterface::IUserInterface>();
-  if (!renderer) {
-    LOG_FATAL("[Game] Failed to initialize UserInterface");
-    assert(userInterface);
-  }
+  // const auto userInterface = injector->Resolve<UserInterface::IUserInterface>();
+  // if (!renderer) {
+  //   LOG_FATAL("[Game] Failed to initialize UserInterface");
+  //   assert(userInterface);
+  // }
 
   LOG_DEBUG("[Game] Resolving GameplayStateMachine");
-  const shared_ptr<Core::IStateMachine> stateMachine = injector.Resolve<Core::IStateMachine>();
-  this->gameplayStateMachine = dynamic_pointer_cast<GameplayStateMachine>(stateMachine);
+  const shared_ptr<Core::State::IStateMachine> stateMachine =
+      injector->Resolve<Core::State::IStateMachine>();
+
+  if (auto gsm = dynamic_cast<GameplayStateMachine>(stateMachine)) {
+    this->gameplayStateMachine = gameplayStateMachine;
+  }
 
   LOG_DEBUG(
       "[Game] GameplayStateMachine set to: [{}]", static_cast<void*>(&this->gameplayStateMachine)
@@ -100,16 +95,15 @@ void Game::Initialize()
   }
 
   LOG_TRACE("[Game] Setup Gameplay State Machine");
-  this->gameplayStateMachine->SetRenderManager(this->renderManager);
+  this->gameplayStateMachine->SetRenderManager(*this->renderManager);
 
   LOG_TRACE("[Game] Set Renderer on Gameplay State Machine");
   assert(renderer);
   this->gameplayStateMachine->SetRenderer(*renderer);
 
   LOG_TRACE("[Game] Set GameEntityMangager on Gameplay State Machine");
-  this->gameplayStateMachine->SetGameEntityManager(this->gameEntityManager);
+  // this->gameplayStateMachine->SetGameEntityManager(this->gameEntityManager);
 
-  
   // for (const auto& segment : this->snake->body) {
   //   assert(segment);
   //   this->renderManager.Register(&segment->GetRendererComponent2D());
@@ -145,9 +139,12 @@ void Game::DebugRender()
 
 void Game::Render()
 {
-  this->gameEntityManager->Render();
+  if (!this->renderer) {
+    return;
+  }
+  this->renderManager->Render(*this->renderer);
 
   this->userInterfaceManager->DebugRender();
 }
 
-}  // namespace Game
+}  // namespace Engine

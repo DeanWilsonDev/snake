@@ -5,12 +5,13 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include <core/i-debugable.hpp>
+#include <core/debug/i-debugable.hpp>
 #include <core/i-updatable.hpp>
 #include "core/i-game.hpp"
 #include "core/entity/game-entity-manager.hpp"
+#include "core/rendering/i-renderer.hpp"
 #include "core/rendering/render-component-2d-manager.hpp"
-#include "core/user-interface-manager.hpp"
+#include "core/user-interface/i-user-interface-manager.hpp"
 
 namespace Core {
 class UserInterfaceManager;
@@ -38,15 +39,8 @@ namespace Config {
 struct ProjectSettings;
 
 }
-}  // namespace Engine
 
-namespace Game {
-class Snake;
-class Apple;
-class GameplayStateMachine;
-struct GameSettings;
-
-class Game final : public Core::IGame {
+class Game : public Core::IGame {
  public:
   explicit Game(
       Engine::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
@@ -62,18 +56,18 @@ class Game final : public Core::IGame {
   void DebugRender() override;
 
  private:
-  Engine::DependencyInjector& injector;
-  std::unique_ptr<GameSettings> settings{nullptr};
+  // std::unique_ptr<GameSettings> settings{nullptr};
+  std::unique_ptr<Core::GameEntityManager> gameEntityManager;
+  // std::unique_ptr<GameplayStateMachine> gameplayStateMachine;
   Engine::Config::ProjectSettings& projectSettings;
-  Core::Rendering::RenderComponent2DManager& renderManager;
-  std::shared_ptr<Core::GameEntityManager> gameEntityManager;
-  std::shared_ptr<Core::UserInterfaceManager> userInterfaceManager;
-  std::shared_ptr<GameplayStateMachine> gameplayStateMachine;
-  std::unique_ptr<Snake> snake{nullptr};
-  std::unique_ptr<Apple> apple{nullptr};
 
-  std::vector<Core::IDebugable*> debugables{};
+  std::vector<Core::Debug::IDebugable*> debugables{};
   std::vector<Core::IUpdatable*> updatables{};
+
+  Engine::DependencyInjector* injector;
+  std::shared_ptr<Core::UserInterface::IUserInterfaceManager> userInterfaceManager;
+  std::shared_ptr<Core::Rendering::RenderComponent2DManager> renderManager;
+  std::shared_ptr<Core::Rendering::IRenderer> renderer;
 };
 
-}  // namespace Game
+}  // namespace Engine

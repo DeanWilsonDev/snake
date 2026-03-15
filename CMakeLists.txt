@@ -42,7 +42,7 @@ add_executable(
   ${PROJECT_NAME}
   src/main.cpp
   src/game/game-objects/apple.cpp
-  src/engine/application.cpp
+  src/engine/application/application.cpp
   src/engine/input/input-system.cpp
   src/game/game-state/game-over-state.cpp
   src/raylib-facade/renderer/raylib-renderer-facade.cpp
@@ -63,7 +63,7 @@ add_executable(
   src/raylib-facade/core/raylib-core-facade.cpp
   src/physics/collision/components/collider-component-2d.cpp
   src/engine/dependency-injection/dependency-injector.cpp
-  src/game/game.cpp
+  src/engine/game/game.cpp
   src/game/ui/gameplay-ui.cpp
   src/core/entity/game-entity-manager.cpp
   src/core/entity/game-entity.cpp

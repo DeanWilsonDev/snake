@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "core/math/i-transform-2d.hpp"
-#include "game/settings/game-settings.hpp"
+#include "game/settings/snake-game-settings.hpp"
 #include "core/entity/game-entity.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
@@ -19,10 +19,10 @@ class IRenderComponent2D;
 namespace Game {
 
 struct AppleParams : Core::Entity::GameEntityParams {
-  GameSettings& settings;
+  SnakeGameSettings& settings;
 
   AppleParams(
-      GameSettings& settings, Core::Math::ITransform2D* transform = nullptr, bool active = true
+      SnakeGameSettings& settings, Core::Math::ITransform2D* transform = nullptr, bool active = true
   )
       : Core::Entity::GameEntityParams(transform, active), settings(settings)
   {
@@ -44,7 +44,7 @@ class Apple final : public Core::Entity::GameEntity {
   [[nodiscard]] float GetSize() const { return this->size; }
 
  private:
-  GameSettings& settings;
+  SnakeGameSettings& settings;
   unique_ptr<Physics::Collision::Components::ColliderComponent2D> colliderComponent{nullptr};
   unique_ptr<Core::Rendering::Components::IRenderComponent2D> renderComponent{nullptr};
   float size = {10};

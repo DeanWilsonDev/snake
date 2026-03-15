@@ -17,13 +17,13 @@ namespace Rendering {
 class IRenderer;
 }
 
-class GameEntityManager : public IUpdatable, Debug::IDebugable, Rendering::IRenderManager {
+class GameEntityManager : public IUpdatable, Debug::IDebugable {
  public:
   GameEntityManager(Rendering::RenderComponent2DManager* renderManager);
   void AddEntity(Entity::Entity* entity);
   void Update(float deltaTime) override;
   void DebugUpdate() override;
-  void Render(const Rendering::IRenderer& renderer) const override;
+  void Render(const Rendering::IRenderer& renderer) const;
 
  private:
   std::vector<Entity::Entity*> entities;

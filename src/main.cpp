@@ -1,8 +1,10 @@
 #include "engine/application.hpp"
 #include "raylib-facade/window/raylib-window-facade.hpp"
+#include "core/user-interface/user-interface-manager.hpp"
+#include "core/user-interface/i-user-interface-manager.hpp"
 #include "debug/debug.hpp"
 #include "debug/debug-hud.hpp"
-#include "debug/i-debug-hud.hpp"
+#include "core/debug/i-debug-hud.hpp"
 #include "engine/dependency-injection/dependency-injector.hpp"
 #include "engine/config/project-settings.hpp"
 #include "game/game.hpp"
@@ -18,7 +20,9 @@
 
 class IWindow;
 
-int main(int argc, char* argv[])
+int main(
+    // int argc, char* argv[]
+)
 {
   constexpr bool debugEnabled = DEBUG_ENABLED;
   Debug::System.SetDebugMode(debugEnabled);
@@ -34,10 +38,13 @@ int main(int argc, char* argv[])
   injector.Register<
       UserInterface::IUserInterface,
       RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
-  injector.Register<Core::IStateMachine, Game::GameplayStateMachine>();
+  injector.Register<Core::State::IStateMachine, Game::GameplayStateMachine>();
 
   auto hud = std::make_shared<Debug::DebugHUD>();
-  injector.RegisterInstance<Debug::IDebugHUD>(hud);
+  injector.RegisterInstance<Core::Debug::IDebugHUD>(hud);
+  injector.Register<
+      Core::UserInterface::IUserInterfaceManager,
+      Core::UserInterface::UserInterfaceManager>();
 
   auto engineConfig = Engine::Config::EngineConfig();
 
@@ -51,7 +58,7 @@ int main(int argc, char* argv[])
   }
 
   LOG_TRACE("[Main] Setting up RenderComponent2DManager");
-  auto renderManager = Core::Rendering::RenderComponent2DManager(renderer2d);
+  auto renderManager = Core::Rendering::RenderComponent2DManager();
 
   const auto params = Engine::ApplicationParams{
       .injector = injector,
@@ -63,7 +70,7 @@ int main(int argc, char* argv[])
   auto application = Engine::Application(params);
 
   const std::shared_ptr<Core::IGame> game =
-      std::make_shared<Game::Game>(injector, projectSettings, renderManager);
+      std::make_shared<Game::Game>(injector->get(), projectSettings, renderManager);
   application.SetGame(game);
 
   application.Run();

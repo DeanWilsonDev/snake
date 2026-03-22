@@ -62,7 +62,7 @@ void Application::Initialize()
   Umbra::Logging::Log::init("log.csv", debug.enabled);
 
   LOG_CORE_TRACE("[Application] Beginning Application");
-  const char* title = GetConfig().project.title;
+  std::string title = GetConfig().project.title;
 
   LOG_CORE_INFO("[Application] Starting Game: {}", title);
 

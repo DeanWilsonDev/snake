@@ -9,6 +9,7 @@
 #include <core/i-updatable.hpp>
 #include "core/i-game.hpp"
 #include "core/entity/game-entity-manager.hpp"
+#include "engine/scenes/scene-manager.hpp"
 #include "core/rendering/i-renderer.hpp"
 #include "core/rendering/render-component-2d-manager.hpp"
 #include "core/user-interface/i-user-interface-manager.hpp"
@@ -55,9 +56,13 @@ class Game : public Core::IGame {
   void DebugUpdate() override;
   void DebugRender() override;
 
+ protected:
+  Engine::Scenes::SceneManager& GetSceneManager();
+
  private:
   // std::unique_ptr<GameSettings> settings{nullptr};
   std::unique_ptr<Core::GameEntityManager> gameEntityManager;
+  std::unique_ptr<Engine::Scenes::SceneManager> SceneManager;
   // std::unique_ptr<GameplayStateMachine> gameplayStateMachine;
   Engine::Config::ProjectSettings& projectSettings;
 

@@ -9,7 +9,7 @@
 #include <umbra/log.h>
 #include "engine/dependency-injection/dependency-injector.hpp"
 #include "core/entity/game-entity-manager.hpp"
-#include "game-state/gameplay-state-machine.hpp"
+#include "engine/scenes/scene-manager.hpp"
 #include "platform/window/i-window.h"
 #include "core/rendering/render-component-2d-manager.hpp"
 
@@ -54,7 +54,8 @@ void Game::Initialize()
   assert(this->gameEntityManager);
 
   LOG_TRACE("[Game] Setting up UserInterfaceManager");
-  this->userInterfaceManager = this->injector->Resolve<Core::UserInterface::IUserInterfaceManager>();
+  this->userInterfaceManager =
+      this->injector->Resolve<Core::UserInterface::IUserInterfaceManager>();
 
   this->settings = std::make_unique<GameSettings>();
 
@@ -145,6 +146,11 @@ void Game::Render()
   this->renderManager->Render(*this->renderer);
 
   this->userInterfaceManager->DebugRender();
+}
+
+Engine::Scenes::SceneManager& Game::GetSceneManager()
+{
+  return this->sceneManager;
 }
 
 }  // namespace Engine

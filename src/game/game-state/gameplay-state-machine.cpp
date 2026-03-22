@@ -28,11 +28,6 @@ void GameplayStateMachine::Update(const float deltaTime)
   this->gameEntityManager->Update(deltaTime);
 
   Core::State::StateMachine::Update(deltaTime);
-
-  // REAPER: Curious... This should go somewhere else
-  // if (this->gameUI) {
-  //   this->gameUI->Render();
-  // }
 }
 
 void GameplayStateMachine::DebugUpdate()

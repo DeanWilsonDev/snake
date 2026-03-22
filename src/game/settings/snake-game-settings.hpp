@@ -1,12 +1,9 @@
 #pragma once
 
 #include "engine/config/game-settings.hpp"
-#include "engine/input/input-system.hpp"
-#include "engine/input/input-system.hpp"
 
 #include <umbra/log.h>
 #include <algorithm>
-
 
 inline constexpr int DefaultBoxSize = 20;
 inline constexpr int DefaultMinBoxSize = 10;

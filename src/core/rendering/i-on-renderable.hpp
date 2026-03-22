@@ -12,10 +12,10 @@ class IRenderComponent;
 
 class IRenderer;
 
-class IRenderable {
+class IOnRenderable {
  public:
-  virtual ~IRenderable() = 0;
-  virtual void Render(const Rendering::IRenderer& renderer) = 0;
+  virtual ~IOnRenderable() = 0;
+  virtual void OnRender(const IRenderer& renderer) = 0;
 };
 }  // namespace Rendering
 };  // namespace Core

@@ -19,10 +19,10 @@ namespace Game {
 class Apple;
 
 class SnakeSegment;
-struct GameSettings;
+struct SnakeGameSettings;
 
 struct SnakeParams {
-  GameSettings& settings;
+  SnakeGameSettings& settings;
 };
 
 class Snake final {
@@ -44,13 +44,13 @@ class Snake final {
   void SetActive(bool enabled) const;
   void SetDirection(Core::Math::Vector2D direction);
 
-  [[nodiscard]] GameSettings& GetGameSettings() const { return this->settings; }
+  [[nodiscard]] SnakeGameSettings& GetSnakeGameSettings() const { return this->settings; }
 
   SnakeSegment* head{};
   std::deque<std::unique_ptr<SnakeSegment>> body;
 
  private:
-  GameSettings& settings;
+  SnakeGameSettings& settings;
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;
   float size = {0};

@@ -3,7 +3,7 @@
 #include "core/state/state-machine.hpp"
 #include "core/state/i-game-state.hpp"
 #include "engine/input/input-system.hpp"
-#include "game/settings/game-settings.hpp"
+#include "game/settings/snake-game-settings.hpp"
 
 #include <memory>
 
@@ -21,7 +21,7 @@ class Snake;
 
 struct GameContext {
   int score = {0};
-  std::unique_ptr<GameSettings> settings = {nullptr};
+  std::unique_ptr<SnakeGameSettings> settings = {nullptr};
   std::unique_ptr<Engine::Input::InputSystem> input = {nullptr};
 };
 

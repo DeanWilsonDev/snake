@@ -25,7 +25,7 @@ void GameEntityManager::AddEntity(Entity::Entity* entity)
   this->renderManager->Register(entity->GetComponent<Rendering::Components::IRenderComponent>());
 }
 
-void GameEntityManager::Update(const float deltaTime)
+void GameEntityManager::OnUpdate(const float deltaTime)
 {
   for (auto* object : this->entities) {
     if (object->IsActive()) {
@@ -34,7 +34,7 @@ void GameEntityManager::Update(const float deltaTime)
   }
 }
 
-void GameEntityManager::DebugUpdate()
+void GameEntityManager::OnDebugUpdate()
 {
   for (auto* object : this->entities) {
     if (object->IsActive()) {
@@ -43,7 +43,7 @@ void GameEntityManager::DebugUpdate()
   }
 }
 
-void GameEntityManager::Render(const Rendering::IRenderer& renderer) const
+void GameEntityManager::OnRender(const Rendering::IRenderer& renderer)
 {
   this->renderManager->Render(renderer);
 }

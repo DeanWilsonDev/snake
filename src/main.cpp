@@ -1,7 +1,7 @@
-#include "engine/entry-point.hpp"  // NOLINT(misc-include-cleaner)
+#include "engine/entry-point.hpp"  
 #include "game/snake-application.hpp"
 
-Engine::Application* CreateApplication()  // NOLINT(misc-include-cleaner)
+Engine::Application* CreateApplication()  
 {
   return new Snake::SnakeApplication();
 };

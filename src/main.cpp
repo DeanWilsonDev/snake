@@ -1,7 +1,7 @@
 #include "engine/entry-point.hpp"  
 #include "game/snake-application.hpp"
 
-Engine::Application* CreateApplication()  
+Core::IApplication* CreateApplication()  
 {
   return new Snake::SnakeApplication();
 };

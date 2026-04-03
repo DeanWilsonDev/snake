@@ -1,181 +1,193 @@
 [
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/main.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/main.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/main.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/main.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/main.cpp",
   "output": "CMakeFiles/Snake.dir/src/main.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-objects/apple.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-objects/apple.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-objects/apple.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-objects/apple.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-objects/apple.cpp",
   "output": "CMakeFiles/Snake.dir/src/game/game-objects/apple.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/application.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/application.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/application.cpp",
-  "output": "CMakeFiles/Snake.dir/src/engine/application.cpp.o"
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/application/application.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/application/application.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/application/application.cpp",
+  "output": "CMakeFiles/Snake.dir/src/engine/application/application.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/input/input-system.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/input/input-system.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/input/input-system.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/input/input-system.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/input/input-system.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/input/input-system.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-state/game-over-state.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/game-over-state.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-state/game-over-state.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/game-over-state.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/game-over-state.cpp",
   "output": "CMakeFiles/Snake.dir/src/game/game-state/game-over-state.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/renderer/raylib-renderer-facade.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/renderer/raylib-renderer-facade.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/renderer/raylib-renderer-facade.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/renderer/raylib-renderer-facade.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/renderer/raylib-renderer-facade.cpp",
   "output": "CMakeFiles/Snake.dir/src/raylib-facade/renderer/raylib-renderer-facade.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/window/raylib-window-facade.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/window/raylib-window-facade.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/window/raylib-window-facade.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/window/raylib-window-facade.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/window/raylib-window-facade.cpp",
   "output": "CMakeFiles/Snake.dir/src/raylib-facade/window/raylib-window-facade.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp",
   "output": "CMakeFiles/Snake.dir/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-objects/snake-segment.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-objects/snake-segment.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-objects/snake-segment.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-objects/snake-segment.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-objects/snake-segment.cpp",
   "output": "CMakeFiles/Snake.dir/src/game/game-objects/snake-segment.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-objects/snake.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-objects/snake.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-objects/snake.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-objects/snake.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-objects/snake.cpp",
   "output": "CMakeFiles/Snake.dir/src/game/game-objects/snake.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-state/gameplay-state-machine.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/gameplay-state-machine.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-state/gameplay-state-machine.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/gameplay-state-machine.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/gameplay-state-machine.cpp",
   "output": "CMakeFiles/Snake.dir/src/game/game-state/gameplay-state-machine.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-state/gameplay-state.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/gameplay-state.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-state/gameplay-state.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/gameplay-state.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/gameplay-state.cpp",
   "output": "CMakeFiles/Snake.dir/src/game/game-state/gameplay-state.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/renderer-2d/components/render-component-2d.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/renderer-2d/components/render-component-2d.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/renderer-2d/components/render-component-2d.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/renderer-2d/components/render-component-2d.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/renderer-2d/components/render-component-2d.cpp",
   "output": "CMakeFiles/Snake.dir/src/renderer-2d/components/render-component-2d.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/entity/entity.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/entity/entity.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/entity/entity.cpp",
-  "output": "CMakeFiles/Snake.dir/src/core/entity/entity.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/render-component-2d-manager.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/render-component-2d-manager.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/render-component-2d-manager.cpp",
-  "output": "CMakeFiles/Snake.dir/src/core/render-component-2d-manager.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/user-interface-manager.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/user-interface-manager.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/user-interface-manager.cpp",
-  "output": "CMakeFiles/Snake.dir/src/core/user-interface-manager.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/ui/main-menu-ui.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/main-menu-ui.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/main-menu-ui.cpp",
-  "output": "CMakeFiles/Snake.dir/src/game/ui/main-menu-ui.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-state/main-menu-state.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/main-menu-state.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/main-menu-state.cpp",
-  "output": "CMakeFiles/Snake.dir/src/game/game-state/main-menu-state.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/input/raylib-input-backend-facade.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/input/raylib-input-backend-facade.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/input/raylib-input-backend-facade.cpp",
-  "output": "CMakeFiles/Snake.dir/src/raylib-facade/input/raylib-input-backend-facade.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/ui/game-over-ui.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/game-over-ui.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/game-over-ui.cpp",
-  "output": "CMakeFiles/Snake.dir/src/game/ui/game-over-ui.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/core/raylib-core-facade.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/core/raylib-core-facade.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/core/raylib-core-facade.cpp",
-  "output": "CMakeFiles/Snake.dir/src/raylib-facade/core/raylib-core-facade.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/physics/collision/components/collider-component-2d.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/physics/collision/components/collider-component-2d.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/physics/collision/components/collider-component-2d.cpp",
-  "output": "CMakeFiles/Snake.dir/src/physics/collision/components/collider-component-2d.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/dependency-injection/dependency-injector.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/dependency-injection/dependency-injector.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/dependency-injection/dependency-injector.cpp",
-  "output": "CMakeFiles/Snake.dir/src/engine/dependency-injection/dependency-injector.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game.cpp",
-  "output": "CMakeFiles/Snake.dir/src/game/game.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/ui/gameplay-ui.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/gameplay-ui.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/gameplay-ui.cpp",
-  "output": "CMakeFiles/Snake.dir/src/game/ui/gameplay-ui.cpp.o"
-},
-{
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/entity/game-entity-manager.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/entity/game-entity-manager.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/entity/game-entity-manager.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/entity/game-entity-manager.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/entity/game-entity-manager.cpp",
   "output": "CMakeFiles/Snake.dir/src/core/entity/game-entity-manager.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/entity/game-entity.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/entity/game-entity.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/entity/game-entity.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/entity/game-entity.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/entity/game-entity.cpp",
   "output": "CMakeFiles/Snake.dir/src/core/entity/game-entity.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/state-machine.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/state-machine.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/state-machine.cpp",
-  "output": "CMakeFiles/Snake.dir/src/core/state-machine.cpp.o"
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/color/color-rgba.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/color/color-rgba.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/color/color-rgba.cpp",
+  "output": "CMakeFiles/Snake.dir/src/core/color/color-rgba.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/components/transform-component-2d.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/components/transform-component-2d.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/color/color-hex.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/color/color-hex.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/color/color-hex.cpp",
+  "output": "CMakeFiles/Snake.dir/src/core/color/color-hex.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/components/transform-component-2d.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/components/transform-component-2d.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/components/transform-component-2d.cpp",
   "output": "CMakeFiles/Snake.dir/src/core/components/transform-component-2d.cpp.o"
 },
 {
   "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/debug/debug-hud.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/debug/debug-hud.cpp",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/entity/entity.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/entity/entity.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/entity/entity.cpp",
+  "output": "CMakeFiles/Snake.dir/src/core/entity/entity.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/rendering/render-component-2d-manager.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/rendering/render-component-2d-manager.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/rendering/render-component-2d-manager.cpp",
+  "output": "CMakeFiles/Snake.dir/src/core/rendering/render-component-2d-manager.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/user-interface/user-interface-manager.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/user-interface/user-interface-manager.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/core/user-interface/user-interface-manager.cpp",
+  "output": "CMakeFiles/Snake.dir/src/core/user-interface/user-interface-manager.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/ui/main-menu-ui.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/main-menu-ui.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/main-menu-ui.cpp",
+  "output": "CMakeFiles/Snake.dir/src/game/ui/main-menu-ui.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/game-state/main-menu-state.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/main-menu-state.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/game-state/main-menu-state.cpp",
+  "output": "CMakeFiles/Snake.dir/src/game/game-state/main-menu-state.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/input/raylib-input-backend-facade.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/input/raylib-input-backend-facade.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/input/raylib-input-backend-facade.cpp",
+  "output": "CMakeFiles/Snake.dir/src/raylib-facade/input/raylib-input-backend-facade.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/ui/game-over-ui.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/game-over-ui.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/game-over-ui.cpp",
+  "output": "CMakeFiles/Snake.dir/src/game/ui/game-over-ui.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/core/raylib-core-facade.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/core/raylib-core-facade.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/raylib-facade/core/raylib-core-facade.cpp",
+  "output": "CMakeFiles/Snake.dir/src/raylib-facade/core/raylib-core-facade.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/physics/collision/components/collider-component-2d.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/physics/collision/components/collider-component-2d.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/physics/collision/components/collider-component-2d.cpp",
+  "output": "CMakeFiles/Snake.dir/src/physics/collision/components/collider-component-2d.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/dependency-injection/dependency-injector.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/dependency-injection/dependency-injector.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/dependency-injection/dependency-injector.cpp",
+  "output": "CMakeFiles/Snake.dir/src/engine/dependency-injection/dependency-injector.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/game/game.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/game/game.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/game/game.cpp",
+  "output": "CMakeFiles/Snake.dir/src/engine/game/game.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/state/state-machine.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/state/state-machine.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/engine/state/state-machine.cpp",
+  "output": "CMakeFiles/Snake.dir/src/engine/state/state-machine.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/game/ui/gameplay-ui.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/gameplay-ui.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/game/ui/gameplay-ui.cpp",
+  "output": "CMakeFiles/Snake.dir/src/game/ui/gameplay-ui.cpp.o"
+},
+{
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/raylib-src/src/external/glfw/include -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/debug/debug-hud.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/debug/debug-hud.cpp",
   "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/src/debug/debug-hud.cpp",
   "output": "CMakeFiles/Snake.dir/src/debug/debug-hud.cpp.o"
 },
@@ -360,27 +372,27 @@
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o"
 },
 {
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-build",
-  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -x c++-header -include /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-build/CMakeFiles/umbra_log.dir/cmake_pch.hxx -o CMakeFiles/umbra_log.dir/cmake_pch.hxx.gch -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-build/CMakeFiles/umbra_log.dir/cmake_pch.hxx.cxx",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-build/CMakeFiles/umbra_log.dir/cmake_pch.hxx.cxx",
-  "output": "_deps/umbralog-build/CMakeFiles/umbra_log.dir/cmake_pch.hxx.gch"
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -x c++-header -include /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/cmake_pch.hxx.gch -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
+  "output": "_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.gch"
 },
 {
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-build",
-  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-build/CMakeFiles/umbra_log.dir/cmake_pch.hxx -o CMakeFiles/umbra_log.dir/src/log.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/src/log.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/src/log.cpp",
-  "output": "_deps/umbralog-build/CMakeFiles/umbra_log.dir/src/log.cpp.o"
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/logger.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/src/logger.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/src/logger.cpp",
+  "output": "_deps/firefly-build/CMakeFiles/firefly.dir/src/logger.cpp.o"
 },
 {
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-build",
-  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-build/CMakeFiles/umbra_log.dir/cmake_pch.hxx -o CMakeFiles/umbra_log.dir/src/logger.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/src/logger.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/src/logger.cpp",
-  "output": "_deps/umbralog-build/CMakeFiles/umbra_log.dir/src/logger.cpp.o"
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/log-registry.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/src/log-registry.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/src/log-registry.cpp",
+  "output": "_deps/firefly-build/CMakeFiles/firefly.dir/src/log-registry.cpp.o"
 },
 {
-  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-build",
-  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_UmbraLog.dir/test/test_main.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/test/test_main.cpp",
-  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/umbralog-src/test/test_main.cpp",
-  "output": "_deps/umbralog-build/CMakeFiles/test_UmbraLog.dir/test/test_main.cpp.o"
+  "directory": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/test_firefly.dir/test/test_main.cpp.o -c /run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/test/test_main.cpp",
+  "file": "/run/media/deanwilson/FEARLESS_SSD/development/umbra/snake/build/_deps/firefly-src/test/test_main.cpp",
+  "output": "_deps/firefly-build/CMakeFiles/test_firefly.dir/test/test_main.cpp.o"
 }
 ]

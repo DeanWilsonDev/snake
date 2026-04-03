@@ -12,8 +12,7 @@
 #include "platform/input/i-input-backend.hpp"
 #include "user-interface/i-user-interface.hpp"
 #include "core/i-dependency-injector.hpp"
-
-#include <umbra/log.h>
+#include "core/logging/log.hpp"
 
 #include <memory>
 #include <cassert>
@@ -30,6 +29,9 @@ namespace Engine {
 Application::Application(std::unique_ptr<Game> game)
     : game(std::move(game)), injector(std::make_unique<DependencyInjector>())
 {
+
+  Umbra::Core::Logging::Log::Init("log.csv", true);
+
   LOG_CORE_TRACE("[Application] Initializing");
   this->window = this->injector->Resolve<Platform::Window::IWindow>();
   this->renderer2d = this->injector->Resolve<Core::Rendering::IRenderer>();

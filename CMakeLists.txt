@@ -102,3 +102,24 @@ if(SNAKE_BUILD_TESTS)
   enable_testing()
   add_subdirectory(tests)
 endif()
+
+# -------------------------
+# Test executable
+# -------------------------
+option(SNAKE_BUILD_TESTS "Build tests" ON)
+
+if(SNAKE_BUILD_TESTS)
+
+  find_package(Cimmerian 1.0 REQUIRED)
+
+  add_executable(test/test-main.cpp)
+
+  target_link_libraries(test_snake PRIVATE ${PROJECT_NAME} Cimmerian::cimmerian)
+  target_compile_features(test_snake PRIVATE cxx_std_20)
+
+  if(MSVC)
+    target_compile_options(test_snake PRIVATE /W4 /EHsc)
+  else()
+    target_compile_options(test_snake PRIVATE -Wall -Wextra -Wpedantic)
+  endif()
+endif()

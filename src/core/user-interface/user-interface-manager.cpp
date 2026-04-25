@@ -9,7 +9,7 @@
 #include <memory>
 #include <utility>
 
-namespace Core {
+namespace Core::UserInterface {
 
 UserInterfaceManager::UserInterfaceManager() {}
 
@@ -80,4 +80,4 @@ void UserInterfaceManager::DebugRender()
   }
 }
 
-}  // namespace Core
+}  // namespace Core::UserInterface

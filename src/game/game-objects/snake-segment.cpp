@@ -1,6 +1,6 @@
 #include "physics/collision/rectangle-collider-2d.hpp"
 #include "snake.hpp"
-#include <umbra/log.h>
+#include "core/logging/log.hpp"
 #include <memory>
 #include "debug/debug.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
@@ -12,7 +12,7 @@
 
 #include "core/components/transform-component-2d.hpp"
 
-namespace Game {
+namespace SnakeGame {
 
 SnakeSegment::SnakeSegment(const SnakeSegmentParams& params)
     : GameEntity(params), index(params.index)
@@ -82,4 +82,4 @@ void SnakeSegment::DebugUpdate()
     );
   }
 }
-}  // namespace Game
+}  // namespace SnakeGame

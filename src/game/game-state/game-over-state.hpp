@@ -4,7 +4,7 @@
 #include "core/state/i-game-state.hpp"
 #include <memory>
 
-namespace Game {
+namespace SnakeGame {
 
 class GameOverUI;
 

@@ -11,7 +11,7 @@ namespace UserInterface {
 class IUserInterface;
 }
 
-namespace Game {
+namespace SnakeGame {
 struct GameSettings;
 
 class GameplayUI final : public Core::UserInterface::IGameUI {

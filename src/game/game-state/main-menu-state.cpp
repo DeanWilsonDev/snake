@@ -11,7 +11,7 @@
 #include <cassert>
 #include <memory>
 
-namespace Game {
+namespace SnakeGame {
 
 MainMenuState::MainMenuState(GameContext& gameContext) : gameContext(gameContext) {}
 

@@ -16,7 +16,7 @@ namespace Config {
 }
 }  // namespace Core
 
-namespace Snake {
+namespace SnakeGame {
 class SnakeApplication : public Engine::Application {
  public:
   SnakeApplication() : Application(std::make_unique<SnakeGame>()) {};
@@ -25,4 +25,4 @@ class SnakeApplication : public Engine::Application {
   virtual void Configure(Engine::Config::ApplicationConfig& config) override;
   virtual void RegisterDependencies(Core::IDependencyInjector& injector) override;
 };
-}  // namespace Snake
+}  // namespace SnakeGame

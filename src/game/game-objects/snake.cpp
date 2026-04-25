@@ -7,7 +7,7 @@
 #include <cmath>
 #include <memory>
 
-namespace Game {
+namespace SnakeGame {
 
 Snake::~Snake() = default;
 

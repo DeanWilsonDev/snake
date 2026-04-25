@@ -1,5 +1,5 @@
 #include "application.hpp"
-#include "config/project-settings.hpp"
+#include "engine/config/project-settings.hpp"
 #include "core/color/color.hpp"
 #include "core/user-interface/user-interface-manager.hpp"
 #include "core/user-interface/i-user-interface-manager.hpp"
@@ -19,29 +19,32 @@
 #include <string.h>
 #include <chrono>
 #include "game/game-state/gameplay-state-machine.hpp"
-#include "platform/window/i-window.h"
+#include "platform/window/i-window.hpp"
 #include "core/i-game.hpp"
 #include "engine/game/game.hpp"
 #include <utility>
 
 namespace Engine {
 
-Application::Application(std::unique_ptr<Game> game)
-    : game(std::move(game)), injector(std::make_unique<DependencyInjector>())
+Application::Application(std::unique_ptr<Core::IGame> game)
+    : game(std::move(game)), injector(std::make_unique<DependencyInjector>()) {
+
+    };
+
+Application::~Application() = default;
+
+void Application::Initialize()
 {
-
-  Umbra::Core::Logging::Log::Init("log.csv", true);
-
   LOG_CORE_TRACE("[Application] Initializing");
   this->window = this->injector->Resolve<Platform::Window::IWindow>();
-  this->renderer2d = this->injector->Resolve<Core::Rendering::IRenderer>();
+  this->renderer = this->injector->Resolve<Core::Rendering::IRenderer>();
   this->stateMachine = this->injector->Resolve<Core::State::IStateMachine>();
   this->input = this->injector->Resolve<Platform::Input::IInputBackend>();
   this->userInterface = this->injector->Resolve<UserInterface::IUserInterface>();
   Debug::System.SetActiveDebugHUD(this->injector->Resolve<Core::Debug::IDebugHUD>());
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&window));
-  LOG_CORE_TRACE("[Application] Renderer2D set to {}", static_cast<void*>(&renderer2d));
+  LOG_CORE_TRACE("[Application] Renderer set to {}", static_cast<void*>(&renderer));
   LOG_CORE_TRACE("[Application] StateMachine set to {}", static_cast<void*>(&stateMachine));
   LOG_CORE_TRACE("[Application] Input set to {}", static_cast<void*>(&input));
   LOG_CORE_TRACE("[Application] UserInterface set to {}", static_cast<void*>(&userInterface));
@@ -49,22 +52,20 @@ Application::Application(std::unique_ptr<Game> game)
 
   LOG_CORE_TRACE("[Application] Validating Dependencies");
   assert(this->window);
-  assert(this->renderer2d);
+  assert(this->renderer);
   assert(this->stateMachine);
   assert(this->input);
   assert(this->userInterface);
-};
 
-Application::~Application() = default;
+  const auto& config = this->GetConfig();
 
-void Application::Initialize()
-{
-  const auto& debug = this->GetConfig().engine.debug;
+  const auto& debug = config.engine.debug;
   Debug::System.SetDebugMode(debug.enabled);
-  Umbra::Logging::Log::init("log.csv", debug.enabled);
+
+  LOG_INIT("log.csv", debug.enabled);
 
   LOG_CORE_TRACE("[Application] Beginning Application");
-  std::string title = GetConfig().project.title;
+  std::string title = config.project.title;
 
   LOG_CORE_INFO("[Application] Starting Game: {}", title);
 
@@ -72,7 +73,7 @@ void Application::Initialize()
 #if defined(_WIN32)
   char* windowTitle = _strdup(title);
 #else
-  char* windowTitle = strdup(title);
+  char* windowTitle = strdup(title.c_str());
 #endif
 
   LOG_CORE_DEBUG("[Application] Window Title set: {}", windowTitle);
@@ -82,8 +83,8 @@ void Application::Initialize()
     LOG_CORE_FATAL("[Application] Failed to initialize window");
     assert(this->window);
   }
-  this->window->CreateWindow(engineConfig.window.width, engineConfig.window.height, windowTitle);
-  this->window->SetTargetFPS(engineConfig.window.targetFPS);
+  this->window->CreateWindow(config.engine.window.width, config.engine.window.height, windowTitle);
+  this->window->SetTargetFPS(config.engine.window.targetFPS);
 }
 
 void Application::RegisterDependencies(Core::IDependencyInjector& injector)
@@ -133,7 +134,7 @@ void Application::Run()
     this->DebugRender();
 
     // FINISH:
-    this->renderer2d->EndDrawing();
+    this->renderer->EndDrawing();
   }
   Shutdown();
   this->injector->Teardown();
@@ -157,8 +158,8 @@ void Application::DebugUpdate()
 void Application::Render()
 {
   // RENDERING:
-  this->renderer2d->BeginDrawing();
-  this->renderer2d->ClearBackground(Core::Color::Black);
+  this->renderer->BeginDrawing();
+  this->renderer->ClearBackground(Core::Color::Black);
   // MAIN QUEST: Sort out who is rendering and updating etc
   if (game) {
     this->game->Render();
@@ -166,12 +167,13 @@ void Application::Render()
 }
 void Application::DebugRender()
 {
-  if (this->GetConfig().debug.showDebugHud) {
-    this->game->DebugRender(Debug::System.GetActiveDebugHUD());
+  if (this->GetConfig().engine.debug.showDebugHud) {
+    // Main Quest: [DebugRenderer] Wire up DebugHUD to game rendering
+    this->game->DebugRender();
   }
 }
 
-void Application::ShutDown()
+void Application::Shutdown()
 {
   this->window->CloseWindow();
 }

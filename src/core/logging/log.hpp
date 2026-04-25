@@ -23,7 +23,7 @@ namespace Logging {
 class Log {
  public:
   UMBRA_ENGINE_API static void Init(bool enableClientDebugLogging = true);
-  UMBRA_ENGINE_API static void Init(std::string& fileName, bool enableClientDebugLogging = true);
+  UMBRA_ENGINE_API static void Init(const std::string& fileName, bool enableClientDebugLogging = true);
 
   UMBRA_ENGINE_API inline static std::shared_ptr<Firefly::Logger>& GetCoreLogger()
   {
@@ -37,20 +37,24 @@ class Log {
 }  // namespace Logging
 }  // namespace Core
 
+// Log Init Macros
+
+#define LOG_INIT(...) Umbra::Core::Logging::Log::Init(__VA_ARGS__)
+
 // Client Log Macros
-#define LOG_TRACE(...) Umbra::Logging::Log::getClientLogger()->Trace(__VA_ARGS__)
-#define LOG_DEBUG(...) Umbra::Logging::Log::getClientLogger()->Debug(__VA_ARGS__)
-#define LOG_INFO(...) Umbra::Logging::Log::getClientLogger()->Info(__VA_ARGS__)
-#define LOG_WARNING(...) Umbra::Logging::Log::getClientLogger()->Warning(__VA_ARGS__)
-#define LOG_ERROR(...) Umbra::Logging::Log::getClientLogger()->Error(__VA_ARGS__)
-#define LOG_FATAL(...) Umbra::Logging::Log::getClientLogger()->Fatal(__VA_ARGS__)
+#define LOG_TRACE(...) Umbra::Core::Logging::Log::GetClientLogger()->Trace(__VA_ARGS__)
+#define LOG_DEBUG(...) Umbra::Core::Logging::Log::GetClientLogger()->Debug(__VA_ARGS__)
+#define LOG_INFO(...) Umbra::Core::Logging::Log::GetClientLogger()->Info(__VA_ARGS__)
+#define LOG_WARNING(...) Umbra::Core::Logging::Log::GetClientLogger()->Warning(__VA_ARGS__)
+#define LOG_ERROR(...) Umbra::Core::Logging::Log::GetClientLogger()->Error(__VA_ARGS__)
+#define LOG_FATAL(...) Umbra::Core::Logging::Log::GetClientLogger()->Fatal(__VA_ARGS__)
 
 // Core Log Macros
-#define LOG_CORE_TRACE(...) Umbra::Logging::Log::getCoreLogger()->Trace(__VA_ARGS__)
-#define LOG_CORE_DEBUG(...) Umbra::Logging::Log::getCoreLogger()->Debug(__VA_ARGS__)
-#define LOG_CORE_INFO(...) Umbra::Logging::Log::getCoreLogger()->Info(__VA_ARGS__)
-#define LOG_CORE_WARNING(...) Umbra::Logging::Log::getCoreLogger()->Warning(__VA_ARGS__)
-#define LOG_CORE_ERROR(...) Umbra::Logging::Log::getCoreLogger()->Error(__VA_ARGS__)
-#define LOG_CORE_FATAL(...) Umbra::Logging::Log::getCoreLogger()->Fatal(__VA_ARGS__)
+#define LOG_CORE_TRACE(...) Umbra::Core::Logging::Log::GetCoreLogger()->Trace(__VA_ARGS__)
+#define LOG_CORE_DEBUG(...) Umbra::Core::Logging::Log::GetCoreLogger()->Debug(__VA_ARGS__)
+#define LOG_CORE_INFO(...) Umbra::Core::Logging::Log::GetCoreLogger()->Info(__VA_ARGS__)
+#define LOG_CORE_WARNING(...) Umbra::Core::Logging::Log::GetCoreLogger()->Warning(__VA_ARGS__)
+#define LOG_CORE_ERROR(...) Umbra::Core::Logging::Log::GetCoreLogger()->Error(__VA_ARGS__)
+#define LOG_CORE_FATAL(...) Umbra::Core::Logging::Log::GetCoreLogger()->Fatal(__VA_ARGS__)
 
 }  // namespace Umbra

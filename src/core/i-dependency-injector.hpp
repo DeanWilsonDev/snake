@@ -18,7 +18,7 @@ class IDependencyInjector {
   template <typename TInterface>
   std::shared_ptr<TInterface> Resolve()
   {
-    auto any = Resolve<TInterface>();
+    auto any = ResolveImplementation(typeid(TInterface));
     return std::any_cast<std::shared_ptr<TInterface>>(any);
   }
 
@@ -33,7 +33,7 @@ class IDependencyInjector {
   template <typename TInterface>
   void RegisterInstance(const std::shared_ptr<TInterface>& instance)
   {
-    return RegisterInstanceImplementation(instance);
+    return RegisterInstanceImplementation(typeid(TInterface), instance);
   }
 
   template <typename TInterface, typename TImplementation>

@@ -16,7 +16,7 @@ class IRenderComponent2D;
 }  // namespace Rendering
 }  // namespace Core
 
-namespace Game {
+namespace SnakeGame {
 
 struct AppleParams : Core::Entity::GameEntityParams {
   SnakeGameSettings& settings;

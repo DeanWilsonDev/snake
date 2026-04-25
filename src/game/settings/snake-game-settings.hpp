@@ -2,7 +2,7 @@
 
 #include "engine/config/game-settings.hpp"
 
-#include <umbra/log.h>
+#include "core/logging/log.hpp"
 #include <algorithm>
 
 inline constexpr int DefaultBoxSize = 20;
@@ -12,7 +12,7 @@ inline constexpr int GridColumns = 25;
 inline constexpr int GridRows = 25;
 inline constexpr int DefaultSnakeLength = 5;
 
-namespace Game {
+namespace SnakeGame {
 
 /**
  * @brief Manages configurable settings for the game, including grid dimensions, box size limits,
@@ -52,4 +52,4 @@ struct SnakeGameSettings : public Engine::Config::GameSettings {
  private:
   int boxSize = DefaultBoxSize;
 };
-}  // namespace Game
+}  // namespace SnakeGame

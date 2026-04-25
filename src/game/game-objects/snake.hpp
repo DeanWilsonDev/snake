@@ -15,7 +15,7 @@ namespace Renderer2D::Component {
 class IRenderComponent2D;
 }
 
-namespace Game {
+namespace SnakeGame {
 class Apple;
 
 class SnakeSegment;

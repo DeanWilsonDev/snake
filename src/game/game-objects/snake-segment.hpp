@@ -13,7 +13,7 @@ class TransformComponent2D;
 namespace Physics::Components {
 class ColliderComponent2D;
 }
-namespace Game {
+namespace SnakeGame {
 
 struct SnakeSegmentParams : Core::Entity::GameEntityParams {
   int index{0};

@@ -3,5 +3,5 @@
 
 Core::IApplication* CreateApplication()  
 {
-  return new Snake::SnakeApplication();
+  return new SnakeGame::SnakeApplication();
 };

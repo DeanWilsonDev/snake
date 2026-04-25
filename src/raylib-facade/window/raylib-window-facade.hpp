@@ -1,6 +1,6 @@
 #pragma once
 
-#include "platform/window/i-window.h"
+#include "platform/window/i-window.hpp"
 
 namespace RaylibFacade::Window {
 

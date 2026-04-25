@@ -5,7 +5,7 @@
 #include "window-manager.hpp"
 
 #include "i-window.h"
-#include <umbra/log.h>
+#include "core/logging/log.hpp"
 
 namespace Platform::Window {
 

@@ -10,9 +10,9 @@
 #include "core/components/transform-component-2d.hpp"
 #include "core/rendering/components/i-render-component-2d.hpp"
 #include "renderer-2d/components/render-component-2d.hpp"
-#include "umbra/log.h"
+#include "core/logging/log.hpp"
 
-namespace Game {
+namespace SnakeGame {
 
 Apple::Apple(const AppleParams& params)
     : Core::Entity::GameEntity(params), settings(params.settings)
@@ -116,4 +116,4 @@ Core::Rendering::Components::IRenderComponent2D& Apple::GetRendererComponent2D()
   return *this->renderComponent;
 }
 
-}  // namespace Game
+}  // namespace SnakeGame

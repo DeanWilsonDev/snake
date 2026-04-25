@@ -1,8 +1,7 @@
 #pragma once
 #include "engine/game/game.hpp"
-#include "engine/scenes/scene-manager.hpp"
 
-namespace Game {
+namespace SnakeGame {
 class SnakeGame : public Engine::Game {
  public:
   SnakeGame();
@@ -10,4 +9,4 @@ class SnakeGame : public Engine::Game {
 
  private:
 };
-}  // namespace Game
+}  // namespace SnakeGame

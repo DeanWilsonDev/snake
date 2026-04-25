@@ -16,7 +16,7 @@ void Log::Init(bool enableClientDebugLogging)
   Firefly::LogRegistry::RegisterLogger(CLIENT_LOGGER_NAME, enableClientDebugLogging);
 }
 
-void Log::Init(std::string& fileName, bool enableClientDebugLogging)
+void Log::Init(const std::string& fileName, bool enableClientDebugLogging)
 {
   Firefly::LogRegistry::RegisterLogger(CORE_LOGGER_NAME, fileName, true);
   Firefly::LogRegistry::RegisterLogger(CLIENT_LOGGER_NAME, fileName, enableClientDebugLogging);

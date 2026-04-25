@@ -10,7 +10,7 @@
 
 #include <cstdio>
 
-namespace Game {
+namespace SnakeGame {
 GameplayUI::GameplayUI(GameContext& gameContext): gameContext(gameContext)
 {
 }

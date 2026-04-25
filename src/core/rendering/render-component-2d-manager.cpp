@@ -6,7 +6,7 @@
 #include "core/rendering/components/i-render-component-2d.hpp"
 #include "core/rendering/components/i-render-component.hpp"
 #include "core/rendering/i-renderer.hpp"
-#include <umbra/log.h>
+#include "core/logging/log.hpp"
 #include <cassert>
 
 namespace Core::Rendering {

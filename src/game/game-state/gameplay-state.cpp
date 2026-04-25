@@ -10,7 +10,7 @@
 #include "physics/collision/rectangle-collider-2d.hpp"
 #include "game/game-objects/snake-segment.hpp"
 #include "game/ui/gameplay-ui.hpp"
-#include "umbra/log.h"
+#include "core/logging/log.hpp"
 
 #include <memory>
 #include <cstddef>
@@ -20,7 +20,7 @@ namespace Renderer2D {
 class IRenderer;
 }
 
-namespace Game {
+namespace SnakeGame {
 
 GameplayState::GameplayState(GameContext& gameContext) : gameContext(gameContext)
 {
@@ -138,4 +138,4 @@ std::unique_ptr<Core::State::IGameState> GameplayState::GetNextState()
   return std::make_unique<GameOverState>(this->gameContext);
 };
 
-}  // namespace Game
+}  // namespace SnakeGame

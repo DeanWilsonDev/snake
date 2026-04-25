@@ -8,7 +8,7 @@
 #include "core/entity/entity.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/math/size-2d.hpp"
-#include "umbra/log.h"
+#include "core/logging/log.hpp"
 
 namespace Core::Entity {
 

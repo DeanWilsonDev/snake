@@ -7,7 +7,7 @@
 #include <cassert>
 #include <memory>
 
-namespace Game {
+namespace SnakeGame {
 
 GameOverState::GameOverState(GameContext& gameContext) : gameContext(gameContext) {}
 

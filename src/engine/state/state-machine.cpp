@@ -2,8 +2,6 @@
 #include "state-machine.hpp"
 #include "core/state/i-game-state.hpp"
 
-#include <umbra/log.h>
-
 #include <memory>
 #include <utility>
 

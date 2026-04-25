@@ -8,7 +8,7 @@
 #include "core/state/i-game-state.hpp"
 #include "gameplay-state-machine.hpp"
 
-namespace Game {
+namespace SnakeGame {
 
 class MainMenuUI;
 

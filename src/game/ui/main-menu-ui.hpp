@@ -9,7 +9,7 @@ namespace UserInterface {
 class IUserInterface;
 }
 
-namespace Game {
+namespace SnakeGame {
 struct GameSettings;
 
 class MainMenuUI final : public Core::IGameUI {
@@ -28,4 +28,4 @@ class MainMenuUI final : public Core::IGameUI {
   UserInterface::IUserInterface& ui;
 };
 
-}  // namespace Game
+}  // namespace Snake

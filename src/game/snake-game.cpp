@@ -4,7 +4,7 @@
 #include "game/game-scenes/gameplay-scene.hpp"
 #include <functional>
 
-namespace Game {
+namespace SnakeGame {
 
 void SnakeGame::Initialize()
 {
@@ -30,4 +30,4 @@ void SnakeGame::Initialize()
   sceneManager.SwitchTo("mainMenu");
 }
 
-}  // namespace Game
+}  // namespace SnakeGame

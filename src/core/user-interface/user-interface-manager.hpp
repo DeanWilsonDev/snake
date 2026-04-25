@@ -42,5 +42,5 @@ class UserInterfaceManager final : public IUpdatable, Debug::IDebugable, Renderi
  private:
   std::vector<std::unique_ptr<UserInterface::IGameUI>> gameUIs;
 };
-}  // namespace UserInterface
+}  // namespace Core::UserInterface
 }  // namespace Core

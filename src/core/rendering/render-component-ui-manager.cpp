@@ -5,7 +5,8 @@
 #include "render-component-ui-manager.hpp"
 #include "core/rendering/components/i-render-component-ui.hpp"
 #include "core/rendering/i-renderer.hpp"
-#include <umbra/log.h>
+#include "core/logging/log.hpp"
+
 #include <memory>
 #include <utility>
 #include <cassert>

@@ -6,12 +6,11 @@
 #include "main-menu-state.hpp"
 #include "core/state/i-game-state.hpp"
 
-#include <umbra/log.h>
 #include <memory>
 #include <assert.h>
 #include <utility>
 
-namespace Game {
+namespace SnakeGame {
 
 GameplayStateMachine::GameplayStateMachine(std::unique_ptr<Core::State::IGameState> currentState)
     : StateMachine(std::move(currentState))
@@ -44,4 +43,4 @@ void GameplayStateMachine::SetGameEntityManager(
   this->gameEntityManager = gameEntityManager;
 }
 
-}  // namespace Game
+}  // namespace SnakeGame

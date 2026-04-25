@@ -9,7 +9,7 @@
 #include "user-interface/i-user-interface.hpp"
 #include <cstdio>
 
-namespace Game {
+namespace SnakeGame {
 
 GameOverUI::GameOverUI(UserInterface::IUserInterface& ui, GameSettings& settings, int& score)
     : ui(ui), settings(settings), score(score)
@@ -27,4 +27,4 @@ void GameOverUI::OnDrawUI()
   this->ui.DrawTextCentered(this->scoreBuffer, {screenWidth / 2.0f, 150.0f}, 20);
 };
 
-}  // namespace Game
+}  // namespace SnakeGame

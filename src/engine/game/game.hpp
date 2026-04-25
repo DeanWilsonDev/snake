@@ -62,7 +62,7 @@ class Game : public Core::IGame {
  private:
   // std::unique_ptr<GameSettings> settings{nullptr};
   std::unique_ptr<Core::GameEntityManager> gameEntityManager;
-  std::unique_ptr<Engine::Scenes::SceneManager> SceneManager;
+  std::unique_ptr<Engine::Scenes::SceneManager> sceneManager;
   // std::unique_ptr<GameplayStateMachine> gameplayStateMachine;
   Engine::Config::ProjectSettings& projectSettings;
 

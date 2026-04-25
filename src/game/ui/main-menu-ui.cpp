@@ -8,7 +8,7 @@
 #include "game/settings/game-settings.hpp"
 #include "user-interface/i-user-interface.hpp"
 
-namespace Game {
+namespace SnakeGame {
 
 MainMenuUI::MainMenuUI(UserInterface::IUserInterface& ui, GameSettings& settings)
     : settings(settings), ui(ui)
@@ -25,4 +25,4 @@ void MainMenuUI::Render()
       "Press 'Enter' to start", Core::Math::Vector2D{screenWidth / 2.0f, 200.0f}, 20
   );
 }
-}  // namespace Game
+}  // namespace Snake

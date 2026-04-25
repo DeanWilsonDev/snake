@@ -1,6 +1,6 @@
 #pragma once
 #include "core/entity/game-entity-manager.hpp"
-#include "core/state/state-machine.hpp"
+#include "engine/state/state-machine.hpp"
 #include "core/state/i-game-state.hpp"
 #include "engine/input/input-system.hpp"
 #include "game/settings/snake-game-settings.hpp"
@@ -14,7 +14,7 @@ class RenderComponent2DManager;
 }  // namespace Rendering
 }  // namespace Core
 
-namespace Game {
+namespace SnakeGame {
 
 class Apple;
 class Snake;

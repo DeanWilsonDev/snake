@@ -4,8 +4,12 @@
 #include "engine/game/game.hpp"
 #include "engine/config/application-config.hpp"
 #include "core/i-dependency-injector.hpp"
-#include "engine/config/engine-config.hpp"
 #include "core/debug/i-debug-hud.hpp"
+
+// Main Quest: Move these to core
+#include "platform/window/i-window.hpp"
+#include "platform/input/i-input-backend.hpp"
+
 #include <memory>
 
 namespace Core {
@@ -42,7 +46,7 @@ struct ProjectSettings;
 
 class Application : public Core::IApplication {
  public:
-  explicit Application(std::unique_ptr<Game> game);
+  explicit Application(std::unique_ptr<Core::IGame> game);
   ~Application();
 
   virtual void Run() override;
@@ -57,20 +61,20 @@ class Application : public Core::IApplication {
   virtual void Render() override;
   virtual void DebugRender() override;
   virtual void Shutdown() override;
-  [[nodiscard]] virtual Config::ApplicationConfig& GetConfig() override { return *this->config; };
+  [[nodiscard]] virtual Config::ApplicationConfig& GetConfig() override { return this->config; };
 
  private:
   std::unique_ptr<Core::IGame> game = nullptr;
   std::unique_ptr<Core::IDependencyInjector> injector;
-  std::unique_ptr<Platform::Window::IWindow> window = nullptr;
-  std::unique_ptr<Platform::Input::IInputBackend> input = nullptr;
-  std::unique_ptr<Core::Rendering::IRenderer> renderer = nullptr;
-  std::unique_ptr<Core::Rendering::RenderComponent2DManager> renderComponent2dManager;
+  std::shared_ptr<Platform::Window::IWindow> window = nullptr;
+  std::shared_ptr<Platform::Input::IInputBackend> input = nullptr;
+  std::shared_ptr<Core::Rendering::IRenderer> renderer = nullptr;
+  std::shared_ptr<Core::Rendering::RenderComponent2DManager> renderComponent2dManager;
   Config::ApplicationConfig config;
 
   std::unique_ptr<Debug::DebugHUD> debugHUD;
 
-  // std::shared_ptr<UserInterface::IUserInterface> userInterface = nullptr;
+  std::shared_ptr<UserInterface::IUserInterface> userInterface = nullptr;
   std::shared_ptr<Core::Debug::IDebugHUD> debugHud = nullptr;
   std::shared_ptr<Core::State::IStateMachine> stateMachine = nullptr;
 };

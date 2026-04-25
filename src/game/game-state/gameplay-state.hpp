@@ -7,15 +7,12 @@
 
 #include <memory>
 
-namespace Game {
-class GameplayUI;
-}
 namespace Renderer2D {
 class IRenderer;
 }
 
-namespace Game {
-
+namespace SnakeGame {
+class GameplayUI;
 class GameplayStateMachine;
 
 class GameplayState final : public Core::State::IGameState {

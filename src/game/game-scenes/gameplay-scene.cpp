@@ -1,6 +1,6 @@
 #include "gameplay-scene.hpp"
 
-namespace Game {
+namespace SnakeGame {
 
 // GameplayScene.cpp
 void GameplayScene::OnEnter(Engine::SceneTransitionContext ctx)

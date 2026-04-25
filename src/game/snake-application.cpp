@@ -3,21 +3,19 @@
 #include "raylib-facade/window/raylib-window-facade.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
 #include "raylib-facade/input/raylib-input-backend-facade.hpp"
-#include "raylib-facade/user-interface/raylib-user-interface-facade.hpp"
 #include "platform/input/i-input-backend.hpp"
-#include "platform/window/i-window.h"
+#include "platform/window/i-window.hpp"
 #include "engine/input/key-code.hpp"
 #include "core/user-interface/user-interface-manager.hpp"
 #include "game/game-state/gameplay-state-machine.hpp"
 #include "engine/config/application-config.hpp"
-#include <umbra/log.h>
-#include <memory>
 #include <vector>
 
 using KeyCode = Engine::Input::KeyCode;
 
-namespace Snake {
+namespace SnakeGame {
 
+// 1UP: this could just deserialise a json config file. Amanuensis?
 void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
 {
   config = {
@@ -68,4 +66,4 @@ void SnakeApplication::RegisterDependencies(Core::IDependencyInjector& injector)
   Engine::Application::RegisterDependencies(injector);
 }
 
-}  // namespace Snake
+}  // namespace SnakeGame

@@ -1,0 +1,46 @@
+#include "gameplay-scene.hpp"
+#include "core/entity/game-entity-manager.hpp"
+
+namespace SnakeGame {
+
+GameplayScene::GameplayScene(const GameplaySceneParams& params) : eventBus(params.eventBus)
+{
+  this->renderComponentManager = Core::Rendering::RenderComponent2DManager();
+  this->entityManager = Core::GameEntityManager(&this->renderComponentManager);
+}
+
+void GameplayScene::Initialize() {}
+
+// GameplayScene.cpp
+void GameplayScene::OnEnter(Core::SceneTransitionContext ctx)
+{
+  this->transition = ctx;
+  // initialise entities, reset state etc.
+}
+
+void GameplayScene::Update(float deltaTime)
+{
+  stateMachine.Update(deltaTime);
+  entityManager.OnUpdate(deltaTime);
+
+  // if (stateMachine.IsGameOver()) transition.SwitchTo("mainMenu");
+}
+
+// // PauseScene — example of push/pop overlay
+// void GameplayScene::Update(float deltaTime)
+// {
+//     if (Input::IsPressed(Key::Escape))
+//         transition.Push("pause");
+//     // ...
+// }
+//
+// void PauseScene::Update(float deltaTime)
+// {
+//     if (Input::IsPressed(Key::Escape))
+//         transition.Pop();   // returns to gameplay, same instance
+// }
+
+void GameplayScene::DebugUpdate() {}
+void GameplayScene::DebugRender() {}
+
+}  // namespace SnakeGame

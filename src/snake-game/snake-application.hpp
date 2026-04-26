@@ -23,6 +23,8 @@ class SnakeApplication : public Engine::Application {
 
   virtual void Initialize() override;
   virtual void Configure(Engine::Config::ApplicationConfig& config) override;
-  virtual void RegisterDependencies(Core::IDependencyInjector& injector) override;
+  virtual void RegisterDependencies() override;
+
+ private:
 };
 }  // namespace SnakeGame

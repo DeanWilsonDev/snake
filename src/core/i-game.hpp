@@ -5,22 +5,27 @@
 #pragma once
 
 #include "core/debug/i-debugable.hpp"
+#include "core/rendering/i-render-manager.hpp"
 
 namespace Core {
 
-class IGame: public Debug::IDebugable {
-public:
+namespace Rendering {
+class IRenderer;
+}
+
+class IGame : public Debug::IDebugable, Rendering::IRenderManager {
+ public:
   virtual ~IGame() = default;
 
   // Called once to initialize game-specific systems and resources
   virtual void Initialize() = 0;
 
   // Called every frame to handle game-specific logic
-  virtual void Update([[maybe_unused]] float deltaTime)=0;
-  [[maybe_unused]] virtual void DebugUpdate() = 0; 
+  virtual void Update([[maybe_unused]] float deltaTime) = 0;
+  [[maybe_unused]] virtual void DebugUpdate() = 0;
 
   // Called every frame to handle game-specific rendering
-  virtual void Render() = 0;
+  virtual void Render(const Rendering::IRenderer& renderer) const = 0;
 };
 
-} // Core
+}  // namespace Core

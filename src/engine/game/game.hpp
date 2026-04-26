@@ -27,6 +27,7 @@ struct Rectangle;
 
 namespace Rendering {
 class RenderComponent2DManager;
+class IRenderer;
 namespace Components {
 class IRenderComponent2D;
 }
@@ -52,7 +53,7 @@ class Game : public Core::IGame {
 
   void Initialize() override;
   void Update(float deltaTime) override;
-  void Render() override;
+  void Render(const Core::Rendering::IRenderer& rendrer) const override;
   void DebugUpdate() override;
   void DebugRender() override;
 

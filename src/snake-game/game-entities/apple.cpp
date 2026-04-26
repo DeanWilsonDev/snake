@@ -14,9 +14,12 @@
 
 namespace SnakeGame {
 
-Apple::Apple(const AppleParams& params)
-    : Core::Entity::GameEntity(params), settings(params.settings)
+Apple::Apple(const AppleParams& params) : Core::Entity::GameEntity(params) {}
+
+void Apple::Initialize()
 {
+  GameEntity::Initialize();
+
   LOG_TRACE("[Apple] Initializing Apple from Constructor");
 
   this->transformComponent = make_unique<Core::Components::TransformComponent2D>(
@@ -50,7 +53,9 @@ Apple::Apple(const AppleParams& params)
       "[Apple] Checking ColliderComponent2D is Initialized: [{}]",
       static_cast<void*>(&this->colliderComponent)
   );
-}
+
+  this->transformComponent->SetPosition(this->GetNewPosition());
+};
 
 void Apple::Update([[maybe_unused]] const float deltaTime) {}
 
@@ -73,38 +78,6 @@ void Apple::DebugUpdate()
   );
 }
 
-void Apple::Initialize()
-{
-  GameEntity::Initialize();
-  this->transformComponent->SetPosition(this->GetNewPosition());
-};
-
-Core::Math::Vector2D Apple::GetNewPosition() const
-{
-  const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
-  const auto screenHeight = static_cast<float>(this->settings.GetScreenHeight());
-  const auto screenWidth = static_cast<float>(this->settings.GetScreenWidth());
-
-  const auto maxWidth = static_cast<int>(screenWidth / boxSize - 1.f);
-  const auto maxHeight = static_cast<int>(screenHeight / boxSize - 1.f);
-
-  const auto posX = static_cast<float>(Core::GetRandomValue(0, maxWidth)) * boxSize +
-                    (boxSize - boxSize / 2.0f) / 2.0f;
-
-  const auto posY = static_cast<float>(Core::GetRandomValue(0, maxHeight)) * boxSize +
-                    (boxSize - boxSize / 2.0f) / 2.0f;
-
-  return {posX, posY};
-}
-
-Core::Math::Vector2D Apple::GetCenter() const
-{
-  const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
-  return {
-      this->transformComponent->position.x + (boxSize - boxSize / 2.0f) / 2.0f,
-      this->transformComponent->position.y + (boxSize - boxSize / 2.0f) / 2.0f,
-  };
-}
 
 Physics::Collision::Components::ColliderComponent2D& Apple::GetColliderComponent() const
 {

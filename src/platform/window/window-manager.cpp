@@ -4,8 +4,8 @@
 
 #include "window-manager.hpp"
 
-#include "i-window.h"
-#include "core/logging/log.hpp"
+#include "i-window.hpp"
+#include "core/logging/loghpp"
 
 namespace Platform::Window {
 

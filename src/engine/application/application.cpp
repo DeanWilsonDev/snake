@@ -1,4 +1,5 @@
 #include "application.hpp"
+#include "core/events/i-event-bus.hpp"
 #include "engine/config/project-settings.hpp"
 #include "core/color/color.hpp"
 #include "core/user-interface/user-interface-manager.hpp"
@@ -9,6 +10,7 @@
 #include "debug/debug.hpp"
 #include "debug/debug-hud.hpp"
 #include "core/rendering/i-renderer.hpp"
+#include "engine/events/event-bus.hpp"
 #include "platform/input/i-input-backend.hpp"
 #include "user-interface/i-user-interface.hpp"
 #include "core/i-dependency-injector.hpp"
@@ -41,6 +43,7 @@ void Application::Initialize()
   this->stateMachine = this->injector->Resolve<Core::State::IStateMachine>();
   this->input = this->injector->Resolve<Platform::Input::IInputBackend>();
   this->userInterface = this->injector->Resolve<UserInterface::IUserInterface>();
+  this->eventBus = this->injector->Resolve<Core::Events::IEventBus>();
   Debug::System.SetActiveDebugHUD(this->injector->Resolve<Core::Debug::IDebugHUD>());
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&window));
@@ -48,6 +51,7 @@ void Application::Initialize()
   LOG_CORE_TRACE("[Application] StateMachine set to {}", static_cast<void*>(&stateMachine));
   LOG_CORE_TRACE("[Application] Input set to {}", static_cast<void*>(&input));
   LOG_CORE_TRACE("[Application] UserInterface set to {}", static_cast<void*>(&userInterface));
+  LOG_CORE_TRACE("[Application] EventBus set to {}", static_cast<void*>(&eventBus));
   LOG_CORE_TRACE("[Application] DebugHUD set to {}", static_cast<void*>(&debugHud));
 
   LOG_CORE_TRACE("[Application] Validating Dependencies");
@@ -56,6 +60,7 @@ void Application::Initialize()
   assert(this->stateMachine);
   assert(this->input);
   assert(this->userInterface);
+  assert(this->eventBus);
 
   const auto& config = this->GetConfig();
 
@@ -87,15 +92,18 @@ void Application::Initialize()
   this->window->SetTargetFPS(config.engine.window.targetFPS);
 }
 
-void Application::RegisterDependencies(Core::IDependencyInjector& injector)
+void Application::RegisterDependencies()
 {
-  injector.Register<
+  injector->Register<
       Core::UserInterface::IUserInterfaceManager,
       Core::UserInterface::UserInterfaceManager>();
 
   // Debug
   auto hud = std::make_shared<Debug::DebugHUD>();
-  injector.RegisterInstance<Core::Debug::IDebugHUD>(hud);
+  this->injector->RegisterInstance<Core::Debug::IDebugHUD>(hud);
+
+  // Events
+  this->injector->RegisterSingleton<Core::Events::IEventBus, Engine::Events::EventBus>();
 }
 
 void Application::SetGame(std::unique_ptr<Core::IGame> game)
@@ -111,7 +119,7 @@ void Application::Run()
 {
   this->Configure(this->config);
 
-  this->RegisterDependencies(*this->injector);
+  this->RegisterDependencies();
 
   this->Initialize();
   LOG_CORE_DEBUG("[Application] Window Should Close {}", this->window->ShouldClose());
@@ -162,7 +170,7 @@ void Application::Render()
   this->renderer->ClearBackground(Core::Color::Black);
   // MAIN QUEST: Sort out who is rendering and updating etc
   if (game) {
-    this->game->Render();
+    this->game->Render(*this->renderer);
   }
 }
 void Application::DebugRender()

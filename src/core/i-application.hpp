@@ -23,8 +23,9 @@ class IApplication {
  protected:
   // Called once to initialize application-specific systems and resources
   virtual void Configure(Engine::Config::ApplicationConfig& config) = 0;
-  virtual void RegisterDependencies(Core::IDependencyInjector& injector) = 0;
+  virtual void RegisterDependencies() = 0;
   virtual Engine::Config::ApplicationConfig& GetConfig() = 0;
+  virtual Core::IDependencyInjector& GetInjector() const = 0;
 
   virtual void Initialize() = 0;
 

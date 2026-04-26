@@ -3,7 +3,7 @@
 #include "engine/state/state-machine.hpp"
 #include "core/state/i-game-state.hpp"
 #include "engine/input/input-system.hpp"
-#include "game/settings/snake-game-settings.hpp"
+#include "snake-game/settings/snake-game-settings.hpp"
 
 #include <memory>
 

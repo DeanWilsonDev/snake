@@ -1,5 +1,7 @@
 #include "snake-application.hpp"
+#include "core/events/i-event-bus.hpp"
 #include "engine/application/application.hpp"
+#include "engine/events/event-bus.hpp"
 #include "raylib-facade/window/raylib-window-facade.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
 #include "raylib-facade/input/raylib-input-backend-facade.hpp"
@@ -7,13 +9,18 @@
 #include "platform/window/i-window.hpp"
 #include "engine/input/key-code.hpp"
 #include "core/user-interface/user-interface-manager.hpp"
-#include "game/game-state/gameplay-state-machine.hpp"
+#include "snake-game/game-state/gameplay-state-machine.hpp"
 #include "engine/config/application-config.hpp"
 #include <vector>
 
 using KeyCode = Engine::Input::KeyCode;
 
 namespace SnakeGame {
+
+void SnakeApplication::Initialize()
+{
+    Engine::Application::Initialize();
+}
 
 // 1UP: this could just deserialise a json config file. Amanuensis?
 void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
@@ -48,12 +55,14 @@ void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
   };
 }
 
-void SnakeApplication::RegisterDependencies(Core::IDependencyInjector& injector)
+void SnakeApplication::RegisterDependencies()
 {
   // Platform
-  injector.Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
-  injector.Register<Core::Rendering::IRenderer, RaylibFacade::Renderer::RaylibRendererFacade>();
-  injector
+  this->GetInjector()
+      .Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
+  this->GetInjector()
+      .Register<Core::Rendering::IRenderer, RaylibFacade::Renderer::RaylibRendererFacade>();
+  this->GetInjector()
       .Register<Platform::Input::IInputBackend, RaylibFacade::Input::RaylibInputBackendFacade>();
 
   // injector.Register<
@@ -61,9 +70,11 @@ void SnakeApplication::RegisterDependencies(Core::IDependencyInjector& injector)
   //     RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
 
   // Game
-  injector.Register<Core::State::IStateMachine, Game::GameplayStateMachine>();
+  this->GetInjector().Register<Core::State::IStateMachine, SnakeGame::GameplayStateMachine>();
 
-  Engine::Application::RegisterDependencies(injector);
+  this->GetInjector().RegisterSingleton<Core::Events::IEventBus, Engine::Events::EventBus>();
+
+  Engine::Application::RegisterDependencies();
 }
 
 }  // namespace SnakeGame

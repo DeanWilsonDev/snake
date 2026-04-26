@@ -1,4 +1,5 @@
 #pragma once
+#include "core/events/i-event-bus.hpp"
 #include "core/i-application.hpp"
 #include "debug/debug-hud.hpp"
 #include "engine/game/game.hpp"
@@ -55,13 +56,17 @@ class Application : public Core::IApplication {
  protected:
   virtual void Initialize() override;
   virtual void Configure(Config::ApplicationConfig& config) override;
-  virtual void RegisterDependencies(Core::IDependencyInjector& injector) override;
+  virtual void RegisterDependencies() override;
   virtual void Update(float deltaTime) override;
   virtual void DebugUpdate() override;
   virtual void Render() override;
   virtual void DebugRender() override;
   virtual void Shutdown() override;
   [[nodiscard]] virtual Config::ApplicationConfig& GetConfig() override { return this->config; };
+  [[nodiscard]] virtual Core::IDependencyInjector& GetInjector() const override
+  {
+    return *this->injector;
+  };
 
  private:
   std::unique_ptr<Core::IGame> game = nullptr;
@@ -69,6 +74,7 @@ class Application : public Core::IApplication {
   std::shared_ptr<Platform::Window::IWindow> window = nullptr;
   std::shared_ptr<Platform::Input::IInputBackend> input = nullptr;
   std::shared_ptr<Core::Rendering::IRenderer> renderer = nullptr;
+  std::shared_ptr<Core::Events::IEventBus> eventBus = nullptr;
   std::shared_ptr<Core::Rendering::RenderComponent2DManager> renderComponent2dManager;
   Config::ApplicationConfig config;
 

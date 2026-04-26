@@ -23,7 +23,7 @@ class RenderComponent2DManager final : public IRenderManager {
   ~RenderComponent2DManager() = default;
   void Register(Components::IRenderComponent* component);
   void Unregister(Components::IRenderComponent* component);
-  void Render(const IRenderer& renderer) const;
+  void OnRender(const IRenderer& renderer) const override;
 
  private:
   std::vector<Components::IRenderComponent*> renderComponents;

@@ -1,6 +1,6 @@
 
 #include "gameplay-state-machine.hpp"
-#include "core/state/state-machine.hpp"
+#include "engine/state/state-machine.hpp"
 #include "core/entity/game-entity-manager.hpp"
 #include "gameplay-state.hpp"
 #include "main-menu-state.hpp"

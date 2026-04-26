@@ -6,6 +6,7 @@
 
 #include "core/debug/i-debugable.hpp"
 #include "core/i-updatable.hpp"
+#include "core/rendering/i-render-manager.hpp"
 #include "core/rendering/i-renderable.hpp"
 #include <string>
 #include <functional>
@@ -18,7 +19,7 @@ struct SceneTransitionContext {
   std::function<void()> Pop;
 };
 
-class IGameScene : public IUpdatable, Debug::IDebugable, Rendering::IRenderable {
+class IGameScene : public IUpdatable, Debug::IDebugable, Rendering::IRenderManager {
  public:
   virtual ~IGameScene() = default;
 
@@ -30,7 +31,7 @@ class IGameScene : public IUpdatable, Debug::IDebugable, Rendering::IRenderable 
   virtual void Update(float deltaTime) override = 0;
   virtual void DebugUpdate() override = 0;
 
-  virtual void Render(const Rendering::IRenderer& renderer) override = 0;
+  virtual void OnRender(const Rendering::IRenderer& renderer) const override = 0;
   virtual void DebugRender() override = 0;
 };
 

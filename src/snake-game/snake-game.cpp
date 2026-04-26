@@ -1,7 +1,7 @@
 
-#include "game/snake-game.hpp"
+#include "snake-game/snake-game.hpp"
 #include "engine/scenes/scene-manager.hpp"
-#include "game/game-scenes/gameplay-scene.hpp"
+#include "snake-game/game-scenes/gameplay-scene.hpp"
 #include <functional>
 
 namespace SnakeGame {

@@ -58,16 +58,31 @@ void DependencyInjector::RegisterImplementation(
     std::type_index type, std::function<std::any()> factory
 )
 {
+  if (this->factories.find(type) != this->factories.end()) {
+    LOG_CORE_WARNING(
+        "[DependencyInjector] Type {} is already registered, overwritting", type.name()
+    );
+  }
   this->factories[type] = factory;
 };
 
 void DependencyInjector::RegisterInstanceImplementation(std::type_index type, std::any instance)
 {
+  if (this->factories.find(type) != this->factories.end()) {
+    LOG_CORE_WARNING(
+        "[DependencyInjector] Type {} is already registered, overwritting", type.name()
+    );
+  }
   instances[type] = instance;
 }
 
 void DependencyInjector::RegisterSingletonImplementation(std::type_index type, std::any instance)
 {
+  if (this->factories.find(type) != this->factories.end()) {
+    LOG_CORE_WARNING(
+        "[DependencyInjector] Type {} is already registered, overwritting", type.name()
+    );
+  }
   this->instances[type] = instance;
 }
 

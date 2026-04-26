@@ -1,9 +1,9 @@
 #pragma once
 
 #include "core/state/i-game-state.hpp"
-#include "game/game-state/gameplay-state-machine.hpp"
-#include "game/game-objects/snake.hpp"
-#include "game/game-objects/apple.hpp"
+#include "snake-game/game-state/gameplay-state-machine.hpp"
+#include "snake-game/game-entities/snake.hpp"
+#include "snake-game/game-entities/apple.hpp"
 
 #include <memory>
 
@@ -33,4 +33,4 @@ class GameplayState final : public Core::State::IGameState {
   std::unique_ptr<Snake> snake = nullptr;
   std::unique_ptr<Apple> apple = nullptr;
 };
-}  // namespace Game
+}  // namespace SnakeGame

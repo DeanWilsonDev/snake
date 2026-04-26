@@ -1,5 +1,5 @@
-#include "game/game-objects/snake.hpp"
-#include "game/settings/game-settings.hpp"
+#include "snake-game/game-entities/snake.hpp"
+#include "snake-game/settings/game-settings.hpp"
 #include "snake-segment.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/math/transform-2d.hpp"
@@ -152,4 +152,4 @@ void Snake::Destroy()
   this->body.clear();
   this->head = nullptr;
 }
-}  // namespace Game
+}  // namespace SnakeGame

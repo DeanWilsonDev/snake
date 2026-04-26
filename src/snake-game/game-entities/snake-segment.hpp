@@ -55,4 +55,4 @@ class SnakeSegment final : public Core::Entity::GameEntity {
   std::unique_ptr<Core::Rendering::Components::IRenderComponent2D> renderComponent{nullptr};
   std::unique_ptr<Physics::Collision::Components::ColliderComponent2D> colliderComponent{nullptr};
 };
-}  // namespace Game
+}  // namespace SnakeGame

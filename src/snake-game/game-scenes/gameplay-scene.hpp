@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include <memory>
 #include "core/i-game-scene.hpp"
 #include "core/rendering/i-renderer.hpp"
 #include "core/rendering/render-component-2d-manager.hpp"
@@ -23,7 +22,7 @@ namespace SnakeGame {
 class GameplayStateMachine;
 
 struct GameplaySceneParams {
-  std::shared_ptr<Core::Events::IEventBus> eventBus;
+  Core::Events::IEventBus* eventBus;
 };
 
 class GameplayScene : public Core::IGameScene {
@@ -40,9 +39,9 @@ class GameplayScene : public Core::IGameScene {
 
  private:
   Core::SceneTransitionContext transition;
-  Core::GameEntityManager entityManager;
   Core::Rendering::RenderComponent2DManager renderComponentManager;
+  Core::GameEntityManager entityManager;
   GameplayStateMachine stateMachine;
-  std::shared_ptr<Core::Events::IEventBus> eventBus;
+  Core::Events::IEventBus& eventBus;
 };
 }  // namespace SnakeGame

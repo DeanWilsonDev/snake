@@ -4,32 +4,33 @@
 #pragma once
 
 #include "core/components/i-component.hpp"
-#include "core/debug/i-debugable.hpp"
+#include "core/entity/i-entity.hpp"
 #include <cassert>
 #include <typeindex>
 #include <unordered_map>
 #include <memory>
 
-namespace Core::Entity {
+namespace Engine::Entity {
 
-struct EntityParams {
+struct EntityBaseParams {
   bool active = true;
 
-  EntityParams(bool active = true) : active(active) {}
+  EntityBaseParams(bool active = true) : active(active) {}
 };
 
-class Entity : public Core::Debug::IDebugable {
+class EntityBase : public Core::Entity::IEntity {
  public:
-  explicit Entity(const EntityParams& params);
-  virtual ~Entity() = 0;
+  explicit EntityBase(const EntityBaseParams& params);
+  virtual ~EntityBase() = 0;
 
-  virtual void Initialize();
-  virtual void Update([[maybe_unused]] float deltaTime);
+  virtual void Initialize() override;
+  virtual void Update([[maybe_unused]] float deltaTime) override;
   virtual void DebugUpdate() override;
-  [[nodiscard]] int GetID() const;
-  [[nodiscard]] bool IsActive() const;
-  virtual void SetActive(bool active);
-  virtual bool& GetActive();
+  virtual void DebugRender() override;
+  virtual int GetID() const override;
+  virtual bool IsActive() const override;
+  virtual void SetActive(bool active) override;
+  virtual const bool& GetActive() override;
 
   template <typename T, typename... Args>
   void AddComponent(Args&&... args);
@@ -40,9 +41,8 @@ class Entity : public Core::Debug::IDebugable {
   template <typename T>
   void RemoveComponent();
 
-
  private:
-  std::unordered_map<std::type_index, std::unique_ptr<Components::IComponent>> components{};
+  std::unordered_map<std::type_index, std::unique_ptr<Core::Components::IComponent>> components{};
 
   static int GenerateId();
 
@@ -51,7 +51,7 @@ class Entity : public Core::Debug::IDebugable {
 };
 
 template <typename T, typename... Args>
-void Entity::AddComponent(Args&&... args)
+void EntityBase::AddComponent(Args&&... args)
 {
   // Ensure no duplicate components of the same type
   const auto type = std::type_index(typeid(T));
@@ -62,7 +62,7 @@ void Entity::AddComponent(Args&&... args)
 }
 
 template <typename T>
-T* Entity::GetComponent()
+T* EntityBase::GetComponent()
 {
   const auto type = std::type_index(typeid(T));
 
@@ -74,7 +74,7 @@ T* Entity::GetComponent()
 }
 
 template <typename T>
-void Entity::RemoveComponent()
+void EntityBase::RemoveComponent()
 {
   const auto type = std::type_index(typeid(T));
   this->components.erase(type);

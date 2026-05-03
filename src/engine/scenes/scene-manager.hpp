@@ -50,9 +50,9 @@ class SceneManager : public Core::Debug::IOnDebugable,
   void Pop();
 
   virtual void OnUpdate(float deltaTime) override;
-  virtual void OnDebugUpdate() override;
-  virtual void OnDebugRender() override;
-  virtual void OnRender(const Core::Rendering::IRenderer& renderer) override;
+  virtual void OnDebugUpdate() const override;
+  virtual void OnDebugRender() const override;
+  virtual void OnRender(const Core::Rendering::IRenderer& renderer) const override;
 
  private:
   struct SceneEntry {

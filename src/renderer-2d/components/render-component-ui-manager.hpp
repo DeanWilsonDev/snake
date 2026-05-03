@@ -18,6 +18,10 @@ class IRenderer;
 namespace Components {
 class IRenderComponentUI;
 }
+}  // namespace Rendering
+}  // namespace Core
+
+namespace Render2d {
 
 class RenderComponentUIManager final : public IRenderManager {
  public:
@@ -30,5 +34,4 @@ class RenderComponentUIManager final : public IRenderManager {
  private:
   std::vector<std::unique_ptr<Components::IRenderComponentUI>> renderComponents;
 };
-}  // namespace Rendering
-};  // namespace Core
+};  / namespace Render2d

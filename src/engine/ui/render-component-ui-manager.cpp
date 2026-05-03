@@ -11,11 +11,13 @@
 #include <utility>
 #include <cassert>
 
-namespace Core::Rendering {
+namespace Engine::UI {
 
 RenderComponentUIManager::RenderComponentUIManager() {}
 
-void RenderComponentUIManager::Register(std::unique_ptr<Components::IRenderComponentUI> component)
+void RenderComponentUIManager::Register(
+    std::unique_ptr<Core::Rendering::Components::IRenderComponentUI> component
+)
 {
   if (!component) {
     return;
@@ -23,7 +25,9 @@ void RenderComponentUIManager::Register(std::unique_ptr<Components::IRenderCompo
   this->renderComponents.push_back(std::move(component));
 }
 
-void RenderComponentUIManager::Unregister(std::unique_ptr<Components::IRenderComponentUI> component)
+void RenderComponentUIManager::Unregister(
+    std::unique_ptr<Core::Rendering::Components::IRenderComponentUI> component
+)
 {
   if (!component) {
     LOG_CORE_ERROR("[RenderComponentUIManager] Component set to nullptr, cannot Unregister");
@@ -32,14 +36,15 @@ void RenderComponentUIManager::Unregister(std::unique_ptr<Components::IRenderCom
   std::erase(this->renderComponents, component);
 }
 
-void RenderComponentUIManager::Render(const IRenderer& renderer) const
+void RenderComponentUIManager::OnRender(const Core::Rendering::IRenderer& renderer) const
 {
   if (this->renderComponents.empty()) {
     LOG_CORE_ERROR("[RenderComponentUIManager] No render components set");
     return;
   }
 
-  for (const std::unique_ptr<Components::IRenderComponentUI>& component : this->renderComponents) {
+  for (const std::unique_ptr<Core::Rendering::Components::IRenderComponentUI>& component :
+       this->renderComponents) {
     if (!component) {
       continue;
     }
@@ -48,4 +53,4 @@ void RenderComponentUIManager::Render(const IRenderer& renderer) const
     }
   }
 }
-}  // namespace Core::Rendering
+}  // namespace Engine::UI

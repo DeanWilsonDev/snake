@@ -2,22 +2,23 @@
 // Created by Dean Wilson on 25/8/2025.
 //
 
-#include "core/entity/game-entity.hpp"
+#include "game-entity.hpp"
 #include <memory>
 #include "core/components/transform-component-2d.hpp"
-#include "core/entity/entity.hpp"
+#include "entity-base.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/math/size-2d.hpp"
 #include "core/logging/log.hpp"
 
-namespace Core::Entity {
+namespace Engine::Entity {
 
-GameEntity::GameEntity(const GameEntityParams& params) : Entity(params)
+GameEntity::GameEntity(const GameEntityParams& params) : EntityBase(params)
 {
   LOG_TRACE("[GameEntity] Setting up new GameEntity");
 
   if (params.transform) {
-    this->transformComponent = std::make_unique<Components::TransformComponent2D>(params.transform);
+    this->transformComponent =
+        std::make_unique<Core::Components::TransformComponent2D>(params.transform);
   }
 
   LOG_TRACE(
@@ -26,8 +27,8 @@ GameEntity::GameEntity(const GameEntityParams& params) : Entity(params)
   );
 
   if (this->transformComponent == nullptr) {
-    this->transformComponent = make_unique<Components::TransformComponent2D>(
-        Math::Vector2D::Zero(), 0.0f, Core::Math::Size2D::Zero()
+    this->transformComponent = make_unique<Core::Components::TransformComponent2D>(
+        Core::Math::Vector2D::Zero(), 0.0f, Core::Math::Size2D::Zero()
     );
   }
 }
@@ -36,16 +37,21 @@ GameEntity::~GameEntity() {}
 
 void GameEntity::DebugUpdate()
 {
-  Entity::DebugUpdate();
+  EntityBase::DebugUpdate();
 }
 
 void GameEntity::Update(const float deltaTime)
 {
-  Entity::Update(deltaTime);
+  EntityBase::Update(deltaTime);
 }
 void GameEntity::Initialize()
 {
-  Entity::Initialize();
+  EntityBase::Initialize();
 }
 
-}  // namespace Core::Entity
+Core::Components::TransformComponent2D& GameEntity::GetTransformComponent()
+{
+  return *this->transformComponent;
+}
+
+}  // namespace Engine::Entity

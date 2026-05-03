@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include "core/debug/i-debugable.hpp"
-#include "core/rendering/i-render-manager.hpp"
+#include "core/debug/i-on-debugable.hpp"
+#include "core/i-on-updatable.hpp"
+#include "core/rendering/i-on-renderable.hpp"
 
 namespace Core {
 
@@ -13,7 +14,7 @@ namespace Rendering {
 class IRenderer;
 }
 
-class IGame : public Debug::IDebugable, Rendering::IRenderManager {
+class IGame : public Debug::IOnDebugable, Rendering::IOnRenderable, IOnUpdatable {
  public:
   virtual ~IGame() = default;
 
@@ -21,11 +22,12 @@ class IGame : public Debug::IDebugable, Rendering::IRenderManager {
   virtual void Initialize() = 0;
 
   // Called every frame to handle game-specific logic
-  virtual void Update([[maybe_unused]] float deltaTime) = 0;
-  [[maybe_unused]] virtual void DebugUpdate() = 0;
+  virtual void OnUpdate([[maybe_unused]] float deltaTime) = 0;
+  [[maybe_unused]] virtual void OnDebugUpdate() const = 0;
 
   // Called every frame to handle game-specific rendering
-  virtual void Render(const Rendering::IRenderer& renderer) const = 0;
+  virtual void OnRender(const Rendering::IRenderer& renderer) const = 0;
+  [[maybe_unused]] virtual void OnDebugRender() const = 0;
 };
 
 }  // namespace Core

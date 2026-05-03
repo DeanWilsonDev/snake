@@ -15,7 +15,7 @@ class IRenderer;
 class IOnRenderable {
  public:
   virtual ~IOnRenderable() = 0;
-  virtual void OnRender(const IRenderer& renderer) = 0;
+  virtual void OnRender(const IRenderer& renderer) const = 0;
 };
 }  // namespace Rendering
 };  // namespace Core

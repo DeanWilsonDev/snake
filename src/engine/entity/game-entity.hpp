@@ -4,7 +4,8 @@
 
 #pragma once
 #include <memory>
-#include "entity.hpp"
+#include "core/entity/i-game-entity.hpp"
+#include "entity-base.hpp"
 #include "core/components/transform-component-2d.hpp"
 #include "core/math/i-transform-2d.hpp"
 
@@ -12,18 +13,18 @@ namespace Core::Components {
 class IComponent;
 }
 
-namespace Core::Entity {
+namespace Engine::Entity {
 
-struct GameEntityParams : EntityParams {
-  Math::ITransform2D* transform = {nullptr};
+struct GameEntityParams : EntityBaseParams {
+  Core::Math::ITransform2D* transform = {nullptr};
 
-  GameEntityParams(Math::ITransform2D* transform = nullptr, bool active = true)
-      : EntityParams(active), transform(transform)
+  GameEntityParams(Core::Math::ITransform2D* transform = nullptr, bool active = true)
+      : EntityBaseParams(active), transform(transform)
   {
   }
 };
 
-class GameEntity : public Entity {
+class GameEntity : public EntityBase, Core::Entity::IGameEntity {
  public:
   explicit GameEntity(const GameEntityParams& params);
 
@@ -38,10 +39,10 @@ class GameEntity : public Entity {
   virtual void Update(float deltaTime) override;
   virtual void DebugUpdate() override;
   virtual void Initialize() override;
-  Components::TransformComponent2D& GetTransformComponent() { return *this->transformComponent; }
+  virtual Core::Components::TransformComponent2D& GetTransformComponent() override;
 
   // Properties
  protected:
-  std::unique_ptr<Components::TransformComponent2D> transformComponent{nullptr};
+  std::unique_ptr<Core::Components::TransformComponent2D> transformComponent{nullptr};
 };
-}  // namespace Core::Entity
+}  // namespace Engine::Entity

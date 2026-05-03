@@ -1,60 +1,82 @@
 #pragma once
-
-#include <firefly/log-registry.hpp>
-#include <firefly/logger.hpp>
 #include <string>
-#include <memory>
+#include <format>
 
-namespace Umbra {
-namespace Core {
-namespace Logging {
+namespace Core::Logging {
 
-#ifdef UMBRA_ENGINE_PLATFORM_MACOS
-#define UMBRA_ENGINE_API __attribute__((visibility("default")))
-#elif UMBRA_ENGINE_PLATFORM_WINDOWS
-#define UMBRA_ENGINE_API __declspec(dllexport)
-#else
-#define UMBRA_ENGINE_API
-#endif
+class ILogger {
+ public:
+  virtual ~ILogger() = default;
 
-#define CORE_LOGGER_NAME "Umbra"
-#define CLIENT_LOGGER_NAME "Client"
+  template <typename... TArgs>
+  void Trace(std::format_string<TArgs...> fmt, TArgs&&... args)
+  {
+    TraceImpl(std::format(fmt, std::forward<TArgs>(args)...));
+  }
+
+  template <typename... TArgs>
+  void Debug(std::format_string<TArgs...> fmt, TArgs&&... args)
+  {
+    DebugImpl(std::format(fmt, std::forward<TArgs>(args)...));
+  }
+
+  template <typename... TArgs>
+  void Info(std::format_string<TArgs...> fmt, TArgs&&... args)
+  {
+    InfoImpl(std::format(fmt, std::forward<TArgs>(args)...));
+  }
+
+  template <typename... TArgs>
+  void Warning(std::format_string<TArgs...> fmt, TArgs&&... args)
+  {
+    WarningImpl(std::format(fmt, std::forward<TArgs>(args)...));
+  }
+
+  template <typename... TArgs>
+  void Error(std::format_string<TArgs...> fmt, TArgs&&... args)
+  {
+    ErrorImpl(std::format(fmt, std::forward<TArgs>(args)...));
+  }
+
+  template <typename... TArgs>
+  void Fatal(std::format_string<TArgs...> fmt, TArgs&&... args)
+  {
+    FatalImpl(std::format(fmt, std::forward<TArgs>(args)...));
+  }
+
+ protected:
+  virtual void TraceImpl(const std::string& message) = 0;
+  virtual void DebugImpl(const std::string& message) = 0;
+  virtual void InfoImpl(const std::string& message) = 0;
+  virtual void WarningImpl(const std::string& message) = 0;
+  virtual void ErrorImpl(const std::string& message) = 0;
+  virtual void FatalImpl(const std::string& message) = 0;
+};
 
 class Log {
  public:
-  UMBRA_ENGINE_API static void Init(bool enableClientDebugLogging = true);
-  UMBRA_ENGINE_API static void Init(const std::string& fileName, bool enableClientDebugLogging = true);
+  static void Init(bool enableClientDebugLogging = true);
+  static void Init(const std::string& fileName, bool enableClientDebugLogging = true);
 
-  UMBRA_ENGINE_API inline static std::shared_ptr<Firefly::Logger>& GetCoreLogger()
-  {
-    return Firefly::LogRegistry::GetLogger(CORE_LOGGER_NAME);
-  };
-  UMBRA_ENGINE_API inline static std::shared_ptr<Firefly::Logger>& GetClientLogger()
-  {
-    return Firefly::LogRegistry::GetLogger(CLIENT_LOGGER_NAME);
-  }
+  static ILogger& GetCoreLogger();
+  static ILogger& GetClientLogger();
 };
-}  // namespace Logging
-}  // namespace Core
 
-// Log Init Macros
+}  // namespace Core::Logging
 
-#define LOG_INIT(...) Umbra::Core::Logging::Log::Init(__VA_ARGS__)
 
-// Client Log Macros
-#define LOG_TRACE(...) Umbra::Core::Logging::Log::GetClientLogger()->Trace(__VA_ARGS__)
-#define LOG_DEBUG(...) Umbra::Core::Logging::Log::GetClientLogger()->Debug(__VA_ARGS__)
-#define LOG_INFO(...) Umbra::Core::Logging::Log::GetClientLogger()->Info(__VA_ARGS__)
-#define LOG_WARNING(...) Umbra::Core::Logging::Log::GetClientLogger()->Warning(__VA_ARGS__)
-#define LOG_ERROR(...) Umbra::Core::Logging::Log::GetClientLogger()->Error(__VA_ARGS__)
-#define LOG_FATAL(...) Umbra::Core::Logging::Log::GetClientLogger()->Fatal(__VA_ARGS__)
+#define LOG_INIT(...) ::Core::Logging::Log::Init(__VA_ARGS__)
 
-// Core Log Macros
-#define LOG_CORE_TRACE(...) Umbra::Core::Logging::Log::GetCoreLogger()->Trace(__VA_ARGS__)
-#define LOG_CORE_DEBUG(...) Umbra::Core::Logging::Log::GetCoreLogger()->Debug(__VA_ARGS__)
-#define LOG_CORE_INFO(...) Umbra::Core::Logging::Log::GetCoreLogger()->Info(__VA_ARGS__)
-#define LOG_CORE_WARNING(...) Umbra::Core::Logging::Log::GetCoreLogger()->Warning(__VA_ARGS__)
-#define LOG_CORE_ERROR(...) Umbra::Core::Logging::Log::GetCoreLogger()->Error(__VA_ARGS__)
-#define LOG_CORE_FATAL(...) Umbra::Core::Logging::Log::GetCoreLogger()->Fatal(__VA_ARGS__)
+#define LOG_TRACE(...) ::Core::Logging::Log::GetClientLogger().Trace(__VA_ARGS__)
+#define LOG_DEBUG(...) ::Core::Logging::Log::GetClientLogger().Debug(__VA_ARGS__)
+#define LOG_INFO(...) ::Core::Logging::Log::GetClientLogger().Info(__VA_ARGS__)
+#define LOG_WARNING(...) ::Core::Logging::Log::GetClientLogger().Warning(__VA_ARGS__)
+#define LOG_ERROR(...) ::Core::Logging::Log::GetClientLogger().Error(__VA_ARGS__)
+#define LOG_FATAL(...) ::Core::Logging::Log::GetClientLogger().Fatal(__VA_ARGS__)
 
-}  // namespace Umbra
+#define LOG_CORE_TRACE(...) ::Core::Logging::Log::GetCoreLogger().Trace(__VA_ARGS__)
+#define LOG_CORE_DEBUG(...) ::Core::Logging::Log::GetCoreLogger().Debug(__VA_ARGS__)
+#define LOG_CORE_INFO(...) ::Core::Logging::Log::GetCoreLogger().Info(__VA_ARGS__)
+#define LOG_CORE_WARNING(...) ::Core::Logging::Log::GetCoreLogger().Warning(__VA_ARGS__)
+#define LOG_CORE_ERROR(...) ::Core::Logging::Log::GetCoreLogger().Error(__VA_ARGS__)
+#define LOG_CORE_FATAL(...) ::Core::Logging::Log::GetCoreLogger().Fatal(__VA_ARGS__)

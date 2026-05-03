@@ -8,10 +8,9 @@
 #include <core/debug/i-debugable.hpp>
 #include <core/i-updatable.hpp>
 #include "core/i-game.hpp"
-#include "core/entity/game-entity-manager.hpp"
+#include "engine/entity/game-entity-manager.hpp"
 #include "engine/scenes/scene-manager.hpp"
 #include "core/rendering/i-renderer.hpp"
-#include "core/rendering/render-component-2d-manager.hpp"
 #include "core/user-interface/i-user-interface-manager.hpp"
 
 namespace Core {
@@ -26,7 +25,7 @@ struct Rectangle;
 }  // namespace Geometry
 
 namespace Rendering {
-class RenderComponent2DManager;
+class IRenderComponentManager;
 class IRenderer;
 namespace Components {
 class IRenderComponent2D;
@@ -46,23 +45,23 @@ class Game : public Core::IGame {
  public:
   explicit Game(
       Engine::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
-      Core::Rendering::RenderComponent2DManager& renderManager
+      Core::Rendering::IRenderComponentManager& renderManager
   );
 
   ~Game() override;
 
   void Initialize() override;
-  void Update(float deltaTime) override;
-  void Render(const Core::Rendering::IRenderer& rendrer) const override;
-  void DebugUpdate() override;
-  void DebugRender() override;
+  void OnUpdate(float deltaTime) override;
+  void OnRender(const Core::Rendering::IRenderer& rendrer) const override;
+  void OnDebugUpdate() const override;
+  void OnDebugRender() const override;
 
  protected:
   Engine::Scenes::SceneManager& GetSceneManager();
 
  private:
   // std::unique_ptr<GameSettings> settings{nullptr};
-  std::unique_ptr<Core::GameEntityManager> gameEntityManager;
+  std::unique_ptr<Engine::Entity::GameEntityManager> gameEntityManager;
   std::unique_ptr<Engine::Scenes::SceneManager> sceneManager;
   // std::unique_ptr<GameplayStateMachine> gameplayStateMachine;
   Engine::Config::ProjectSettings& projectSettings;
@@ -72,7 +71,7 @@ class Game : public Core::IGame {
 
   Engine::DependencyInjector* injector;
   std::shared_ptr<Core::UserInterface::IUserInterfaceManager> userInterfaceManager;
-  std::shared_ptr<Core::Rendering::RenderComponent2DManager> renderManager;
+  std::shared_ptr<Core::Rendering::IRenderComponentManager> renderManager;
   std::shared_ptr<Core::Rendering::IRenderer> renderer;
 };
 

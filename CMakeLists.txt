@@ -48,13 +48,10 @@ add_executable(
   src/raylib-facade/window/raylib-window-facade.cpp
   src/raylib-facade/user-interface/raylib-user-interface-facade.cpp
   src/renderer-2d/components/render-component-2d.cpp
-  src/core/entity/game-entity-manager.cpp
-  src/core/entity/game-entity.cpp
   src/core/color/color-rgba.cpp
   src/core/color/color-hex.cpp
   src/core/components/transform-component-2d.cpp
-  src/core/entity/entity.cpp
-  src/core/rendering/render-component-2d-manager.cpp
+  src/renderer-2d/render-component-2d-manager.cpp
   src/core/user-interface/user-interface-manager.cpp
   src/core/logging/log.cpp
   src/raylib-facade/input/raylib-input-backend-facade.cpp
@@ -62,18 +59,22 @@ add_executable(
   src/physics/collision/components/collider-component-2d.cpp
   src/engine/dependency-injection/dependency-injector.cpp
   src/engine/game/game.cpp
+  src/engine/entity/game-entity-manager.cpp
+  src/engine/entity/game-entity.cpp
+  src/engine/entity/entity-base.cpp
   src/engine/state/state-machine.cpp
+  src/engine/ui/render-component-ui-manager.cpp
   src/debug/debug-hud.cpp
-  src/game/game-state/game-over-state.cpp
-  src/game/game-objects/apple.cpp
-  src/game/game-objects/snake-segment.cpp
-  src/game/game-objects/snake.cpp
-  src/game/game-state/gameplay-state-machine.cpp
-  src/game/game-state/gameplay-state.cpp
-  src/game/game-state/main-menu-state.cpp
-  src/game/ui/game-over-ui.cpp
-  src/game/ui/main-menu-ui.cpp
-  src/game/ui/gameplay-ui.cpp)
+  src/snake-game/game-state/game-over-state.cpp
+  src/snake-game/game-entities/apple.cpp
+  src/snake-game/game-entities/snake-segment.cpp
+  src/snake-game/game-entities/snake.cpp
+  src/snake-game/game-state/gameplay-state-machine.cpp
+  src/snake-game/game-state/gameplay-state.cpp
+  src/snake-game/game-state/main-menu-state.cpp
+  src/snake-game/ui/game-over-ui.cpp
+  src/snake-game/ui/main-menu-ui.cpp
+  src/snake-game/ui/gameplay-ui.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)
 

@@ -40,7 +40,7 @@ class IDependencyInjector {
   void RegisterSingleton()
   {
     auto instance = std::make_shared<TImplementation>();
-    return RegisterImplementation(typeid(TInterface), instance);
+    return RegisterSingletonImplementation(typeid(TInterface), instance);
   }
 
   virtual void Teardown();

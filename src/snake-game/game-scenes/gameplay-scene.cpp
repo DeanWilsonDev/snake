@@ -1,12 +1,14 @@
 #include "gameplay-scene.hpp"
 #include "core/entity/game-entity-manager.hpp"
+#include "core/rendering/render-component-2d-manager.hpp"
 
 namespace SnakeGame {
 
-GameplayScene::GameplayScene(const GameplaySceneParams& params) : eventBus(params.eventBus)
+GameplayScene::GameplayScene(const GameplaySceneParams& params)
+    : renderComponentManager()
+    , entityManager(&this->renderComponentManager)
+    , eventBus(*params.eventBus)
 {
-  this->renderComponentManager = Core::Rendering::RenderComponent2DManager();
-  this->entityManager = Core::GameEntityManager(&this->renderComponentManager);
 }
 
 void GameplayScene::Initialize() {}

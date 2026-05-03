@@ -4,8 +4,8 @@
 #pragma once
 
 #include "core/user-interface/i-game-ui.hpp"
-#include "core/debug/i-debugable.hpp"
-#include "core/i-updatable.hpp"
+#include "core/debug/i-on-debugable.hpp"
+#include "core/i-on-updatable.hpp"
 #include "core/rendering/i-render-manager.hpp"
 
 #include <string>
@@ -25,22 +25,24 @@ class IRenderer;
 namespace UserInterface {
 class IGameUI;
 
-class UserInterfaceManager final : public IUpdatable, Debug::IDebugable, Rendering::IRenderManager {
+class UserInterfaceManager final : public IOnUpdatable,
+                                   Debug::IOnDebugable,
+                                   Rendering::IRenderManager {
  public:
   explicit UserInterfaceManager();
   ~UserInterfaceManager();
 
   [[nodiscard]] UserInterface::IGameUI* GetGameUIByName(std::string name) const;
   void AddGameUI(std::unique_ptr<UserInterface::IGameUI> gameUI);
-  void Update(float deltaTime) override;
+  void OnUpdate(float deltaTime) override;
   void DrawUI() const;
   void DebugDrawUI() const;
-  void Render(const Rendering::IRenderer& renderer) const override;
-  void DebugUpdate() override;
-  void DebugRender() override;
+  void OnRender(const Rendering::IRenderer& renderer) const override;
+  void OnDebugUpdate() const override;
+  void OnDebugRender() const override;
 
  private:
   std::vector<std::unique_ptr<UserInterface::IGameUI>> gameUIs;
 };
-}  // namespace Core::UserInterface
+}  // namespace UserInterface
 }  // namespace Core

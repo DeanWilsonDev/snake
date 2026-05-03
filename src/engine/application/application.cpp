@@ -15,12 +15,12 @@
 #include "user-interface/i-user-interface.hpp"
 #include "core/i-dependency-injector.hpp"
 #include "core/logging/log.hpp"
+#include "core/state/i-state-machine.hpp"
 
 #include <memory>
 #include <cassert>
 #include <string.h>
 #include <chrono>
-#include "game/game-state/gameplay-state-machine.hpp"
 #include "platform/window/i-window.hpp"
 #include "core/i-game.hpp"
 #include "engine/game/game.hpp"
@@ -151,7 +151,7 @@ void Application::Run()
 void Application::Update(float deltaTime)
 {
   if (this->game) {
-    this->game->Update(deltaTime);
+    this->game->OnUpdate(deltaTime);
   }
 }
 
@@ -159,7 +159,7 @@ void Application::DebugUpdate()
 {
   // DEBUGGING:
   if (Debug::System.GetDebugMode()) {
-    this->game->DebugUpdate();
+    this->game->OnDebugUpdate();
   }
 }
 
@@ -170,14 +170,14 @@ void Application::Render()
   this->renderer->ClearBackground(Core::Color::Black);
   // MAIN QUEST: Sort out who is rendering and updating etc
   if (game) {
-    this->game->Render(*this->renderer);
+    this->game->OnRender(*this->renderer);
   }
 }
 void Application::DebugRender()
 {
   if (this->GetConfig().engine.debug.showDebugHud) {
     // Main Quest: [DebugRenderer] Wire up DebugHUD to game rendering
-    this->game->DebugRender();
+    this->game->OnDebugRender();
   }
 }
 

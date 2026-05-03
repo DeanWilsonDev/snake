@@ -10,10 +10,10 @@
 #include "core/state/i-state-machine.hpp"
 #include "core/logging/log.hpp"
 #include "engine/dependency-injection/dependency-injector.hpp"
-#include "core/entity/game-entity-manager.hpp"
+#include "engine/entity/game-entity-manager.hpp"
 #include "engine/scenes/scene-manager.hpp"
 #include "platform/window/i-window.hpp"
-#include "core/rendering/render-component-2d-manager.hpp"
+#include "core/rendering/i-render-component-manager.hpp"
 
 #include <cassert>
 #include <memory>
@@ -22,7 +22,7 @@ namespace Engine {
 
 Game::Game(
     Engine::DependencyInjector& injector, Engine::Config::ProjectSettings& projectSettings,
-    Core::Rendering::RenderComponent2DManager& renderManager
+    Core::Rendering::IRenderComponentManager& renderManager
 )
     : projectSettings(projectSettings), injector(&injector), renderManager(&renderManager)
 {
@@ -117,7 +117,7 @@ void Game::Initialize()
 
 // // MAIN QUEST: Think about renderables and updatables and who should be responsible for rendering
 // // them? GameEntityManager?
-void Game::Update(const float deltaTime)
+void Game::OnUpdate(const float deltaTime)
 {
   //   if (this->gameplayStateMachine) {
   //     this->gameplayStateMachine->Update(deltaTime);
@@ -126,7 +126,7 @@ void Game::Update(const float deltaTime)
   //   this->userInterfaceManager->Update(deltaTime);
 }
 
-void Game::DebugUpdate()
+void Game::OnDebugUpdate() const
 {
   // if (this->gameplayStateMachine) {
   //   this->gameplayStateMachine->DebugUpdate();
@@ -135,12 +135,12 @@ void Game::DebugUpdate()
   // this->userInterfaceManager->DebugUpdate();
 }
 
-void Game::DebugRender()
+void Game::OnDebugRender() const
 {
   // this->userInterfaceManager->DebugRender();
 }
 
-void Game::Render()
+void Game::OnRender(const Core::Rendering::IRenderer& rendrer) const
 {
   // if (!this->renderer) {
   //   return;

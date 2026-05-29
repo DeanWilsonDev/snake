@@ -1,4 +1,5 @@
 #include "physics/collision/rectangle-collider-2d.hpp"
+#include "snake-game/game-entities/snake-segment.hpp"
 #include "snake.hpp"
 #include "core/logging/log.hpp"
 #include <memory>
@@ -40,8 +41,15 @@ void SnakeSegment::Move(const Core::Math::Vector2D newPosition)
   this->GetTransformComponent().GetPosition().y = newPosition.y;
 }
 
-void SnakeSegment::DebugUpdate()
+void SnakeSegment::Update(float deltaTime)
 {
+  Engine::Entity::GameEntity::Update(deltaTime);
+}
+void SnakeSegment::Initialize() {}
+
+void SnakeSegment::DebugUpdate() const
+{
+  Engine::Entity::GameEntity::DebugUpdate();
   if (index == 0) {
     UMBRA_DEBUG(this->GetActive(), "Snake/Segment-{}/Active", this->index);
 

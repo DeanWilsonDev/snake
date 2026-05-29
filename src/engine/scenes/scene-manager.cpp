@@ -1,10 +1,15 @@
 #include "scene-manager.hpp"
-#include "core/i-game-scene.hpp"
+#include "core/scenes/i-game-scene.hpp"
 #include <vector>
+
+using namespace Core::Scenes;
 
 namespace Engine::Scenes {
 
-void SceneManager::Register(const std::string& name, SceneFactory factory, SceneLifetime lifetime)
+void SceneManager::Register(
+    const std::string& name, SceneFactory factory,
+    SceneLifetime lifetime
+)
 {
   this->registry[name] = SceneEntry{std::move(factory), nullptr, lifetime};
 }
@@ -17,7 +22,8 @@ void SceneManager::SwitchTo(const std::string& name)
 
   // Transient Scenes release their instance on exit
   for (auto& [key, entry] : this->registry) {
-    if (entry.instance.get() == activeScene && entry.lifetime == SceneLifetime::Transient) {
+    if (entry.instance.get() == activeScene &&
+        entry.lifetime == SceneLifetime::Transient) {
       entry.instance.reset();
       break;
     }
@@ -49,7 +55,8 @@ void SceneManager::Pop()
 
   // Release if Transient
   for (auto& [key, entry] : this->registry) {
-    if (entry.instance.get() == this->activeScene && entry.lifetime == SceneLifetime::Transient) {
+    if (entry.instance.get() == this->activeScene &&
+        entry.lifetime == SceneLifetime::Transient) {
       entry.instance.reset();
       break;
     }
@@ -66,28 +73,28 @@ void SceneManager::OnUpdate(float deltaTime)
   }
 }
 
-void SceneManager::OnDebugUpdate()
+void SceneManager::OnDebugUpdate() const
 {
   if (this->activeScene) {
     this->activeScene->DebugUpdate();
   }
 };
 
-void SceneManager::OnDebugRender()
+void SceneManager::OnDebugRender() const
 {
   if (this->activeScene) {
     this->activeScene->DebugRender();
   }
 };
 
-void SceneManager::OnRender(const Core::Rendering::IRenderer& renderer)
+void SceneManager::OnRender(const Core::Rendering::IRenderer& renderer) const
 {
   if (this->activeScene) {
-    this->activeScene->Render(renderer);
+    this->activeScene->OnRender(renderer);
   }
 }
 
-Core::IGameScene* SceneManager::ResolveScene(const std::string& name)
+IGameScene* SceneManager::ResolveScene(const std::string& name)
 {
   auto it = registry.find(name);
   if (it == registry.end()) {
@@ -103,7 +110,7 @@ Core::IGameScene* SceneManager::ResolveScene(const std::string& name)
   return entry.instance.get();
 }
 
-Core::SceneTransitionContext SceneManager::MakeContext()
+SceneTransitionContext SceneManager::MakeContext()
 {
   return {
       .SwitchTo = [this](const std::string& name) { this->SwitchTo(name); },

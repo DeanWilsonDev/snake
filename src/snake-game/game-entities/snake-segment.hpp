@@ -1,11 +1,12 @@
 #pragma once
 
 #include <memory>
-#include "core/entity/game-entity.hpp"
+#include "engine/entity/game-entity.hpp"
 #include "core/rendering/components/i-render-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "core/math/i-transform-2d.hpp"
+#include "core/components/transform-component-2d.hpp"
 
 namespace Core::Components {
 class TransformComponent2D;
@@ -15,19 +16,19 @@ class ColliderComponent2D;
 }
 namespace SnakeGame {
 
-struct SnakeSegmentParams : Core::Entity::GameEntityParams {
+struct SnakeSegmentParams : Engine::Entity::GameEntityParams {
   int index{0};
   Core::Math::ITransform2D& initialTransform;
 
   SnakeSegmentParams(int index, Core::Math::ITransform2D* transform, bool active = true)
-      : Core::Entity::GameEntityParams(transform, active)
+      : Engine::Entity::GameEntityParams(transform, active)
       , index(index)
       , initialTransform(*transform)
   {
   }
 };
 
-class SnakeSegment final : public Core::Entity::GameEntity {
+class SnakeSegment final : public Engine::Entity::GameEntity {
  public:
   // Properties
   int index = {0};
@@ -36,9 +37,11 @@ class SnakeSegment final : public Core::Entity::GameEntity {
   explicit SnakeSegment(const SnakeSegmentParams& params);
   ~SnakeSegment() override;
 
-  void DebugUpdate() override;
+  void DebugUpdate() const override;
+  void DebugRender() const override;
+  virtual void Update(float deltaTime) override;
+  virtual void Initialize() override;
 
-  // Getters
   [[nodiscard]] Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D()
   {
     return *this->renderComponent;
@@ -53,6 +56,7 @@ class SnakeSegment final : public Core::Entity::GameEntity {
 
  private:
   std::unique_ptr<Core::Rendering::Components::IRenderComponent2D> renderComponent{nullptr};
+  // 1UP: Add an interface in Core for this
   std::unique_ptr<Physics::Collision::Components::ColliderComponent2D> colliderComponent{nullptr};
 };
 }  // namespace SnakeGame

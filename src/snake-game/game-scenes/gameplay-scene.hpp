@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include "core/i-game-scene.hpp"
+#include "core/scenes/i-game-scene.hpp"
 #include "core/rendering/i-renderer.hpp"
-#include "core/rendering/render-component-2d-manager.hpp"
+#include "renderer-2d/render-component-2d-manager.hpp"
 #include "snake-game/game-state/gameplay-state-machine.hpp"
-#include "core/entity/game-entity-manager.hpp"
+#include "engine/entity/game-entity-manager.hpp"
 #include "core/events/i-event-bus.hpp"
 
 namespace Core {
@@ -25,7 +25,7 @@ struct GameplaySceneParams {
   Core::Events::IEventBus* eventBus;
 };
 
-class GameplayScene : public Core::IGameScene {
+class GameplayScene : public Core::Scenes::IGameScene {
  public:
   GameplayScene(const GameplaySceneParams& params);
   ~GameplayScene();

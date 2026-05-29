@@ -1,6 +1,6 @@
 #include "game-over-state.hpp"
 #include "engine/input/input-action.hpp"
-#include "game/game-state/gameplay-state.hpp"
+#include "snake-game/game-state/gameplay-state.hpp"
 #include "gameplay-state-machine.hpp"
 #include "core/state/i-game-state.hpp"
 
@@ -34,7 +34,8 @@ void GameOverState::Update(float)
   }
 }
 
-void GameOverState::DebugUpdate() {}
+void GameOverState::DebugUpdate() const {}
+void GameOverState::DebugRender() const {}
 
 void GameOverState::Exit()
 {
@@ -50,4 +51,4 @@ std::unique_ptr<Core::State::IGameState> GameOverState::GetNextState()
   return std::make_unique<GameplayState>(this->gameContext);
 }
 
-}  // namespace Game
+}  // namespace SnakeGame

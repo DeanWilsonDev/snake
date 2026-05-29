@@ -1,5 +1,6 @@
 #include "application.hpp"
 #include "core/events/i-event-bus.hpp"
+#include "core/scenes/i-scene-manager.hpp"
 #include "engine/config/project-settings.hpp"
 #include "core/color/color.hpp"
 #include "core/user-interface/user-interface-manager.hpp"
@@ -11,6 +12,8 @@
 #include "debug/debug-hud.hpp"
 #include "core/rendering/i-renderer.hpp"
 #include "engine/events/event-bus.hpp"
+#include "engine/scenes/scene-manager.hpp"
+#include "engine/utils/string-utils.hpp"
 #include "platform/input/i-input-backend.hpp"
 #include "user-interface/i-user-interface.hpp"
 #include "core/i-dependency-injector.hpp"
@@ -19,17 +22,13 @@
 
 #include <memory>
 #include <cassert>
-#include <string.h>
 #include <chrono>
 #include "platform/window/i-window.hpp"
-#include "core/i-game.hpp"
-#include "engine/game/game.hpp"
-#include <utility>
 
 namespace Engine {
 
-Application::Application(std::unique_ptr<Core::IGame> game)
-    : game(std::move(game)), injector(std::make_unique<DependencyInjector>()) {
+Application::Application()
+    : injector(std::make_unique<DependencyInjector>()) {
 
     };
 
@@ -74,12 +73,7 @@ void Application::Initialize()
 
   LOG_CORE_INFO("[Application] Starting Game: {}", title);
 
-  // TODO: Extract this into a utils function
-#if defined(_WIN32)
-  char* windowTitle = _strdup(title);
-#else
-  char* windowTitle = strdup(title.c_str());
-#endif
+  char* windowTitle = StringUtils::DuplicateAsCString(title);
 
   LOG_CORE_DEBUG("[Application] Window Title set: {}", windowTitle);
   assert(windowTitle);
@@ -98,21 +92,14 @@ void Application::RegisterDependencies()
       Core::UserInterface::IUserInterfaceManager,
       Core::UserInterface::UserInterfaceManager>();
 
+  injector->Register<Core::Scenes::ISceneManager, Engine::Scenes::SceneManager>();
+
   // Debug
   auto hud = std::make_shared<Debug::DebugHUD>();
   this->injector->RegisterInstance<Core::Debug::IDebugHUD>(hud);
 
   // Events
   this->injector->RegisterSingleton<Core::Events::IEventBus, Engine::Events::EventBus>();
-}
-
-void Application::SetGame(std::unique_ptr<Core::IGame> game)
-{
-  LOG_CORE_TRACE("[Application] Setting Game to {}", static_cast<void*>(&game));
-  this->game = std::move(game);
-  if (this->game) {
-    this->game->Initialize();
-  }
 }
 
 void Application::Run()
@@ -148,38 +135,17 @@ void Application::Run()
   this->injector->Teardown();
 }
 
-void Application::Update(float deltaTime)
-{
-  if (this->game) {
-    this->game->OnUpdate(deltaTime);
-  }
-}
+void Application::Update(float _) {}
 
-void Application::DebugUpdate()
-{
-  // DEBUGGING:
-  if (Debug::System.GetDebugMode()) {
-    this->game->OnDebugUpdate();
-  }
-}
+void Application::DebugUpdate() {}
 
 void Application::Render()
 {
   // RENDERING:
   this->renderer->BeginDrawing();
   this->renderer->ClearBackground(Core::Color::Black);
-  // MAIN QUEST: Sort out who is rendering and updating etc
-  if (game) {
-    this->game->OnRender(*this->renderer);
-  }
 }
-void Application::DebugRender()
-{
-  if (this->GetConfig().engine.debug.showDebugHud) {
-    // Main Quest: [DebugRenderer] Wire up DebugHUD to game rendering
-    this->game->OnDebugRender();
-  }
-}
+void Application::DebugRender() {}
 
 void Application::Shutdown()
 {

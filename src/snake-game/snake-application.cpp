@@ -19,7 +19,7 @@ namespace SnakeGame {
 
 void SnakeApplication::Initialize()
 {
-    Engine::Application::Initialize();
+  Engine::Application::Initialize();
 }
 
 // 1UP: this could just deserialise a json config file. Amanuensis?
@@ -57,6 +57,8 @@ void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
 
 void SnakeApplication::RegisterDependencies()
 {
+  Engine::Application::RegisterDependencies();
+
   // Platform
   this->GetInjector()
       .Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
@@ -73,8 +75,6 @@ void SnakeApplication::RegisterDependencies()
   this->GetInjector().Register<Core::State::IStateMachine, SnakeGame::GameplayStateMachine>();
 
   this->GetInjector().RegisterSingleton<Core::Events::IEventBus, Engine::Events::EventBus>();
-
-  Engine::Application::RegisterDependencies();
 }
 
 }  // namespace SnakeGame

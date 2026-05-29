@@ -18,25 +18,23 @@ struct EntityBaseParams {
   EntityBaseParams(bool active = true) : active(active) {}
 };
 
-class EntityBase : public Core::Entity::IEntity {
+class EntityBase : virtual public Core::Entity::IEntity {
  public:
   explicit EntityBase(const EntityBaseParams& params);
   virtual ~EntityBase() = 0;
 
   virtual void Initialize() override;
   virtual void Update([[maybe_unused]] float deltaTime) override;
-  virtual void DebugUpdate() override;
-  virtual void DebugRender() override;
+  virtual void DebugUpdate() const override;
+  virtual void DebugRender() const override;
   virtual int GetID() const override;
   virtual bool IsActive() const override;
   virtual void SetActive(bool active) override;
   virtual const bool& GetActive() override;
+  Core::Components::IComponent* GetComponentByType(std::type_index type) override;
 
   template <typename T, typename... Args>
   void AddComponent(Args&&... args);
-
-  template <typename T>
-  T* GetComponent();
 
   template <typename T>
   void RemoveComponent();
@@ -45,7 +43,6 @@ class EntityBase : public Core::Entity::IEntity {
   std::unordered_map<std::type_index, std::unique_ptr<Core::Components::IComponent>> components{};
 
   static int GenerateId();
-
   const int id{GenerateId()};
   bool active{true};
 };
@@ -62,22 +59,10 @@ void EntityBase::AddComponent(Args&&... args)
 }
 
 template <typename T>
-T* EntityBase::GetComponent()
-{
-  const auto type = std::type_index(typeid(T));
-
-  // Attempt to find the component
-  if (const auto it = components.find(type); it != components.end()) {
-    return static_cast<T*>(it->second.get());
-  }
-  return nullptr;
-}
-
-template <typename T>
 void EntityBase::RemoveComponent()
 {
   const auto type = std::type_index(typeid(T));
   this->components.erase(type);
 }
 
-}  // namespace Core::Entity
+}  // namespace Engine::Entity

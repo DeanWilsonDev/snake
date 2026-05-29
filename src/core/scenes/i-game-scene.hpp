@@ -8,16 +8,11 @@
 #include "core/i-updatable.hpp"
 #include "core/rendering/i-render-manager.hpp"
 #include "core/rendering/i-renderable.hpp"
-#include <string>
-#include <functional>
 
 namespace Core {
+namespace Scenes {
 
-struct SceneTransitionContext {
-  std::function<void(const std::string&)> SwitchTo;
-  std::function<void(const std::string&)> Push;
-  std::function<void()> Pop;
-};
+struct SceneTransitionContext;
 
 class IGameScene : public IUpdatable, Debug::IDebugable, Rendering::IRenderManager {
  public:
@@ -29,10 +24,11 @@ class IGameScene : public IUpdatable, Debug::IDebugable, Rendering::IRenderManag
   virtual void OnExit() = 0;
 
   virtual void Update(float deltaTime) override = 0;
-  virtual void DebugUpdate() override = 0;
+  virtual void DebugUpdate() const override = 0;
 
   virtual void OnRender(const Rendering::IRenderer& renderer) const override = 0;
-  virtual void DebugRender() override = 0;
+  virtual void DebugRender() const override = 0;
 };
 
+}  // namespace Scenes
 }  // namespace Core

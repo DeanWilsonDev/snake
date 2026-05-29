@@ -21,8 +21,8 @@ namespace Debug {
 class IDebugable {
  public:
   virtual ~IDebugable() = default;
-  [[maybe_unused]] virtual void DebugUpdate() {};
-  [[maybe_unused]] virtual void DebugRender() {};
+  [[maybe_unused]] virtual void DebugUpdate() const {};
+  [[maybe_unused]] virtual void DebugRender() const {};
 };
 
 }  // namespace Debug

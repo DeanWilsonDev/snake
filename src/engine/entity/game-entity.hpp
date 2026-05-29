@@ -37,12 +37,19 @@ class GameEntity : public EntityBase, Core::Entity::IGameEntity {
   ~GameEntity() override;
 
   virtual void Update(float deltaTime) override;
-  virtual void DebugUpdate() override;
+  virtual void DebugUpdate() const override;
+  virtual void DebugRender() const override;
   virtual void Initialize() override;
   virtual Core::Components::TransformComponent2D& GetTransformComponent() override;
 
+  virtual bool IsActive() const override;
+  virtual void SetActive(bool active) override;
+  virtual const bool& GetActive() override;
+
   // Properties
  protected:
+  // 1UP: Refactor location of TransformComponent2D so that it lives in engine and has an interface
+  // in Core
   std::unique_ptr<Core::Components::TransformComponent2D> transformComponent{nullptr};
 };
 }  // namespace Engine::Entity

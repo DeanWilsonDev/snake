@@ -14,12 +14,13 @@ class IComponent;
 namespace Core {
 namespace Entity {
 
-class IGameEntity : public IEntity {
+class IGameEntity : virtual public IEntity {
  public:
   ~IGameEntity() override = 0;
 
   virtual void Update(float deltaTime) override = 0;
-  virtual void DebugUpdate() override = 0;
+  virtual void DebugUpdate() const override = 0;
+  virtual void DebugRender() const override = 0;
   virtual void Initialize() override = 0;
   virtual Components::TransformComponent2D& GetTransformComponent() = 0;
 };

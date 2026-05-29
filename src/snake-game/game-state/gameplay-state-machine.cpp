@@ -1,7 +1,7 @@
 
 #include "gameplay-state-machine.hpp"
 #include "engine/state/state-machine.hpp"
-#include "core/entity/game-entity-manager.hpp"
+#include "engine/entity/game-entity-manager.hpp"
 #include "gameplay-state.hpp"
 #include "main-menu-state.hpp"
 #include "core/state/i-game-state.hpp"
@@ -24,20 +24,27 @@ GameplayStateMachine::~GameplayStateMachine() {}
 
 void GameplayStateMachine::Update(const float deltaTime)
 {
-  this->gameEntityManager->Update(deltaTime);
+  this->gameEntityManager->OnUpdate(deltaTime);
 
   Core::State::StateMachine::Update(deltaTime);
 }
 
-void GameplayStateMachine::DebugUpdate()
+void GameplayStateMachine::DebugUpdate() const
 {
   if (this->gameEntityManager) {
-    this->gameEntityManager->DebugUpdate();
+    this->gameEntityManager->OnDebugUpdate();
+  }
+}
+
+void GameplayStateMachine::DebugRender() const
+{
+  if (this->gameEntityManager) {
+    this->gameEntityManager->OnDebugRender();
   }
 }
 
 void GameplayStateMachine::SetGameEntityManager(
-    std::shared_ptr<Core::GameEntityManager> gameEntityManager
+    std::shared_ptr<Engine::Entity::GameEntityManager> gameEntityManager
 )
 {
   this->gameEntityManager = gameEntityManager;

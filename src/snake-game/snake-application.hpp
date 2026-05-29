@@ -1,8 +1,5 @@
 #pragma once
 #include "engine/application/application.hpp"
-#include "snake-game.hpp"
-
-#include <memory>
 
 namespace Engine {
 namespace Config {
@@ -19,12 +16,10 @@ namespace Config {
 namespace SnakeGame {
 class SnakeApplication : public Engine::Application {
  public:
-  SnakeApplication() : Application(std::make_unique<SnakeGame>()) {};
+  SnakeApplication() : Application() {};
 
   virtual void Initialize() override;
   virtual void Configure(Engine::Config::ApplicationConfig& config) override;
   virtual void RegisterDependencies() override;
-
- private:
 };
 }  // namespace SnakeGame

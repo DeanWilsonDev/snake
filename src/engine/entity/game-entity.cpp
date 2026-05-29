@@ -35,15 +35,21 @@ GameEntity::GameEntity(const GameEntityParams& params) : EntityBase(params)
 
 GameEntity::~GameEntity() {}
 
-void GameEntity::DebugUpdate()
+void GameEntity::DebugUpdate() const
 {
   EntityBase::DebugUpdate();
+}
+
+void GameEntity::DebugRender() const
+{
+  EntityBase::DebugRender();
 }
 
 void GameEntity::Update(const float deltaTime)
 {
   EntityBase::Update(deltaTime);
 }
+
 void GameEntity::Initialize()
 {
   EntityBase::Initialize();
@@ -52,6 +58,21 @@ void GameEntity::Initialize()
 Core::Components::TransformComponent2D& GameEntity::GetTransformComponent()
 {
   return *this->transformComponent;
+}
+
+bool GameEntity::IsActive() const
+{
+  return EntityBase::IsActive();
+}
+
+void GameEntity::SetActive(const bool active)
+{
+  return EntityBase::SetActive(active);
+}
+
+const bool& GameEntity::GetActive()
+{
+  return EntityBase::GetActive();
 }
 
 }  // namespace Engine::Entity

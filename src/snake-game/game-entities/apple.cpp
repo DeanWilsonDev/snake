@@ -1,11 +1,10 @@
 #include "apple.hpp"
 #include <memory>
-#include "core/entity/game-entity.hpp"
+#include "engine/entity/game-entity.hpp"
 #include "core/color/color.hpp"
 #include "debug/debug.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
-#include "core/core.hpp"
 #include "core/math/size-2d.hpp"
 #include "core/components/transform-component-2d.hpp"
 #include "core/rendering/components/i-render-component-2d.hpp"
@@ -14,7 +13,7 @@
 
 namespace SnakeGame {
 
-Apple::Apple(const AppleParams& params) : Core::Entity::GameEntity(params) {}
+Apple::Apple(const AppleParams& params) : Engine::Entity::GameEntity(params) {}
 
 void Apple::Initialize()
 {
@@ -59,7 +58,7 @@ void Apple::Initialize()
 
 void Apple::Update([[maybe_unused]] const float deltaTime) {}
 
-void Apple::DebugUpdate()
+void Apple::DebugUpdate() const
 {
   UMBRA_DEBUG(this->transformComponent->GetPosition().x, "Apple/Position/X");
   UMBRA_DEBUG(this->transformComponent->GetPosition().y, "Apple/Position/Y");
@@ -78,6 +77,7 @@ void Apple::DebugUpdate()
   );
 }
 
+void Apple::DebugRender() const {}
 
 Physics::Collision::Components::ColliderComponent2D& Apple::GetColliderComponent() const
 {

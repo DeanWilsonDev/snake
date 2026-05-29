@@ -2,14 +2,13 @@
 #include "core/state/i-game-state.hpp"
 #include "debug/debug.hpp"
 #include "engine/input/input-action.hpp"
-#include "game/game-state/game-over-state.hpp"
+#include "snake-game/game-state/game-over-state.hpp"
 #include "gameplay-state-machine.hpp"
-#include "game/game-objects/snake.hpp"
-#include "game/game-objects/apple.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "physics/collision/rectangle-collider-2d.hpp"
-#include "game/game-objects/snake-segment.hpp"
-#include "game/ui/gameplay-ui.hpp"
+#include "snake-game/game-entities/snake.hpp"
+#include "snake-game/game-entities/apple.hpp"
+#include "snake-game/game-entities/snake-segment.hpp"
 #include "core/logging/log.hpp"
 
 #include <memory>
@@ -117,10 +116,12 @@ void GameplayState::Update(float)
   }
 }
 
-void GameplayState::DebugUpdate()
+void GameplayState::DebugUpdate() const
 {
   UMBRA_DEBUG(this->snake->body.size(), "Snake/Length");
 }
+
+void GameplayState::DebugRender() const {}
 
 void GameplayState::Exit()
 {

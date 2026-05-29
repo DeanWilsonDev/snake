@@ -1,8 +1,9 @@
 #pragma once
 #include "core/events/i-event-bus.hpp"
 #include "core/i-application.hpp"
+#include "core/scenes/i-scene-manager.hpp"
+#include "core/scenes/i-scene-manager.hpp"
 #include "debug/debug-hud.hpp"
-#include "engine/game/game.hpp"
 #include "engine/config/application-config.hpp"
 #include "core/i-dependency-injector.hpp"
 #include "core/debug/i-debug-hud.hpp"
@@ -14,7 +15,9 @@
 #include <memory>
 
 namespace Core {
-class IGame;
+namespace Scenes {
+class ISceneManager;
+}
 namespace State {
 class IStateMachine;
 class IGameState;
@@ -47,11 +50,10 @@ struct ProjectSettings;
 
 class Application : public Core::IApplication {
  public:
-  explicit Application(std::unique_ptr<Core::IGame> game);
+  explicit Application();
   ~Application();
 
   virtual void Run() override;
-  void SetGame(std::unique_ptr<Core::IGame> game);
 
  protected:
   virtual void Initialize() override;
@@ -69,7 +71,6 @@ class Application : public Core::IApplication {
   };
 
  private:
-  std::unique_ptr<Core::IGame> game = nullptr;
   std::unique_ptr<Core::IDependencyInjector> injector;
   std::shared_ptr<Platform::Window::IWindow> window = nullptr;
   std::shared_ptr<Platform::Input::IInputBackend> input = nullptr;
@@ -83,5 +84,6 @@ class Application : public Core::IApplication {
   std::shared_ptr<UserInterface::IUserInterface> userInterface = nullptr;
   std::shared_ptr<Core::Debug::IDebugHUD> debugHud = nullptr;
   std::shared_ptr<Core::State::IStateMachine> stateMachine = nullptr;
+  std::shared_ptr<Core::Scenes::ISceneManager> sceneManager = nullptr;
 };
 }  // namespace Engine

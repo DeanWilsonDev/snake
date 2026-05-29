@@ -11,7 +11,8 @@ class IGameState : public IUpdatable, Debug::IDebugable {
   virtual ~IGameState() = default;
   virtual void Enter() = 0;
   virtual void Update([[maybe_unused]] float deltaTime) override = 0;
-  virtual void DebugUpdate() override {};
+  virtual void DebugUpdate() const override = 0;
+  virtual void DebugRender() const override = 0;
   virtual void Exit() = 0;
   virtual std::unique_ptr<IGameState> GetNextState() = 0;
 };

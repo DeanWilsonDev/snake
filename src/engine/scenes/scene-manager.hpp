@@ -4,18 +4,19 @@
 
 #pragma once
 
-#include "core/debug/i-on-debugable.hpp"
-#include "core/i-game-scene.hpp"
-#include "core/i-on-updatable.hpp"
-#include "core/rendering/i-on-renderable.hpp"
+#include "core/scenes/i-game-scene.hpp"
+#include "core/scenes/scene-lifetime.hpp"
+#include "core/scenes/i-scene-manager.hpp"
 #include "core/rendering/i-renderer.hpp"
-#include <functional>
+#include "core/scenes/scene-transition-context.hpp"
+
 #include <vector>
 #include <memory>
 #include <unordered_map>
 
+using namespace Core::Scenes;
+
 namespace Core {
-class IGameScene;
 namespace Rendering {
 class IRenderer;
 
@@ -27,16 +28,7 @@ namespace Engine {
 
 namespace Scenes {
 
-enum class SceneLifetime {
-  Persistent,  // Reuse same instance across visits
-  Transient    // Recreate fresh on every visit
-};
-
-using SceneFactory = std::function<std::unique_ptr<Core::IGameScene>()>;
-
-class SceneManager : public Core::Debug::IOnDebugable,
-                     Core::IOnUpdatable,
-                     Core::Rendering::IOnRenderable {
+class SceneManager : public ISceneManager {
  public:
   SceneManager();
   ~SceneManager() = default;
@@ -44,10 +36,10 @@ class SceneManager : public Core::Debug::IOnDebugable,
   void Register(
       const std::string& name, SceneFactory factory,
       SceneLifetime lifetime = SceneLifetime::Persistent
-  );
-  void SwitchTo(const std::string& name);
-  void Push(const std::string& name);
-  void Pop();
+  ) override;
+  void SwitchTo(const std::string& name) override;
+  void Push(const std::string& name) override;
+  void Pop() override;
 
   virtual void OnUpdate(float deltaTime) override;
   virtual void OnDebugUpdate() const override;
@@ -57,16 +49,16 @@ class SceneManager : public Core::Debug::IOnDebugable,
  private:
   struct SceneEntry {
     SceneFactory factory;
-    std::unique_ptr<Core::IGameScene> instance;
+    std::unique_ptr<IGameScene> instance;
     SceneLifetime lifetime;
   };
 
-  Core::IGameScene* ResolveScene(const std::string& name);
-  Core::SceneTransitionContext MakeContext();
+  IGameScene* ResolveScene(const std::string& name);
+  SceneTransitionContext MakeContext();
 
   std::unordered_map<std::string, SceneEntry> registry;
-  Core::IGameScene* activeScene = nullptr;
-  std::vector<Core::IGameScene*> overlayStack;
+  IGameScene* activeScene = nullptr;
+  std::vector<IGameScene*> overlayStack;
 };
 
 }  // namespace Scenes

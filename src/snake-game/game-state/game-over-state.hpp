@@ -1,6 +1,6 @@
 #pragma once
 
-#include "game/game-state/gameplay-state-machine.hpp"
+#include "snake-game/game-state/gameplay-state-machine.hpp"
 #include "core/state/i-game-state.hpp"
 #include <memory>
 
@@ -15,7 +15,8 @@ class GameOverState final : public Core::State::IGameState {
 
   void Enter() override;
   void Update([[maybe_unused]] float deltaTime) override;
-  void DebugUpdate() override;
+  void DebugUpdate() const override;
+  void DebugRender() const override;
   void Exit() override;
   virtual std::unique_ptr<Core::State::IGameState> GetNextState() override;
 
@@ -24,4 +25,4 @@ class GameOverState final : public Core::State::IGameState {
   GameOverUI* gameOverUI = nullptr;
   char scoreBuffer[100] = {0};
 };
-}  // namespace Game
+}  // namespace SnakeGame

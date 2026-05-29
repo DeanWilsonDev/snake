@@ -14,7 +14,7 @@ GameplayScene::GameplayScene(const GameplaySceneParams& params)
 void GameplayScene::Initialize() {}
 
 // GameplayScene.cpp
-void GameplayScene::OnEnter(Core::SceneTransitionContext ctx)
+void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
 {
   this->transition = ctx;
   // initialise entities, reset state etc.

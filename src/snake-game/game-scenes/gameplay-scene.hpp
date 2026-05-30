@@ -8,8 +8,9 @@
 #include "core/rendering/i-renderer.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
 #include "snake-game/game-state/gameplay-state-machine.hpp"
-#include "engine/entity/game-entity-manager.hpp"
+#include "engine/entities/entity-manager.hpp"
 #include "core/events/i-event-bus.hpp"
+#include "core/scenes/scene-transition-context.hpp"
 
 namespace Core {
 
@@ -30,17 +31,17 @@ class GameplayScene : public Core::Scenes::IGameScene {
   GameplayScene(const GameplaySceneParams& params);
   ~GameplayScene();
   void Initialize() override;
-  void OnEnter(Core::SceneTransitionContext ctx) override;
+  void OnEnter(Core::Scenes::SceneTransitionContext ctx) override;
   void OnExit() override;
   void Update(float deltaTime) override;
   void OnRender(const Core::Rendering::IRenderer& renderer) const override;
-  void DebugUpdate() override;
-  void DebugRender() override;
+  void DebugUpdate() const override;
+  void DebugRender() const override;
 
  private:
-  Core::SceneTransitionContext transition;
-  Core::Rendering::RenderComponent2DManager renderComponentManager;
-  Core::GameEntityManager entityManager;
+  Core::Scenes::SceneTransitionContext transition;
+  Renderer2D::RenderComponent2DManager renderComponentManager;
+  Engine::Entities::EntityManager entityManager;
   GameplayStateMachine stateMachine;
   Core::Events::IEventBus& eventBus;
 };

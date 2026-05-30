@@ -10,7 +10,7 @@
 #include <vector>
 
 namespace Core {
-namespace Entity {
+namespace Entities {
 class IEntity;
 }
 namespace Rendering {
@@ -21,23 +21,23 @@ class IRenderComponentManager;
 
 namespace Engine {
 
-namespace Entity {
+namespace Entities {
 
-class GameEntityManager : public Core::IOnUpdatable,
-                          Core::Debug::IOnDebugable,
-                          Core::Rendering::IOnRenderable {
+class EntityManager : public Core::IOnUpdatable,
+                      Core::Debug::IOnDebugable,
+                      Core::Rendering::IOnRenderable {
  public:
-  GameEntityManager(Core::Rendering::IRenderComponentManager* renderManager);
-  void AddEntity(Core::Entity::IEntity* entity);
+  EntityManager(Core::Rendering::IRenderComponentManager* renderManager);
+  void AddEntity(Core::Entities::IEntity* entity);
   void OnUpdate(float deltaTime) override;
   void OnDebugUpdate() const override;
   void OnDebugRender() const override;
   void OnRender(const Core::Rendering::IRenderer& renderer) const override;
 
  private:
-  std::vector<Core::Entity::IEntity*> entities;
+  std::vector<Core::Entities::IEntity*> entities;
   Core::Rendering::IRenderComponentManager* renderManager;
 };
 
-}  // namespace Entity
+}  // namespace Entities
 }  // namespace Engine

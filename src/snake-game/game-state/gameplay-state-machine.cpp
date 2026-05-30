@@ -1,9 +1,9 @@
 
 #include "gameplay-state-machine.hpp"
 #include "engine/state/state-machine.hpp"
-#include "engine/entity/game-entity-manager.hpp"
+#include "engine/entities/entity-manager.hpp"
 #include "gameplay-state.hpp"
-#include "main-menu-state.hpp"
+#include "snake-game/game-state/main-menu-state.hpp"
 #include "core/state/i-game-state.hpp"
 
 #include <memory>
@@ -24,30 +24,30 @@ GameplayStateMachine::~GameplayStateMachine() {}
 
 void GameplayStateMachine::Update(const float deltaTime)
 {
-  this->gameEntityManager->OnUpdate(deltaTime);
+  this->entityManager->OnUpdate(deltaTime);
 
   Core::State::StateMachine::Update(deltaTime);
 }
 
 void GameplayStateMachine::DebugUpdate() const
 {
-  if (this->gameEntityManager) {
-    this->gameEntityManager->OnDebugUpdate();
+  if (this->entityManager) {
+    this->entityManager->OnDebugUpdate();
   }
 }
 
 void GameplayStateMachine::DebugRender() const
 {
-  if (this->gameEntityManager) {
-    this->gameEntityManager->OnDebugRender();
+  if (this->entityManager) {
+    this->entityManager->OnDebugRender();
   }
 }
 
 void GameplayStateMachine::SetGameEntityManager(
-    std::shared_ptr<Engine::Entity::GameEntityManager> gameEntityManager
+    std::shared_ptr<Engine::Entities::EntityManager> entityManager
 )
 {
-  this->gameEntityManager = gameEntityManager;
+  this->entityManager = entityManager;
 }
 
 }  // namespace SnakeGame

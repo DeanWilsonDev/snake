@@ -2,22 +2,22 @@
 // Created by Dean Wilson on 25/8/2025.
 //
 
-#include "engine/entity/game-entity-manager.hpp"
-#include "core/entity/i-entity.hpp"
+#include "engine/entities/entity-manager.hpp"
+#include "core/entities/i-entity.hpp"
 #include "core/rendering/components/i-render-component.hpp"
 #include "core/rendering/i-render-manager.hpp"
 #include "core/rendering/i-renderer.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include <vector>
 
-namespace Engine::Entity {
+namespace Engine::Entities {
 
-GameEntityManager::GameEntityManager(Core::Rendering::IRenderComponentManager* renderManager)
+EntityManager::EntityManager(Core::Rendering::IRenderComponentManager* renderManager)
     : renderManager(renderManager)
 {
 }
 
-void GameEntityManager::AddEntity(Core::Entity::IEntity* entity)
+void EntityManager::AddEntity(Core::Entities::IEntity* entity)
 {
   if (!entity) {
     return;
@@ -28,7 +28,7 @@ void GameEntityManager::AddEntity(Core::Entity::IEntity* entity)
   );
 }
 
-void GameEntityManager::OnUpdate(const float deltaTime)
+void EntityManager::OnUpdate(const float deltaTime)
 {
   for (auto* object : this->entities) {
     if (object->IsActive()) {
@@ -37,7 +37,7 @@ void GameEntityManager::OnUpdate(const float deltaTime)
   }
 }
 
-void GameEntityManager::OnDebugUpdate() const
+void EntityManager::OnDebugUpdate() const
 {
   for (auto* object : this->entities) {
     if (object->IsActive()) {
@@ -46,7 +46,7 @@ void GameEntityManager::OnDebugUpdate() const
   }
 }
 
-void GameEntityManager::OnDebugRender() const
+void EntityManager::OnDebugRender() const
 {
   for (auto* object : this->entities) {
     if (object->IsActive()) {
@@ -55,9 +55,9 @@ void GameEntityManager::OnDebugRender() const
   }
 }
 
-void GameEntityManager::OnRender(const Core::Rendering::IRenderer& renderer) const
+void EntityManager::OnRender(const Core::Rendering::IRenderer& renderer) const
 {
   this->renderManager->OnRender(renderer);
 }
 
-}  // namespace Engine::Entity
+}  // namespace Engine::Entities

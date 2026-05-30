@@ -18,7 +18,7 @@ namespace Renderer2D::Components {
 class RenderComponent2D final : public Core::Rendering::Components::IRenderComponent2D {
  public:
   RenderComponent2D(
-      Core::Math::ITransform2D& transform, Core::Color::ColorRGBA color, bool& active
+      Core::Math::ITransform2D& transform, Core::Color::ColorRGBA color, const bool& active
   );
   ~RenderComponent2D() override = default;
   void Render(const Core::Rendering::IRenderer& renderer) const override;
@@ -26,11 +26,11 @@ class RenderComponent2D final : public Core::Rendering::Components::IRenderCompo
   [[nodiscard]] float GetY() const override;
   [[nodiscard]] float GetWidth() const override;
   [[nodiscard]] float GetHeight() const override;
-  [[nodiscard]] bool GetActive() const override;
+  [[nodiscard]] const bool& GetActive() const override;
 
  private:
   Core::Math::ITransform2D& transform;
   Core::Color::ColorRGBA color;
-  bool& active;
+  const bool& active;
 };
 }  // namespace Renderer2D::Components

@@ -1,5 +1,5 @@
 #pragma once
-#include "engine/entity/game-entity-manager.hpp"
+#include "engine/entities/entity-manager.hpp"
 #include "engine/state/state-machine.hpp"
 #include "core/state/i-game-state.hpp"
 #include "engine/input/input-system.hpp"
@@ -42,7 +42,7 @@ class GameplayStateMachine final : public Core::State::StateMachine {
   // Setters
   void SetSnake(Snake& snake);
   void SetApple(Apple& apple);
-  void SetGameEntityManager(std::shared_ptr<Engine::Entity::GameEntityManager> gameEntityManager);
+  void SetGameEntityManager(std::shared_ptr<Engine::Entities::EntityManager> gameEntityManager);
   void SetRenderer(Core::Rendering::IRenderer& renderer) { this->renderer = &renderer; }
   void SetRenderManager(Core::Rendering::RenderComponent2DManager& renderManager)
   {
@@ -53,7 +53,7 @@ class GameplayStateMachine final : public Core::State::StateMachine {
  private:
   GameContext gameContext;
   Core::Rendering::RenderComponent2DManager* renderManager = nullptr;
-  std::shared_ptr<Engine::Entity::GameEntityManager> gameEntityManager = nullptr;
+  std::shared_ptr<Engine::Entities::EntityManager> entityManager = nullptr;
   Core::Rendering::IRenderer* renderer = nullptr;
 };
 }  // namespace SnakeGame

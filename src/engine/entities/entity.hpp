@@ -4,24 +4,37 @@
 #pragma once
 
 #include "core/components/i-component.hpp"
-#include "core/entity/i-entity.hpp"
+#include "core/entities/i-entity.hpp"
 #include <cassert>
 #include <typeindex>
 #include <unordered_map>
 #include <memory>
 
-namespace Engine::Entity {
+using namespace Core::Entities;
 
-struct EntityBaseParams {
+namespace Core {
+namespace Math {
+class ITransform2D;
+}
+}  // namespace Core
+
+namespace Engine::Entities {
+
+struct EntityParams {
   bool active = true;
 
-  EntityBaseParams(bool active = true) : active(active) {}
+  Core::Math::ITransform2D* transform = {nullptr};
+
+  EntityParams(Core::Math::ITransform2D* transform = nullptr, bool active = true)
+      : active(active), transform(transform)
+  {
+  }
 };
 
-class EntityBase : virtual public Core::Entity::IEntity {
+class Entity : public Core::Entities::IEntity {
  public:
-  explicit EntityBase(const EntityBaseParams& params);
-  virtual ~EntityBase() = 0;
+  explicit Entity(const EntityParams& params);
+  virtual ~Entity() = 0;
 
   virtual void Initialize() override;
   virtual void Update([[maybe_unused]] float deltaTime) override;
@@ -30,7 +43,7 @@ class EntityBase : virtual public Core::Entity::IEntity {
   virtual int GetID() const override;
   virtual bool IsActive() const override;
   virtual void SetActive(bool active) override;
-  virtual const bool& GetActive() override;
+  virtual const bool& GetActive() const override;
   Core::Components::IComponent* GetComponentByType(std::type_index type) override;
 
   template <typename T, typename... Args>
@@ -38,6 +51,14 @@ class EntityBase : virtual public Core::Entity::IEntity {
 
   template <typename T>
   void RemoveComponent();
+
+  virtual Core::Components::TransformComponent2D& GetTransformComponent() override;
+
+  // Properties
+ protected:
+  // 1UP: Refactor location of TransformComponent2D so that it lives in engine and has an interface
+  // in Core
+  std::unique_ptr<Core::Components::TransformComponent2D> transformComponent{nullptr};
 
  private:
   std::unordered_map<std::type_index, std::unique_ptr<Core::Components::IComponent>> components{};
@@ -48,7 +69,7 @@ class EntityBase : virtual public Core::Entity::IEntity {
 };
 
 template <typename T, typename... Args>
-void EntityBase::AddComponent(Args&&... args)
+void Entity::AddComponent(Args&&... args)
 {
   // Ensure no duplicate components of the same type
   const auto type = std::type_index(typeid(T));
@@ -59,10 +80,10 @@ void EntityBase::AddComponent(Args&&... args)
 }
 
 template <typename T>
-void EntityBase::RemoveComponent()
+void Entity::RemoveComponent()
 {
   const auto type = std::type_index(typeid(T));
   this->components.erase(type);
 }
 
-}  // namespace Engine::Entity
+}  // namespace Engine::Entities

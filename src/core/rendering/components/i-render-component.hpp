@@ -23,7 +23,7 @@ class IRenderComponent : public Core::Components::IComponent, IRenderable {
   [[nodiscard]] virtual float GetY() const = 0;
   [[nodiscard]] virtual float GetWidth() const = 0;
   [[nodiscard]] virtual float GetHeight() const = 0;
-  [[nodiscard]] virtual bool GetActive() const = 0;
+  [[nodiscard]] virtual const bool& GetActive() const = 0;
 };
 }  // namespace Components
 }  // namespace Rendering

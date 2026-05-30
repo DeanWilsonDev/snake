@@ -1,6 +1,6 @@
-#include "gameplay-scene.hpp"
-#include "core/entity/game-entity-manager.hpp"
-#include "core/rendering/render-component-2d-manager.hpp"
+#include "snake-game/game-scenes/gameplay-scene.hpp"
+#include "engine/entities/entity-manager.hpp"
+#include "renderer-2d/render-component-2d-manager.hpp"
 
 namespace SnakeGame {
 
@@ -42,7 +42,7 @@ void GameplayScene::Update(float deltaTime)
 //         transition.Pop();   // returns to gameplay, same instance
 // }
 
-void GameplayScene::DebugUpdate() {}
-void GameplayScene::DebugRender() {}
+void GameplayScene::DebugUpdate() const {}
+void GameplayScene::DebugRender() const {}
 
 }  // namespace SnakeGame

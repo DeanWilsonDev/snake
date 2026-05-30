@@ -19,7 +19,8 @@ class MainMenuState final : public Core::State::IGameState {
 
   void Enter() override;
   void Update([[maybe_unused]] float deltaTime) override;
-  void DebugUpdate() override;
+  void DebugUpdate() const override;
+  void DebugRender() const override;
   void Exit() override;
   std::unique_ptr<Core::State::IGameState> GetNextState() override;
 

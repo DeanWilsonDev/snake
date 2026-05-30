@@ -2,9 +2,8 @@
 
 #include <memory>
 #include "core/math/i-transform-2d.hpp"
-#include "engine/entity/game-entity.hpp"
+#include "engine/entities/entity.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
-#include "core/math/vector-2d.hpp"
 #include "core/rendering/components/i-render-component-2d.hpp"
 
 namespace Core {
@@ -17,14 +16,16 @@ class IRenderComponent2D;
 
 namespace SnakeGame {
 
-struct AppleParams : Engine::Entity::GameEntityParams {
+struct AppleParams : Engine::Entities::EntityParams {
+  Core::Math::ITransform2D* transform{nullptr};
+
   AppleParams(Core::Math::ITransform2D* transform = nullptr, bool active = true)
-      : Engine::Entity::GameEntityParams(transform, active)
+      : Engine::Entities::EntityParams(transform, active)
   {
   }
 };
 
-class Apple final : public Engine::Entity::GameEntity {
+class Apple final : public Engine::Entities::Entity {
  public:
   explicit Apple(const AppleParams& params);
   void Update(float deltaTime) override;

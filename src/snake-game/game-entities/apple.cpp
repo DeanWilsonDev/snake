@@ -1,6 +1,6 @@
 #include "apple.hpp"
 #include <memory>
-#include "engine/entity/game-entity.hpp"
+#include "engine/entities/entity.hpp"
 #include "core/color/color.hpp"
 #include "debug/debug.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
@@ -13,16 +13,14 @@
 
 namespace SnakeGame {
 
-Apple::Apple(const AppleParams& params) : Engine::Entity::GameEntity(params) {}
+Apple::Apple(const AppleParams& params) : Engine::Entities::Entity(params) {}
 
 void Apple::Initialize()
 {
-  GameEntity::Initialize();
-
   LOG_TRACE("[Apple] Initializing Apple from Constructor");
 
   this->transformComponent = make_unique<Core::Components::TransformComponent2D>(
-      this->GetNewPosition(), 0, Core::Math::Size2D(this->size)
+      Core::Math::Vector2D::Zero(), 0, Core::Math::Size2D(this->size)
   );
 
   LOG_TRACE(
@@ -53,7 +51,8 @@ void Apple::Initialize()
       static_cast<void*>(&this->colliderComponent)
   );
 
-  this->transformComponent->SetPosition(this->GetNewPosition());
+  // MAIN QUEST: This should be handled by the apple spawner
+  // this->transformComponent->SetPosition(this->GetNewPosition());
 };
 
 void Apple::Update([[maybe_unused]] const float deltaTime) {}

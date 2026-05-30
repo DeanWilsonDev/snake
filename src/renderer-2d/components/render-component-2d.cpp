@@ -10,7 +10,7 @@
 namespace Renderer2D::Components {
 
 RenderComponent2D::RenderComponent2D(
-    Core::Math::ITransform2D& transform, const Core::Color::ColorRGBA color, bool& active
+    Core::Math::ITransform2D& transform, const Core::Color::ColorRGBA color, const bool& active
 )
     : transform(transform), color(color), active(active)
 {
@@ -45,7 +45,7 @@ float RenderComponent2D::GetHeight() const
 {
   return this->transform.GetScale().GetHeight();
 }
-bool RenderComponent2D::GetActive() const
+const bool& RenderComponent2D::GetActive() const
 {
   return this->active;
 }

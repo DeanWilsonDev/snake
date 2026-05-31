@@ -31,4 +31,4 @@ class GameOverUI final : public Core::UserInterface::IGameUI {
   int& score;
   char scoreBuffer[100] = {0};
 };
-}  // namespace Game
+}  // namespace SnakeGame

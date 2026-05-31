@@ -12,6 +12,6 @@ class Screen {
   static int GetWidth() { return WindowManager::GetScreenWidth(); }
   static int GetHeight() { return WindowManager::GetScreenWidth(); }
 };
-}  // namespace Game
+}  // namespace Platform::Window
 
 #endif  // SCREEN_HPP

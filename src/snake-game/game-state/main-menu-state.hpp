@@ -29,4 +29,4 @@ class MainMenuState final : public Core::State::IGameState {
   MainMenuUI* mainMenuUI = nullptr;
 };
 
-}  // namespace Game
+}  // namespace SnakeGame

@@ -61,4 +61,4 @@ class Snake final {
   bool debugEnabled = false;
   Core::Math::Transform2D transform = Core::Math::Transform2D::Empty();
 };
-}  // namespace Game
+}  // namespace SnakeGame

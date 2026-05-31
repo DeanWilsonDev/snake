@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include "game/game-state/gameplay-state-machine.hpp"
+#include "snake-game/game-state/gameplay-state-machine.hpp"
 #include "core/user-interface/i-game-ui.hpp"
 #include <memory>
 
@@ -30,4 +30,4 @@ class GameplayUI final : public Core::UserInterface::IGameUI {
   char scoreBuffer[100] = {0};
   GameContext& gameContext;
 };
-}  // namespace Game
+}  // namespace SnakeGame

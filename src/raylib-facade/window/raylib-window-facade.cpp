@@ -42,7 +42,7 @@ int RaylibWindowFacade::GetScreenHeight()
 
 int RaylibWindowFacade::GetScreenWidth()
 {
-  return ::GetScreenHeight();
+  return ::GetScreenWidth();
 }
 
 void RaylibWindowFacade::SetWindowSize(const int width, const int height)

@@ -1,5 +1,4 @@
 #include "application.hpp"
-#include "core/events/i-event-bus.hpp"
 #include "core/scenes/i-scene-manager.hpp"
 #include "engine/config/project-settings.hpp"
 #include "core/color/color.hpp"
@@ -11,7 +10,6 @@
 #include "debug/debug.hpp"
 #include "debug/debug-hud.hpp"
 #include "core/rendering/i-renderer.hpp"
-#include "engine/events/event-bus.hpp"
 #include "engine/scenes/scene-manager.hpp"
 #include "engine/utils/string-utils.hpp"
 #include "platform/input/i-input-backend.hpp"
@@ -19,6 +17,14 @@
 #include "core/i-dependency-injector.hpp"
 #include "core/logging/log.hpp"
 #include "core/state/i-state-machine.hpp"
+#include "core/events/i-event-bus.hpp"
+#include "engine/events/event-bus.hpp"
+#include "platform/input/i-input-backend.hpp"
+#include "platform/window/i-window.hpp"
+
+#include "raylib-facade/window/raylib-window-facade.hpp"
+#include "raylib-facade/renderer/raylib-renderer-facade.hpp"
+#include "raylib-facade/input/raylib-input-backend-facade.hpp"
 
 #include <memory>
 #include <cassert>
@@ -88,10 +94,27 @@ void Application::Initialize()
 
 void Application::RegisterDependencies()
 {
+
+  // Raylib Dependencies as defaults:
+  
+  // Platform
+  this->GetInjector()
+      .Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
+  this->GetInjector()
+      .Register<Core::Rendering::IRenderer, RaylibFacade::Renderer::RaylibRendererFacade>();
+  this->GetInjector()
+      .Register<Platform::Input::IInputBackend, RaylibFacade::Input::RaylibInputBackendFacade>();
+
+  // Reaper: Not sure if i need this
+  // injector.Register<
+  //     UserInterface::IUserInterface,
+  //     RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
+
   injector->Register<
       Core::UserInterface::IUserInterfaceManager,
       Core::UserInterface::UserInterfaceManager>();
 
+  // Scene Management 
   injector->Register<Core::Scenes::ISceneManager, Engine::Scenes::SceneManager>();
 
   // Debug

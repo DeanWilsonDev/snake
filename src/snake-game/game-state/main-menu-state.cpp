@@ -5,7 +5,7 @@
 #include "main-menu-state.hpp"
 #include "core/state/i-game-state.hpp"
 #include "engine/input/input-action.hpp"
-#include "game/game-state/gameplay-state.hpp"
+#include "snake-game/game-state/gameplay-state.hpp"
 #include "gameplay-state-machine.hpp"
 
 #include <cassert>
@@ -17,7 +17,6 @@ MainMenuState::MainMenuState(GameContext& gameContext) : gameContext(gameContext
 
 void MainMenuState::Enter()
 {
-
   // const auto gameSettings = this->gameplayStateMachine->GetGameSettings();
   // const auto userInterface = this->gameplayStateMachine->GetUserInterface();
   // assert(gameSettings);
@@ -34,7 +33,7 @@ void MainMenuState::Update(float)
   }
 }
 
-void MainMenuState::DebugUpdate() {}
+void MainMenuState::DebugUpdate() const {}
 
 void MainMenuState::Exit()
 {
@@ -50,4 +49,4 @@ std::unique_ptr<Core::State::IGameState> MainMenuState::GetNextState()
   return std::make_unique<GameplayState>(this->gameContext);
 }
 
-}  // namespace Game
+}  // namespace SnakeGame

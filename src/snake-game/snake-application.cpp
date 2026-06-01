@@ -1,7 +1,6 @@
 #include "snake-application.hpp"
 #include "engine/application/application.hpp"
 #include "engine/input/key-code.hpp"
-#include "snake-game/game-state/gameplay-state-machine.hpp"
 #include "engine/config/application-config.hpp"
 #include <vector>
 
@@ -12,6 +11,10 @@ namespace SnakeGame {
 void SnakeApplication::Initialize()
 {
   Engine::Application::Initialize();
+
+
+  this->GetSceneManager();
+
 }
 
 // 1UP: this could just deserialise a json config file. Amanuensis?
@@ -51,10 +54,9 @@ void SnakeApplication::RegisterDependencies()
 {
   Engine::Application::RegisterDependencies();
 
-
-  // Game
-  this->GetInjector().Register<Core::State::IStateMachine, SnakeGame::GameplayStateMachine>();
-
+  ///
+  /// Register Overrides Below
+  ///
 }
 
 }  // namespace SnakeGame

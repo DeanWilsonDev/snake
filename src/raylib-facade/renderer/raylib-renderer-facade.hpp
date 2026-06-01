@@ -18,11 +18,14 @@ class RaylibRendererFacade final : public Core::Rendering::IRenderer {
   explicit RaylibRendererFacade();
   ~RaylibRendererFacade() override;
 
-  void BeginDrawing() override;
-  void EndDrawing() override;
-  void ClearBackground(Core::Color::ColorRGBA color) override;
+  void BeginDrawing() const override;
+  void EndDrawing() const override;
+  void ClearBackground(Core::Color::ColorRGBA color) const override;
 
-  void DrawRectangle(float x, float y, float width, float height, Core::Color::ColorRGBA) const override;
+  void DrawRectangle(
+      float x, float y, float width, float height, Core::Color::ColorRGBA
+  ) const override;
+
   static Color ConvertToRaylibColor(Core::Color::ColorRGBA color);
 };
 }  // namespace RaylibFacade::Renderer

@@ -8,6 +8,6 @@ namespace Core {
 
 struct IApplicationConfig {
  public:
-  virtual ~IDependencyInjector() = default;
+  virtual ~IApplicationConfig() = default;
 };
 }  // namespace Core

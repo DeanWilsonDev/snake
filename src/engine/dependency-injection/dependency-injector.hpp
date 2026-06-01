@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "core/i-dependency-injector.hpp"
+#include "core/dependency-injection/i-dependency-injector.hpp"
 
 #include <typeindex>
 #include <any>

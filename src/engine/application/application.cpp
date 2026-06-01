@@ -1,4 +1,5 @@
 #include "application.hpp"
+#include "core/rendering/i-render-component-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
 #include "engine/config/project-settings.hpp"
 #include "core/color/color.hpp"
@@ -13,8 +14,9 @@
 #include "engine/scenes/scene-manager.hpp"
 #include "engine/utils/string-utils.hpp"
 #include "platform/input/i-input-backend.hpp"
+#include "renderer-2d/render-component-2d-manager.hpp"
 #include "user-interface/i-user-interface.hpp"
-#include "core/i-dependency-injector.hpp"
+#include "core/dependency-injection/i-dependency-injector.hpp"
 #include "core/logging/log.hpp"
 #include "core/state/i-state-machine.hpp"
 #include "core/events/i-event-bus.hpp"
@@ -49,6 +51,8 @@ void Application::Initialize()
   this->input = this->injector->Resolve<Platform::Input::IInputBackend>();
   this->userInterface = this->injector->Resolve<UserInterface::IUserInterface>();
   this->eventBus = this->injector->Resolve<Core::Events::IEventBus>();
+  this->renderComponentManager =
+      this->injector->Resolve<Core::Rendering::IRenderComponentManager>();
   Debug::System.SetActiveDebugHUD(this->injector->Resolve<Core::Debug::IDebugHUD>());
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&window));
@@ -94,9 +98,8 @@ void Application::Initialize()
 
 void Application::RegisterDependencies()
 {
-
   // Raylib Dependencies as defaults:
-  
+
   // Platform
   this->GetInjector()
       .Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
@@ -114,7 +117,11 @@ void Application::RegisterDependencies()
       Core::UserInterface::IUserInterfaceManager,
       Core::UserInterface::UserInterfaceManager>();
 
-  // Scene Management 
+  // Rendering
+  injector
+      ->Register<Core::Rendering::IRenderComponentManager, Renderer2D::RenderComponent2DManager>();
+
+  // Scene Management
   injector->Register<Core::Scenes::ISceneManager, Engine::Scenes::SceneManager>();
 
   // Debug
@@ -143,13 +150,13 @@ void Application::Run()
     const float deltaTime = elapsedTime.count();
     lastTime = currentTime;
 
-    this->Update(deltaTime);
+    this->OnUpdate(deltaTime);
 
-    this->DebugUpdate();
+    this->OnDebugUpdate();
 
-    this->Render();
+    this->OnRender(*this->renderer);
 
-    this->DebugRender();
+    this->OnDebugRender();
 
     // FINISH:
     this->renderer->EndDrawing();
@@ -158,21 +165,36 @@ void Application::Run()
   this->injector->Teardown();
 }
 
-void Application::Update(float _) {}
+void Application::OnDebugUpdate() const {}
 
-void Application::DebugUpdate() {}
-
-void Application::Render()
+void Application::OnRender(const Core::Rendering::IRenderer& renderer) const
 {
   // RENDERING:
-  this->renderer->BeginDrawing();
-  this->renderer->ClearBackground(Core::Color::Black);
+  renderer.BeginDrawing();
+  renderer.ClearBackground(Core::Color::Black);
+  this->renderComponentManager->OnRender(renderer);
 }
-void Application::DebugRender() {}
+
+void Application::OnDebugRender() const {}
 
 void Application::Shutdown()
 {
   this->window->CloseWindow();
+}
+
+Config::ApplicationConfig& Application::GetConfig()
+{
+  return this->config;
+}
+
+Core::IDependencyInjector& Application::GetInjector() const
+{
+  return *this->injector;
+}
+
+Core::Scenes::ISceneManager& Application::GetSceneManager() const
+{
+  return *this->sceneManager;
 }
 
 }  // namespace Engine

@@ -4,6 +4,10 @@
 
 #pragma once
 
+#include "core/debug/i-on-debugable.hpp"
+#include "core/i-on-updatable.hpp"
+#include "core/rendering/i-on-renderable.hpp"
+#include "core/scenes/i-scene-manager.hpp"
 namespace Engine {
 namespace Config {
 struct ApplicationConfig;
@@ -14,7 +18,7 @@ namespace Core {
 
 class IDependencyInjector;
 
-class IApplication {
+class IApplication : Core::Debug::IOnDebugable, Core::IOnUpdatable, Core::Rendering::IOnRenderable {
  public:
   virtual ~IApplication() = default;
 
@@ -26,14 +30,15 @@ class IApplication {
   virtual void RegisterDependencies() = 0;
   virtual Engine::Config::ApplicationConfig& GetConfig() = 0;
   virtual Core::IDependencyInjector& GetInjector() const = 0;
+  virtual Core::Scenes::ISceneManager& GetSceneManager() const = 0;
 
   virtual void Initialize() = 0;
 
   // Called every frame to handle game-specific logic
-  virtual void Update(float deltaTime) = 0;
-  virtual void DebugUpdate() = 0;
-  virtual void Render() = 0;
-  virtual void DebugRender() = 0;
+  virtual void OnUpdate(float deltaTime) override = 0;
+  virtual void OnDebugUpdate() const override = 0;
+  void OnRender(const Core::Rendering::IRenderer& renderer) const override = 0;
+  virtual void OnDebugRender() const override = 0;
   virtual void Shutdown();
 };
 

@@ -11,21 +11,21 @@ RaylibRendererFacade::RaylibRendererFacade()
 }
 RaylibRendererFacade::~RaylibRendererFacade() = default;
 
-void RaylibRendererFacade::BeginDrawing()
+void RaylibRendererFacade::BeginDrawing() const
 {
   return ::BeginDrawing();
 }
-void RaylibRendererFacade::EndDrawing()
+void RaylibRendererFacade::EndDrawing() const
 {
   return ::EndDrawing();
 }
 
-void RaylibRendererFacade::ClearBackground(const Core::Color::ColorRGBA color)
+void RaylibRendererFacade::ClearBackground(const Core::Color::ColorRGBA color) const
 {
   return ::ClearBackground(ConvertToRaylibColor(color));
 }
 
-Color RaylibRendererFacade::ConvertToRaylibColor(const Core::Color::ColorRGBA color)
+Color RaylibRendererFacade::ConvertToRaylibColor(const Core::Color::ColorRGBA color) 
 {
   return Color(color.red, color.green, color.blue, color.alpha);
 }

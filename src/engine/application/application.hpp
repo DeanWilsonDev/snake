@@ -1,11 +1,12 @@
 #pragma once
 #include "core/events/i-event-bus.hpp"
-#include "core/i-application.hpp"
+#include "core/application/i-application.hpp"
+#include "core/rendering/i-render-component-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
 #include "debug/debug-hud.hpp"
 #include "engine/config/application-config.hpp"
-#include "core/i-dependency-injector.hpp"
+#include "core/dependency-injection/i-dependency-injector.hpp"
 #include "core/debug/i-debug-hud.hpp"
 
 // Main Quest: Move these to core
@@ -59,24 +60,22 @@ class Application : public Core::IApplication {
   virtual void Initialize() override;
   virtual void Configure(Config::ApplicationConfig& config) override;
   virtual void RegisterDependencies() override;
-  virtual void Update(float deltaTime) override;
-  virtual void DebugUpdate() override;
-  virtual void Render() override;
-  virtual void DebugRender() override;
+  virtual void OnUpdate(float deltaTime) override;
+  virtual void OnDebugUpdate() const override;
+  virtual void OnRender(const Core::Rendering::IRenderer& renderer) const override;
+  virtual void OnDebugRender() const override;
   virtual void Shutdown() override;
-  [[nodiscard]] virtual Config::ApplicationConfig& GetConfig() override { return this->config; };
-  [[nodiscard]] virtual Core::IDependencyInjector& GetInjector() const override
-  {
-    return *this->injector;
-  };
+  [[nodiscard]] virtual Config::ApplicationConfig& GetConfig() override;
+  [[nodiscard]] virtual Core::IDependencyInjector& GetInjector() const override;
+  [[nodiscard]] virtual Core::Scenes::ISceneManager& GetSceneManager() const override;
 
  private:
   std::unique_ptr<Core::IDependencyInjector> injector;
   std::shared_ptr<Platform::Window::IWindow> window = nullptr;
   std::shared_ptr<Platform::Input::IInputBackend> input = nullptr;
-  std::shared_ptr<Core::Rendering::IRenderer> renderer = nullptr;
+  std::shared_ptr<const Core::Rendering::IRenderer> renderer = nullptr;
   std::shared_ptr<Core::Events::IEventBus> eventBus = nullptr;
-  std::shared_ptr<Core::Rendering::RenderComponent2DManager> renderComponent2dManager;
+  std::shared_ptr<Core::Rendering::IRenderComponentManager> renderComponentManager;
   Config::ApplicationConfig config;
 
   std::unique_ptr<Debug::DebugHUD> debugHUD;

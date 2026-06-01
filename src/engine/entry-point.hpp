@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/i-application.hpp"
+#include "core/application/i-application.hpp"
 
 extern Core::IApplication* CreateApplication();
 

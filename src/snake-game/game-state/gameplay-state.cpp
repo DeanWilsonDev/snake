@@ -21,31 +21,7 @@ class IRenderer;
 
 namespace SnakeGame {
 
-GameplayState::GameplayState(GameContext& gameContext) : gameContext(gameContext)
-{
-  // Initialize Snake
-  LOG_TRACE("[GameplayState] Setting up Snake GameObject");
-  const auto snakeParams = SnakeParams{.settings = *gameContext.settings};
-  this->snake = make_unique<Snake>(snakeParams);
-  LOG_DEBUG("[GameplayState] Snake set to [{}]", static_cast<void*>(&snake));
-  this->snake->Initialize();
-
-  //
-  // Initialize Apple
-  //
-
-  AppleParams appleParams = AppleParams(*gameContext.settings);
-  LOG_TRACE("[Game] Setting up Apple GameObject");
-  this->apple = make_unique<Apple>(appleParams);
-  LOG_DEBUG("[Game] Apple set to [{}]", static_cast<void*>(&this->apple));
-
-  // const auto userInterface = this->gameplayStateMachine.GetUserInterface();
-  // gameContext.gameUI = std::make_unique<GameplayUI>(this->gameContext);
-
-  // assert(gameSettings);
-  // assert(userInterface);
-  // this->gameplayUI = new GameplayUI(*userInterface, *gameSettings, score);
-}
+GameplayState::GameplayState(GameContext& gameContext) : gameContext(gameContext) {}
 
 void GameplayState::Enter()
 {
@@ -71,6 +47,11 @@ void GameplayState::Enter()
 
 void GameplayState::Update(float)
 {
+  // MAIN QUEST: Wire input to event bus
+  // Input polling should be replaced with event-driven input. The input system
+  // publishes InputActionEvents onto the event bus when actions are pressed.
+  // Entities and systems subscribe to those events rather than polling directly.
+  // See Engine::Events::IEventBus and Engine::Input::Action for existing pieces.
   if (this->gameContext.input->IsActionPressed(Engine::Input::Action::MoveLeft)) {
     this->snake->SetDirection({-1.0f, 0.0f});
   }
@@ -89,7 +70,8 @@ void GameplayState::Update(float)
           this->apple->GetColliderComponent().GetCollider().GetWorldRect()
       )) {
     LOG_DEBUG("[GameplayState] Snake got the Apple!");
-    this->apple->GetTransformComponent().SetPosition(this->apple->GetNewPosition());
+
+    // this->apple->GetTransformComponent().SetPosition(this->apple->GetNewPosition());
 
     this->gameContext.score += 10;
 

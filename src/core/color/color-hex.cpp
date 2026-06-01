@@ -6,12 +6,12 @@
 namespace Core {
 namespace Color {
 
-inline ColorRGBA ColorHex::ToRGBA()
+ColorRGBA ColorHex::ToRGBA()
 {
   return ColorRGBA::From(*this);
 };
 
-inline ColorHex ColorHex::From(const ColorRGBA& color)
+ColorHex ColorHex::From(const ColorRGBA& color)
 {
   return {
       static_cast<uint32_t>(color.red) << 24 | static_cast<uint32_t>(color.green) << 16 |

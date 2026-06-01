@@ -6,6 +6,7 @@
 
 namespace Engine::Config {
 struct GameSettings {
+  virtual ~GameSettings() = default;
   struct DebugConfig {
     bool enabled;
     bool showDebugLogs;

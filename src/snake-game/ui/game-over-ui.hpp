@@ -14,7 +14,9 @@ namespace SnakeGame {
 struct GameSettings;
 class GameOverUI final : public Core::UserInterface::IGameUI {
  public:
-  explicit GameOverUI(UserInterface::IUserInterface& ui, GameSettings& settings, int& score);
+  explicit GameOverUI(
+      UserInterface::IUserInterface& ui, int screenWidth, int screenHeight, int& score
+  );
   virtual ~GameOverUI() override {};
   virtual void OnDrawUI() override;
 
@@ -27,7 +29,8 @@ class GameOverUI final : public Core::UserInterface::IGameUI {
  private:
   std::unique_ptr<Core::Rendering::Components::IRenderComponentUI> renderComponent;
   UserInterface::IUserInterface& ui;
-  GameSettings& settings;
+  int screenWidth;
+  int screenHeight;
   int& score;
   char scoreBuffer[100] = {0};
 };

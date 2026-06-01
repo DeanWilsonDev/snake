@@ -7,7 +7,7 @@
 #include "core/i-on-updatable.hpp"
 #include "core/rendering/i-on-renderable.hpp"
 #include "core/scenes/scene-lifetime.hpp"
-#include "core/scenes/i-game-scene.hpp"
+#include "core/scenes/i-scene.hpp"
 #include <string>
 #include <functional>
 #include <memory>
@@ -15,11 +15,11 @@
 namespace Core {
 namespace Scenes {
 
-using SceneFactory = std::function<std::unique_ptr<IGameScene>()>;
+using SceneFactory = std::function<std::unique_ptr<IScene>()>;
 
-class ISceneManager : public Debug::IOnDebugable, IOnUpdatable, Rendering::IOnRenderable {
+class ISceneManager : public Debug::IOnDebugable, public IOnUpdatable, public Rendering::IOnRenderable {
  public:
-  virtual ~ISceneManager() = 0;
+  virtual ~ISceneManager() = default;
 
   virtual void Register(
       const std::string& name, SceneFactory factory,
@@ -28,11 +28,6 @@ class ISceneManager : public Debug::IOnDebugable, IOnUpdatable, Rendering::IOnRe
   virtual void SwitchTo(const std::string& name) = 0;
   virtual void Push(const std::string& name) = 0;
   virtual void Pop() = 0;
-
-  virtual void OnUpdate(float deltaTime) = 0;
-  virtual void OnDebugUpdate() const = 0;
-  virtual void OnDebugRender() const = 0;
-  virtual void OnRender(const Core::Rendering::IRenderer& renderer) const = 0;
 };
 }  // namespace Scenes
 }  // namespace Core

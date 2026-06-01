@@ -1,8 +1,9 @@
 #include "snake-game/game-entities/snake.hpp"
-#include "snake-game/settings/game-settings.hpp"
+#include "snake-game/settings/snake-game-settings.hpp"
 #include "snake-segment.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/math/transform-2d.hpp"
+#include "core/components/transform-component-2d.hpp"
 
 #include <cmath>
 #include <memory>
@@ -11,17 +12,19 @@ namespace SnakeGame {
 
 Snake::~Snake() = default;
 
-Snake::Snake(const SnakeParams& snakeParams) : settings(snakeParams.settings)
+Snake::Snake(const SnakeParams& snakeParams)
+    : settings(snakeParams.settings)
+    , screenWidth(snakeParams.screenWidth)
+    , screenHeight(snakeParams.screenHeight)
 {
-  auto snakeSize = static_cast<float>(settings.GetBoxSize());
+  auto snakeSize = static_cast<float>(settings.boxSize);
 
   this->transform = Core::Math::Transform2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
 }
 
 Snake* Snake::Initialize()
 {
-  this->size = static_cast<float>(this->settings.GetBoxSize());
-
+  this->size = static_cast<float>(this->settings.boxSize);
   this->speed = this->size * 5.0f;
   this->length = this->settings.defaultSnakeLength;
   this->direction = {1.0f, 0.0f};
@@ -110,29 +113,32 @@ void Snake::CheckIfShouldGrow()
 
 void Snake::Teleport() const
 {
-  const auto screenWidth = static_cast<float>(this->settings.GetScreenWidth());
-  const auto screenHeight = static_cast<float>(this->settings.GetScreenHeight());
+  // SIDE QUEST: BoundaryWrapSystem
+  // Wrapping behaviour should be handled by a dedicated BoundaryWrapSystem in the
+  // game-systems layer rather than the Snake querying screen dimensions directly.
+  // Snake should have no knowledge of screen bounds — the system takes a list of
+  // entities and wraps their positions if they exceed the boundary.
 
   for (auto& segment : this->body) {
     auto& segmentPosition = segment->GetTransformComponent().GetPosition();
-    if (segmentPosition.x > screenWidth) {
+    if (segmentPosition.x > this->screenWidth) {
       segmentPosition.x = 0;
     }
     else if (segmentPosition.x < 0) {
-      segmentPosition.x = screenWidth;
+      segmentPosition.x = this->screenWidth;
     }
-    else if (segmentPosition.y > screenHeight) {
+    else if (segmentPosition.y > this->screenHeight) {
       segmentPosition.y = 0;
     }
     else if (segmentPosition.y < 0) {
-      segmentPosition.y = screenHeight;
+      segmentPosition.y = this->screenHeight;
     }
   }
 }
 
 Core::Math::Vector2D Snake::GetCenter() const
 {
-  const auto boxSize = static_cast<float>(this->settings.GetBoxSize());
+  const auto boxSize = static_cast<float>(this->settings.boxSize);
   return {
       this->head->GetTransformComponent().GetPosition().x + boxSize / 2.0f,
       this->head->GetTransformComponent().GetPosition().y + boxSize / 2.0f,

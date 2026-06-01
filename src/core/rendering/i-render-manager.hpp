@@ -14,7 +14,7 @@ class IRenderer;
 
 class IRenderManager {
  public:
-  virtual ~IRenderManager() = 0;
+  virtual ~IRenderManager() = default;
   virtual void OnRender(const IRenderer& renderer) const = 0;
 };
 }  // namespace Rendering

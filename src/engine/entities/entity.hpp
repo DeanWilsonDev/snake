@@ -36,10 +36,10 @@ class Entity : public Core::Entities::IEntity {
   explicit Entity(const EntityParams& params);
   virtual ~Entity() = 0;
 
-  virtual void Initialize() override;
-  virtual void Update([[maybe_unused]] float deltaTime) override;
+  virtual void Update(float deltaTime) override;
   virtual void DebugUpdate() const override;
   virtual void DebugRender() const override;
+  virtual void Initialize() override;
   virtual int GetID() const override;
   virtual bool IsActive() const override;
   virtual void SetActive(bool active) override;
@@ -53,6 +53,7 @@ class Entity : public Core::Entities::IEntity {
   void RemoveComponent();
 
   virtual Core::Components::TransformComponent2D& GetTransformComponent() override;
+  virtual const Core::Components::TransformComponent2D& GetTransformComponent() const override;
 
   // Properties
  protected:

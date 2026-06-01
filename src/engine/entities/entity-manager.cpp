@@ -19,6 +19,12 @@ EntityManager::EntityManager(Core::Rendering::IRenderComponentManager* renderMan
 
 void EntityManager::AddEntity(Core::Entities::IEntity* entity)
 {
+  // SIDE QUEST: Entity Component Pipeline
+  // AddEntity should only register entities. The engine should handle component
+  // routing automatically via a ComponentDispatcher that inspects each entity's
+  // components on registration and forwards them to the appropriate subsystems
+  // (e.g. IRenderComponent -> RenderComponent2DManager). Scenes stay declarative.
+
   if (!entity) {
     return;
   }

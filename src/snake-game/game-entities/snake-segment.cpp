@@ -1,12 +1,10 @@
 #include "physics/collision/rectangle-collider-2d.hpp"
 #include "snake-game/game-entities/snake-segment.hpp"
 #include "snake.hpp"
-#include "core/logging/log.hpp"
 #include <memory>
 #include "debug/debug.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
-#include "game/game-objects/snake-segment.hpp"
-#include "core/entity/game-entity.hpp"
+#include "core/entities/i-entity.hpp"
 #include "core/color/color.hpp"
 #include "core/math/vector-2d.hpp"
 #include "renderer-2d/components/render-component-2d.hpp"
@@ -15,8 +13,7 @@
 
 namespace SnakeGame {
 
-SnakeSegment::SnakeSegment(const SnakeSegmentParams& params)
-    : GameEntity(params), index(params.index)
+SnakeSegment::SnakeSegment(const SnakeSegmentParams& params) : Entity(params), index(params.index)
 {
   this->transformComponent =
       make_unique<Core::Components::TransformComponent2D>(&params.initialTransform);
@@ -41,15 +38,8 @@ void SnakeSegment::Move(const Core::Math::Vector2D newPosition)
   this->GetTransformComponent().GetPosition().y = newPosition.y;
 }
 
-void SnakeSegment::Update(float deltaTime)
-{
-  Engine::Entity::GameEntity::Update(deltaTime);
-}
-void SnakeSegment::Initialize() {}
-
 void SnakeSegment::DebugUpdate() const
 {
-  Engine::Entity::GameEntity::DebugUpdate();
   if (index == 0) {
     UMBRA_DEBUG(this->GetActive(), "Snake/Segment-{}/Active", this->index);
 

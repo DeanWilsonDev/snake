@@ -43,7 +43,7 @@ class IDependencyInjector {
     return RegisterSingletonImplementation(typeid(TInterface), instance);
   }
 
-  virtual void Teardown();
+  virtual void Teardown() = 0;
 
   template <typename TInterface>
   void Unregister()

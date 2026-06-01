@@ -37,9 +37,6 @@ class SnakeSegment final : public Engine::Entities::Entity {
   ~SnakeSegment() override;
 
   void DebugUpdate() const override;
-  void DebugRender() const override;
-  virtual void Update(float deltaTime) override;
-  virtual void Initialize() override;
 
   [[nodiscard]] Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D()
   {

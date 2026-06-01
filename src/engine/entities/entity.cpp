@@ -32,14 +32,6 @@ Entity::Entity(const EntityParams& params) : active(params.active)
 
 Entity::~Entity() = default;
 
-void Entity::Initialize() {}
-
-void Entity::Update([[maybe_unused]] float deltaTime) {}
-
-void Entity::DebugUpdate() const {}
-
-void Entity::DebugRender() const {}
-
 int Entity::GetID() const
 {
   return this->id;
@@ -72,5 +64,20 @@ Core::Components::IComponent* Entity::GetComponentByType(std::type_index type)
   }
   return nullptr;
 }
+
+Core::Components::TransformComponent2D& Entity::GetTransformComponent()
+{
+  return *this->transformComponent;
+};
+
+const Core::Components::TransformComponent2D& Entity::GetTransformComponent() const
+{
+  return *this->transformComponent;
+};
+
+void Entity::Initialize() {}
+void Entity::Update(float) {}
+void Entity::DebugUpdate() const {}
+void Entity::DebugRender() const {}
 
 }  // namespace Engine::Entities

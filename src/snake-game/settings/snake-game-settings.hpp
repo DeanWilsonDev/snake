@@ -1,9 +1,7 @@
 #pragma once
 
 #include "engine/config/game-settings.hpp"
-
 #include "core/logging/log.hpp"
-#include <algorithm>
 
 inline constexpr int DefaultBoxSize = 20;
 inline constexpr int DefaultMinBoxSize = 10;
@@ -25,15 +23,16 @@ struct SnakeGameSettings : public Engine::Config::GameSettings {
   int gridWidth = GridColumns;
   int gridHeight = GridRows;
   int defaultSnakeLength = DefaultSnakeLength;
+  int boxSize = DefaultBoxSize;
 
-  [[nodiscard]] int GetBoxSize(int screenWidth, int screenHeight) const
-  {
-    return std::clamp(
-        std::min(screenWidth / this->gridWidth, screenHeight / this->gridHeight),
-        this->minBoxSize,
-        this->maxBoxSize
-    );
-  }
+  // [[nodiscard]] int GetBoxSize(int screenWidth, int screenHeight) const
+  // {
+  //   return std::clamp(
+  //       std::min(screenWidth / this->gridWidth, screenHeight / this->gridHeight),
+  //       this->minBoxSize,
+  //       this->maxBoxSize
+  //   );
+  // }
 
   void Print() const
   {
@@ -50,6 +49,5 @@ struct SnakeGameSettings : public Engine::Config::GameSettings {
   }
 
  private:
-  int boxSize = DefaultBoxSize;
 };
 }  // namespace SnakeGame

@@ -4,6 +4,7 @@
 
 #pragma once
 #include "core/user-interface/i-game-ui.hpp"
+#include <memory>
 
 namespace UserInterface {
 class IUserInterface;
@@ -14,22 +15,20 @@ struct GameSettings;
 
 class MainMenuUI final : public Core::UserInterface::IGameUI {
  public:
-  explicit MainMenuUI(UserInterface::IUserInterface& ui, GameSettings& settings);
+  explicit MainMenuUI(UserInterface::IUserInterface& ui, int screenWidth, int screenHeight);
   ~MainMenuUI() override;
 
   void OnDrawUI() override;
   void OnDebugDrawUI() override;
 
-  [[maybe_unused]] virtual void Update([[maybe_unused]] float deltaTime) override;
-  [[maybe_unused]] virtual void DebugRender() const override;
-  [[maybe_unused]] virtual void DebugUpdate() const override;
   [[nodiscard]] virtual Core::Rendering::Components::IRenderComponentUI&
   GetRenderComponentUI() const override;
 
  private:
-  char scoreBuffer[100] = {0};
-  GameSettings& settings;
   UserInterface::IUserInterface& ui;
+  std::unique_ptr<Core::Rendering::Components::IRenderComponentUI> renderComponent;
+  int screenWidth;
+  int screenHeight;
 };
 
 }  // namespace SnakeGame

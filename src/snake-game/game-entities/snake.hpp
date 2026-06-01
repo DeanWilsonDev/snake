@@ -22,7 +22,9 @@ class SnakeSegment;
 struct SnakeGameSettings;
 
 struct SnakeParams {
-  SnakeGameSettings& settings;
+  const SnakeGameSettings& settings;
+  int screenWidth;
+  int screenHeight;
 };
 
 class Snake final {
@@ -44,13 +46,15 @@ class Snake final {
   void SetActive(bool enabled) const;
   void SetDirection(Core::Math::Vector2D direction);
 
-  [[nodiscard]] SnakeGameSettings& GetSnakeGameSettings() const { return this->settings; }
+  [[nodiscard]] const SnakeGameSettings& GetSnakeGameSettings() const { return this->settings; }
 
   SnakeSegment* head{};
   std::deque<std::unique_ptr<SnakeSegment>> body;
 
  private:
-  SnakeGameSettings& settings;
+  const SnakeGameSettings& settings;
+  int screenWidth;
+  int screenHeight;
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;
   float size = {0};

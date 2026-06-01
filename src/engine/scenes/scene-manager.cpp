@@ -1,15 +1,14 @@
 #include "scene-manager.hpp"
-#include "core/scenes/i-game-scene.hpp"
+#include "core/scenes/i-scene.hpp"
 #include <vector>
 
 using namespace Core::Scenes;
 
 namespace Engine::Scenes {
 
-void SceneManager::Register(
-    const std::string& name, SceneFactory factory,
-    SceneLifetime lifetime
-)
+SceneManager::SceneManager() {}
+
+void SceneManager::Register(const std::string& name, SceneFactory factory, SceneLifetime lifetime)
 {
   this->registry[name] = SceneEntry{std::move(factory), nullptr, lifetime};
 }
@@ -22,8 +21,7 @@ void SceneManager::SwitchTo(const std::string& name)
 
   // Transient Scenes release their instance on exit
   for (auto& [key, entry] : this->registry) {
-    if (entry.instance.get() == activeScene &&
-        entry.lifetime == SceneLifetime::Transient) {
+    if (entry.instance.get() == activeScene && entry.lifetime == SceneLifetime::Transient) {
       entry.instance.reset();
       break;
     }
@@ -55,8 +53,7 @@ void SceneManager::Pop()
 
   // Release if Transient
   for (auto& [key, entry] : this->registry) {
-    if (entry.instance.get() == this->activeScene &&
-        entry.lifetime == SceneLifetime::Transient) {
+    if (entry.instance.get() == this->activeScene && entry.lifetime == SceneLifetime::Transient) {
       entry.instance.reset();
       break;
     }
@@ -94,7 +91,7 @@ void SceneManager::OnRender(const Core::Rendering::IRenderer& renderer) const
   }
 }
 
-IGameScene* SceneManager::ResolveScene(const std::string& name)
+IScene* SceneManager::ResolveScene(const std::string& name)
 {
   auto it = registry.find(name);
   if (it == registry.end()) {
@@ -118,5 +115,4 @@ SceneTransitionContext SceneManager::MakeContext()
       .Pop = [this]() { this->Pop(); },
   };
 }
-
 }  // namespace Engine::Scenes

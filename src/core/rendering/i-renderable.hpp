@@ -14,7 +14,7 @@ class IRenderer;
 
 class IRenderable {
  public:
-  virtual ~IRenderable() = 0;
+  virtual ~IRenderable() = default;
   virtual void Render(const Rendering::IRenderer& renderer) const = 0;
 };
 }  // namespace Rendering

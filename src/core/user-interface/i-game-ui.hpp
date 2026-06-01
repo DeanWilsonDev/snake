@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "core/debug/i-debugable.hpp"
-#include "core/i-updatable.hpp"
 #include "core/rendering/components/i-render-component-ui.hpp"
 
 namespace Core {
@@ -17,7 +15,7 @@ class IRenderComponentUI;
 }  // namespace Rendering
 
 namespace UserInterface {
-class IGameUI : public IUpdatable, public Debug::IDebugable {
+class IGameUI {
  public:
   virtual ~IGameUI() = default;
 

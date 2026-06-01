@@ -17,7 +17,7 @@ class IRenderComponent2D;
 
 class IRenderComponentManager : public Core::Rendering::IRenderManager {
  public:
-  virtual ~IRenderComponentManager() = 0;
+  virtual ~IRenderComponentManager() = default;
   virtual void Register(Core::Rendering::Components::IRenderComponent* component) = 0;
   virtual void Unregister(Core::Rendering::Components::IRenderComponent* component) = 0;
   void OnRender(const Core::Rendering::IRenderer& renderer) const override = 0;

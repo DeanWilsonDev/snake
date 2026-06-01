@@ -44,6 +44,15 @@ Application::~Application() = default;
 
 void Application::Initialize()
 {
+
+  const auto& config = this->GetConfig();
+
+  const auto& debug = config.engine.debug;
+  Debug::System.SetDebugMode(debug.enabled);
+
+  LOG_INIT("log.csv", debug.enabled);
+
+
   LOG_CORE_TRACE("[Application] Initializing");
   this->window = this->injector->Resolve<Platform::Window::IWindow>();
   this->renderer = this->injector->Resolve<Core::Rendering::IRenderer>();
@@ -71,12 +80,7 @@ void Application::Initialize()
   assert(this->userInterface);
   assert(this->eventBus);
 
-  const auto& config = this->GetConfig();
 
-  const auto& debug = config.engine.debug;
-  Debug::System.SetDebugMode(debug.enabled);
-
-  LOG_INIT("log.csv", debug.enabled);
 
   LOG_CORE_TRACE("[Application] Beginning Application");
   std::string title = config.project.title;
@@ -165,6 +169,9 @@ void Application::Run()
   this->injector->Teardown();
 }
 
+void Application::Configure(Config::ApplicationConfig&) {}
+void Application::OnUpdate(float) {}
+
 void Application::OnDebugUpdate() const {}
 
 void Application::OnRender(const Core::Rendering::IRenderer& renderer) const
@@ -182,7 +189,7 @@ void Application::Shutdown()
   this->window->CloseWindow();
 }
 
-Config::ApplicationConfig& Application::GetConfig()
+const Config::ApplicationConfig& Application::GetConfig() const
 {
   return this->config;
 }
@@ -195,6 +202,16 @@ Core::IDependencyInjector& Application::GetInjector() const
 Core::Scenes::ISceneManager& Application::GetSceneManager() const
 {
   return *this->sceneManager;
+}
+
+Core::Events::IEventBus& Application::GetEventBus() const
+{
+  return *this->eventBus;
+}
+
+Core::Rendering::IRenderComponentManager& Application::GetRenderComponentManager() const
+{
+  return *this->renderComponentManager;
 }
 
 }  // namespace Engine

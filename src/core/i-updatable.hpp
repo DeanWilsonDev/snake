@@ -9,7 +9,7 @@ namespace Core {
 class IUpdatable {
  public:
   virtual ~IUpdatable() = default;
-  [[maybe_unused]] virtual void Update([[maybe_unused]] float deltaTime) {};
+  virtual void Update(float deltaTime) = 0;
 };
 
 }  // namespace Core

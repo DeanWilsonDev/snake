@@ -18,7 +18,7 @@ namespace Entities {
 
 class IEntity : public Core::IUpdatable, public Core::Debug::IDebugable {
  public:
-  virtual ~IEntity() = 0;
+  virtual ~IEntity() = default;
 
   virtual void Initialize() = 0;
   virtual int GetID() const = 0;
@@ -26,6 +26,7 @@ class IEntity : public Core::IUpdatable, public Core::Debug::IDebugable {
   virtual void SetActive(bool active) = 0;
   virtual const bool& GetActive() const = 0;
   virtual Components::TransformComponent2D& GetTransformComponent() = 0;
+  virtual const Components::TransformComponent2D& GetTransformComponent() const = 0;
   virtual Core::Components::IComponent* GetComponentByType(std::type_index type) = 0;
   template <typename T>
   T* GetComponent()

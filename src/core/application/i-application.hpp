@@ -5,8 +5,10 @@
 #pragma once
 
 #include "core/debug/i-on-debugable.hpp"
+#include "core/events/i-event-bus.hpp"
 #include "core/i-on-updatable.hpp"
 #include "core/rendering/i-on-renderable.hpp"
+#include "core/rendering/i-render-component-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
 namespace Engine {
 namespace Config {
@@ -28,9 +30,11 @@ class IApplication : Core::Debug::IOnDebugable, Core::IOnUpdatable, Core::Render
   // Called once to initialize application-specific systems and resources
   virtual void Configure(Engine::Config::ApplicationConfig& config) = 0;
   virtual void RegisterDependencies() = 0;
-  virtual Engine::Config::ApplicationConfig& GetConfig() = 0;
+  virtual const Engine::Config::ApplicationConfig& GetConfig() const = 0;
   virtual Core::IDependencyInjector& GetInjector() const = 0;
   virtual Core::Scenes::ISceneManager& GetSceneManager() const = 0;
+  virtual Core::Events::IEventBus& GetEventBus() const = 0;
+  virtual Core::Rendering::IRenderComponentManager& GetRenderComponentManager() const = 0;
 
   virtual void Initialize() = 0;
 
@@ -39,7 +43,7 @@ class IApplication : Core::Debug::IOnDebugable, Core::IOnUpdatable, Core::Render
   virtual void OnDebugUpdate() const override = 0;
   void OnRender(const Core::Rendering::IRenderer& renderer) const override = 0;
   virtual void OnDebugRender() const override = 0;
-  virtual void Shutdown();
+  virtual void Shutdown() = 0;
 };
 
 }  // namespace Core

@@ -39,10 +39,6 @@ void RenderComponent2DManager::OnRender(const Core::Rendering::IRenderer& render
   }
 
   for (Core::Rendering::Components::IRenderComponent* component : this->renderComponents) {
-    if (!dynamic_cast<Core::Rendering::Components::IRenderComponent2D*>(component)) {
-      continue;
-    }
-
     if (component->GetActive()) {
       component->Render(renderer);
     }

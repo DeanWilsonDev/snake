@@ -23,15 +23,15 @@ void UserInterfaceManager::AddGameUI(std::unique_ptr<UserInterface::IGameUI> gam
   this->gameUIs.push_back(std::move(gameUI));
 }
 
-void UserInterfaceManager::OnUpdate(float deltaTime)
-{
-  for (const std::unique_ptr<UserInterface::IGameUI>& gameUI : this->gameUIs) {
-    if (!gameUI) {
-      continue;
-    }
-    gameUI->Update(deltaTime);
-  }
-}
+// void UserInterfaceManager::OnUpdate(float deltaTime)
+// {
+//   for (const std::unique_ptr<UserInterface::IGameUI>& gameUI : this->gameUIs) {
+//     if (!gameUI) {
+//       continue;
+//     }
+//     gameUI->Update(deltaTime);
+//   }
+// }
 
 void UserInterfaceManager::DrawUI() const
 {
@@ -62,24 +62,25 @@ void UserInterfaceManager::OnRender(const Rendering::IRenderer& renderer) const
     gameUI->GetRenderComponentUI().Render(renderer);
   }
 }
-void UserInterfaceManager::OnDebugUpdate() const
-{
-  for (const std::unique_ptr<UserInterface::IGameUI>& gameUI : this->gameUIs) {
-    if (!gameUI) {
-      continue;
-    }
-    gameUI->DebugUpdate();
-  }
-}
 
-void UserInterfaceManager::OnDebugRender() const
-{
-  for (const std::unique_ptr<UserInterface::IGameUI>& gameUI : this->gameUIs) {
-    if (!gameUI) {
-      continue;
-    }
-    gameUI->DebugRender();
-  }
-}
+// void UserInterfaceManager::OnDebugUpdate() const
+// {
+//   for (const std::unique_ptr<UserInterface::IGameUI>& gameUI : this->gameUIs) {
+//     if (!gameUI) {
+//       continue;
+//     }
+//     gameUI->DebugUpdate();
+//   }
+// }
+//
+// void UserInterfaceManager::OnDebugRender() const
+// {
+//   for (const std::unique_ptr<UserInterface::IGameUI>& gameUI : this->gameUIs) {
+//     if (!gameUI) {
+//       continue;
+//     }
+//     gameUI->DebugRender();
+//   }
+// }
 
 }  // namespace Core::UserInterface

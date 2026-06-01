@@ -14,6 +14,8 @@ namespace Config {
 }  // namespace Core
 
 namespace SnakeGame {
+struct SnakeGameSettings;
+
 class SnakeApplication : public Engine::Application {
  public:
   SnakeApplication() : Application() {};
@@ -21,5 +23,7 @@ class SnakeApplication : public Engine::Application {
   virtual void Initialize() override;
   virtual void Configure(Engine::Config::ApplicationConfig& config) override;
   virtual void RegisterDependencies() override;
+  [[nodiscard]] const SnakeGameSettings& GetSnakeSettings() const;
 };
+
 }  // namespace SnakeGame

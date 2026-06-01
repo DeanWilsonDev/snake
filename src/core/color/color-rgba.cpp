@@ -10,7 +10,7 @@ ColorHex ColorRGBA::ToHex()
   return ColorHex::From(*this);
 }
 
-inline ColorRGBA ColorRGBA::From(const ColorHex& hex)
+ColorRGBA ColorRGBA::From(const ColorHex& hex)
 {
   return {
       static_cast<unsigned char>((hex.value >> 24) & 0xFF),

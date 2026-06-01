@@ -4,9 +4,9 @@
 #include <unordered_map>
 #include <memory>
 #include <variant>
-#include <cstddef>
 #include "debug-value.hpp"
 
+namespace Core {
 namespace Debug {
 
 struct DebugNode;
@@ -26,3 +26,4 @@ struct DebugNode {
   const DebugMap* AsMap() const { return IsMap() ? &std::get<DebugMap>(data) : nullptr; }
 };
 }  // namespace Debug
+}  // namespace Core

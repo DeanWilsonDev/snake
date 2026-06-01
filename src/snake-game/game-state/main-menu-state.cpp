@@ -34,6 +34,7 @@ void MainMenuState::Update(float)
 }
 
 void MainMenuState::DebugUpdate() const {}
+void MainMenuState::DebugRender() const {}
 
 void MainMenuState::Exit()
 {

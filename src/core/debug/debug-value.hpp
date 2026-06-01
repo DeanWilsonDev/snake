@@ -4,6 +4,7 @@
 #include <string>
 #include <memory.h>
 
+namespace Core {
 namespace Debug {
 
 struct DebugValue {
@@ -43,3 +44,4 @@ struct DebugValue {
   }
 };
 }  // namespace Debug
+}  // namespace Core

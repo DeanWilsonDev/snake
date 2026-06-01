@@ -39,6 +39,10 @@ struct Transform2D final : public ITransform2D {
   [[nodiscard]] Vector2D& GetPosition() override { return this->position; };
   [[nodiscard]] float& GetRotation() override { return this->rotation; };
   [[nodiscard]] Size2D& GetScale() override { return this->scale; };
+  
+  [[nodiscard]] const Vector2D& GetPosition() const override { return this->position; };
+  [[nodiscard]] const float& GetRotation() const override { return this->rotation; };
+  [[nodiscard]] const Size2D& GetScale() const override { return this->scale; };
 
   void SetPosition(const Math::Vector2D value) override { this->position = value; }
   void SetRotation(const float value) override { this->rotation = value; };

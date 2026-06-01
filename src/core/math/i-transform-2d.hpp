@@ -9,12 +9,17 @@
 namespace Core::Math {
 
 class ITransform2D {
-public:
+ public:
   virtual ~ITransform2D() = default;
   virtual Vector2D& GetPosition() = 0;
   virtual float& GetRotation() = 0;
   virtual Size2D& GetScale() = 0;
-  virtual void SetPosition(const Math::Vector2D value) = 0; 
+
+  virtual const Vector2D& GetPosition() const = 0;
+  virtual const float& GetRotation() const = 0;
+  virtual const Size2D& GetScale() const = 0;
+
+  virtual void SetPosition(const Math::Vector2D value) = 0;
   virtual void SetRotation(const float value) = 0;
   virtual void SetScale(const Math::Size2D& value) = 0;
 };

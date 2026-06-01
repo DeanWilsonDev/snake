@@ -33,7 +33,6 @@ void StateMachine::Update(float deltaTime)
   this->currentState->Update(deltaTime);
 };
 
-void StateMachine::DebugUpdate() {}
 
 IGameState& StateMachine::GetCurrentState()
 {

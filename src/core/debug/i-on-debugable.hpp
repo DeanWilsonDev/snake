@@ -21,8 +21,8 @@ namespace Debug {
 class IOnDebugable {
  public:
   virtual ~IOnDebugable() = default;
-  virtual void OnDebugUpdate() const;
-  virtual void OnDebugRender() const;
+  virtual void OnDebugUpdate() const = 0;
+  virtual void OnDebugRender() const = 0;
 };
 
 }  // namespace Debug

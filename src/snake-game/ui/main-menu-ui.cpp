@@ -5,24 +5,30 @@
 #include "main-menu-ui.hpp"
 
 #include "core/math/vector-2d.hpp"
-#include "game/settings/game-settings.hpp"
 #include "user-interface/i-user-interface.hpp"
 
 namespace SnakeGame {
 
-MainMenuUI::MainMenuUI(UserInterface::IUserInterface& ui, GameSettings& settings)
-    : settings(settings), ui(ui)
+MainMenuUI::MainMenuUI(UserInterface::IUserInterface& ui, int screenWidth, int screenHeight)
+    : ui(ui), screenWidth(screenWidth), screenHeight(screenHeight)
 {
 }
+
 MainMenuUI::~MainMenuUI() = default;
 
-void MainMenuUI::Render()
-{
-  const auto screenWidth = static_cast<float>(this->settings.GetScreenWidth());
+void MainMenuUI::OnDebugDrawUI() {}
 
+void MainMenuUI::OnDrawUI()
+{
   this->ui.DrawTextCentered("Snake", Core::Math::Vector2D{screenWidth / 2.0f, 40.0f}, 80);
   this->ui.DrawTextCentered(
       "Press 'Enter' to start", Core::Math::Vector2D{screenWidth / 2.0f, 200.0f}, 20
   );
 }
-}  // namespace Snake
+
+Core::Rendering::Components::IRenderComponentUI& MainMenuUI::GetRenderComponentUI() const
+{
+  return *this->renderComponent;
+}
+
+}  // namespace SnakeGame

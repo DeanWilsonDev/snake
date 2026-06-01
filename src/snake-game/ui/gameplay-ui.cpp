@@ -15,9 +15,9 @@ GameplayUI::GameplayUI(GameContext& gameContext) : gameContext(gameContext) {}
 
 void GameplayUI::OnDrawUI()
 {
-  const auto textPosition = Core::Math::Vector2D{80.f, 30.f};
-  constexpr int fontSize = 20;
-  std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", this->gameContext.score);
+  // const auto textPosition = Core::Math::Vector2D{80.f, 30.f};
+  // constexpr int fontSize = 20;
+  // std::snprintf(scoreBuffer, sizeof(scoreBuffer), "Score: %d", this->gameContext.score);
 
   // MAIN QUEST: Change how this works so that the GameUI can simply layout the UI how it wants and
   // have the engine handle everything else 

@@ -7,12 +7,13 @@
 #include "engine/config/engine-config.hpp"
 #include "engine/config/project-settings.hpp"
 #include "engine/config/game-settings.hpp"
+#include <memory>
 
 namespace Engine::Config {
 
 struct ApplicationConfig {
   EngineConfig engine;
   ProjectSettings project;
-  GameSettings game;
+  std::unique_ptr<GameSettings> game;
 };
 }  // namespace Engine::Config

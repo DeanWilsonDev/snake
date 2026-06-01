@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "core/scenes/i-game-scene.hpp"
+#include "core/scenes/i-scene.hpp"
 #include "core/scenes/scene-lifetime.hpp"
 #include "core/scenes/i-scene-manager.hpp"
 #include "core/rendering/i-renderer.hpp"
@@ -49,16 +49,16 @@ class SceneManager : public ISceneManager {
  private:
   struct SceneEntry {
     SceneFactory factory;
-    std::unique_ptr<IGameScene> instance;
+    std::unique_ptr<IScene> instance;
     SceneLifetime lifetime;
   };
 
-  IGameScene* ResolveScene(const std::string& name);
+  IScene* ResolveScene(const std::string& name);
   SceneTransitionContext MakeContext();
 
   std::unordered_map<std::string, SceneEntry> registry;
-  IGameScene* activeScene = nullptr;
-  std::vector<IGameScene*> overlayStack;
+  IScene* activeScene = nullptr;
+  std::vector<IScene*> overlayStack;
 };
 
 }  // namespace Scenes

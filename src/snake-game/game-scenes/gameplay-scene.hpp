@@ -4,13 +4,16 @@
 
 #pragma once
 
-#include "core/scenes/i-game-scene.hpp"
+#include "core/rendering/i-render-component-manager.hpp"
+#include "core/scenes/i-scene.hpp"
 #include "core/rendering/i-renderer.hpp"
+#include "snake-game/settings/snake-game-settings.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
 #include "snake-game/game-state/gameplay-state-machine.hpp"
 #include "engine/entities/entity-manager.hpp"
 #include "core/events/i-event-bus.hpp"
 #include "core/scenes/scene-transition-context.hpp"
+#include "snake-game/settings/snake-game-settings.hpp"
 
 namespace Core {
 
@@ -23,10 +26,14 @@ namespace SnakeGame {
 class GameplayStateMachine;
 
 struct GameplaySceneParams {
-  Core::Events::IEventBus* eventBus;
+  Core::Events::IEventBus& eventBus;
+  Core::Rendering::IRenderComponentManager& renderComponentManager;
+  const SnakeGameSettings& gameSettings;
+  int screenWidth;
+  int screenHeight;
 };
 
-class GameplayScene : public Core::Scenes::IGameScene {
+class GameplayScene : public Core::Scenes::IScene {
  public:
   GameplayScene(const GameplaySceneParams& params);
   ~GameplayScene();
@@ -40,9 +47,12 @@ class GameplayScene : public Core::Scenes::IGameScene {
 
  private:
   Core::Scenes::SceneTransitionContext transition;
-  Renderer2D::RenderComponent2DManager renderComponentManager;
+  Core::Rendering::IRenderComponentManager& renderComponentManager;
   Engine::Entities::EntityManager entityManager;
   GameplayStateMachine stateMachine;
   Core::Events::IEventBus& eventBus;
+  const SnakeGameSettings& gameSettings;
+  int screenWidth;
+  int screenHeight;
 };
 }  // namespace SnakeGame

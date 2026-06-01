@@ -1,9 +1,8 @@
 #include "debug-hud.hpp"
-#include "debug-node.hpp"
-#include "debug-value.hpp"
+#include "core/debug/debug-node.hpp"
+#include "core/debug//debug-value.hpp"
 
 #include <string_view>
-// #include <fmtmsg.h>
 #include <functional>
 #include <memory>
 #include <utility>

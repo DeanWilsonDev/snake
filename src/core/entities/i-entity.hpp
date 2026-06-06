@@ -60,11 +60,12 @@ class IEntity : public Core::IBeginPlay,
     return static_cast<const T*>(this->GetComponentByType(typeid(T)));
   }
 
- private:
-  virtual Core::Components::IComponent* GetComponentByType(std::type_index type) const = 0;
   virtual void ForEachComponent(
       std::function<bool(const Core::Components::IComponent*)> visitor
   ) const = 0;
+
+ private:
+  virtual Core::Components::IComponent* GetComponentByType(std::type_index type) const = 0;
 };
 }  // namespace Entities
 }  // namespace Core

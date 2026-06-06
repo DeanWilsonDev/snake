@@ -49,6 +49,8 @@ add_executable(
   src/debug/user-interface/debug-user-interface-manager.cpp
   src/engine/application/application.cpp
   src/engine/dependency-injection/dependency-injector.cpp
+  src/engine/entities/component-dispatcher.cpp
+  src/engine/entities/entity-component-pipeline.cpp
   src/engine/entities/entity-manager.cpp
   src/engine/entities/entity.cpp
   src/engine/events/event-bus.cpp

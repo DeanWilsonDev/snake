@@ -58,6 +58,10 @@ class Entity : public Core::Entities::IEntity {
   virtual Core::Components::TransformComponent2D& GetTransformComponent() override;
   virtual const Core::Components::TransformComponent2D& GetTransformComponent() const override;
 
+  void ForEachComponent(
+      std::function<bool(const Core::Components::IComponent*)> visitor
+  ) const override;
+
   // Properties
  protected:
   // 1UP: Refactor location of TransformComponent2D so that it lives in engine and has an interface
@@ -72,9 +76,6 @@ class Entity : public Core::Entities::IEntity {
   bool active{true};
 
   Core::Components::IComponent* GetComponentByType(std::type_index type) const override;
-  void ForEachComponent(
-      std::function<bool(const Core::Components::IComponent*)> visitor
-  ) const override;
 };
 
 template <typename T, typename... Args>

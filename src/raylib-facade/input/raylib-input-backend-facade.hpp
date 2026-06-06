@@ -4,20 +4,22 @@
 
 #pragma once
 
-#include "platform/input/i-input-backend.hpp"
-#include "engine/input/key-code.hpp"
+#include "core/input/i-input-backend.hpp"
+#include "core/input/key-code.hpp"
+
+using namespace Core::Input;
 
 namespace RaylibFacade::Input {
-class RaylibInputBackendFacade final : public Platform::Input::IInputBackend {
+class RaylibInputBackendFacade final : public IInputBackend {
  public:
   RaylibInputBackendFacade();
   ~RaylibInputBackendFacade() override = default;
-  bool IsKeyPressed(Engine::Input::KeyCode keyCode) override;
-  bool IsKeyDown(Engine::Input::KeyCode keyCode) override;
-  bool IsKeyReleased(Engine::Input::KeyCode keyCode) override;
+  bool IsKeyPressed(KeyCode keyCode) override;
+  bool IsKeyDown(KeyCode keyCode) override;
+  bool IsKeyReleased(KeyCode keyCode) override;
 
  private:
-  static int MapKeyCode(Platform::Input::KeyCode keyCode);
+  static int MapKeyCode(KeyCode keyCode);
 };
 
 }  // namespace RaylibFacade::Input

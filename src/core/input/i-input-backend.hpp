@@ -1,10 +1,10 @@
 #pragma once
 
-#include "engine/input/key-code.hpp"
+#include "core/input/key-code.hpp"
 
-namespace Platform::Input {
+namespace Core::Input {
 
-using KeyCode = Engine::Input::KeyCode;
+using KeyCode = Core::Input::KeyCode;
 
 class IInputBackend {
  public:
@@ -13,4 +13,4 @@ class IInputBackend {
   virtual bool IsKeyPressed(KeyCode keyCode) = 0;
   virtual bool IsKeyReleased(KeyCode keyCode) = 0;
 };
-}  // namespace Platform::Input
+}  // namespace Core::Input

@@ -1,15 +1,14 @@
 #include "engine/input/input-system.hpp"
 #include "engine/input/input-action.hpp"
-#include "engine/input/key-code.hpp"
-#include "platform/input/i-input-backend.hpp"
+#include "core/input/key-code.hpp"
+#include "core/input/i-input-backend.hpp"
 #include <cstddef>
 
-namespace Engine::Input {
-using KeyCode = Engine::Input::KeyCode;
+using namespace Core::Input;
 
-InputSystem::InputSystem(Platform::Input::IInputBackend& inputBackend) : inputBackend(inputBackend)
-{
-}
+namespace Engine::Input {
+
+InputSystem::InputSystem(IInputBackend& inputBackend) : inputBackend(inputBackend) {}
 
 void InputSystem::SetKeyMap(const KeyMap& map)
 {

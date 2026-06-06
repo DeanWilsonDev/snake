@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Platform::Window {
+namespace Core::Window {
 
 class IWindow {
  public:
@@ -14,4 +14,4 @@ class IWindow {
   virtual int GetScreenHeight() = 0;
   virtual int GetScreenWidth() = 0;
 };
-}  // namespace Platform
+}  // namespace Core::Window

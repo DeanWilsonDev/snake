@@ -8,10 +8,8 @@
 #include "engine/config/application-config.hpp"
 #include "core/dependency-injection/i-dependency-injector.hpp"
 #include "core/debug/i-debug-hud.hpp"
-
-// Main Quest: Move these to core
-#include "platform/window/i-window.hpp"
-#include "platform/input/i-input-backend.hpp"
+#include "core/window/i-window.hpp"
+#include "core/input/i-input-backend.hpp"
 
 #include <memory>
 
@@ -76,8 +74,8 @@ class Application : public Core::IApplication {
 
  private:
   std::unique_ptr<Core::IDependencyInjector> injector;
-  std::shared_ptr<Platform::Window::IWindow> window = nullptr;
-  std::shared_ptr<Platform::Input::IInputBackend> input = nullptr;
+  std::shared_ptr<Core::Window::IWindow> window = nullptr;
+  std::shared_ptr<Core::Input::IInputBackend> input = nullptr;
   std::shared_ptr<const Core::Rendering::IRenderer> renderer = nullptr;
   std::shared_ptr<Core::Events::IEventBus> eventBus = nullptr;
   std::shared_ptr<Core::Rendering::IRenderComponentManager> renderComponentManager;

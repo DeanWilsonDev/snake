@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace Engine::Input {
+namespace Core::Input {
 
 enum KeyCode {
   A,
@@ -48,4 +48,4 @@ enum KeyCode {
   Count,
 };
 
-}  // namespace Engine::Input
+}  // namespace Core::Input

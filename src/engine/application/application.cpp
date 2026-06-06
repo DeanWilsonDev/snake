@@ -13,7 +13,6 @@
 #include "core/rendering/i-renderer.hpp"
 #include "engine/scenes/scene-manager.hpp"
 #include "engine/utils/string-utils.hpp"
-#include "platform/input/i-input-backend.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
 #include "user-interface/i-user-interface.hpp"
 #include "core/dependency-injection/i-dependency-injector.hpp"
@@ -21,8 +20,8 @@
 #include "core/state/i-state-machine.hpp"
 #include "core/events/i-event-bus.hpp"
 #include "engine/events/event-bus.hpp"
-#include "platform/input/i-input-backend.hpp"
-#include "platform/window/i-window.hpp"
+#include "core/input/i-input-backend.hpp"
+#include "core/window/i-window.hpp"
 
 #include "raylib-facade/window/raylib-window-facade.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
@@ -31,7 +30,6 @@
 #include <memory>
 #include <cassert>
 #include <chrono>
-#include "platform/window/i-window.hpp"
 
 namespace Engine {
 
@@ -44,7 +42,6 @@ Application::~Application() = default;
 
 void Application::Initialize()
 {
-
   const auto& config = this->GetConfig();
 
   const auto& debug = config.engine.debug;
@@ -52,12 +49,11 @@ void Application::Initialize()
 
   LOG_INIT("log.csv", debug.enabled);
 
-
   LOG_CORE_TRACE("[Application] Initializing");
-  this->window = this->injector->Resolve<Platform::Window::IWindow>();
+  this->window = this->injector->Resolve<Core::Window::IWindow>();
   this->renderer = this->injector->Resolve<Core::Rendering::IRenderer>();
   this->stateMachine = this->injector->Resolve<Core::State::IStateMachine>();
-  this->input = this->injector->Resolve<Platform::Input::IInputBackend>();
+  this->input = this->injector->Resolve<Core::Input::IInputBackend>();
   this->userInterface = this->injector->Resolve<UserInterface::IUserInterface>();
   this->eventBus = this->injector->Resolve<Core::Events::IEventBus>();
   this->renderComponentManager =
@@ -79,8 +75,6 @@ void Application::Initialize()
   assert(this->input);
   assert(this->userInterface);
   assert(this->eventBus);
-
-
 
   LOG_CORE_TRACE("[Application] Beginning Application");
   std::string title = config.project.title;
@@ -105,12 +99,11 @@ void Application::RegisterDependencies()
   // Raylib Dependencies as defaults:
 
   // Platform
-  this->GetInjector()
-      .Register<Platform::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
+  this->GetInjector().Register<Core::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
   this->GetInjector()
       .Register<Core::Rendering::IRenderer, RaylibFacade::Renderer::RaylibRendererFacade>();
   this->GetInjector()
-      .Register<Platform::Input::IInputBackend, RaylibFacade::Input::RaylibInputBackendFacade>();
+      .Register<Core::Input::IInputBackend, RaylibFacade::Input::RaylibInputBackendFacade>();
 
   // Reaper: Not sure if i need this
   // injector.Register<

@@ -4,12 +4,12 @@
 
 #include "raylib-input-backend-facade.hpp"
 
-#include "engine/input/key-code.hpp"
+#include "core/input/key-code.hpp"
 #include "raylib.h"
 
-namespace RaylibFacade::Input {
+using KeyCode = Core::Input::KeyCode;
 
-using KeyCode = Engine::Input::KeyCode;
+namespace RaylibFacade::Input {
 
 RaylibInputBackendFacade::RaylibInputBackendFacade() = default;
 

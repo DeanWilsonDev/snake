@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include "engine/input/key-code.hpp"
+#include "core/input/key-code.hpp"
 #include "engine/input/input-system.hpp"
 #include <vector>
 
-using KeyCode = Engine::Input::KeyCode;
+using KeyCode = Core::Input::KeyCode;
 
 namespace Engine::Config {
 struct InputConfig {

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "platform/window/i-window.hpp"
+#include "core/window/i-window.hpp"
 
 namespace RaylibFacade::Window {
 
-class RaylibWindowFacade final: public Platform::Window::IWindow {
+class RaylibWindowFacade final : public Core::Window::IWindow {
  public:
   RaylibWindowFacade();
   ~RaylibWindowFacade() override;
@@ -17,4 +17,4 @@ class RaylibWindowFacade final: public Platform::Window::IWindow {
   int GetScreenWidth() override;
   void SetWindowSize(int width, int height) override;
 };
-}  // namespace RaylibAdapter::Window
+}  // namespace RaylibFacade::Window

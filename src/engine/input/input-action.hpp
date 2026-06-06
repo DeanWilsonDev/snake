@@ -4,10 +4,12 @@
 
 #pragma once
 
-#include "engine/input/key-code.hpp"
+#include "core/input/key-code.hpp"
 
 #include <string>
 #include <array>
+
+using namespace Core::Input;
 
 namespace Engine {
 namespace Input {

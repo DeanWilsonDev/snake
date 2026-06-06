@@ -4,15 +4,15 @@
 
 #pragma once
 
+#include "core/input/key-code.hpp"
+#include "core/input/i-input-backend.hpp"
 #include "engine/input/input-action.hpp"
-#include "engine/input/key-code.hpp"
 
 #include <array>
 #include <cstddef>
 #include <vector>
-#include "engine/input/input-action.hpp"
-#include "engine/input/key-code.hpp"
-#include "platform/input/i-input-backend.hpp"
+
+using namespace Core::Input;
 
 namespace Engine {
 
@@ -22,7 +22,7 @@ using KeyMap = std::array<std::vector<KeyCode>, static_cast<size_t>(Action::Coun
 
 class InputSystem {
  public:
-  InputSystem(Platform::Input::IInputBackend& inputBackend);
+  InputSystem(IInputBackend& inputBackend);
   ~InputSystem() = default;
   void SetKeyMap(const KeyMap& map);
   bool IsActionPressed(const Action action) const;
@@ -31,7 +31,7 @@ class InputSystem {
 
  private:
   KeyMap keyMap;
-  Platform::Input::IInputBackend& inputBackend;
+  IInputBackend& inputBackend;
 };
 }  // namespace Input
 

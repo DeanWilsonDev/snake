@@ -1,4 +1,5 @@
 #pragma once
+#include "core/debug/i-debug-user-interface.hpp"
 #include "core/events/i-event-bus.hpp"
 #include "core/application/i-application.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
@@ -14,6 +15,9 @@
 #include <memory>
 
 namespace Core {
+namespace Debug {
+class IDebugUserInterface;
+}
 namespace Scenes {
 class ISceneManager;
 }
@@ -25,11 +29,10 @@ namespace Rendering {
 class RenderComponent2DManager;
 class IRenderer;
 }  // namespace Rendering
-}  // namespace Core
-
 namespace UserInterface {
 class IUserInterface;
-}
+}  // namespace UserInterface
+}  // namespace Core
 
 namespace Platform {
 namespace Input {
@@ -83,7 +86,8 @@ class Application : public Core::IApplication {
 
   std::unique_ptr<Debug::DebugHUD> debugHUD;
 
-  std::shared_ptr<UserInterface::IUserInterface> userInterface = nullptr;
+  std::shared_ptr<Core::UserInterface::IUserInterface> userInterface = nullptr;
+  std::shared_ptr<Core::Debug::IDebugUserInterface> debugUserInterface = nullptr;
   std::shared_ptr<Core::Debug::IDebugHUD> debugHud = nullptr;
   std::shared_ptr<Core::State::IStateMachine> stateMachine = nullptr;
   std::shared_ptr<Core::Scenes::ISceneManager> sceneManager = nullptr;

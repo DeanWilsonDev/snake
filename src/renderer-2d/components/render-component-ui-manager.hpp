@@ -9,6 +9,8 @@
 #include <vector>
 #include <memory>
 
+using namespace Core::Rendering;
+
 namespace Core {
 
 namespace Rendering {
@@ -29,9 +31,9 @@ class RenderComponentUIManager final : public IRenderManager {
   ~RenderComponentUIManager() = default;
   void Register(std::unique_ptr<Components::IRenderComponentUI> component);
   void Unregister(std::unique_ptr<Components::IRenderComponentUI> component);
-  void Render(const IRenderer& renderer) const;
+  void OnRender(const IRenderer& renderer) const;
 
  private:
   std::vector<std::unique_ptr<Components::IRenderComponentUI>> renderComponents;
 };
-};  / namespace Render2d
+};  // namespace Render2d

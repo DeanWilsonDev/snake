@@ -1,31 +1,38 @@
 #include "application.hpp"
-#include "core/rendering/i-render-component-manager.hpp"
-#include "core/scenes/i-scene-manager.hpp"
-#include "engine/config/project-settings.hpp"
+
 #include "core/color/color.hpp"
-#include "core/user-interface/user-interface-manager.hpp"
-#include "core/user-interface/i-user-interface-manager.hpp"
-#include "engine/config/application-config.hpp"
-#include "engine/dependency-injection/dependency-injector.hpp"
 #include "core/debug/i-debug-hud.hpp"
-#include "debug/debug.hpp"
-#include "debug/debug-hud.hpp"
-#include "core/rendering/i-renderer.hpp"
-#include "engine/scenes/scene-manager.hpp"
-#include "engine/utils/string-utils.hpp"
-#include "renderer-2d/render-component-2d-manager.hpp"
-#include "user-interface/i-user-interface.hpp"
 #include "core/dependency-injection/i-dependency-injector.hpp"
-#include "core/logging/log.hpp"
-#include "core/state/i-state-machine.hpp"
 #include "core/events/i-event-bus.hpp"
-#include "engine/events/event-bus.hpp"
 #include "core/input/i-input-backend.hpp"
+#include "core/logging/log.hpp"
+#include "core/rendering/i-render-component-manager.hpp"
+#include "core/rendering/i-renderer.hpp"
+#include "core/scenes/i-scene-manager.hpp"
+#include "core/state/i-state-machine.hpp"
+#include "core/debug/i-debug-user-interface.hpp"
+#include "core/user-interface/i-user-interface-manager.hpp"
+#include "core/user-interface/i-user-interface.hpp"
 #include "core/window/i-window.hpp"
 
-#include "raylib-facade/window/raylib-window-facade.hpp"
-#include "raylib-facade/renderer/raylib-renderer-facade.hpp"
+#include "debug/debug-hud.hpp"
+#include "debug/debug.hpp"
+
+#include "engine/config/application-config.hpp"
+#include "engine/config/project-settings.hpp"
+#include "engine/dependency-injection/dependency-injector.hpp"
+#include "engine/events/event-bus.hpp"
+#include "engine/scenes/scene-manager.hpp"
+#include "engine/user-interface/user-interface-manager.hpp"
+#include "engine/utils/string-utils.hpp"
+
 #include "raylib-facade/input/raylib-input-backend-facade.hpp"
+#include "raylib-facade/renderer/raylib-renderer-facade.hpp"
+#include "raylib-facade/user-interface/raylib-debug-user-interface-facade.hpp"
+#include "raylib-facade/user-interface/raylib-user-interface-facade.hpp"
+#include "raylib-facade/window/raylib-window-facade.hpp"
+
+#include "renderer-2d/render-component-2d-manager.hpp"
 
 #include <memory>
 #include <cassert>
@@ -54,7 +61,7 @@ void Application::Initialize()
   this->renderer = this->injector->Resolve<Core::Rendering::IRenderer>();
   this->stateMachine = this->injector->Resolve<Core::State::IStateMachine>();
   this->input = this->injector->Resolve<Core::Input::IInputBackend>();
-  this->userInterface = this->injector->Resolve<UserInterface::IUserInterface>();
+  this->userInterface = this->injector->Resolve<Core::UserInterface::IUserInterface>();
   this->eventBus = this->injector->Resolve<Core::Events::IEventBus>();
   this->renderComponentManager =
       this->injector->Resolve<Core::Rendering::IRenderComponentManager>();
@@ -98,35 +105,43 @@ void Application::RegisterDependencies()
 {
   // Raylib Dependencies as defaults:
 
-  // Platform
   this->GetInjector().Register<Core::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
   this->GetInjector()
       .Register<Core::Rendering::IRenderer, RaylibFacade::Renderer::RaylibRendererFacade>();
   this->GetInjector()
       .Register<Core::Input::IInputBackend, RaylibFacade::Input::RaylibInputBackendFacade>();
+  this->GetInjector()
+      .Register<
+          Core::UserInterface::IUserInterface,
+          RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
+  this->GetInjector()
+      .Register<
+          Core::Debug::IDebugUserInterface,
+          RaylibFacade::UserInterface::RaylibDebugUserInterfaceFacade>();
 
-  // Reaper: Not sure if i need this
-  // injector.Register<
-  //     UserInterface::IUserInterface,
-  //     RaylibFacade::UserInterface::RaylibUserInterfaceFacade>();
-
-  injector->Register<
-      Core::UserInterface::IUserInterfaceManager,
-      Core::UserInterface::UserInterfaceManager>();
+  // User Interface
+  this->GetInjector()
+      .Register<
+          Core::UserInterface::IUserInterfaceManager,
+          Engine::UserInterface::UserInterfaceManager>();
 
   // Rendering
-  injector
-      ->Register<Core::Rendering::IRenderComponentManager, Renderer2D::RenderComponent2DManager>();
+  this->GetInjector()
+      .Register<Core::Rendering::IRenderComponentManager, Renderer2D::RenderComponent2DManager>();
 
   // Scene Management
-  injector->Register<Core::Scenes::ISceneManager, Engine::Scenes::SceneManager>();
+  this->GetInjector().Register<Core::Scenes::ISceneManager, Engine::Scenes::SceneManager>();
 
   // Debug
   auto hud = std::make_shared<Debug::DebugHUD>();
-  this->injector->RegisterInstance<Core::Debug::IDebugHUD>(hud);
+  this->GetInjector().RegisterInstance<Core::Debug::IDebugHUD>(hud);
+  this->GetInjector()
+      .Register<
+          Core::Debug::IDebugUserInterface,
+          RaylibFacade::UserInterface::RaylibDebugUserInterfaceFacade>();
 
   // Events
-  this->injector->RegisterSingleton<Core::Events::IEventBus, Engine::Events::EventBus>();
+  this->GetInjector().RegisterSingleton<Core::Events::IEventBus, Engine::Events::EventBus>();
 }
 
 void Application::Run()

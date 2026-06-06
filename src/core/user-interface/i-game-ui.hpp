@@ -4,9 +4,10 @@
 
 #pragma once
 
-#include "core/rendering/components/i-render-component-ui.hpp"
-
 namespace Core {
+namespace UserInterface {
+class IUserInterface;
+}  // namespace UserInterface
 
 namespace Rendering {
 namespace Components {
@@ -19,10 +20,9 @@ class IGameUI {
  public:
   virtual ~IGameUI() = default;
 
-  virtual void OnDrawUI() = 0;
-  virtual void OnDebugDrawUI() {};
+  virtual void OnDrawUI(const Core::UserInterface::IUserInterface& ui) const = 0;
 
-  [[nodiscard]] virtual Rendering::Components::IRenderComponentUI& GetRenderComponentUI() const = 0;
+  // [[nodiscard]] virtual Rendering::Components::IRenderComponentUI& GetRenderComponentUI() const = 0;
 };
 }  // namespace UserInterface
 }  // namespace Core

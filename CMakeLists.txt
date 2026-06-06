@@ -41,42 +41,44 @@ FetchContent_MakeAvailable(firefly)
 # ---- Game target ----
 add_executable(
   ${PROJECT_NAME}
-  src/main.cpp
-  src/engine/application/application.cpp
-  src/engine/input/input-system.cpp
-  src/raylib-facade/renderer/raylib-renderer-facade.cpp
-  src/raylib-facade/window/raylib-window-facade.cpp
-  src/raylib-facade/user-interface/raylib-user-interface-facade.cpp
-  src/renderer-2d/components/render-component-2d.cpp
-  src/core/color/color-rgba.cpp
   src/core/color/color-hex.cpp
+  src/core/color/color-rgba.cpp
   src/core/components/transform-component-2d.cpp
-  src/renderer-2d/render-component-2d-manager.cpp
-  src/core/user-interface/user-interface-manager.cpp
   src/core/logging/log.cpp
-  src/raylib-facade/input/raylib-input-backend-facade.cpp
-  src/raylib-facade/core/raylib-core-facade.cpp
-  src/physics/collision/components/collider-component-2d.cpp
+  src/debug/debug-hud.cpp
+  src/debug/user-interface/debug-user-interface-manager.cpp
+  src/engine/application/application.cpp
   src/engine/dependency-injection/dependency-injector.cpp
   src/engine/entities/entity-manager.cpp
   src/engine/entities/entity.cpp
-  src/engine/state/state-machine.cpp
-  src/engine/scenes/scene-manager.cpp
   src/engine/events/event-bus.cpp
+  src/engine/input/input-system.cpp
+  src/engine/scenes/scene-manager.cpp
+  src/engine/state/state-machine.cpp
   src/engine/ui/render-component-ui-manager.cpp
-  src/debug/debug-hud.cpp
-  src/snake-game/snake-application.cpp
-  src/snake-game/game-state/game-over-state.cpp
+  src/engine/user-interface/user-interface-manager.cpp
+  src/main.cpp
+  src/physics/collision/components/collider-component-2d.cpp
+  src/raylib-facade/core/raylib-core-facade.cpp
+  src/raylib-facade/input/raylib-input-backend-facade.cpp
+  src/raylib-facade/renderer/raylib-renderer-facade.cpp
+  src/raylib-facade/user-interface/raylib-debug-user-interface-facade.cpp
+  src/raylib-facade/user-interface/raylib-user-interface-facade.cpp
+  src/raylib-facade/window/raylib-window-facade.cpp
+  src/renderer-2d/components/render-component-2d.cpp
+  src/renderer-2d/render-component-2d-manager.cpp
   src/snake-game/game-entities/apple.cpp
   src/snake-game/game-entities/snake-segment.cpp
   src/snake-game/game-entities/snake.cpp
+  src/snake-game/game-scenes/gameplay-scene.cpp
+  src/snake-game/game-state/game-over-state.cpp
   src/snake-game/game-state/gameplay-state-machine.cpp
   src/snake-game/game-state/gameplay-state.cpp
   src/snake-game/game-state/main-menu-state.cpp
-  src/snake-game/game-scenes/gameplay-scene.cpp
+  src/snake-game/snake-application.cpp
   src/snake-game/ui/game-over-ui.cpp
-  src/snake-game/ui/main-menu-ui.cpp
-  src/snake-game/ui/gameplay-ui.cpp)
+  src/snake-game/ui/gameplay-ui.cpp
+  src/snake-game/ui/main-menu-ui.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)
 

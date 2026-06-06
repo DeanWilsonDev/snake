@@ -4,7 +4,8 @@
 
 #pragma once
 #include "core/user-interface/i-game-ui.hpp"
-#include <memory>
+#include "core/user-interface/i-user-interface.hpp"
+// #include <memory>
 
 namespace UserInterface {
 class IUserInterface;
@@ -15,18 +16,16 @@ struct GameSettings;
 
 class MainMenuUI final : public Core::UserInterface::IGameUI {
  public:
-  explicit MainMenuUI(UserInterface::IUserInterface& ui, int screenWidth, int screenHeight);
+  explicit MainMenuUI(int screenWidth, int screenHeight);
   ~MainMenuUI() override;
 
-  void OnDrawUI() override;
-  void OnDebugDrawUI() override;
+  void OnDrawUI(const Core::UserInterface::IUserInterface& ui) const override;
 
-  [[nodiscard]] virtual Core::Rendering::Components::IRenderComponentUI&
-  GetRenderComponentUI() const override;
+  // [[nodiscard]] virtual Core::Rendering::Components::IRenderComponentUI&
+  // GetRenderComponentUI() const override;
 
  private:
-  UserInterface::IUserInterface& ui;
-  std::unique_ptr<Core::Rendering::Components::IRenderComponentUI> renderComponent;
+  // std::unique_ptr<Core::Rendering::Components::IRenderComponentUI> renderComponent;
   int screenWidth;
   int screenHeight;
 };

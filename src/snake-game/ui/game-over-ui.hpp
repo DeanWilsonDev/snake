@@ -3,32 +3,35 @@
 //
 
 #pragma once
-#include <memory>
-#include "core/rendering/components/i-render-component-ui.hpp"
+// #include <memory>
+// #include "core/rendering/components/i-render-component-ui.hpp"
 #include "core/user-interface/i-game-ui.hpp"
+
+namespace Core {
 
 namespace UserInterface {
 class IUserInterface;
-}
+class IDebugUserInterface;
+}  // namespace UserInterface
+}  // namespace Core
+
 namespace SnakeGame {
 struct GameSettings;
 class GameOverUI final : public Core::UserInterface::IGameUI {
  public:
-  explicit GameOverUI(
-      UserInterface::IUserInterface& ui, int screenWidth, int screenHeight, int& score
-  );
+  explicit GameOverUI(int screenWidth, int screenHeight, int& score);
   virtual ~GameOverUI() override {};
-  virtual void OnDrawUI() override;
+  virtual void OnDrawUI(const Core::UserInterface::IUserInterface& ui) const override;
 
-  [[nodiscard]] virtual Core::Rendering::Components::IRenderComponentUI&
-  GetRenderComponentUI() const override
-  {
-    return *this->renderComponent;
-  };
+  // MAIN QUEST: Set up UI Components
+  // [[nodiscard]] virtual Core::Rendering::Components::IRenderComponentUI&
+  // GetRenderComponentUI() const override
+  // {
+  //   return *this->renderComponent;
+  // };
 
  private:
-  std::unique_ptr<Core::Rendering::Components::IRenderComponentUI> renderComponent;
-  UserInterface::IUserInterface& ui;
+  // std::unique_ptr<Core::Rendering::Components::IRenderComponentUI> renderComponent;
   int screenWidth;
   int screenHeight;
   int& score;

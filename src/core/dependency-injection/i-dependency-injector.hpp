@@ -26,7 +26,8 @@ class IDependencyInjector {
   void Register()
   {
     return RegisterImplementation(typeid(TInterface), []() -> std::any {
-      return std::make_shared<TImplementation>();
+      std::shared_ptr<TInterface> instance = std::make_shared<TImplementation>();
+      return instance;
     });
   }
 
@@ -39,7 +40,7 @@ class IDependencyInjector {
   template <typename TInterface, typename TImplementation>
   void RegisterSingleton()
   {
-    auto instance = std::make_shared<TImplementation>();
+    auto instance = std::shared_ptr<TInterface>(std::make_shared<TImplementation>());
     return RegisterSingletonImplementation(typeid(TInterface), instance);
   }
 

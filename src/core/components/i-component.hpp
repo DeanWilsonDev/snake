@@ -7,7 +7,8 @@
 namespace Core::Components {
 
 class IComponent {
-
+  public:
+    virtual ~IComponent() = default;
 };
 
 }  // namespace Core

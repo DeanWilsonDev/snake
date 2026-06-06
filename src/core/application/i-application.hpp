@@ -6,7 +6,8 @@
 
 #include "core/debug/i-on-debugable.hpp"
 #include "core/events/i-event-bus.hpp"
-#include "core/i-on-updatable.hpp"
+#include "core/life-cycle-hooks/i-initialize.hpp"
+#include "core/life-cycle-hooks/i-on-updatable.hpp"
 #include "core/rendering/i-on-renderable.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
@@ -20,7 +21,10 @@ namespace Core {
 
 class IDependencyInjector;
 
-class IApplication : Core::Debug::IOnDebugable, Core::IOnUpdatable, Core::Rendering::IOnRenderable {
+class IApplication : public Core::IInitialize,
+                     public Core::Debug::IOnDebugable,
+                     public Core::IOnUpdatable,
+                     public Core::Rendering::IOnRenderable {
  public:
   virtual ~IApplication() = default;
 
@@ -36,13 +40,6 @@ class IApplication : Core::Debug::IOnDebugable, Core::IOnUpdatable, Core::Render
   virtual Core::Events::IEventBus& GetEventBus() const = 0;
   virtual Core::Rendering::IRenderComponentManager& GetRenderComponentManager() const = 0;
 
-  virtual void Initialize() = 0;
-
-  // Called every frame to handle game-specific logic
-  virtual void OnUpdate(float deltaTime) override = 0;
-  virtual void OnDebugUpdate() const override = 0;
-  void OnRender(const Core::Rendering::IRenderer& renderer) const override = 0;
-  virtual void OnDebugRender() const override = 0;
   virtual void Shutdown() = 0;
 };
 

@@ -4,6 +4,7 @@
 
 #include "engine/entities/entity-manager.hpp"
 #include "core/entities/i-entity.hpp"
+#include "core/logging/log.hpp"
 #include "core/rendering/components/i-render-component.hpp"
 #include "core/rendering/i-render-manager.hpp"
 #include "core/rendering/i-renderer.hpp"
@@ -28,10 +29,17 @@ void EntityManager::AddEntity(Core::Entities::IEntity* entity)
   if (!entity) {
     return;
   }
+  entity->OnRegistration();
+
   this->entities.push_back(entity);
-  this->renderManager->Register(
-      entity->GetComponent<Core::Rendering::Components::IRenderComponent>()
+
+  auto* renderComponent = entity->GetComponent<Core::Rendering::Components::IRenderComponent>();
+
+  LOG_CORE_TRACE(
+      "[EntityManager] AddEntity - render component: [{}]", static_cast<void*>(renderComponent)
   );
+
+  this->renderManager->Register(renderComponent);
 }
 
 void EntityManager::OnUpdate(const float deltaTime)

@@ -16,7 +16,7 @@ namespace Config {
 namespace SnakeGame {
 struct SnakeGameSettings;
 
-class SnakeApplication : public Engine::Application {
+class SnakeApplication final : public Engine::Application {
  public:
   SnakeApplication() : Application() {};
 

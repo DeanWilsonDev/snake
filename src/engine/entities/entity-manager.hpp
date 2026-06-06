@@ -4,7 +4,7 @@
 
 #pragma once
 #include "core/debug/i-on-debugable.hpp"
-#include "core/i-on-updatable.hpp"
+#include "core/life-cycle-hooks/i-on-updatable.hpp"
 #include "core/rendering/i-on-renderable.hpp"
 
 #include <vector>

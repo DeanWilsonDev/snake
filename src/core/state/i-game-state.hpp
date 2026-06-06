@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "core/debug/i-debugable.hpp"
-#include "core/i-updatable.hpp"
+#include "core/life-cycle-hooks/i-updatable.hpp"
 namespace Core {
 namespace State {
 

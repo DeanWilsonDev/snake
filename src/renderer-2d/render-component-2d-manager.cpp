@@ -34,7 +34,7 @@ void RenderComponent2DManager::Unregister(Core::Rendering::Components::IRenderCo
 void RenderComponent2DManager::OnRender(const Core::Rendering::IRenderer& renderer) const
 {
   if (this->renderComponents.empty()) {
-    LOG_CORE_ERROR("[RenderComponent2DManager] No render components set");
+    LOG_CORE_WARNING("[RenderComponent2DManager] No render components set");
     return;
   }
 

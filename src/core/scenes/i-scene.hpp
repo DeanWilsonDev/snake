@@ -5,7 +5,7 @@
 #pragma once
 
 #include "core/debug/i-debugable.hpp"
-#include "core/i-updatable.hpp"
+#include "core/life-cycle-hooks/i-updatable.hpp"
 #include "core/rendering/i-render-manager.hpp"
 
 namespace Core {
@@ -16,8 +16,6 @@ struct SceneTransitionContext;
 class IScene: public IUpdatable, public Debug::IDebugable, public Rendering::IRenderManager {
  public:
   virtual ~IScene() = default;
-
-  virtual void Initialize() = 0;
 
   virtual void OnEnter(SceneTransitionContext context) = 0;
   virtual void OnExit() = 0;

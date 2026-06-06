@@ -35,9 +35,6 @@ void GameplayState::Enter()
     assert(this->apple);
   }
 
-  LOG_DEBUG("[GameplayState] Initializing Apple");
-  apple->Initialize();
-
   snake->SetActive(true);
   apple->SetActive(true);
 

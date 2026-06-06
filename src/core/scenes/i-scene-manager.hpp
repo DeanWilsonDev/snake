@@ -4,7 +4,7 @@
 
 #pragma once
 #include "core/debug/i-on-debugable.hpp"
-#include "core/i-on-updatable.hpp"
+#include "core/life-cycle-hooks/i-on-updatable.hpp"
 #include "core/rendering/i-on-renderable.hpp"
 #include "core/scenes/scene-lifetime.hpp"
 #include "core/scenes/i-scene.hpp"
@@ -17,7 +17,9 @@ namespace Scenes {
 
 using SceneFactory = std::function<std::unique_ptr<IScene>()>;
 
-class ISceneManager : public Debug::IOnDebugable, public IOnUpdatable, public Rendering::IOnRenderable {
+class ISceneManager : public Debug::IOnDebugable,
+                      public IOnUpdatable,
+                      public Rendering::IOnRenderable {
  public:
   virtual ~ISceneManager() = default;
 

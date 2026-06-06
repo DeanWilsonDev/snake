@@ -33,7 +33,6 @@
 
 #include "renderer-2d/render-component-2d-manager.hpp"
 
-#include <iostream>
 #include <memory>
 #include <cassert>
 #include <chrono>
@@ -88,6 +87,7 @@ void Application::Initialize()
 
   LOG_CORE_INFO("[Application] Starting Game: {}", title);
 
+  // MAIN QUEST: Make setup window function
   char* windowTitle = StringUtils::DuplicateAsCString(title);
 
   LOG_CORE_DEBUG("[Application] Window Title set: {}", windowTitle);
@@ -155,6 +155,7 @@ void Application::Run()
   this->RegisterDependencies();
 
   this->Initialize();
+
   LOG_CORE_DEBUG("[Application] Window Should Close {}", this->window->ShouldClose());
 
   std::chrono::time_point lastTime = std::chrono::high_resolution_clock::now();
@@ -182,8 +183,8 @@ void Application::Run()
 }
 
 void Application::Configure(Config::ApplicationConfig&) {}
-void Application::OnUpdate(float) {}
 
+void Application::OnUpdate(float) {}
 void Application::OnDebugUpdate() const {}
 
 void Application::OnRender(const Core::Rendering::IRenderer& renderer) const

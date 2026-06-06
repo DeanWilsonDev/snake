@@ -17,20 +17,20 @@ SnakeSegment::SnakeSegment(const SnakeSegmentParams& params) : Entity(params), i
 {
   this->transformComponent =
       make_unique<Core::Components::TransformComponent2D>(&params.initialTransform);
-
-  const auto colliderParams = Physics::Collision::Components::ColliderComponentParams{
-      .transform = this->transformComponent.get()
-  };
-
-  this->colliderComponent =
-      std::make_unique<Physics::Collision::Components::ColliderComponent2D>(colliderParams);
-
-  this->renderComponent = make_unique<Renderer2D::Components::RenderComponent2D>(
-      *this->transformComponent, Core::Color::Green, this->GetActive()
-  );
 }
 
 SnakeSegment::~SnakeSegment() {}
+
+void SnakeSegment::OnRegistration()
+{
+  const auto colliderParams = Physics::Collision::Components::ColliderComponentParams{
+      .transform = this->transformComponent.get()
+  };
+  this->AddComponent<Physics::Collision::Components::ColliderComponent2D>(colliderParams);
+  this->AddComponent<Renderer2D::Components::RenderComponent2D>(
+      *this->transformComponent, Core::Color::Green, this->GetActive()
+  );
+}
 
 void SnakeSegment::Move(const Core::Math::Vector2D newPosition)
 {
@@ -80,4 +80,29 @@ void SnakeSegment::DebugUpdate() const
     );
   }
 }
+
+[[nodiscard]] Core::Rendering::Components::IRenderComponent2D&
+SnakeSegment::GetRendererComponent2D()
+{
+  return *this->GetComponent<Core::Rendering::Components::IRenderComponent2D>();
+}
+
+[[nodiscard]] Physics::Collision::Components::ColliderComponent2D&
+SnakeSegment::GetColliderComponent()
+{
+  return *this->GetComponent<Physics::Collision::Components::ColliderComponent2D>();
+}
+
+[[nodiscard]] const Core::Rendering::Components::IRenderComponent2D&
+SnakeSegment::GetRendererComponent2D() const
+{
+  return *this->GetComponent<Core::Rendering::Components::IRenderComponent2D>();
+}
+
+[[nodiscard]] const Physics::Collision::Components::ColliderComponent2D&
+SnakeSegment::GetColliderComponent() const
+{
+  return *this->GetComponent<Physics::Collision::Components::ColliderComponent2D>();
+}
+
 }  // namespace SnakeGame

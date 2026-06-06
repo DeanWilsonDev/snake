@@ -36,23 +36,19 @@ class SnakeSegment final : public Engine::Entities::Entity {
   explicit SnakeSegment(const SnakeSegmentParams& params);
   ~SnakeSegment() override;
 
+  void OnRegistration() override;
   void DebugUpdate() const override;
 
-  [[nodiscard]] Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D()
-  {
-    return *this->renderComponent;
-  }
+  [[nodiscard]] Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D();
 
-  [[nodiscard]] Physics::Collision::Components::ColliderComponent2D& GetColliderComponent() const
-  {
-    return *this->colliderComponent;
-  }
+  [[nodiscard]] Physics::Collision::Components::ColliderComponent2D& GetColliderComponent();
+
+  [[nodiscard]] const Core::Rendering::Components::IRenderComponent2D&
+  GetRendererComponent2D() const;
+
+  [[nodiscard]] const Physics::Collision::Components::ColliderComponent2D&
+  GetColliderComponent() const;
 
   void Move(Core::Math::Vector2D newPosition);
-
- private:
-  std::unique_ptr<Core::Rendering::Components::IRenderComponent2D> renderComponent{nullptr};
-  // 1UP: Add an interface in Core for this
-  std::unique_ptr<Physics::Collision::Components::ColliderComponent2D> colliderComponent{nullptr};
 };
 }  // namespace SnakeGame

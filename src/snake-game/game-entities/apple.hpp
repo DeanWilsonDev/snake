@@ -31,16 +31,18 @@ class Apple final : public Engine::Entities::Entity {
   void Update(float deltaTime) override;
   void DebugUpdate() const override;
   void DebugRender() const override;
-  void Initialize() override;
+  void OnRegistration() override;
 
-  [[nodiscard]] Physics::Collision::Components::ColliderComponent2D& GetColliderComponent() const;
-  [[nodiscard]] Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D() const;
+  [[nodiscard]] Physics::Collision::Components::ColliderComponent2D& GetColliderComponent();
+  [[nodiscard]] Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D();
+  [[nodiscard]] const Physics::Collision::Components::ColliderComponent2D& GetColliderComponent() const;
+  [[nodiscard]] const Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D() const;
 
   [[nodiscard]] float GetSize() const { return this->size; }
 
  private:
-  unique_ptr<Physics::Collision::Components::ColliderComponent2D> colliderComponent{nullptr};
-  unique_ptr<Core::Rendering::Components::IRenderComponent2D> renderComponent{nullptr};
+  // unique_ptr<Physics::Collision::Components::ColliderComponent2D> colliderComponent{nullptr};
+  // unique_ptr<Core::Rendering::Components::IRenderComponent2D> renderComponent{nullptr};
   float size = {10};
 };
 }  // namespace SnakeGame

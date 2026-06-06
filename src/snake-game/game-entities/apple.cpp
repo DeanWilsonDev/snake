@@ -1,5 +1,6 @@
 #include "apple.hpp"
 #include <memory>
+#include "core/components/i-collision-component-2d.hpp"
 #include "engine/entities/entity.hpp"
 #include "core/color/color.hpp"
 #include "debug/debug.hpp"
@@ -15,7 +16,7 @@ namespace SnakeGame {
 
 Apple::Apple(const AppleParams& params) : Engine::Entities::Entity(params) {}
 
-void Apple::Initialize()
+void Apple::OnRegistration()
 {
   LOG_TRACE("[Apple] Initializing Apple from Constructor");
 
@@ -28,27 +29,24 @@ void Apple::Initialize()
       static_cast<void*>(&this->transformComponent)
   );
 
-  // SIDE QUEST: Ideally, the Game should just be able to call a factory to get a IRenderComponent2D
-  // and have the factory determine which component we are using
-  this->renderComponent = make_unique<Renderer2D::Components::RenderComponent2D>(
+  this->AddComponent<Renderer2D::Components::RenderComponent2D>(
       *this->transformComponent, Core::Color::Red, this->GetActive()
   );
 
   LOG_TRACE(
       "[Apple] Checking RenderComponent2D is Initialized: [{}]",
-      static_cast<void*>(&this->renderComponent)
+      static_cast<void*>(&*this->GetComponent<Core::Rendering::Components::IRenderComponent2D>())
   );
 
   const auto appleColliderParams = Physics::Collision::Components::ColliderComponentParams{
       .transform = this->transformComponent.get()
   };
 
-  this->colliderComponent =
-      make_unique<Physics::Collision::Components::ColliderComponent2D>(appleColliderParams);
+  this->AddComponent<Physics::Collision::Components::ColliderComponent2D>(appleColliderParams);
 
   LOG_TRACE(
       "[Apple] Checking ColliderComponent2D is Initialized: [{}]",
-      static_cast<void*>(&this->colliderComponent)
+      static_cast<void*>(&*this->GetComponent<Core::Components::IColliderComponent2D>())
   );
 
   // MAIN QUEST: This should be handled by the apple spawner
@@ -78,14 +76,24 @@ void Apple::DebugUpdate() const
 
 void Apple::DebugRender() const {}
 
-Physics::Collision::Components::ColliderComponent2D& Apple::GetColliderComponent() const
+Physics::Collision::Components::ColliderComponent2D& Apple::GetColliderComponent()
 {
-  return *this->colliderComponent;
+  return *this->GetComponent<Physics::Collision::Components::ColliderComponent2D>();
 }
 
-Core::Rendering::Components::IRenderComponent2D& Apple::GetRendererComponent2D() const
+Core::Rendering::Components::IRenderComponent2D& Apple::GetRendererComponent2D()
 {
-  return *this->renderComponent;
+  return *this->GetComponent<Core::Rendering::Components::IRenderComponent2D>();
+}
+
+const Physics::Collision::Components::ColliderComponent2D& Apple::GetColliderComponent() const
+{
+  return *this->GetComponent<Physics::Collision::Components::ColliderComponent2D>();
+}
+
+const Core::Rendering::Components::IRenderComponent2D& Apple::GetRendererComponent2D() const
+{
+  return *this->GetComponent<Core::Rendering::Components::IRenderComponent2D>();
 }
 
 }  // namespace SnakeGame

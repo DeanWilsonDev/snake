@@ -1,4 +1,5 @@
 #include "scene-manager.hpp"
+#include "core/logging/log.hpp"
 #include "core/scenes/i-scene.hpp"
 #include <vector>
 
@@ -15,7 +16,10 @@ void SceneManager::Register(const std::string& name, SceneFactory factory, Scene
 
 void SceneManager::SwitchTo(const std::string& name)
 {
+  LOG_CORE_TRACE("[SceneManager] Switching to scene: {}", name);
+
   if (this->activeScene) {
+    LOG_CORE_TRACE("[SceneManager] Scene already active... exiting..");
     this->activeScene->OnExit();
   }
 
@@ -33,10 +37,12 @@ void SceneManager::SwitchTo(const std::string& name)
 
 void SceneManager::Push(const std::string& name)
 {
+  LOG_CORE_TRACE("[SceneManager] Pushing scene: {}", name);
   // Pause but don't exit the active scene
   if (this->activeScene) {
     this->overlayStack.push_back(activeScene);
   }
+
   this->activeScene = ResolveScene(name);
   this->activeScene->OnEnter(MakeContext());
 }
@@ -46,6 +52,8 @@ void SceneManager::Pop()
   if (this->overlayStack.empty()) {
     return;
   }
+
+  LOG_CORE_TRACE("[SceneManager] Popping scene");
 
   if (this->activeScene) {
     this->activeScene->OnExit();

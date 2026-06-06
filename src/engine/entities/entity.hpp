@@ -6,6 +6,7 @@
 #include "core/components/i-component.hpp"
 #include "core/entities/i-entity.hpp"
 #include <cassert>
+#include <functional>
 #include <typeindex>
 #include <unordered_map>
 #include <memory>
@@ -36,15 +37,17 @@ class Entity : public Core::Entities::IEntity {
   explicit Entity(const EntityParams& params);
   virtual ~Entity() = 0;
 
+  virtual void BeginPlay() override;
+  virtual void OnRegistration() override;
+  virtual void OnActivate() override;
   virtual void Update(float deltaTime) override;
   virtual void DebugUpdate() const override;
   virtual void DebugRender() const override;
-  virtual void Initialize() override;
+
   virtual int GetID() const override;
   virtual bool IsActive() const override;
   virtual void SetActive(bool active) override;
   virtual const bool& GetActive() const override;
-  Core::Components::IComponent* GetComponentByType(std::type_index type) override;
 
   template <typename T, typename... Args>
   void AddComponent(Args&&... args);
@@ -67,6 +70,11 @@ class Entity : public Core::Entities::IEntity {
   static int GenerateId();
   const int id{GenerateId()};
   bool active{true};
+
+  Core::Components::IComponent* GetComponentByType(std::type_index type) const override;
+  void ForEachComponent(
+      std::function<bool(const Core::Components::IComponent*)> visitor
+  ) const override;
 };
 
 template <typename T, typename... Args>

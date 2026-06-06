@@ -58,16 +58,15 @@ class Application : public Core::IApplication {
   virtual void Run() override;
 
  protected:
-  virtual void Initialize() override;
   virtual void RegisterDependencies() override;
-
   virtual void Configure(Config::ApplicationConfig& config) override;
+  virtual void Initialize() override;
   virtual void OnUpdate(float deltaTime) override;
   virtual void OnDebugUpdate() const override;
   virtual void OnDebugRender() const override;
-
   virtual void OnRender(const Core::Rendering::IRenderer& renderer) const override;
   virtual void Shutdown() override;
+
   [[nodiscard]] virtual const Config::ApplicationConfig& GetConfig() const override;
   [[nodiscard]] virtual Core::IDependencyInjector& GetInjector() const override;
   [[nodiscard]] virtual Core::Scenes::ISceneManager& GetSceneManager() const override;

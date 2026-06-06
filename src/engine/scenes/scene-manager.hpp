@@ -46,6 +46,7 @@ class SceneManager : public ISceneManager {
   virtual void OnDebugRender() const override;
   virtual void OnRender(const Core::Rendering::IRenderer& renderer) const override;
 
+
  private:
   struct SceneEntry {
     SceneFactory factory;

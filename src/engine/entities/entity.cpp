@@ -5,6 +5,7 @@
 #include "engine/entities/entity.hpp"
 #include "core/logging/log.hpp"
 #include "core/components/transform-component-2d.hpp"
+#include <functional>
 #include <memory>
 
 namespace Engine::Entities {
@@ -57,12 +58,23 @@ int Entity::GenerateId()
   return nextId++;
 };
 
-Core::Components::IComponent* Entity::GetComponentByType(std::type_index type)
+Core::Components::IComponent* Entity::GetComponentByType(std::type_index type) const
 {
   if (const auto it = components.find(type); it != components.end()) {
     return it->second.get();
   }
   return nullptr;
+}
+
+void Entity::ForEachComponent(
+    std::function<bool(const Core::Components::IComponent*)> visitor
+) const
+{
+  for (auto& [type, component] : this->components) {
+    if (!visitor(component.get())) {
+      return;
+    }
+  }
 }
 
 Core::Components::TransformComponent2D& Entity::GetTransformComponent()
@@ -75,7 +87,9 @@ const Core::Components::TransformComponent2D& Entity::GetTransformComponent() co
   return *this->transformComponent;
 };
 
-void Entity::Initialize() {}
+void Entity::BeginPlay() {}
+void Entity::OnRegistration() {}
+void Entity::OnActivate() {}
 void Entity::Update(float) {}
 void Entity::DebugUpdate() const {}
 void Entity::DebugRender() const {}

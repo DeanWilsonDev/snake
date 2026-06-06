@@ -69,6 +69,8 @@ void SnakeApplication::Initialize()
   //     Engine::Scenes::SceneManager::MakeSceneFactory<MainMenuScene>(),
   //     SceneLifetime::Transient
   // );
+
+  this->GetSceneManager().SwitchTo("Gameplay");
 }
 
 void SnakeApplication::RegisterDependencies()
@@ -78,8 +80,6 @@ void SnakeApplication::RegisterDependencies()
   ///
   /// Register overrides and game-specific dependencies below
   ///
-
-
 }
 
 const SnakeGame::SnakeGameSettings& SnakeApplication::GetSnakeSettings() const

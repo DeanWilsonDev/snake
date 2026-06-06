@@ -21,10 +21,11 @@ GameplayScene::GameplayScene(const GameplaySceneParams& params)
 
 GameplayScene::~GameplayScene() = default;
 
-void GameplayScene::Initialize()
+void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
 {
-  // Register Snake:
+  this->transition = ctx;
 
+  // Register Snake:
   SnakeParams snakeParams = {
       .settings = this->gameSettings,
       .screenWidth = this->screenWidth,
@@ -33,8 +34,6 @@ void GameplayScene::Initialize()
 
   auto snake = new Snake(snakeParams);
   snake->Initialize();
-
-  this->entityManager.AddEntity(snake->head);
 
   for (auto& segment : snake->body) {
     this->entityManager.AddEntity(segment.get());
@@ -48,15 +47,7 @@ void GameplayScene::Initialize()
   AppleParams appleParams = AppleParams(appleTransform);
 
   auto apple = new Apple(appleParams);
-
   this->entityManager.AddEntity(apple);
-}
-
-// GameplayScene.cpp
-void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
-{
-  this->transition = ctx;
-  // initialise entities, reset state etc.
 }
 
 void GameplayScene::Update(float deltaTime)

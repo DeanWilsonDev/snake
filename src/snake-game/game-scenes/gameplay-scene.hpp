@@ -37,7 +37,6 @@ class GameplayScene : public Core::Scenes::IScene {
  public:
   GameplayScene(const GameplaySceneParams& params);
   ~GameplayScene();
-  void Initialize() override;
   void OnEnter(Core::Scenes::SceneTransitionContext ctx) override;
   void OnExit() override;
   void Update(float deltaTime) override;

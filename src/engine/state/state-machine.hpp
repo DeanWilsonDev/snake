@@ -8,16 +8,19 @@
 #include "core/state/i-game-state.hpp"
 #include <memory>
 
-namespace Core {
+using namespace Core::State;
 
+namespace Engine {
 namespace State {
 
 class StateMachine : public IStateMachine {
  public:
   StateMachine(std::unique_ptr<IGameState> currentState);
   ~StateMachine() = default;
-  virtual void Update(float deltaTime) override;
   void ChangeState(std::unique_ptr<IGameState> newState) override;
+  virtual void Update(float deltaTime) override;
+  virtual void DebugUpdate() const override;
+  virtual void DebugRender() const override;
   [[nodiscard]] IGameState& GetCurrentState() override;
 
  private:
@@ -25,4 +28,4 @@ class StateMachine : public IStateMachine {
 };
 
 }  // namespace State
-}  // namespace Core
+}  // namespace Engine

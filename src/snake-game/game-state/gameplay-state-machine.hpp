@@ -25,7 +25,7 @@ struct GameContext {
   std::unique_ptr<Engine::Input::InputSystem> input = {nullptr};
 };
 
-class GameplayStateMachine final : public Core::State::StateMachine {
+class GameplayStateMachine final : public Engine::State::StateMachine {
  public:
   explicit GameplayStateMachine(std::unique_ptr<Core::State::IGameState> currentState = nullptr);
   ~GameplayStateMachine() override;

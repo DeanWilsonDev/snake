@@ -5,8 +5,7 @@
 #include <memory>
 #include <utility>
 
-namespace Core::State {
-
+namespace Engine::State {
 StateMachine::StateMachine(std::unique_ptr<IGameState> currentState)
     : currentState(std::move(currentState))
 {
@@ -33,10 +32,11 @@ void StateMachine::Update(float deltaTime)
   this->currentState->Update(deltaTime);
 };
 
-
 IGameState& StateMachine::GetCurrentState()
 {
   return *this->currentState;
 }
 
-}  // namespace Core::State
+void StateMachine::DebugUpdate() const {}
+void StateMachine::DebugRender() const {}
+}  // namespace Engine::State

@@ -16,7 +16,7 @@ GameplayStateMachine::GameplayStateMachine(std::unique_ptr<Core::State::IGameSta
     : StateMachine(std::move(currentState))
 {
   if (!currentState) {
-    Core::State::StateMachine::ChangeState(std::make_unique<MainMenuState>(this->gameContext));
+    Engine::State::StateMachine::ChangeState(std::make_unique<MainMenuState>(this->gameContext));
   }
 }
 
@@ -24,9 +24,9 @@ GameplayStateMachine::~GameplayStateMachine() {}
 
 void GameplayStateMachine::Update(const float deltaTime)
 {
+  Engine::State::StateMachine::Update(deltaTime);
+  // Main Quest: Remove all this entity stuff the the state machine to the scene manager
   this->entityManager->OnUpdate(deltaTime);
-
-  Core::State::StateMachine::Update(deltaTime);
 }
 
 void GameplayStateMachine::DebugUpdate() const

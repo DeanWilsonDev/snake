@@ -78,6 +78,8 @@ void SnakeApplication::RegisterDependencies()
   ///
   /// Register overrides and game-specific dependencies below
   ///
+
+
 }
 
 const SnakeGame::SnakeGameSettings& SnakeApplication::GetSnakeSettings() const

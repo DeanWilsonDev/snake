@@ -9,7 +9,6 @@
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/rendering/i-renderer.hpp"
 #include "core/scenes/i-scene-manager.hpp"
-#include "core/state/i-state-machine.hpp"
 #include "core/debug/i-debug-user-interface.hpp"
 #include "core/user-interface/i-user-interface-manager.hpp"
 #include "core/user-interface/i-user-interface.hpp"
@@ -34,6 +33,7 @@
 
 #include "renderer-2d/render-component-2d-manager.hpp"
 
+#include <iostream>
 #include <memory>
 #include <cassert>
 #include <chrono>
@@ -54,34 +54,34 @@ void Application::Initialize()
   const auto& debug = config.engine.debug;
   Debug::System.SetDebugMode(debug.enabled);
 
-  LOG_INIT("log.csv", debug.enabled);
+  LOG_INIT("log.json", debug.enabled);
 
   LOG_CORE_TRACE("[Application] Initializing");
   this->window = this->injector->Resolve<Core::Window::IWindow>();
   this->renderer = this->injector->Resolve<Core::Rendering::IRenderer>();
-  this->stateMachine = this->injector->Resolve<Core::State::IStateMachine>();
   this->input = this->injector->Resolve<Core::Input::IInputBackend>();
   this->userInterface = this->injector->Resolve<Core::UserInterface::IUserInterface>();
   this->eventBus = this->injector->Resolve<Core::Events::IEventBus>();
+  this->sceneManager = this->injector->Resolve<Core::Scenes::ISceneManager>();
   this->renderComponentManager =
       this->injector->Resolve<Core::Rendering::IRenderComponentManager>();
   Debug::System.SetActiveDebugHUD(this->injector->Resolve<Core::Debug::IDebugHUD>());
 
-  LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&window));
-  LOG_CORE_TRACE("[Application] Renderer set to {}", static_cast<void*>(&renderer));
-  LOG_CORE_TRACE("[Application] StateMachine set to {}", static_cast<void*>(&stateMachine));
-  LOG_CORE_TRACE("[Application] Input set to {}", static_cast<void*>(&input));
-  LOG_CORE_TRACE("[Application] UserInterface set to {}", static_cast<void*>(&userInterface));
-  LOG_CORE_TRACE("[Application] EventBus set to {}", static_cast<void*>(&eventBus));
-  LOG_CORE_TRACE("[Application] DebugHUD set to {}", static_cast<void*>(&debugHud));
+  LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&this->window));
+  LOG_CORE_TRACE("[Application] Renderer set to {}", static_cast<void*>(&this->renderer));
+  LOG_CORE_TRACE("[Application] Input set to {}", static_cast<void*>(&this->input));
+  LOG_CORE_TRACE("[Application] UserInterface set to {}", static_cast<void*>(&this->userInterface));
+  LOG_CORE_TRACE("[Application] EventBus set to {}", static_cast<void*>(&this->eventBus));
+  LOG_CORE_TRACE("[Application] SceneManager set to {}", static_cast<void*>(&this->sceneManager));
+  LOG_CORE_TRACE("[Application] DebugHUD set to {}", static_cast<void*>(&this->debugHud));
 
   LOG_CORE_TRACE("[Application] Validating Dependencies");
   assert(this->window);
   assert(this->renderer);
-  assert(this->stateMachine);
   assert(this->input);
   assert(this->userInterface);
   assert(this->eventBus);
+  assert(this->sceneManager);
 
   LOG_CORE_TRACE("[Application] Beginning Application");
   std::string title = config.project.title;
@@ -103,6 +103,14 @@ void Application::Initialize()
 
 void Application::RegisterDependencies()
 {
+  // Init Logger
+  const auto& config = this->GetConfig();
+
+  const auto& debug = config.engine.debug;
+  Debug::System.SetDebugMode(debug.enabled);
+
+  LOG_INIT("log.json", debug.enabled);
+
   // Raylib Dependencies as defaults:
 
   this->GetInjector().Register<Core::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
@@ -135,10 +143,6 @@ void Application::RegisterDependencies()
   // Debug
   auto hud = std::make_shared<Debug::DebugHUD>();
   this->GetInjector().RegisterInstance<Core::Debug::IDebugHUD>(hud);
-  this->GetInjector()
-      .Register<
-          Core::Debug::IDebugUserInterface,
-          RaylibFacade::UserInterface::RaylibDebugUserInterfaceFacade>();
 
   // Events
   this->GetInjector().RegisterSingleton<Core::Events::IEventBus, Engine::Events::EventBus>();

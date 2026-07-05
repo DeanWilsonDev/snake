@@ -53,6 +53,21 @@ void Apple::OnRegistration()
   // this->transformComponent->SetPosition(this->GetNewPosition());
 };
 
+void Apple::BeginPlay()
+{
+  UMBRA_DEBUG({},"Apple Begin Play plays Once");
+}
+
+void Apple::OnActivate(){
+
+  UMBRA_DEBUG({},"Apple Active on Load");
+  this->SetActive(false);
+  UMBRA_DEBUG({},"Apple Deactivated");
+  this->SetActive(true);
+  UMBRA_DEBUG({},"Apple Reactivated");
+
+}
+
 void Apple::Update([[maybe_unused]] const float deltaTime) {}
 
 void Apple::DebugUpdate() const

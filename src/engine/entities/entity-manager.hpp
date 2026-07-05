@@ -5,8 +5,10 @@
 #pragma once
 #include "core/debug/i-on-debugable.hpp"
 #include "core/life-cycle-hooks/i-on-updatable.hpp"
+#include "engine/entities/entity-activation-pipeline.hpp"
 #include "engine/entities/entity-component-pipeline.hpp"
 
+#include <unordered_set>
 #include <vector>
 
 namespace Core {
@@ -33,7 +35,10 @@ class EntityManager : public Core::IOnUpdatable, Core::Debug::IOnDebugable {
 
  private:
   std::vector<Core::Entities::IEntity*> entities;
-  EntityComponentPipeline pipeline;
+  EntityComponentPipeline componentPipeline;
+  EntityActivationPipeline activationPipeline;
+  std::unordered_set<int> beginPlayFiredIds;
+  std::unordered_set<int> activeLastFrame;
 };
 
 }  // namespace Entities

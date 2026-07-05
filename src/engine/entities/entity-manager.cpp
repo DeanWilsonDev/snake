@@ -4,16 +4,15 @@
 
 #include "engine/entities/entity-manager.hpp"
 #include "core/entities/i-entity.hpp"
-#include "core/rendering/components/i-render-component.hpp"
-#include "core/rendering/i-render-manager.hpp"
-#include "core/rendering/i-renderer.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
+#include "engine/entities/entity-activation-pipeline.hpp"
+#include "engine/entities/entity-lifecycle-state.hpp"
 #include <vector>
 
 namespace Engine::Entities {
 
 EntityManager::EntityManager(Core::Rendering::IRenderComponentManager* renderManager)
-    : pipeline(renderManager)
+    : componentPipeline(renderManager)
 {
 }
 
@@ -22,13 +21,17 @@ void EntityManager::AddEntity(Core::Entities::IEntity* entity)
   if (!entity) {
     return;
   }
-  this->pipeline.Run(entity);
+  this->componentPipeline.Run(entity);
   this->entities.push_back(entity);
+  EntityLifecycleState state{this->beginPlayFiredIds, this->activeLastFrame};
+  this->activationPipeline.Run(entity, state);
 }
 
 void EntityManager::OnUpdate(const float deltaTime)
 {
+  EntityLifecycleState state{this->beginPlayFiredIds, this->activeLastFrame};
   for (auto* object : this->entities) {
+    this->activationPipeline.Run(object, state);
     if (object->IsActive()) {
       object->Update(deltaTime);
     }

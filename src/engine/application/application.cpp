@@ -1,5 +1,4 @@
 #include "application.hpp"
-
 #include "core/color/color.hpp"
 #include "core/debug/i-debug-hud.hpp"
 #include "core/dependency-injection/i-dependency-injector.hpp"

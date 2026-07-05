@@ -28,6 +28,8 @@ struct AppleParams : Engine::Entities::EntityParams {
 class Apple final : public Engine::Entities::Entity {
  public:
   explicit Apple(const AppleParams& params);
+  void BeginPlay() override;
+  void OnActivate() override;
   void Update(float deltaTime) override;
   void DebugUpdate() const override;
   void DebugRender() const override;
@@ -35,8 +37,10 @@ class Apple final : public Engine::Entities::Entity {
 
   [[nodiscard]] Physics::Collision::Components::ColliderComponent2D& GetColliderComponent();
   [[nodiscard]] Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D();
-  [[nodiscard]] const Physics::Collision::Components::ColliderComponent2D& GetColliderComponent() const;
-  [[nodiscard]] const Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D() const;
+  [[nodiscard]] const Physics::Collision::Components::ColliderComponent2D&
+  GetColliderComponent() const;
+  [[nodiscard]] const Core::Rendering::Components::IRenderComponent2D&
+  GetRendererComponent2D() const;
 
   [[nodiscard]] float GetSize() const { return this->size; }
 

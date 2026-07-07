@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(src/**)",
+      "Write(src/**)",
+      "Edit(tests/**)",
+      "Write(tests/**)",
+      "Edit(**/*.cpp)",
+      "Write(**/*.cpp)",
+      "Edit(**/*.hpp)",
+      "Write(**/*.hpp)",
+      "Edit(**/*.h)",
+      "Write(**/*.h)",
+      "Edit(**/*.cc)",
+      "Write(**/*.cc)",
+      "Edit(**/*.cxx)",
+      "Write(**/*.cxx)",
+      "Edit(**/*.inl)",
+      "Write(**/*.inl)",
+      "Edit(CMakeLists.txt)",
+      "Write(CMakeLists.txt)",
+      "Edit(**/CMakeLists.txt)",
+      "Write(**/CMakeLists.txt)",
+      "Edit(**/*.cmake)",
+      "Write(**/*.cmake)"
+    ]
+  }
+}

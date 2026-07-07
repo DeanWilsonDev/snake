@@ -15,13 +15,13 @@ class ITransform2D {
   virtual float& GetRotation() = 0;
   virtual ISize2D& GetScale() = 0;
 
-  virtual const Vector2D& GetPosition() const = 0;
+  virtual const Math::Vector2D& GetPosition() const = 0;
   virtual const float& GetRotation() const = 0;
-  virtual const Size2D& GetScale() const = 0;
+  virtual const ISize2D& GetScale() const = 0;
 
   virtual void SetPosition(const Math::Vector2D value) = 0;
   virtual void SetRotation(const float value) = 0;
-  virtual void SetScale(const Math::Size2D& value) = 0;
+  virtual void SetScale(const ISize2D& value) = 0;
 };
 
 }  // namespace Core::Spatial

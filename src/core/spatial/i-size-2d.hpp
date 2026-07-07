@@ -5,7 +5,7 @@
 #pragma once
 #include <string>
 
-namespace Engine::Spatial {
+namespace Core::Spatial {
 
 struct ISize2D {
  public:
@@ -16,7 +16,6 @@ struct ISize2D {
   virtual void SetWidth(const float w) = 0;
   virtual void SetHeight(const float h) = 0;
   virtual void Set(const float w, const float h) = 0;
-  inline static ISize2D Zero();
   virtual inline std::string ToString() const = 0;
 };
 

@@ -7,6 +7,7 @@
 #include "core/components/i-component.hpp"
 #include "core/spatial/i-transform-2d.hpp"
 #include "core/math/vector-2d.hpp"
+#include "core/spatial/i-size-2d.hpp"
 #include "engine/spatial/transform-2d.hpp"
 #include "engine/spatial/size-2d.hpp"
 
@@ -19,12 +20,12 @@ class TransformComponent2D final : public Core::Components::IComponent,
   // rotation is a float because in 2D you only need to rotate around the z axis.
   // there is no gimbal lock in 2D, so anything more than a float is overkill.
   float rotation{};
-  Engine::Spatial::Size2D scale = Math::Size2D::Zero();
+  Engine::Spatial::Size2D scale = Engine::Spatial::Size2D::Zero();
 
   TransformComponent2D(
       Core::Math::Vector2D position, float rotation, Engine::Spatial::Size2D scale
   );
-  explicit TransformComponent2D(const Core::Spatial::Transform2D& transform);
+  explicit TransformComponent2D(const Engine::Spatial::Transform2D& transform);
 
   explicit TransformComponent2D(Core::Spatial::ITransform2D* transform);
 
@@ -36,7 +37,7 @@ class TransformComponent2D final : public Core::Components::IComponent,
 
   [[nodiscard]] Core::Math::Vector2D& GetPosition() override { return this->position; }
   [[nodiscard]] float& GetRotation() override { return this->rotation; };
-  [[nodiscard]] Core::Math::Size2D& GetScale() override { return this->scale; };
+  [[nodiscard]] Engine::Spatial::Size2D& GetScale() override { return this->scale; };
 
   [[nodiscard]] const Core::Math::Vector2D& GetPosition() const override { return this->position; }
   [[nodiscard]] const float& GetRotation() const override { return this->rotation; };
@@ -44,9 +45,9 @@ class TransformComponent2D final : public Core::Components::IComponent,
 
   void SetPosition(const Core::Math::Vector2D value) override { this->position = value; }
   void SetRotation(const float value) override { this->rotation = value; };
-  void SetScale(const Engine::Spatial::Size2D& value) override { this->scale = value; };
+  void SetScale(const Core::Spatial::ISize2D& value) override { this->scale = value; };
 
-  [[nodiscard]] Math::ITransform2D& GetTransform();
+  [[nodiscard]] Core::Spatial::ITransform2D& GetTransform();
 };
 
 }  // namespace Engine::Spatial::Components

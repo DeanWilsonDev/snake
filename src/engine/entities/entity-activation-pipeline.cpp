@@ -1,4 +1,5 @@
 
+#include "core/entities/i-entity.hpp"
 #include "engine/entities/entity-activation-pipeline.hpp"
 #include "engine/entities/entity-lifecycle-state.hpp"
 #include "engine/entities/entity-manager.hpp"

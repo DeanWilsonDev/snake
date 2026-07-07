@@ -3,17 +3,17 @@
 //
 
 #pragma once
-#include "size-2d.hpp"
-#include "vector-2d.hpp"
+#include "core/spatial/i-size-2d.hpp"
+#include "core/math/vector-2d.hpp"
 
-namespace Core::Math {
+namespace Core::Spatial {
 
 class ITransform2D {
  public:
   virtual ~ITransform2D() = default;
-  virtual Vector2D& GetPosition() = 0;
+  virtual Core::Math::Vector2D& GetPosition() = 0;
   virtual float& GetRotation() = 0;
-  virtual Size2D& GetScale() = 0;
+  virtual ISize2D& GetScale() = 0;
 
   virtual const Vector2D& GetPosition() const = 0;
   virtual const float& GetRotation() const = 0;
@@ -24,4 +24,4 @@ class ITransform2D {
   virtual void SetScale(const Math::Size2D& value) = 0;
 };
 
-}  // namespace Core::Math
+}  // namespace Core::Spatial

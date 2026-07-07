@@ -8,7 +8,7 @@
 #include "core/math/transform-2d.hpp"
 #include "core/math/i-transform-2d.hpp"
 
-namespace Core::Components {
+namespace Engine::Spatial::Components {
 
 TransformComponent2D::TransformComponent2D(
     const Math::Vector2D position, const float rotation, const Math::Size2D scale

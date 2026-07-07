@@ -5,7 +5,7 @@
 #pragma once
 #include <string>
 
-namespace Core::Math {
+namespace Engine::Spatial {
 
 struct Size2D {
  public:

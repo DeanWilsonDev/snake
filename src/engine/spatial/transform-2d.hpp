@@ -3,9 +3,9 @@
 //
 
 #pragma once
-#include "i-transform-2d.hpp"
-#include "vector-2d.hpp"
-#include "size-2d.hpp"
+#include "core/spatial/i-transform-2d.hpp"
+#include "core/math/vector-2d.hpp"
+#include "engine/spatial/size-2d.hpp"
 
 namespace Core::Math {
 struct Transform2D final : public ITransform2D {

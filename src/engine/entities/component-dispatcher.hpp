@@ -4,34 +4,22 @@
 
 #pragma once
 
-#include "core/components/i-component.hpp"
 #include "core/entities/i-component-dispatcher.hpp"
+#include "core/entities/i-component-registrar.hpp"
 #include "core/entities/i-entity.hpp"
-#include <typeindex>
-#include <unordered_map>
+#include <memory>
 
-namespace Engine {
-namespace Entities {
+namespace Engine::Entities {
 
 class ComponentDispatcher final : public Core::Entities::IComponentDispatcher {
  public:
   ~ComponentDispatcher() = default;
-  virtual void Dispatch(Core::Entities::IEntity*) override;
-
-  template <typename TComponent>
-  void RegisterHandler(std::function<void(TComponent*)> handler)
-  {
-    this->handlers[std::type_index(typeid(TComponent))] =
-        [handler](Core::Components::IComponent* component) {
-          if (auto* typed = dynamic_cast<TComponent*>(component)) {
-            handler(typed);
-          }
-        };
-  }
+  void Dispatch(Core::Entities::IEntity*) override;
+  void Teardown(Core::Entities::IEntity*) override;
+  void AddRegistrar(std::unique_ptr<Core::Entities::IComponentRegistrar> registrar) override;
 
  private:
-  std::unordered_map<std::type_index, std::function<void(Core::Components::IComponent*)>> handlers;
+  std::vector<std::unique_ptr<Core::Entities::IComponentRegistrar>> registrars;
 };
 
-}  // namespace Entities
-}  // namespace Engine
+}  // namespace Engine::Entities

@@ -7,27 +7,23 @@
 #include "core/entities/i-component-dispatcher.hpp"
 #include "core/entities/i-entity-component-pipeline.hpp"
 #include "core/entities/i-entity.hpp"
-#include "core/rendering/i-render-component-manager.hpp"
 #include "engine/entities/component-dispatcher.hpp"
 
-namespace Core {
-namespace Rendering {
+namespace Core::Rendering {
 class IRenderComponentManager;
-}
-}  // namespace Core
+}  // namespace Core::Rendering
 
-namespace Engine {
-namespace Entities {
+namespace Engine::Entities {
 
 class EntityComponentPipeline : public Core::Entities::IEntityComponentPipeline {
  public:
   EntityComponentPipeline(Core::Rendering::IRenderComponentManager* renderManager);
   ~EntityComponentPipeline() = default;
   virtual void Run(Core::Entities::IEntity*) override;
+  virtual void Teardown(Core::Entities::IEntity*) override;
 
  private:
   ComponentDispatcher dispatcher;
 };
 
-}  // namespace Entities
-}  // namespace Engine
+}  // namespace Engine::Entities

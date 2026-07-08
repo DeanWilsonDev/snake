@@ -4,23 +4,28 @@
 
 #pragma once
 
+#include "core/entities/i-entity-manager.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/scenes/i-scene.hpp"
 #include "core/rendering/i-renderer.hpp"
 #include "snake-game/settings/snake-game-settings.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
 #include "snake-game/game-state/gameplay-state-machine.hpp"
-#include "engine/entities/entity-manager.hpp"
 #include "core/events/i-event-bus.hpp"
 #include "core/scenes/scene-transition-context.hpp"
 #include "snake-game/settings/snake-game-settings.hpp"
 
-namespace Core {
-
-namespace Rendering {
+namespace Core::Rendering {
 class IRenderer;
+}  // namespace Core::Rendering
+
+namespace SnakeGame {
+class Snake;
 }
-}  // namespace Core
+
+namespace Core::Entities {
+class IEntityManager;
+}
 
 namespace SnakeGame {
 class GameplayStateMachine;
@@ -47,9 +52,10 @@ class GameplayScene : public Core::Scenes::IScene {
  private:
   Core::Scenes::SceneTransitionContext transition;
   Core::Rendering::IRenderComponentManager& renderComponentManager;
-  Engine::Entities::EntityManager entityManager;
+  std::unique_ptr<Core::Entities::IEntityManager> entityManager;
   GameplayStateMachine stateMachine;
   Core::Events::IEventBus& eventBus;
+  std::unique_ptr<Snake> snake;
   const SnakeGameSettings& gameSettings;
   int screenWidth;
   int screenHeight;

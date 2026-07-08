@@ -1,506 +1,518 @@
 [
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/color/color-hex.cpp.o -c /Users/deanwilson/development/projects/snake/src/core/color/color-hex.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/core/color/color-hex.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/color/color-hex.cpp.o -c /home/deanwilson/development/projects/snake/src/core/color/color-hex.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/core/color/color-hex.cpp",
   "output": "CMakeFiles/Snake.dir/src/core/color/color-hex.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/color/color-rgba.cpp.o -c /Users/deanwilson/development/projects/snake/src/core/color/color-rgba.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/core/color/color-rgba.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/color/color-rgba.cpp.o -c /home/deanwilson/development/projects/snake/src/core/color/color-rgba.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/core/color/color-rgba.cpp",
   "output": "CMakeFiles/Snake.dir/src/core/color/color-rgba.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/spatial/components/transform-component-2d.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/spatial/components/transform-component-2d.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/spatial/components/transform-component-2d.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/spatial/components/transform-component-2d.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/spatial/components/transform-component-2d.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/spatial/components/transform-component-2d.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/spatial/components/transform-component-2d.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/spatial/size-2d.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/spatial/size-2d.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/spatial/size-2d.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/spatial/size-2d.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/spatial/size-2d.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/spatial/size-2d.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/spatial/size-2d.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/logging/log.cpp.o -c /Users/deanwilson/development/projects/snake/src/core/logging/log.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/core/logging/log.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/core/logging/log.cpp.o -c /home/deanwilson/development/projects/snake/src/core/logging/log.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/core/logging/log.cpp",
   "output": "CMakeFiles/Snake.dir/src/core/logging/log.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/debug/debug-hud.cpp.o -c /Users/deanwilson/development/projects/snake/src/debug/debug-hud.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/debug/debug-hud.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/debug/debug-hud.cpp.o -c /home/deanwilson/development/projects/snake/src/debug/debug-hud.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/debug/debug-hud.cpp",
   "output": "CMakeFiles/Snake.dir/src/debug/debug-hud.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/debug/user-interface/debug-user-interface-manager.cpp.o -c /Users/deanwilson/development/projects/snake/src/debug/user-interface/debug-user-interface-manager.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/debug/user-interface/debug-user-interface-manager.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/debug/user-interface/debug-user-interface-manager.cpp.o -c /home/deanwilson/development/projects/snake/src/debug/user-interface/debug-user-interface-manager.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/debug/user-interface/debug-user-interface-manager.cpp",
   "output": "CMakeFiles/Snake.dir/src/debug/user-interface/debug-user-interface-manager.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/application/application.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/application/application.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/application/application.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/application/application.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/application/application.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/application/application.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/application/application.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/dependency-injection/dependency-injector.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/dependency-injection/dependency-injector.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/dependency-injection/dependency-injector.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/dependency-injection/dependency-injector.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/dependency-injection/dependency-injector.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/dependency-injection/dependency-injector.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/dependency-injection/dependency-injector.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/entities/component-dispatcher.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/entities/component-dispatcher.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/entities/component-dispatcher.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/entities/component-dispatcher.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/entities/component-dispatcher.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/entities/component-dispatcher.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/entities/component-dispatcher.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/entities/entity-component-pipeline.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/entities/entity-component-pipeline.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/entities/entity-component-pipeline.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/entities/entity-component-pipeline.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/entities/entity-component-pipeline.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/entities/entity-component-pipeline.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/entities/entity-component-pipeline.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/entities/entity-manager.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/entities/entity-manager.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/entities/entity-manager.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/entities/entity-manager.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/entities/entity-manager.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/entities/entity-manager.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/entities/entity-manager.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/entities/entity.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/entities/entity.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/entities/entity.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/entities/entity.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/entities/entity.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/entities/entity.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/entities/entity.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/entities/entity-activation-pipeline.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/entities/entity-activation-pipeline.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/entities/entity-activation-pipeline.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/entities/entity-activation-pipeline.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/entities/entity-activation-pipeline.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/entities/entity-activation-pipeline.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/entities/entity-activation-pipeline.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/events/event-bus.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/events/event-bus.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/events/event-bus.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/events/event-bus.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/events/event-bus.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/events/event-bus.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/events/event-bus.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/input/input-system.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/input/input-system.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/input/input-system.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/input/input-system.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/input/input-system.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/input/input-system.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/input/input-system.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/scenes/scene-manager.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/scenes/scene-manager.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/scenes/scene-manager.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/scenes/scene-manager.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/scenes/scene-manager.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/scenes/scene-manager.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/scenes/scene-manager.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/state/state-machine.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/state/state-machine.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/state/state-machine.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/state/state-machine.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/state/state-machine.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/state/state-machine.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/state/state-machine.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/ui/render-component-ui-manager.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/ui/render-component-ui-manager.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/ui/render-component-ui-manager.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/ui/render-component-ui-manager.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/ui/render-component-ui-manager.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/ui/render-component-ui-manager.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/ui/render-component-ui-manager.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/user-interface/user-interface-manager.cpp.o -c /Users/deanwilson/development/projects/snake/src/engine/user-interface/user-interface-manager.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/engine/user-interface/user-interface-manager.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/engine/user-interface/user-interface-manager.cpp.o -c /home/deanwilson/development/projects/snake/src/engine/user-interface/user-interface-manager.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/engine/user-interface/user-interface-manager.cpp",
   "output": "CMakeFiles/Snake.dir/src/engine/user-interface/user-interface-manager.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/main.cpp.o -c /Users/deanwilson/development/projects/snake/src/main.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/main.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/main.cpp.o -c /home/deanwilson/development/projects/snake/src/main.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/main.cpp",
   "output": "CMakeFiles/Snake.dir/src/main.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/physics/collision/components/collider-component-2d.cpp.o -c /Users/deanwilson/development/projects/snake/src/physics/collision/components/collider-component-2d.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/physics/collision/components/collider-component-2d.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/physics/collision/components/collider-component-2d.cpp.o -c /home/deanwilson/development/projects/snake/src/physics/collision/components/collider-component-2d.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/physics/collision/components/collider-component-2d.cpp",
   "output": "CMakeFiles/Snake.dir/src/physics/collision/components/collider-component-2d.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/core/raylib-core-facade.cpp.o -c /Users/deanwilson/development/projects/snake/src/raylib-facade/core/raylib-core-facade.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/raylib-facade/core/raylib-core-facade.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/core/raylib-core-facade.cpp.o -c /home/deanwilson/development/projects/snake/src/raylib-facade/core/raylib-core-facade.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/raylib-facade/core/raylib-core-facade.cpp",
   "output": "CMakeFiles/Snake.dir/src/raylib-facade/core/raylib-core-facade.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/input/raylib-input-backend-facade.cpp.o -c /Users/deanwilson/development/projects/snake/src/raylib-facade/input/raylib-input-backend-facade.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/raylib-facade/input/raylib-input-backend-facade.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/input/raylib-input-backend-facade.cpp.o -c /home/deanwilson/development/projects/snake/src/raylib-facade/input/raylib-input-backend-facade.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/raylib-facade/input/raylib-input-backend-facade.cpp",
   "output": "CMakeFiles/Snake.dir/src/raylib-facade/input/raylib-input-backend-facade.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/renderer/raylib-renderer-facade.cpp.o -c /Users/deanwilson/development/projects/snake/src/raylib-facade/renderer/raylib-renderer-facade.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/raylib-facade/renderer/raylib-renderer-facade.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/renderer/raylib-renderer-facade.cpp.o -c /home/deanwilson/development/projects/snake/src/raylib-facade/renderer/raylib-renderer-facade.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/raylib-facade/renderer/raylib-renderer-facade.cpp",
   "output": "CMakeFiles/Snake.dir/src/raylib-facade/renderer/raylib-renderer-facade.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/user-interface/raylib-debug-user-interface-facade.cpp.o -c /Users/deanwilson/development/projects/snake/src/raylib-facade/user-interface/raylib-debug-user-interface-facade.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/raylib-facade/user-interface/raylib-debug-user-interface-facade.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/user-interface/raylib-debug-user-interface-facade.cpp.o -c /home/deanwilson/development/projects/snake/src/raylib-facade/user-interface/raylib-debug-user-interface-facade.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/raylib-facade/user-interface/raylib-debug-user-interface-facade.cpp",
   "output": "CMakeFiles/Snake.dir/src/raylib-facade/user-interface/raylib-debug-user-interface-facade.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp.o -c /Users/deanwilson/development/projects/snake/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp.o -c /home/deanwilson/development/projects/snake/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp",
   "output": "CMakeFiles/Snake.dir/src/raylib-facade/user-interface/raylib-user-interface-facade.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/window/raylib-window-facade.cpp.o -c /Users/deanwilson/development/projects/snake/src/raylib-facade/window/raylib-window-facade.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/raylib-facade/window/raylib-window-facade.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/raylib-facade/window/raylib-window-facade.cpp.o -c /home/deanwilson/development/projects/snake/src/raylib-facade/window/raylib-window-facade.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/raylib-facade/window/raylib-window-facade.cpp",
   "output": "CMakeFiles/Snake.dir/src/raylib-facade/window/raylib-window-facade.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/renderer-2d/components/render-component-2d.cpp.o -c /Users/deanwilson/development/projects/snake/src/renderer-2d/components/render-component-2d.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/renderer-2d/components/render-component-2d.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/renderer-2d/components/render-component-2d.cpp.o -c /home/deanwilson/development/projects/snake/src/renderer-2d/components/render-component-2d.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/renderer-2d/components/render-component-2d.cpp",
   "output": "CMakeFiles/Snake.dir/src/renderer-2d/components/render-component-2d.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/renderer-2d/render-component-2d-manager.cpp.o -c /Users/deanwilson/development/projects/snake/src/renderer-2d/render-component-2d-manager.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/renderer-2d/render-component-2d-manager.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/renderer-2d/render-component-2d-manager.cpp.o -c /home/deanwilson/development/projects/snake/src/renderer-2d/render-component-2d-manager.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/renderer-2d/render-component-2d-manager.cpp",
   "output": "CMakeFiles/Snake.dir/src/renderer-2d/render-component-2d-manager.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-entities/apple.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/game-entities/apple.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/game-entities/apple.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-entities/apple.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/game-entities/apple.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/game-entities/apple.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/game-entities/apple.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-entities/snake-segment.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/game-entities/snake-segment.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/game-entities/snake-segment.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-entities/snake-segment.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/game-entities/snake-segment.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/game-entities/snake-segment.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/game-entities/snake-segment.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-entities/snake.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/game-entities/snake.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/game-entities/snake.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-entities/snake.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/game-entities/snake.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/game-entities/snake.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/game-entities/snake.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-scenes/gameplay-scene.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/game-scenes/gameplay-scene.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/game-scenes/gameplay-scene.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-scenes/gameplay-scene.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/game-scenes/gameplay-scene.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/game-scenes/gameplay-scene.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/game-scenes/gameplay-scene.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-state/game-over-state.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/game-state/game-over-state.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/game-state/game-over-state.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-state/game-over-state.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/game-state/game-over-state.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/game-state/game-over-state.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/game-state/game-over-state.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-state/gameplay-state-machine.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/game-state/gameplay-state-machine.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/game-state/gameplay-state-machine.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-state/gameplay-state-machine.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/game-state/gameplay-state-machine.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/game-state/gameplay-state-machine.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/game-state/gameplay-state-machine.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-state/gameplay-state.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/game-state/gameplay-state.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/game-state/gameplay-state.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-state/gameplay-state.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/game-state/gameplay-state.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/game-state/gameplay-state.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/game-state/gameplay-state.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-state/main-menu-state.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/game-state/main-menu-state.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/game-state/main-menu-state.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/game-state/main-menu-state.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/game-state/main-menu-state.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/game-state/main-menu-state.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/game-state/main-menu-state.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/snake-application.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/snake-application.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/snake-application.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/snake-application.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/snake-application.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/snake-application.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/snake-application.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/ui/game-over-ui.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/ui/game-over-ui.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/ui/game-over-ui.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/ui/game-over-ui.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/ui/game-over-ui.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/ui/game-over-ui.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/ui/game-over-ui.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/ui/gameplay-ui.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/ui/gameplay-ui.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/ui/gameplay-ui.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/ui/gameplay-ui.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/ui/gameplay-ui.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/ui/gameplay-ui.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/ui/gameplay-ui.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build",
-  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/ui/main-menu-ui.cpp.o -c /Users/deanwilson/development/projects/snake/src/snake-game/ui/main-menu-ui.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/src/snake-game/ui/main-menu-ui.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build",
+  "command": "/usr/bin/c++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Snake.dir/src/snake-game/ui/main-menu-ui.cpp.o -c /home/deanwilson/development/projects/snake/src/snake-game/ui/main-menu-ui.cpp",
+  "file": "/home/deanwilson/development/projects/snake/src/snake-game/ui/main-menu-ui.cpp",
   "output": "CMakeFiles/Snake.dir/src/snake-game/ui/main-menu-ui.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
-  "command": "/usr/bin/cc -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -arch arm64 -o CMakeFiles/raylib.dir/raudio.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/raudio.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/raudio.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/cc -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -isystem /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -o CMakeFiles/raylib.dir/raudio.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/raudio.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/raudio.c",
   "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
-  "command": "/usr/bin/cc -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -arch arm64 -o CMakeFiles/raylib.dir/rcore.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rcore.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rcore.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/cc -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -isystem /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -o CMakeFiles/raylib.dir/rcore.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rcore.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rcore.c",
   "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
-  "command": "/usr/bin/cc -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -arch arm64 -o CMakeFiles/raylib.dir/rmodels.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rmodels.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rmodels.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/cc -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -isystem /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -o CMakeFiles/raylib.dir/rmodels.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rmodels.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rmodels.c",
   "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
-  "command": "/usr/bin/cc -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -arch arm64 -o CMakeFiles/raylib.dir/rshapes.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rshapes.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rshapes.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/cc -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -isystem /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -o CMakeFiles/raylib.dir/rshapes.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rshapes.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rshapes.c",
   "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
-  "command": "/usr/bin/cc -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -arch arm64 -o CMakeFiles/raylib.dir/rtext.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rtext.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rtext.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/cc -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -isystem /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -o CMakeFiles/raylib.dir/rtext.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rtext.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rtext.c",
   "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
-  "command": "/usr/bin/cc -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -arch arm64 -o CMakeFiles/raylib.dir/rtextures.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rtextures.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rtextures.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/cc -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -isystem /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -o CMakeFiles/raylib.dir/rtextures.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rtextures.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/rtextures.c",
   "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
-  "command": "/usr/bin/cc -DGL_SILENCE_DEPRECATION -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -arch arm64 -o CMakeFiles/raylib.dir/utils.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/utils.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/utils.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib",
+  "command": "/usr/bin/cc -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src -isystem /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=gnu99 -o CMakeFiles/raylib.dir/utils.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/utils.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/utils.c",
   "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/context.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/context.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/context.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/context.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/context.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/context.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/init.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/init.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/init.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/init.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/init.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/init.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/input.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/input.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/input.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/input.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/input.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/input.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/monitor.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/monitor.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/monitor.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/monitor.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/monitor.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/monitor.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/platform.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/platform.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/platform.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/platform.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/platform.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/platform.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/vulkan.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/vulkan.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/vulkan.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/vulkan.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/vulkan.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/vulkan.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/window.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/window.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/window.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/window.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/window.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/window.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/egl_context.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/egl_context.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/egl_context.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/egl_context.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/egl_context.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/egl_context.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/osmesa_context.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/osmesa_context.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/osmesa_context.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/osmesa_context.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/osmesa_context.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/osmesa_context.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/null_init.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_init.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_init.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/null_init.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_init.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_init.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/null_monitor.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_monitor.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_monitor.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/null_monitor.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_monitor.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_monitor.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/null_window.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_window.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_window.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/null_window.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_window.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_window.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/null_joystick.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_joystick.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_joystick.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/null_joystick.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_joystick.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/null_joystick.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/cocoa_time.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/cocoa_time.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/cocoa_time.c",
-  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/cocoa_time.c.o"
-},
-{
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/posix_module.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_module.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_module.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/posix_module.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_module.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_module.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/posix_thread.c.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_thread.c",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_thread.c",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/posix_time.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_time.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_time.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o"
+},
+{
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/posix_thread.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_thread.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_thread.c",
   "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/cocoa_init.m.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/cocoa_init.m",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/cocoa_init.m",
-  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o"
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/x11_init.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/x11_init.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/x11_init.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/cocoa_joystick.m.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/cocoa_joystick.m",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/cocoa_joystick.m",
-  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o"
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/x11_monitor.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/x11_monitor.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/x11_monitor.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/cocoa_monitor.m.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/cocoa_monitor.m",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/cocoa_monitor.m",
-  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o"
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/x11_window.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/x11_window.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/x11_window.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/cocoa_window.m.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/cocoa_window.m",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/cocoa_window.m",
-  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/cocoa_window.m.o"
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/xkb_unicode.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/xkb_unicode.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/xkb_unicode.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
-  "command": "/usr/bin/cc -D_GLFW_COCOA -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/Users/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -arch arm64 -fPIC -Wall -o CMakeFiles/glfw.dir/nsgl_context.m.o -c /Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/nsgl_context.m",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/nsgl_context.m",
-  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/nsgl_context.m.o"
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/glx_context.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/glx_context.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/glx_context.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -emit-pch -Xclang -include -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -x c++-header -o CMakeFiles/firefly.dir/cmake_pch.hxx.pch -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
-  "output": "_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch"
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/linux_joystick.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/linux_joystick.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/linux_joystick.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/logger.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/logger.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/logger.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/cc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/include -I/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src -I/home/deanwilson/development/projects/snake/build/_deps/raylib-build/raylib/external/glfw/src -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -std=c99 -fPIC -Wall -o CMakeFiles/glfw.dir/posix_poll.c.o -c /home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_poll.c",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/raylib-src/src/external/glfw/src/posix_poll.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o"
+},
+{
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -x c++-header -include /home/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/cmake_pch.hxx.gch -c /home/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.cxx",
+  "output": "_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.gch"
+},
+{
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /home/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/logger.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/logger.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/logger.cpp",
   "output": "_deps/firefly-build/CMakeFiles/firefly.dir/src/logger.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/log-registry.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/log-registry.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/log-registry.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /home/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/log-registry.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/log-registry.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/log-registry.cpp",
   "output": "_deps/firefly-build/CMakeFiles/firefly.dir/src/log-registry.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/plain-text-sink.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/plain-text-sink.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/plain-text-sink.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /home/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/plain-text-sink.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/plain-text-sink.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/plain-text-sink.cpp",
   "output": "_deps/firefly-build/CMakeFiles/firefly.dir/src/sinks/plain-text-sink.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/json-sink.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/json-sink.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/json-sink.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /home/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/json-sink.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/json-sink.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/json-sink.cpp",
   "output": "_deps/firefly-build/CMakeFiles/firefly.dir/src/sinks/json-sink.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/ndjson-sink.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/ndjson-sink.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/ndjson-sink.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /home/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/ndjson-sink.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/ndjson-sink.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/ndjson-sink.cpp",
   "output": "_deps/firefly-build/CMakeFiles/firefly.dir/src/sinks/ndjson-sink.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/csv-sink.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/csv-sink.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/csv-sink.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/include -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -Winvalid-pch -include /home/deanwilson/development/projects/snake/build/_deps/firefly-build/CMakeFiles/firefly.dir/cmake_pch.hxx -o CMakeFiles/firefly.dir/src/sinks/csv-sink.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/csv-sink.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/src/sinks/csv-sink.cpp",
   "output": "_deps/firefly-build/CMakeFiles/firefly.dir/src/sinks/csv-sink.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/value.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/value.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/value.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/value.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/value.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/value.cpp",
   "output": "_deps/firefly-build/external/amanuensis/CMakeFiles/amanuensis.dir/src/value.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/reader.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/reader.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/reader.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/reader.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/reader.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/reader.cpp",
   "output": "_deps/firefly-build/external/amanuensis/CMakeFiles/amanuensis.dir/src/io/reader.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/writer.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/writer.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/writer.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/writer.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/writer.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/writer.cpp",
   "output": "_deps/firefly-build/external/amanuensis/CMakeFiles/amanuensis.dir/src/io/writer.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/writer-context.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/writer-context.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/writer-context.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/writer-context.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/writer-context.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/writer-context.cpp",
   "output": "_deps/firefly-build/external/amanuensis/CMakeFiles/amanuensis.dir/src/io/writer-context.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/parser.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/parser.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/parser.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/io/parser.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/parser.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/io/parser.cpp",
   "output": "_deps/firefly-build/external/amanuensis/CMakeFiles/amanuensis.dir/src/io/parser.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/serialisation/serialisation.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/serialisation/serialisation.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/serialisation/serialisation.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/serialisation/serialisation.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/serialisation/serialisation.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/serialisation/serialisation.cpp",
   "output": "_deps/firefly-build/external/amanuensis/CMakeFiles/amanuensis.dir/src/serialisation/serialisation.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
-  "command": "/usr/bin/c++  -I/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/ordered-map.cpp.o -c /Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/ordered-map.cpp",
-  "file": "/Users/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/ordered-map.cpp",
+  "directory": "/home/deanwilson/development/projects/snake/build/_deps/firefly-build/external/amanuensis",
+  "command": "/usr/bin/c++  -I/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/include -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/amanuensis.dir/src/ordered-map.cpp.o -c /home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/ordered-map.cpp",
+  "file": "/home/deanwilson/development/projects/snake/build/_deps/firefly-src/external/amanuensis/src/ordered-map.cpp",
   "output": "_deps/firefly-build/external/amanuensis/CMakeFiles/amanuensis.dir/src/ordered-map.cpp.o"
 }
 ]

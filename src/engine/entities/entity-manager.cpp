@@ -16,22 +16,27 @@ EntityManager::EntityManager(Core::Rendering::IRenderComponentManager* renderMan
 {
 }
 
-void EntityManager::AddEntity(Core::Entities::IEntity* entity)
+Core::Entities::IEntity* EntityManager::AddEntity(std::unique_ptr<Core::Entities::IEntity> entity)
 {
-  if (!entity) {
-    return;
-  }
-  this->componentPipeline.Run(entity);
-  this->entities.push_back(entity);
+  Core::Entities::IEntity* handle = entity.get();
+  this->componentPipeline.Run(handle);
+  this->entities.push_back(std::move(entity));
   EntityLifecycleState state{this->beginPlayFiredIds, this->activeLastFrame};
-  this->activationPipeline.Run(entity, state);
+  this->activationPipeline.Run(handle, state);
+  return handle;
+}
+
+void EntityManager::RemoveEntity(Core::Entities::IEntity* entity)
+{
+  this->componentPipeline.Teardown(entity);
+  std::erase_if(entities, [&](const auto& p) { return p.get() == entity; });
 }
 
 void EntityManager::OnUpdate(const float deltaTime)
 {
   EntityLifecycleState state{this->beginPlayFiredIds, this->activeLastFrame};
-  for (auto* object : this->entities) {
-    this->activationPipeline.Run(object, state);
+  for (auto& object : this->entities) {
+    this->activationPipeline.Run(object.get(), state);
     if (object->IsActive()) {
       object->Update(deltaTime);
     }
@@ -40,7 +45,7 @@ void EntityManager::OnUpdate(const float deltaTime)
 
 void EntityManager::OnDebugUpdate() const
 {
-  for (auto* object : this->entities) {
+  for (auto& object : this->entities) {
     if (object->IsActive()) {
       object->DebugUpdate();
     }
@@ -49,7 +54,7 @@ void EntityManager::OnDebugUpdate() const
 
 void EntityManager::OnDebugRender() const
 {
-  for (auto* object : this->entities) {
+  for (auto& object : this->entities) {
     if (object->IsActive()) {
       object->DebugRender();
     }

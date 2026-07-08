@@ -1,22 +1,22 @@
 #include "snake-game/game-scenes/gameplay-scene.hpp"
+#include <memory>
+#include "engine/entities/entity-manager.hpp"
 #include "snake-game/game-entities/apple.hpp"
 #include "snake-game/game-entities/snake.hpp"
-#include "snake-game/settings/snake-game-settings.hpp"
-#include "snake-game/game-entities/snake-segment.hpp"
 #include "snake-game/game-entities/apple.hpp"
 #include "engine/spatial/transform-2d.hpp"
-#include "engine/entities/entity-manager.hpp"
+#include "core/entities/i-entity-manager.hpp"
 
 namespace SnakeGame {
 
 GameplayScene::GameplayScene(const GameplaySceneParams& params)
     : renderComponentManager(params.renderComponentManager)
-    , entityManager(&this->renderComponentManager)
     , eventBus(params.eventBus)
     , gameSettings(params.gameSettings)
     , screenWidth(params.screenWidth)
     , screenHeight(params.screenHeight)
 {
+  this->entityManager = make_unique<Engine::Entities::EntityManager>(&this->renderComponentManager);
 }
 
 GameplayScene::~GameplayScene() = default;
@@ -27,27 +27,23 @@ void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
 
   // Register Snake:
   SnakeParams snakeParams = {
+      .entityManager = *this->entityManager,
       .settings = this->gameSettings,
       .screenWidth = this->screenWidth,
       .screenHeight = this->screenHeight
   };
 
-  auto snake = new Snake(snakeParams);
-  snake->Initialize();
-
-  for (auto& segment : snake->body) {
-    this->entityManager.AddEntity(segment.get());
-  }
+  this->snake = std::make_unique<Snake>(snakeParams);
+  this->snake->Initialize();
 
   // Register Apple
 
-  auto appleTransform =
-      new Engine::Spatial::Transform2D(Core::Math::Vector2D::Zero(), 0, Engine::Spatial::Size2D::Zero());
+  // MAIN QUEST: Swap this out after the apple spawner exists
+  Engine::Spatial::Transform2D localTransform = Engine::Spatial::Transform2D::Empty();
+  AppleParams appleParams = AppleParams(&localTransform);
 
-  AppleParams appleParams = AppleParams(appleTransform);
-
-  auto apple = new Apple(appleParams);
-  this->entityManager.AddEntity(apple);
+  auto apple = make_unique<Apple>(appleParams);
+  this->entityManager->AddEntity(std::move(apple));
 }
 
 void GameplayScene::Update(float deltaTime)
@@ -56,7 +52,7 @@ void GameplayScene::Update(float deltaTime)
   // I'm going to need to find an itelligent way to handle update priority
   // and decide what should update in what order
   this->stateMachine.Update(deltaTime);
-  this->entityManager.OnUpdate(deltaTime);
+  this->entityManager->OnUpdate(deltaTime);
 
   // if (stateMachine.IsGameOver()) transition.SwitchTo("mainMenu");
 }

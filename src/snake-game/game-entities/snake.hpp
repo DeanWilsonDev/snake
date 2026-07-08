@@ -1,12 +1,12 @@
 #pragma once
 #include <deque>
-#include <memory>
 #include "core/math/vector-2d.hpp"
 #include "engine/spatial/transform-2d.hpp"
 
 namespace Core::Components {
 class TransformComponent2D;
 }
+
 namespace Physics::Components {
 class ColliderComponent2D;
 }
@@ -15,13 +15,31 @@ namespace Renderer2D::Component {
 class IRenderComponent2D;
 }
 
-namespace SnakeGame {
-class Apple;
+namespace Core::Entities {
+class IEntityManager;
+}
 
+namespace SnakeGame {
 class SnakeSegment;
+}
+
+namespace SnakeGame {
+class SnakeSegmentParams;
+}
+
+namespace SnakeGame {
 struct SnakeGameSettings;
 
+}
+
+namespace SnakeGame {
+class Apple;
+}
+
+namespace SnakeGame {
+
 struct SnakeParams {
+  Core::Entities::IEntityManager& entityManager;
   const SnakeGameSettings& settings;
   int screenWidth;
   int screenHeight;
@@ -37,6 +55,7 @@ class Snake final {
   void Destroy();
   void Move() const;
   void CheckIfShouldGrow();
+  void CreateSegment(SnakeSegmentParams params);
   void Teleport() const;
   void CreateHead();
   void CreateBody();
@@ -49,9 +68,10 @@ class Snake final {
   [[nodiscard]] const SnakeGameSettings& GetSnakeGameSettings() const { return this->settings; }
 
   SnakeSegment* head{};
-  std::deque<std::unique_ptr<SnakeSegment>> body;
+  std::deque<SnakeSegment*> body;
 
  private:
+  Core::Entities::IEntityManager& entityManager;
   const SnakeGameSettings& settings;
   int screenWidth;
   int screenHeight;

@@ -11,7 +11,6 @@
 namespace Engine::Spatial {
 struct Transform2D final : public Core::Spatial::ITransform2D {
  public:
-
   Core::Math::Vector2D position;
   // rotation is a float because in 2D you only need to rotate around the z axis.
   // there is no gimbal lock in 2D, so anything more than a float is overkill.

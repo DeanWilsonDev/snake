@@ -55,6 +55,7 @@ add_executable(
   src/engine/entities/entity-manager.cpp
   src/engine/entities/entity.cpp
   src/engine/entities/entity-activation-pipeline.cpp
+  src/engine/entities/registrars/render-component-registrar.cpp
   src/engine/events/event-bus.cpp
   src/engine/input/input-system.cpp
   src/engine/scenes/scene-manager.cpp

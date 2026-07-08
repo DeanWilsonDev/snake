@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "core/spatial/i-transform-2d.hpp"
 #include "engine/entities/entity.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"

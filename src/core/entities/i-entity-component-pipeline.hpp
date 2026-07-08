@@ -12,6 +12,7 @@ class IEntityComponentPipeline {
  public:
   virtual ~IEntityComponentPipeline() = default;
   virtual void Run(IEntity* entity) = 0;
+  virtual void Teardown(IEntity* entity) = 0;
 };
 
 }  // namespace Entities

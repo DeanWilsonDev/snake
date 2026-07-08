@@ -3,11 +3,11 @@
 //
 
 #pragma once
-#include "core/debug/i-on-debugable.hpp"
-#include "core/life-cycle-hooks/i-on-updatable.hpp"
+#include "core/entities/i-entity-manager.hpp"
 #include "engine/entities/entity-activation-pipeline.hpp"
 #include "engine/entities/entity-component-pipeline.hpp"
 
+#include <memory>
 #include <unordered_set>
 #include <vector>
 
@@ -25,16 +25,17 @@ namespace Engine {
 
 namespace Entities {
 
-class EntityManager : public Core::IOnUpdatable, Core::Debug::IOnDebugable {
+class EntityManager : public Core::Entities::IEntityManager {
  public:
   EntityManager(Core::Rendering::IRenderComponentManager* renderManager);
-  void AddEntity(Core::Entities::IEntity* entity);
+  Core::Entities::IEntity* AddEntity(std::unique_ptr<Core::Entities::IEntity> entity) override;
+  void RemoveEntity(Core::Entities::IEntity* entity) override;
   void OnUpdate(float deltaTime) override;
   void OnDebugUpdate() const override;
   void OnDebugRender() const override;
 
  private:
-  std::vector<Core::Entities::IEntity*> entities;
+  std::vector<std::unique_ptr<Core::Entities::IEntity>> entities;
   EntityComponentPipeline componentPipeline;
   EntityActivationPipeline activationPipeline;
   std::unordered_set<int> beginPlayFiredIds;

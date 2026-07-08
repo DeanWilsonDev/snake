@@ -1,7 +1,9 @@
 #include "snake-game/game-entities/snake.hpp"
+#include "core/logging/log.hpp"
 #include "snake-game/settings/snake-game-settings.hpp"
 #include "snake-segment.hpp"
 #include "core/math/vector-2d.hpp"
+#include "core/entities/i-entity-manager.hpp"
 #include "engine/spatial/transform-2d.hpp"
 #include "engine/spatial/components/transform-component-2d.hpp"
 
@@ -13,7 +15,8 @@ namespace SnakeGame {
 Snake::~Snake() = default;
 
 Snake::Snake(const SnakeParams& snakeParams)
-    : settings(snakeParams.settings)
+    : entityManager(snakeParams.entityManager)
+    , settings(snakeParams.settings)
     , screenWidth(snakeParams.screenWidth)
     , screenHeight(snakeParams.screenHeight)
 {
@@ -86,29 +89,41 @@ void Snake::CreateBody()
   for (int i = 0; i < this->length; i++) {
     auto nextSegmentTransform = Engine::Spatial::Transform2D(this->transform);
 
-    nextSegmentTransform.position.x =
-        std::round((this->transform.position.x - this->size * static_cast<float>(i)) * this->size);
-    nextSegmentTransform.position.y =
-        std::round((this->transform.position.y / this->size) * this->size);
+    nextSegmentTransform.SetPosition(
+        Core::Math::Vector2D(
+            std::round(
+                (this->transform.position.x - this->size * static_cast<float>(i)) * this->size
+            ),
+            std::round((this->transform.position.y / this->size) * this->size)
+        )
+    );
 
     auto params = SnakeSegmentParams{i, &nextSegmentTransform};
-    this->body.push_back(std::make_unique<SnakeSegment>(params));
-  }
+    this->CreateSegment(params);
+  }  // namespace SnakeGame
 
-  this->head = this->body.front().get();
+  this->head = this->body.front();
 }
 
 void Snake::CheckIfShouldGrow()
 {
   if (this->grow) {
-    const auto segmentParams = SnakeSegmentParams{
+    const auto params = SnakeSegmentParams{
         this->length, &this->body.back()->GetTransformComponent().GetTransform()
     };
 
-    this->body.push_back(make_unique<SnakeSegment>(segmentParams));
+    this->CreateSegment(params);
+
     this->length++;
     this->grow = false;
   }
+}
+
+void Snake::CreateSegment(SnakeSegmentParams params)
+{
+  auto segment = std::make_unique<SnakeSegment>(params);
+  auto bodyPart = this->entityManager.AddEntity(std::move(segment));
+  this->body.push_back(static_cast<SnakeSegment*>(bodyPart));
 }
 
 void Snake::Teleport() const
@@ -155,6 +170,9 @@ void Snake::SetActive(const bool enabled) const
 
 void Snake::Destroy()
 {
+  for (auto& segment : this->body) {
+    this->entityManager.RemoveEntity(segment);
+  }
   this->body.clear();
   this->head = nullptr;
 }

@@ -80,7 +80,7 @@ void GameplayState::Update(float)
       break;
     }
 
-    if (snake->head != nullptr && snake->body[i].get() != snake->head) {
+    if (snake->head != nullptr && snake->body[i] != snake->head) {
       // Side Quest: [Debug] Create a Debug module to allow for Debug drawing
       // if (this->debugEnabled) {
       //   DrawRectangleRec(snake->body[i]->GetBounds(), RED);

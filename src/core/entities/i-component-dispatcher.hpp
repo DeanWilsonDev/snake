@@ -4,15 +4,24 @@
 
 #pragma once
 
-namespace Core {
-namespace Entities {
+#include <memory>
+
+namespace Core::Entities {
 class IEntity;
+}
+
+namespace Core::Entities {
+class IComponentRegistrar;
+}
+
+namespace Core::Entities {
 
 class IComponentDispatcher {
  public:
   virtual ~IComponentDispatcher() = default;
   virtual void Dispatch(IEntity* entity) = 0;
+  virtual void Teardown(IEntity* entity) = 0;
+  virtual void AddRegistrar(std::unique_ptr<Core::Entities::IComponentRegistrar> registrar) = 0;
 };
 
-}  // namespace Entities
-}  // namespace Core
+}  // namespace Core::Entities

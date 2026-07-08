@@ -16,7 +16,7 @@ GameplayStateMachine::GameplayStateMachine(std::unique_ptr<Core::State::IGameSta
     : StateMachine(std::move(currentState))
 {
   if (!currentState) {
-    Engine::State::StateMachine::ChangeState(std::make_unique<MainMenuState>(this->gameContext));
+    // Engine::State::StateMachine::ChangeState(std::make_unique<MainMenuState>(this->gameContext));
   }
 }
 
@@ -27,12 +27,8 @@ void GameplayStateMachine::Update(const float deltaTime)
   Engine::State::StateMachine::Update(deltaTime);
 }
 
-void GameplayStateMachine::DebugUpdate() const
-{
-}
+void GameplayStateMachine::DebugUpdate() const {}
 
-void GameplayStateMachine::DebugRender() const
-{
-}
+void GameplayStateMachine::DebugRender() const {}
 
 }  // namespace SnakeGame

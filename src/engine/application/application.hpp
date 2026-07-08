@@ -61,7 +61,7 @@ class Application : public Core::IApplication {
   virtual void RegisterDependencies() override;
   virtual void Configure(Config::ApplicationConfig& config) override;
   virtual void Initialize() override;
-  virtual void OnUpdate(float deltaTime) override;
+  virtual void OnUpdate(const float deltaTime) override;
   virtual void OnDebugUpdate() const override;
   virtual void OnDebugRender() const override;
   virtual void OnRender(const Core::Rendering::IRenderer& renderer) const override;

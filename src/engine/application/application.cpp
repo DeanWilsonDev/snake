@@ -183,7 +183,13 @@ void Application::Run()
 
 void Application::Configure(Config::ApplicationConfig&) {}
 
-void Application::OnUpdate(float) {}
+void Application::OnUpdate(const float deltaTime)
+{
+  if (this->sceneManager) {
+    this->sceneManager->OnUpdate(deltaTime);
+  }
+}
+
 void Application::OnDebugUpdate() const {}
 
 void Application::OnRender(const Core::Rendering::IRenderer& renderer) const

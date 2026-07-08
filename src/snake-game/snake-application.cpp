@@ -88,4 +88,9 @@ const SnakeGame::SnakeGameSettings& SnakeApplication::GetSnakeSettings() const
   return static_cast<SnakeGame::SnakeGameSettings&>(*this->GetConfig().game);
 }
 
+void SnakeApplication::OnUpdate(const float deltaTime) {
+    Engine::Application::OnUpdate(deltaTime);
+
+}
+
 }  // namespace SnakeGame

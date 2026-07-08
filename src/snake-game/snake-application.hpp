@@ -23,6 +23,7 @@ class SnakeApplication final : public Engine::Application {
   virtual void Initialize() override;
   virtual void Configure(Engine::Config::ApplicationConfig& config) override;
   virtual void RegisterDependencies() override;
+  virtual void OnUpdate(const float deltaTime) override;
   [[nodiscard]] const SnakeGameSettings& GetSnakeSettings() const;
 };
 

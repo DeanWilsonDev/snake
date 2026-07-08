@@ -51,13 +51,13 @@ language hints, and `inline code` for symbols and paths — the stylesheet theme
 Run the script (it does: `marked` → HTML → styled template → Chrome `--print-to-pdf`):
 
 ```bash
-~/.claude/skills/code-review-report/generate-report-pdf.sh "code-reviews/${TS}_CODE_REVIEW.md"
+.claude/skills/code-review-report/generate-report-pdf.sh "code-reviews/${TS}_CODE_REVIEW.md"
 ```
 
 - Output defaults to the input path with a `.pdf` extension, so it lands next to the
   Markdown in `code-reviews/` with the same datetime prefix.
 - Override output or stylesheet: `generate-report-pdf.sh <input.md> [output.pdf] [style.css]`
-- Make it executable once if needed: `chmod +x ~/.claude/skills/code-review-report/generate-report-pdf.sh`
+- Make it executable once if needed: `chmod +x .claude/skills/code-review-report/generate-report-pdf.sh`
 
 Report both file paths back to the user when done.
 

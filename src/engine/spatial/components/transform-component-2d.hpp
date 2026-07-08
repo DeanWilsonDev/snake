@@ -6,6 +6,7 @@
 
 #include "core/components/i-component.hpp"
 #include "core/spatial/i-transform-2d.hpp"
+#include "core/spatial/components/i-transform-component.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/spatial/i-size-2d.hpp"
 #include "engine/spatial/transform-2d.hpp"
@@ -13,8 +14,7 @@
 
 namespace Engine::Spatial::Components {
 
-class TransformComponent2D final : public Core::Components::IComponent,
-                                   public Core::Spatial::ITransform2D {
+class TransformComponent2D final : public Core::Spatial::Components::ITransformComponent2D {
  public:
   Core::Math::Vector2D position{};
   // rotation is a float because in 2D you only need to rotate around the z axis.
@@ -47,7 +47,7 @@ class TransformComponent2D final : public Core::Components::IComponent,
   void SetRotation(const float value) override { this->rotation = value; };
   void SetScale(const Core::Spatial::ISize2D& value) override { this->scale = value; };
 
-  [[nodiscard]] Core::Spatial::ITransform2D& GetTransform();
+  [[nodiscard]] Core::Spatial::ITransform2D& GetTransform() override;
 };
 
 }  // namespace Engine::Spatial::Components

@@ -9,14 +9,14 @@
 #include "core/math/vector-2d.hpp"
 #include "renderer-2d/components/render-component-2d.hpp"
 
-#include "core/components/transform-component-2d.hpp"
+#include "engine/spatial/components/transform-component-2d.hpp"
 
 namespace SnakeGame {
 
 SnakeSegment::SnakeSegment(const SnakeSegmentParams& params) : Entity(params), index(params.index)
 {
   this->transformComponent =
-      make_unique<Core::Components::TransformComponent2D>(&params.initialTransform);
+      make_unique<Engine::Spatial::Components::TransformComponent2D>(&params.initialTransform);
 }
 
 SnakeSegment::~SnakeSegment() {}
@@ -44,10 +44,10 @@ void SnakeSegment::DebugUpdate() const
     UMBRA_DEBUG(this->GetActive(), "Snake/Segment-{}/Active", this->index);
 
     UMBRA_DEBUG(
-        this->GetTransformComponent().GetScale().width, "Snake/Segment-{}/Scale/Width", this->index
+        this->GetTransformComponent().GetScale().GetWidth(), "Snake/Segment-{}/Scale/Width", this->index
     );
     UMBRA_DEBUG(
-        this->GetTransformComponent().GetScale().height,
+        this->GetTransformComponent().GetScale().GetHeight(),
         "Snake/Segment-{}/Scale/Height",
         this->index
     );

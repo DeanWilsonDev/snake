@@ -7,7 +7,7 @@ namespace Core {
 namespace Rendering {
 class IRenderer;
 }
-namespace Math {
+namespace Spatial {
 class ITransform2D;
 }
 
@@ -18,7 +18,7 @@ namespace Renderer2D::Components {
 class RenderComponent2D final : public Core::Rendering::Components::IRenderComponent2D {
  public:
   RenderComponent2D(
-      Core::Math::ITransform2D& transform, Core::Color::ColorRGBA color, const bool& active
+      Core::Spatial::ITransform2D& transform, Core::Color::ColorRGBA color, const bool& active
   );
   ~RenderComponent2D() override = default;
   void Render(const Core::Rendering::IRenderer& renderer) const override;
@@ -29,7 +29,7 @@ class RenderComponent2D final : public Core::Rendering::Components::IRenderCompo
   [[nodiscard]] const bool& GetActive() const override;
 
  private:
-  Core::Math::ITransform2D& transform;
+  Core::Spatial::ITransform2D& transform;
   Core::Color::ColorRGBA color;
   const bool& active;
 };

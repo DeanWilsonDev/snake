@@ -2,7 +2,7 @@
 #include <deque>
 #include <memory>
 #include "core/math/vector-2d.hpp"
-#include "core/math/transform-2d.hpp"
+#include "engine/spatial/transform-2d.hpp"
 
 namespace Core::Components {
 class TransformComponent2D;
@@ -63,6 +63,6 @@ class Snake final {
   Core::Math::Vector2D direction{};
   bool grow = false;
   bool debugEnabled = false;
-  Core::Math::Transform2D transform = Core::Math::Transform2D::Empty();
+  Engine::Spatial::Transform2D transform = Engine::Spatial::Transform2D::Empty();
 };
 }  // namespace SnakeGame

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "core/math/i-transform-2d.hpp"
+#include "core/spatial/i-transform-2d.hpp"
 #include "engine/entities/entity.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "core/rendering/components/i-render-component-2d.hpp"
@@ -17,9 +17,9 @@ class IRenderComponent2D;
 namespace SnakeGame {
 
 struct AppleParams : Engine::Entities::EntityParams {
-  Core::Math::ITransform2D* transform{nullptr};
+  Core::Spatial::ITransform2D* transform{nullptr};
 
-  AppleParams(Core::Math::ITransform2D* transform = nullptr, bool active = true)
+  AppleParams(Core::Spatial::ITransform2D* transform = nullptr, bool active = true)
       : Engine::Entities::EntityParams(transform, active)
   {
   }

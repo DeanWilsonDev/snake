@@ -4,7 +4,7 @@
 #include "snake-game/settings/snake-game-settings.hpp"
 #include "snake-game/game-entities/snake-segment.hpp"
 #include "snake-game/game-entities/apple.hpp"
-#include "core/math/transform-2d.hpp"
+#include "engine/spatial/transform-2d.hpp"
 #include "engine/entities/entity-manager.hpp"
 
 namespace SnakeGame {
@@ -42,7 +42,7 @@ void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
   // Register Apple
 
   auto appleTransform =
-      new Core::Math::Transform2D(Core::Math::Vector2D::Zero(), 0, Core::Math::Size2D::Zero());
+      new Engine::Spatial::Transform2D(Core::Math::Vector2D::Zero(), 0, Engine::Spatial::Size2D::Zero());
 
   AppleParams appleParams = AppleParams(appleTransform);
 

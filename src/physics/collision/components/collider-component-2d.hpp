@@ -6,13 +6,13 @@
 
 #include <memory>
 #include "core/components/i-collision-component-2d.hpp"
-#include "core/math/i-transform-2d.hpp"
+#include "core/spatial/i-transform-2d.hpp"
 #include "physics/collision/rectangle-collider-2d.hpp"
 
 namespace Physics::Collision::Components {
 
 struct ColliderComponentParams {
-  Core::Math::ITransform2D* transform;
+  Core::Spatial::ITransform2D* transform;
 };
 
 class ColliderComponent2D : public Core::Components::IColliderComponent2D {
@@ -25,7 +25,7 @@ class ColliderComponent2D : public Core::Components::IColliderComponent2D {
   }
 
  private:
-  Core::Math::ITransform2D* transform;
+  Core::Spatial::ITransform2D* transform;
   std::unique_ptr<Physics::Collision::RectangleCollider2D> collider;
 };
 }  // namespace Physics::Collision::Components

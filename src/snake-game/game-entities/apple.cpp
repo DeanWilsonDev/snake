@@ -6,8 +6,8 @@
 #include "debug/debug.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
-#include "core/math/size-2d.hpp"
-#include "core/components/transform-component-2d.hpp"
+#include "engine/spatial/size-2d.hpp"
+#include "engine/spatial/components/transform-component-2d.hpp"
 #include "core/rendering/components/i-render-component-2d.hpp"
 #include "renderer-2d/components/render-component-2d.hpp"
 #include "core/logging/log.hpp"
@@ -20,8 +20,8 @@ void Apple::OnRegistration()
 {
   LOG_TRACE("[Apple] Initializing Apple from Constructor");
 
-  this->transformComponent = make_unique<Core::Components::TransformComponent2D>(
-      Core::Math::Vector2D::Zero(), 0, Core::Math::Size2D(this->size)
+  this->transformComponent = make_unique<Engine::Spatial::Components::TransformComponent2D>(
+      Core::Math::Vector2D::Zero(), 0, Engine::Spatial::Size2D(this->size)
   );
 
   LOG_TRACE(

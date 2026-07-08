@@ -43,7 +43,8 @@ add_executable(
   ${PROJECT_NAME}
   src/core/color/color-hex.cpp
   src/core/color/color-rgba.cpp
-  src/core/components/transform-component-2d.cpp
+  src/engine/spatial/components/transform-component-2d.cpp
+  src/engine/spatial/size-2d.cpp
   src/core/logging/log.cpp
   src/debug/debug-hud.cpp
   src/debug/user-interface/debug-user-interface-manager.cpp

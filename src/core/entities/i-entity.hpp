@@ -17,8 +17,13 @@
 namespace Core {
 namespace Components {
 class IComponent;
-class TransformComponent2D;
 }  // namespace Components
+
+namespace Spatial {
+namespace Components {
+class ITransformComponent2D;
+}  // namespace Components
+}  // namespace Spatial
 
 namespace Entities {
 
@@ -34,8 +39,8 @@ class IEntity : public Core::IBeginPlay,
   virtual bool IsActive() const = 0;
   virtual void SetActive(bool active) = 0;
   virtual const bool& GetActive() const = 0;
-  virtual Components::TransformComponent2D& GetTransformComponent() = 0;
-  virtual const Components::TransformComponent2D& GetTransformComponent() const = 0;
+  virtual Core::Spatial::Components::ITransformComponent2D& GetTransformComponent() = 0;
+  virtual const Core::Spatial::Components::ITransformComponent2D& GetTransformComponent() const = 0;
 
   template <typename T>
   T* GetComponent()

@@ -1,13 +1,15 @@
 #pragma once
 
-#include "core/math/i-transform-2d.hpp"
+#include "core/spatial/i-transform-2d.hpp"
 #include "core/math/vector-2d.hpp"
-#include "core/math/size-2d.hpp"
+#include "engine/spatial/size-2d.hpp"
 #include "core/geometry/rectangle.hpp"
 
 namespace Physics::Collision {
 
 using namespace Core::Math;
+using namespace Core::Spatial;
+using namespace Engine::Spatial;
 using namespace Core::Geometry;
 
 struct RectangleCollider2DParams {

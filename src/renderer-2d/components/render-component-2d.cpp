@@ -4,13 +4,13 @@
 
 #include "renderer-2d/components/render-component-2d.hpp"
 #include "core/color/color-rgba.hpp"
-#include "core/math/i-transform-2d.hpp"
+#include "core/spatial/i-transform-2d.hpp"
 #include "core/rendering/i-renderer.hpp"
 
 namespace Renderer2D::Components {
 
 RenderComponent2D::RenderComponent2D(
-    Core::Math::ITransform2D& transform, const Core::Color::ColorRGBA color, const bool& active
+    Core::Spatial::ITransform2D& transform, const Core::Color::ColorRGBA color, const bool& active
 )
     : transform(transform), color(color), active(active)
 {
@@ -23,7 +23,7 @@ void RenderComponent2D::Render(const Core::Rendering::IRenderer& renderer) const
   }
 
   auto position = transform.GetPosition();
-  const auto scale = transform.GetScale();
+  const auto& scale = transform.GetScale();
 
   // Side Quest: [RenderComponent2D] Allow for rendering different shapes and Sprites
   renderer.DrawRectangle(position.x, position.y, scale.GetWidth(), scale.GetHeight(), color);

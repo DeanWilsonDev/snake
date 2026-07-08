@@ -2,8 +2,8 @@
 #include "snake-game/settings/snake-game-settings.hpp"
 #include "snake-segment.hpp"
 #include "core/math/vector-2d.hpp"
-#include "core/math/transform-2d.hpp"
-#include "core/components/transform-component-2d.hpp"
+#include "engine/spatial/transform-2d.hpp"
+#include "engine/spatial/components/transform-component-2d.hpp"
 
 #include <cmath>
 #include <memory>
@@ -19,7 +19,7 @@ Snake::Snake(const SnakeParams& snakeParams)
 {
   auto snakeSize = static_cast<float>(settings.boxSize);
 
-  this->transform = Core::Math::Transform2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
+  this->transform = Engine::Spatial::Transform2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
 }
 
 Snake* Snake::Initialize()
@@ -84,7 +84,7 @@ void Snake::Move() const
 void Snake::CreateBody()
 {
   for (int i = 0; i < this->length; i++) {
-    auto nextSegmentTransform = Core::Math::Transform2D(this->transform);
+    auto nextSegmentTransform = Engine::Spatial::Transform2D(this->transform);
 
     nextSegmentTransform.position.x =
         std::round((this->transform.position.x - this->size * static_cast<float>(i)) * this->size);

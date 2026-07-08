@@ -9,7 +9,7 @@ namespace Core::Spatial {
 
 struct ISize2D {
  public:
-  ~ISize2D() = default;
+  virtual ~ISize2D() = default;
   virtual float GetWidth() const = 0;
   virtual float GetHeight() const = 0;
 

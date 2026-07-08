@@ -5,7 +5,7 @@
 #include "core/rendering/components/i-render-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
-#include "core/math/i-transform-2d.hpp"
+#include "core/spatial/i-transform-2d.hpp"
 
 namespace Core::Components {
 class TransformComponent2D;
@@ -17,9 +17,9 @@ namespace SnakeGame {
 
 struct SnakeSegmentParams : Engine::Entities::EntityParams {
   int index{0};
-  Core::Math::ITransform2D& initialTransform;
+  Core::Spatial::ITransform2D& initialTransform;
 
-  SnakeSegmentParams(int index, Core::Math::ITransform2D* transform, bool active = true)
+  SnakeSegmentParams(int index, Core::Spatial::ITransform2D* transform, bool active = true)
       : Engine::Entities::EntityParams(transform, active)
       , index(index)
       , initialTransform(*transform)

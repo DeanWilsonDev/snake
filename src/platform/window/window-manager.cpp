@@ -5,7 +5,7 @@
 #include "window-manager.hpp"
 
 #include "i-window.hpp"
-#include "core/logging/loghpp"
+#include "core/logging/log.hpp"
 
 namespace Platform::Window {
 

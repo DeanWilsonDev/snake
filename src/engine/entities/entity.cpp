@@ -4,7 +4,9 @@
 
 #include "engine/entities/entity.hpp"
 #include "core/logging/log.hpp"
-#include "core/components/transform-component-2d.hpp"
+#include "engine/spatial/components/transform-component-2d.hpp"
+#include "engine/spatial/size-2d.hpp"
+
 #include <functional>
 #include <memory>
 
@@ -16,7 +18,7 @@ Entity::Entity(const EntityParams& params) : active(params.active)
 
   if (params.transform) {
     this->transformComponent =
-        std::make_unique<Core::Components::TransformComponent2D>(params.transform);
+        std::make_unique<Engine::Spatial::Components::TransformComponent2D>(params.transform);
   }
 
   LOG_TRACE(
@@ -25,8 +27,8 @@ Entity::Entity(const EntityParams& params) : active(params.active)
   );
 
   if (this->transformComponent == nullptr) {
-    this->transformComponent = make_unique<Core::Components::TransformComponent2D>(
-        Core::Math::Vector2D::Zero(), 0.0f, Core::Math::Size2D::Zero()
+    this->transformComponent = make_unique<Engine::Spatial::Components::TransformComponent2D>(
+        Core::Math::Vector2D::Zero(), 0.0f, Engine::Spatial::Size2D::Zero()
     );
   }
 };
@@ -77,12 +79,12 @@ void Entity::ForEachComponent(
   }
 }
 
-Core::Components::TransformComponent2D& Entity::GetTransformComponent()
+Core::Spatial::Components::ITransformComponent2D& Entity::GetTransformComponent()
 {
   return *this->transformComponent;
 };
 
-const Core::Components::TransformComponent2D& Entity::GetTransformComponent() const
+const Core::Spatial::Components::ITransformComponent2D& Entity::GetTransformComponent() const
 {
   return *this->transformComponent;
 };

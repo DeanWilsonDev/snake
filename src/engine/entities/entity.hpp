@@ -5,6 +5,7 @@
 
 #include "core/components/i-component.hpp"
 #include "core/entities/i-entity.hpp"
+
 #include <cassert>
 #include <functional>
 #include <typeindex>
@@ -14,19 +15,23 @@
 using namespace Core::Entities;
 
 namespace Core {
-namespace Math {
+namespace Spatial {
 class ITransform2D;
 }
 }  // namespace Core
+
+namespace Engine::Spatial::Components {
+class TransformComponent2D;
+}  // namespace Engine::Spatial::Components
 
 namespace Engine::Entities {
 
 struct EntityParams {
   bool active = true;
 
-  Core::Math::ITransform2D* transform = {nullptr};
+  Core::Spatial::ITransform2D* transform = {nullptr};
 
-  EntityParams(Core::Math::ITransform2D* transform = nullptr, bool active = true)
+  EntityParams(Core::Spatial::ITransform2D* transform = nullptr, bool active = true)
       : active(active), transform(transform)
   {
   }
@@ -55,8 +60,8 @@ class Entity : public Core::Entities::IEntity {
   template <typename T>
   void RemoveComponent();
 
-  virtual Core::Components::TransformComponent2D& GetTransformComponent() override;
-  virtual const Core::Components::TransformComponent2D& GetTransformComponent() const override;
+  virtual Core::Spatial::Components::ITransformComponent2D& GetTransformComponent() override;
+  virtual const Core::Spatial::Components::ITransformComponent2D& GetTransformComponent() const override;
 
   void ForEachComponent(
       std::function<bool(const Core::Components::IComponent*)> visitor
@@ -66,7 +71,7 @@ class Entity : public Core::Entities::IEntity {
  protected:
   // 1UP: Refactor location of TransformComponent2D so that it lives in engine and has an interface
   // in Core
-  std::unique_ptr<Core::Components::TransformComponent2D> transformComponent{nullptr};
+  std::unique_ptr<Engine::Spatial::Components::TransformComponent2D> transformComponent{nullptr};
 
  private:
   std::unordered_map<std::type_index, std::unique_ptr<Core::Components::IComponent>> components{};

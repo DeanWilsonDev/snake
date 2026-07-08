@@ -25,29 +25,14 @@ GameplayStateMachine::~GameplayStateMachine() {}
 void GameplayStateMachine::Update(const float deltaTime)
 {
   Engine::State::StateMachine::Update(deltaTime);
-  // Main Quest: Remove all this entity stuff the the state machine to the scene manager
-  this->entityManager->OnUpdate(deltaTime);
 }
 
 void GameplayStateMachine::DebugUpdate() const
 {
-  if (this->entityManager) {
-    this->entityManager->OnDebugUpdate();
-  }
 }
 
 void GameplayStateMachine::DebugRender() const
 {
-  if (this->entityManager) {
-    this->entityManager->OnDebugRender();
-  }
-}
-
-void GameplayStateMachine::SetGameEntityManager(
-    std::shared_ptr<Engine::Entities::EntityManager> entityManager
-)
-{
-  this->entityManager = entityManager;
 }
 
 }  // namespace SnakeGame

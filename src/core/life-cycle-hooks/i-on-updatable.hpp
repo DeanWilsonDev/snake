@@ -9,7 +9,7 @@ namespace Core {
 class IOnUpdatable {
  public:
   virtual ~IOnUpdatable() = default;
-  virtual void OnUpdate(float deltaTime) = 0;
+  virtual void OnUpdate(const float deltaTime) = 0;
 };
 
 }  // namespace Core

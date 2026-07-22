@@ -1,5 +1,6 @@
 #pragma once
 #include <deque>
+#include "core/events/i-event-bus.hpp"
 #include "core/math/vector-2d.hpp"
 #include "engine/spatial/transform-2d.hpp"
 
@@ -43,6 +44,7 @@ struct SnakeParams {
   const SnakeGameSettings& settings;
   int screenWidth;
   int screenHeight;
+  Core::Events::IEventBus& eventBus;
 };
 
 class Snake final {

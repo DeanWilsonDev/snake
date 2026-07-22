@@ -1,5 +1,5 @@
 #include "game-over-state.hpp"
-#include "engine/input/input-action.hpp"
+#include "core/input/action.hpp"
 #include "snake-game/game-state/gameplay-state.hpp"
 #include "gameplay-state-machine.hpp"
 #include "core/state/i-game-state.hpp"
@@ -29,9 +29,9 @@ void GameOverState::Enter()
 
 void GameOverState::Update(float)
 {
-  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::Confirm)) {
-    this->GetNextState();
-  }
+  // if (this->gameContext.input->IsActionPressed(Core::Input::Action::Confirm)) {
+  //   this->GetNextState();
+  // }
 }
 
 void GameOverState::DebugUpdate() const {}

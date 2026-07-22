@@ -5,8 +5,7 @@
 #pragma once
 
 #include <memory>
-#include "core/debug/i-on-debugable.hpp"
-#include "core/life-cycle-hooks/i-on-updatable.hpp"
+#include "core/systems/i-system.hpp"
 
 namespace Core::Entities {
 class IEntity;
@@ -16,12 +15,12 @@ namespace Core::Debug {
 class IOnDebugable;
 }
 
-namespace Core{
+namespace Core {
 class IOnUpdatable;
 }
 
 namespace Core::Entities {
-class IEntityManager: public Core::IOnUpdatable, public Core::Debug::IOnDebugable {
+class IEntityManager : public Core::Systems::ISystem {
  public:
   virtual ~IEntityManager() = default;
   virtual Core::Entities::IEntity* AddEntity(std::unique_ptr<Core::Entities::IEntity> entity) = 0;

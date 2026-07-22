@@ -1,10 +1,11 @@
 #include "event-bus.hpp"
 #include "core/events/i-event-bus.hpp"
+#include "core/events/i-event.hpp"
 
 namespace Engine::Events {
 
 Core::Events::SubscriptionToken EventBus::SubscribeImplementation(
-    std::type_index eventType, std::function<void(const std::any&)> listener
+    std::type_index eventType, std::function<void(const Core::Events::IEvent&)> listener
 )
 {
   Core::Events::SubscriptionToken token = this->nextToken++;
@@ -23,7 +24,7 @@ void EventBus::UnsubscribeImplementation(
   eventListeners->second.erase(token);
 }
 
-void EventBus::PublishImplementation(std::type_index eventType, const std::any& event)
+void EventBus::PublishImplementation(std::type_index eventType, const Core::Events::IEvent& event)
 {
   auto eventListeners = this->listeners.find(eventType);
   if (eventListeners == this->listeners.end()) {

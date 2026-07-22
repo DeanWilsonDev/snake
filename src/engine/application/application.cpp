@@ -4,6 +4,7 @@
 #include "core/dependency-injection/i-dependency-injector.hpp"
 #include "core/events/i-event-bus.hpp"
 #include "core/input/i-input-backend.hpp"
+#include "core/input/i-input-system.hpp"
 #include "core/logging/log.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/rendering/i-renderer.hpp"
@@ -20,6 +21,7 @@
 #include "engine/config/project-settings.hpp"
 #include "engine/dependency-injection/dependency-injector.hpp"
 #include "engine/events/event-bus.hpp"
+#include "engine/input/input-system.hpp"
 #include "engine/scenes/scene-manager.hpp"
 #include "engine/user-interface/user-interface-manager.hpp"
 #include "engine/utils/string-utils.hpp"
@@ -32,6 +34,7 @@
 
 #include "renderer-2d/render-component-2d-manager.hpp"
 
+#include <cstdlib>
 #include <memory>
 #include <cassert>
 #include <chrono>
@@ -57,17 +60,32 @@ void Application::Initialize()
   LOG_CORE_TRACE("[Application] Initializing");
   this->window = this->injector->Resolve<Core::Window::IWindow>();
   this->renderer = this->injector->Resolve<Core::Rendering::IRenderer>();
-  this->input = this->injector->Resolve<Core::Input::IInputBackend>();
+  this->inputBackend = this->injector->Resolve<Core::Input::IInputBackend>();
   this->userInterface = this->injector->Resolve<Core::UserInterface::IUserInterface>();
   this->eventBus = this->injector->Resolve<Core::Events::IEventBus>();
   this->sceneManager = this->injector->Resolve<Core::Scenes::ISceneManager>();
   this->renderComponentManager =
       this->injector->Resolve<Core::Rendering::IRenderComponentManager>();
+
+  // Systems
+
+  // 1UP: Debug System differs from the new system architecture. Align?
   Debug::System.SetActiveDebugHUD(this->injector->Resolve<Core::Debug::IDebugHUD>());
+
+  // SIDE QUEST: Input is the first system created this way, however.. There are a handful of
+  // existing systems that can be moved to fit this shape. EntityManager, sceneManager, etc. They
+  // can all become systems and i can have control over their lifetimes from here.
+
+  // Input
+  auto inputSystem = std::make_shared<Engine::Input::InputSystem>(
+      *inputBackend, *eventBus, config.engine.input.keyMap
+  );
+
+  this->RegisterSystem(inputSystem);
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&this->window));
   LOG_CORE_TRACE("[Application] Renderer set to {}", static_cast<void*>(&this->renderer));
-  LOG_CORE_TRACE("[Application] Input set to {}", static_cast<void*>(&this->input));
+  LOG_CORE_TRACE("[Application] Input set to {}", static_cast<void*>(&this->inputBackend));
   LOG_CORE_TRACE("[Application] UserInterface set to {}", static_cast<void*>(&this->userInterface));
   LOG_CORE_TRACE("[Application] EventBus set to {}", static_cast<void*>(&this->eventBus));
   LOG_CORE_TRACE("[Application] SceneManager set to {}", static_cast<void*>(&this->sceneManager));
@@ -76,7 +94,7 @@ void Application::Initialize()
   LOG_CORE_TRACE("[Application] Validating Dependencies");
   assert(this->window);
   assert(this->renderer);
-  assert(this->input);
+  assert(this->inputBackend);
   assert(this->userInterface);
   assert(this->eventBus);
   assert(this->sceneManager);
@@ -98,6 +116,11 @@ void Application::Initialize()
   }
   this->window->CreateWindow(config.engine.window.width, config.engine.window.height, windowTitle);
   this->window->SetTargetFPS(config.engine.window.targetFPS);
+}
+
+void Application::RegisterSystem(const std::shared_ptr<Core::Systems::ISystem>& system) 
+{
+  this->systems.push_back(std::move(system));
 }
 
 void Application::RegisterDependencies()
@@ -185,12 +208,17 @@ void Application::Configure(Config::ApplicationConfig&) {}
 
 void Application::OnUpdate(const float deltaTime)
 {
+  for (auto& system : this->systems) system->OnUpdate(deltaTime);
+
   if (this->sceneManager) {
     this->sceneManager->OnUpdate(deltaTime);
   }
 }
 
-void Application::OnDebugUpdate() const {}
+void Application::OnDebugUpdate() const
+{
+  for (auto& system : this->systems) system->OnDebugUpdate();
+}
 
 void Application::OnRender(const Core::Rendering::IRenderer& renderer) const
 {
@@ -200,7 +228,10 @@ void Application::OnRender(const Core::Rendering::IRenderer& renderer) const
   this->renderComponentManager->OnRender(renderer);
 }
 
-void Application::OnDebugRender() const {}
+void Application::OnDebugRender() const
+{
+  for (auto& system : this->systems) system->OnDebugRender();
+}
 
 void Application::Shutdown()
 {

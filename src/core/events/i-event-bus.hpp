@@ -6,10 +6,9 @@
 
 #include <functional>
 #include <typeindex>
-#include <any>
+#include "core/events/i-event.hpp"
 
-namespace Core {
-namespace Events {
+namespace Core::Events {
 
 using SubscriptionToken = size_t;
 
@@ -20,8 +19,8 @@ class IEventBus {
   template <typename TEvent>
   SubscriptionToken Subscribe(std::function<void(const TEvent&)> listener)
   {
-    return SubscribeImplementation(typeid(TEvent), [listener](const std::any& event) {
-      listener(std::any_cast<const TEvent&>(event));
+    return SubscribeImplementation(typeid(TEvent), [listener](const IEvent& event) {
+      listener(static_cast<const TEvent&>(event));
     });
   };
 
@@ -39,13 +38,11 @@ class IEventBus {
 
  protected:
   virtual SubscriptionToken SubscribeImplementation(
-      std::type_index eventType, std::function<void(const std::any&)> listener
+      std::type_index eventType, std::function<void(const IEvent&)> listener
   ) = 0;
 
   virtual void UnsubscribeImplementation(std::type_index eventType, SubscriptionToken token) = 0;
 
-  virtual void PublishImplementation(std::type_index eventType, const std::any& event) = 0;
+  virtual void PublishImplementation(std::type_index eventType, const IEvent& event) = 0;
 };
-}  // namespace Events
-
-}  // namespace Core
+}  // namespace Core::Events

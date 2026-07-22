@@ -1,7 +1,7 @@
 #include "gameplay-state.hpp"
 #include "core/state/i-game-state.hpp"
 #include "debug/debug.hpp"
-#include "engine/input/input-action.hpp"
+#include "core/input/action.hpp"
 #include "snake-game/game-state/game-over-state.hpp"
 #include "gameplay-state-machine.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
@@ -48,19 +48,19 @@ void GameplayState::Update(float)
   // Input polling should be replaced with event-driven input. The input system
   // publishes InputActionEvents onto the event bus when actions are pressed.
   // Entities and systems subscribe to those events rather than polling directly.
-  // See Engine::Events::IEventBus and Engine::Input::Action for existing pieces.
-  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::MoveLeft)) {
-    this->snake->SetDirection({-1.0f, 0.0f});
-  }
-  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::MoveRight)) {
-    this->snake->SetDirection({1.0f, 0.0f});
-  }
-  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::MoveDown)) {
-    this->snake->SetDirection({0.0f, 1.0f});
-  }
-  if (this->gameContext.input->IsActionPressed(Engine::Input::Action::MoveUp)) {
-    this->snake->SetDirection({0.0f, -1.0f});
-  }
+  // See Engine::Events::IEventBus and Core::Input::Action for existing pieces.
+  // if (this->gameContext.input->IsActionPressed(Core::Input::Action::MoveLeft)) {
+  //   this->snake->SetDirection({-1.0f, 0.0f});
+  // }
+  // if (this->gameContext.input->IsActionPressed(Core::Input::Action::MoveRight)) {
+  //   this->snake->SetDirection({1.0f, 0.0f});
+  // }
+  // if (this->gameContext.input->IsActionPressed(Core::Input::Action::MoveDown)) {
+  //   this->snake->SetDirection({0.0f, 1.0f});
+  // }
+  // if (this->gameContext.input->IsActionPressed(Core::Input::Action::MoveUp)) {
+  //   this->snake->SetDirection({0.0f, -1.0f});
+  // }
 
   if (Physics::Collision::RectangleCollider2D::Intersects(
           this->snake->head->GetColliderComponent().GetCollider().GetWorldRect(),

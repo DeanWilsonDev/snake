@@ -1,48 +1,36 @@
 #include "engine/input/input-system.hpp"
-#include "engine/input/input-action.hpp"
-#include "core/input/key-code.hpp"
+#include <memory>
+#include "core/events/i-event-bus.hpp"
 #include "core/input/i-input-backend.hpp"
-#include <cstddef>
+#include "core/input/key-map.hpp"
+#include "engine/input/input-dispatcher.hpp"
+#include "engine/input/sources/keyboard-input-source.hpp"
 
 using namespace Core::Input;
 
 namespace Engine::Input {
 
-InputSystem::InputSystem(IInputBackend& inputBackend) : inputBackend(inputBackend) {}
-
-void InputSystem::SetKeyMap(const KeyMap& map)
+InputSystem::InputSystem(
+    IInputBackend& inputBackend, Core::Events::IEventBus& eventBus, const KeyMap& keyMap
+)
+    : dispatcher(eventBus)
 {
-  this->keyMap = map;
+  this->dispatcher.AddSource(
+      std::make_unique<Engine::Input::Sources::KeyboardInputSource>(inputBackend, keyMap)
+  );
 }
 
-bool InputSystem::IsActionPressed(const Action action) const
+void InputSystem::OnUpdate(const float)
 {
-  for (KeyCode keyCode : this->keyMap[static_cast<size_t>(action)]) {
-    if (this->inputBackend.IsKeyPressed(keyCode)) {
-      return true;
-    }
-  }
-  return false;
+  this->dispatcher.Run();
 }
 
-bool InputSystem::IsActionDown(const Action action) const
+void InputSystem::OnDebugUpdate() const
 {
-  for (KeyCode keyCode : this->keyMap[static_cast<size_t>(action)]) {
-    if (this->inputBackend.IsKeyDown(keyCode)) {
-      return true;
-    }
-  }
-  return false;
 }
 
-bool InputSystem::IsActionReleased(const Action action) const
+void InputSystem::OnDebugRender() const
 {
-  for (KeyCode keyCode : this->keyMap[static_cast<size_t>(action)]) {
-    if (this->inputBackend.IsKeyReleased(keyCode)) {
-      return true;
-    }
-  }
-  return false;
 }
 
 }  // namespace Engine::Input

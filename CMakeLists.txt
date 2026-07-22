@@ -58,6 +58,8 @@ add_executable(
   src/engine/entities/registrars/render-component-registrar.cpp
   src/engine/events/event-bus.cpp
   src/engine/input/input-system.cpp
+  src/engine/input/input-dispatcher.cpp
+  src/engine/input/sources/keyboard-input-source.cpp
   src/engine/scenes/scene-manager.cpp
   src/engine/state/state-machine.cpp
   src/engine/ui/render-component-ui-manager.cpp

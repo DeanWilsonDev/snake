@@ -4,15 +4,10 @@
 
 #pragma once
 
-#include "core/input/key-code.hpp"
-#include "engine/input/input-system.hpp"
-#include <vector>
-
-using KeyCode = Core::Input::KeyCode;
+#include "core/input/key-map.hpp"
 
 namespace Engine::Config {
 struct InputConfig {
-  Engine::Input::KeyMap keyMap = {};
+  Core::Input::KeyMap keyMap = {};
 };
-
 }  // namespace Engine::Config

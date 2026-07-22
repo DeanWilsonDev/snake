@@ -9,9 +9,7 @@
 #include <string>
 #include <array>
 
-using namespace Core::Input;
-
-namespace Engine {
+namespace Core {
 namespace Input {
 
 enum class Action {
@@ -37,4 +35,4 @@ class InputAction {
 
 }  // namespace Input
 
-}  // namespace Engine
+}  // namespace Core

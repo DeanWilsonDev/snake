@@ -4,12 +4,9 @@
 
 #pragma once
 
-namespace Core {
-namespace Events {
-  class IEvent {
-    public:
-      virtual ~IEvent() = default;
-  };
-}
-
-}  // namespace Core
+namespace Core::Events {
+struct IEvent {
+ public:
+  virtual ~IEvent() = default;
+};
+}  // namespace Core::Events

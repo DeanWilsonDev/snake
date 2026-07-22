@@ -5,10 +5,10 @@
 #pragma once
 
 #include "core/events/i-event-bus.hpp"
+#include "core/events/i-event.hpp"
 #include <unordered_map>
 
-namespace Engine {
-namespace Events {
+namespace Engine::Events {
 class EventBus : public Core::Events::IEventBus {
  public:
   EventBus() = default;
@@ -16,20 +16,19 @@ class EventBus : public Core::Events::IEventBus {
 
  protected:
   Core::Events::SubscriptionToken SubscribeImplementation(
-      std::type_index eventType, std::function<void(const std::any&)> listener
+      std::type_index eventType, std::function<void(const Core::Events::IEvent&)> listener
   ) override;
 
   void UnsubscribeImplementation(
       std::type_index eventType, Core::Events::SubscriptionToken token
   ) override;
 
-  void PublishImplementation(std::type_index eventType, const std::any& event) override;
+  void PublishImplementation(std::type_index eventType, const Core::Events::IEvent& event) override;
 
  private:
   using ListenerMap =
-      std::unordered_map<Core::Events::SubscriptionToken, std::function<void(const std::any&)>>;
+      std::unordered_map<Core::Events::SubscriptionToken, std::function<void(const Core::Events::IEvent&)>>;
   std::unordered_map<std::type_index, ListenerMap> listeners;
   Core::Events::SubscriptionToken nextToken = 0;
 };
-}  // namespace Events
-}  // namespace Engine
+}  // namespace Engine::Events

@@ -11,11 +11,14 @@
 #include "core/rendering/i-on-renderable.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
-namespace Engine {
-namespace Config {
+
+namespace Core::Systems {
+class ISystem;
+}  // namespace Core::Systems
+
+namespace Engine::Config {
 struct ApplicationConfig;
-}
-}  // namespace Engine
+}  // namespace Engine::Config
 
 namespace Core {
 
@@ -39,6 +42,7 @@ class IApplication : public Core::IInitialize,
   virtual Core::Scenes::ISceneManager& GetSceneManager() const = 0;
   virtual Core::Events::IEventBus& GetEventBus() const = 0;
   virtual Core::Rendering::IRenderComponentManager& GetRenderComponentManager() const = 0;
+  virtual void RegisterSystem(const std::shared_ptr<Core::Systems::ISystem>& system) = 0;
 
   virtual void Shutdown() = 0;
 };

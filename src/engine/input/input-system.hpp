@@ -4,13 +4,11 @@
 
 #pragma once
 
-#include "core/input/key-code.hpp"
+#include "core/events/i-event-bus.hpp"
 #include "core/input/i-input-backend.hpp"
-#include "engine/input/input-action.hpp"
-
-#include <array>
-#include <cstddef>
-#include <vector>
+#include "core/input/key-map.hpp"
+#include "core/systems/i-system.hpp"
+#include "engine/input/input-dispatcher.hpp"
 
 using namespace Core::Input;
 
@@ -18,20 +16,15 @@ namespace Engine {
 
 namespace Input {
 
-using KeyMap = std::array<std::vector<KeyCode>, static_cast<size_t>(Action::Count)>;
-
-class InputSystem {
+class InputSystem final : public Core::Systems::ISystem {
  public:
-  InputSystem(IInputBackend& inputBackend);
-  ~InputSystem() = default;
-  void SetKeyMap(const KeyMap& map);
-  bool IsActionPressed(const Action action) const;
-  bool IsActionDown(const Action action) const;
-  bool IsActionReleased(const Action action) const;
+  InputSystem(IInputBackend& inputBackend, Core::Events::IEventBus& eventBus, const KeyMap& keyMap);
+  void OnUpdate(const float deltaTime) override;
+  void OnDebugUpdate() const override;
+  void OnDebugRender() const override;
 
  private:
-  KeyMap keyMap;
-  IInputBackend& inputBackend;
+  InputDispatcher dispatcher;
 };
 }  // namespace Input
 

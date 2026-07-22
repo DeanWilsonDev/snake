@@ -5,6 +5,7 @@
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
+#include "core/systems/i-system.hpp"
 #include "debug/debug-hud.hpp"
 #include "engine/config/application-config.hpp"
 #include "core/dependency-injection/i-dependency-injector.hpp"
@@ -13,35 +14,43 @@
 #include "core/input/i-input-backend.hpp"
 
 #include <memory>
+#include <vector>
 
-namespace Core {
-namespace Debug {
+namespace Core::Debug {
 class IDebugUserInterface;
 }
-namespace Scenes {
+
+namespace Core::Scenes {
 class ISceneManager;
 }
-namespace State {
-class IStateMachine;
-class IGameState;
-}  // namespace State
-namespace Rendering {
-class RenderComponent2DManager;
-class IRenderer;
-}  // namespace Rendering
-namespace UserInterface {
-class IUserInterface;
-}  // namespace UserInterface
-}  // namespace Core
 
-namespace Platform {
-namespace Input {
+namespace Core::State {
+class IStateMachine;
+}  // namespace Core::State
+
+namespace Core::State {
+class IGameState;
+}  // namespace Core::State
+
+namespace Core::Rendering {
+class RenderComponent2DManager;
+}  // namespace Core::Rendering
+
+namespace Core::Rendering {
+class IRenderer;
+}  // namespace Core::Rendering
+
+namespace Core::UserInterface {
+class IUserInterface;
+}  // namespace Core::UserInterface
+
+namespace Platform::Input {
 class IInputBackend;
 }
-namespace Window {
+
+namespace Platform::Window {
 class IWindow;
-}
-}  // namespace Platform
+}  // namespace Platform::Window
 
 namespace Engine {
 
@@ -66,6 +75,7 @@ class Application : public Core::IApplication {
   virtual void OnDebugRender() const override;
   virtual void OnRender(const Core::Rendering::IRenderer& renderer) const override;
   virtual void Shutdown() override;
+  virtual void RegisterSystem(const std::shared_ptr<Core::Systems::ISystem>& system) override;
 
   [[nodiscard]] virtual const Config::ApplicationConfig& GetConfig() const override;
   [[nodiscard]] virtual Core::IDependencyInjector& GetInjector() const override;
@@ -77,7 +87,7 @@ class Application : public Core::IApplication {
  private:
   std::unique_ptr<Core::IDependencyInjector> injector;
   std::shared_ptr<Core::Window::IWindow> window = nullptr;
-  std::shared_ptr<Core::Input::IInputBackend> input = nullptr;
+  std::shared_ptr<Core::Input::IInputBackend> inputBackend = nullptr;
   std::shared_ptr<const Core::Rendering::IRenderer> renderer = nullptr;
   std::shared_ptr<Core::Events::IEventBus> eventBus = nullptr;
   std::shared_ptr<Core::Rendering::IRenderComponentManager> renderComponentManager;
@@ -90,5 +100,6 @@ class Application : public Core::IApplication {
   std::shared_ptr<Core::Debug::IDebugHUD> debugHud = nullptr;
   std::shared_ptr<Core::State::IStateMachine> stateMachine = nullptr;
   std::shared_ptr<Core::Scenes::ISceneManager> sceneManager = nullptr;
+  std::vector<std::shared_ptr<Core::Systems::ISystem>> systems;
 };
 }  // namespace Engine

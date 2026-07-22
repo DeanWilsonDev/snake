@@ -1,11 +1,11 @@
 #include "snake-game/game-entities/snake.hpp"
-#include "core/logging/log.hpp"
+#include "engine/events/input/input-action-pressed-event.hpp"
 #include "snake-game/settings/snake-game-settings.hpp"
 #include "snake-segment.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/entities/i-entity-manager.hpp"
 #include "engine/spatial/transform-2d.hpp"
-#include "engine/spatial/components/transform-component-2d.hpp"
+#include "core/spatial/components/i-transform-component.hpp"
 
 #include <cmath>
 #include <memory>
@@ -23,6 +23,26 @@ Snake::Snake(const SnakeParams& snakeParams)
   auto snakeSize = static_cast<float>(settings.boxSize);
 
   this->transform = Engine::Spatial::Transform2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
+  snakeParams.eventBus.Subscribe<Engine::Events::Input::InputActionPressedEvent>(
+      [this](const auto& e) {
+        switch (e.action) {
+          case Core::Input::Action::MoveLeft:
+            this->SetDirection({-1, 0});
+            break;
+          case Core::Input::Action::MoveRight:
+            this->SetDirection({1, 0});
+            break;
+          case Core::Input::Action::MoveUp:
+            this->SetDirection({0, -1});
+            break;
+          case Core::Input::Action::MoveDown:
+            this->SetDirection({0, 1});
+            break;
+          default:
+            break;
+        }
+      }
+  );
 }
 
 Snake* Snake::Initialize()

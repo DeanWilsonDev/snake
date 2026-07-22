@@ -1,24 +1,22 @@
 ---
 name: architecture-report
-description: "Produce an architecture / design document (ownership models, data-flow, module boundaries, lifetime/sequence explainers) as a dark-mode purple-accent PDF with rendered inline-SVG diagrams. Use when asked for a design doc, architecture write-up, or diagrammed explainer as a shareable PDF — matching the code-review report styling."
+description: "Produce an architecture / design document (ownership models, data-flow, module boundaries, lifetime/sequence explainers) as Markdown with rendered inline-SVG diagrams, then render it via the report-pdf skill into a dark-mode purple-accent PDF. Use when asked for a design doc, architecture write-up, or diagrammed explainer as a shareable PDF — matching the code-review report styling."
 ---
 
 ## Architecture / Design Report
 
-Produces a design document as two deliverables side by side, written into a `design-docs/`
-directory at the repo root, each filename prefixed with a datetime stamp:
+Produces a design document as Markdown, written into a `design-docs/`
+directory at the repo root, filename prefixed with a datetime stamp:
 
-1. `design-docs/<YYYY-MM-DD_HHMMSS>_<NAME>.md` — the written document, with **inline SVG
-   diagrams** authored directly in the Markdown
-2. `design-docs/<YYYY-MM-DD_HHMMSS>_<NAME>.pdf` — the same document rendered as a dark-mode
-   PDF with purple accents (diagrams included)
+`design-docs/<YYYY-MM-DD_HHMMSS>_<NAME>.md` — the written document, with
+**inline SVG diagrams** authored directly in the Markdown.
 
-The Markdown is authored by Claude; the PDF is generated from it by `render.sh`, so the two
-never drift. This skill is self-contained (its own generator + stylesheet); the palette is
-copied from the `code-review-report` skill so the two look consistent.
+The PDF companion is generated afterwards by the `report-pdf` skill, so the
+rendering pipeline (and visual style) is shared with every other report this
+project produces — this skill owns only the *content*.
 
-> **Output location & naming.** Always write under `design-docs/` with a shared datetime
-> prefix so runs don't overwrite each other. Generate the timestamp once and reuse it:
+> **Output location & naming.** Always write under `design-docs/` with a
+> datetime-stamped filename so runs don't overwrite each other:
 >
 > ```bash
 > mkdir -p design-docs
@@ -45,41 +43,38 @@ template:
 Use headings, tables, fenced code blocks with language hints, `inline code` for symbols,
 and blockquotes for callouts — the stylesheet themes all of these.
 
-### Step 2 — Generate the PDF
+> **Important — raw HTML block rule.** `marked` (CommonMark) ends an inline
+> `<svg>...</svg>` HTML block at the first blank line inside it. Do **not**
+> leave blank lines between elements inside an `<svg>` — keep every line from
+> `<svg ...>` to `</svg>` blank-line-free, or the SVG splits and later tags
+> get wrapped in stray `<p>` tags instead of rendering as part of the image.
+
+### Step 2 — Render the PDF
+
+Invoke the `report-pdf` skill (or run its `render.sh` directly) against the Markdown file
+just written:
 
 ```bash
-.claude/skills/architecture-report/render.sh "design-docs/${TS}_<NAME>.md"
+<report-pdf skill directory>/render.sh "design-docs/${TS}_<NAME>.md"
 ```
 
-- Output defaults to the input path with a `.pdf` extension.
-- Override: `render.sh <input.md> --out <file.pdf> --css <style.css>`
+Output defaults to the input path with a `.pdf` extension.
 
 ### Step 3 — Verify the diagrams (do not skip)
 
 `pdftoppm` is often absent, so the `Read` tool may not be able to open the PDF. Render the
-document to a **PNG** and read that back to confirm the SVG diagrams render — arrows land on
-the right nodes, labels don't collide, nothing overflows the panel:
+document to a **PNG** via the `report-pdf` skill and read that back to confirm the SVG
+diagrams render — arrows land on the right nodes, labels don't collide, nothing overflows
+the panel:
 
 ```bash
-.claude/skills/architecture-report/render.sh "design-docs/${TS}_<NAME>.md" --png
+<report-pdf skill directory>/render.sh "design-docs/${TS}_<NAME>.md" --png
 ```
 
 Then `Read` the resulting `…preview.png`. Adjust the SVG coordinates and regenerate until it
 looks right. Only then report both file paths back to the user.
 
 ---
-
-### Requirements
-
-- **Node / `npx`** — `render.sh` uses `npx --yes marked` (cached after first run).
-- **Google Chrome** (or Chromium / Edge) — used headless for `--print-to-pdf` and
-  `--screenshot`. Auto-detected from common macOS paths and PATH.
-
-### Styling
-
-The dark purple theme lives in `assets/report-style.css` (CSS custom properties at the top).
-It adds base `svg`/`figure`/`figcaption` rules on top of the code-review palette. Retune the
-variables or pass a different stylesheet via `--css`.
 
 ### Diagram conventions (summary)
 
@@ -88,8 +83,14 @@ Full details + templates in `assets/diagram-guide.md`. In short:
 - **Solid purple** arrow = ownership (`unique_ptr` / by-value). **Dashed grey** = non-owning
   observer. **Dashed red** = unsafe / dangling. **Solid green** = ownership consolidated into
   a single owner.
-- Nodes: rounded `<rect>` fill `#241f33` stroke `#4b3f6b`; danger node stroke `#fb7185`;
+- Nodes: rounded `<rect>` fill `#242424` stroke `#4a4a4e`; danger node stroke `#fb7185`;
   highlighted "good" node stroke `#34d399`.
-- Wrap each diagram in an `<svg viewBox="0 0 760 H">` panel (`background:#1b1728;
-  border:1px solid #362e4d`) with `width:100%; max-width:760px`.
-</content>
+- Wrap each diagram in an `<svg viewBox="0 0 760 H">` panel (`background:#17171a;
+  border:1px solid #3a3a3a`) with `width:100%; max-width:760px`.
+
+### Notes
+
+- This skill contains no rendering logic of its own — `report-pdf` owns the
+  Markdown→HTML→PDF pipeline and its stylesheet, shared across every report
+  skill in this project. See that skill for requirements (Node/`npx`, Chrome)
+  and styling details.

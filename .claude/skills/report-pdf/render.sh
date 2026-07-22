@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 #
-# render.sh — render a Markdown design doc into a styled dark-mode PDF (or a PNG preview).
+# render.sh — render any Markdown file into the shared styled dark-mode PDF
+# (grey/black background, purple accents). Also supports a PNG snapshot mode
+# for visually verifying inline-SVG diagrams before shipping the PDF.
 #
 # Usage:
 #   ./render.sh <input.md>                 # -> <input>.pdf
-#   ./render.sh <input.md> --png           # -> <input>.preview.png  (for visual verification)
+#   ./render.sh <input.md> --png           # -> <input>.preview.png
 #   ./render.sh <input.md> --out f.pdf     # explicit output path
 #   ./render.sh <input.md> --css s.css     # override stylesheet
 #   ./render.sh <input.md> --png --height 3600   # taller PNG capture
 #
 # Pipeline: marked (GFM) -> HTML -> wrap in styled template -> Chrome (--print-to-pdf | --screenshot)
 # Requires: npx (Node) and Google Chrome. No network needed after marked is cached once.
+#
+# Used by the code-review-report and architecture-report skills to turn their
+# authored Markdown into PDFs; can also be invoked directly to convert any
+# Markdown file into this house style.
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -22,7 +28,8 @@ while [[ $# -gt 0 ]]; do
     --out)    OUT="${2:-}"; shift ;;
     --css)    CSS="${2:-}"; shift ;;
     --height) HEIGHT="${2:-}"; shift ;;
-    -h|--help) sed -n '2,15p' "$0" | sed 's/^#//; s/^ //'; exit 0 ;;
+    --width)  WIDTH="${2:-}"; shift ;;
+    -h|--help) sed -n '2,17p' "$0" | sed 's/^#//; s/^ //'; exit 0 ;;
     -*) echo "unknown flag: $1" >&2; exit 1 ;;
     *)  INPUT="$1" ;;
   esac
@@ -37,13 +44,13 @@ if [[ -z "$OUT" ]]; then
   [[ "$MODE" == "png" ]] && OUT="${INPUT%.*}.preview.png" || OUT="${INPUT%.*}.pdf"
 fi
 
-# --- locate Chrome (macOS names + PATH fallbacks) ---
+# --- locate Chrome (macOS names + Linux/PATH fallbacks) ---
 CHROME=""
 for c in \
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
   "/Applications/Chromium.app/Contents/MacOS/Chromium" \
   "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge" \
-  "google-chrome" "chromium" "chrome"; do
+  "google-chrome" "google-chrome-stable" "chromium" "chromium-browser" "microsoft-edge" "chrome"; do
   if [[ -x "$c" ]] || command -v "$c" >/dev/null 2>&1; then CHROME="$c"; break; fi
 done
 [[ -n "$CHROME" ]] || { echo "error: could not find Chrome/Chromium/Edge" >&2; exit 1; }

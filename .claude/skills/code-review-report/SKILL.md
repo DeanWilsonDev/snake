@@ -1,32 +1,29 @@
 ---
 name: code-review-report
-description: "Run a code review of a codebase and deliver the findings as both a Markdown report and a styled dark-mode (purple accent) PDF. Use when asked to review code and produce a report, export a review/audit to PDF, or generate a shareable code review document."
+description: "Run a code review of a codebase and deliver the findings as a Markdown report, then render it via the report-pdf skill into a styled dark-mode PDF. Use when asked to review code and produce a report, export a review/audit to PDF, or generate a shareable code review document."
 ---
 
 ## Code Review Report
 
-Produces a code review as two deliverables side by side, written into a `code-reviews/`
-directory at the repo root, each filename prefixed with a datetime stamp:
+Produces a code review as a Markdown report, written into a `code-reviews/`
+directory at the repo root, filename prefixed with a datetime stamp:
 
-1. `code-reviews/<YYYY-MM-DD_HHMMSS>_CODE_REVIEW.md` — the written report (severity-ranked
-   findings with `file:line` references)
-2. `code-reviews/<YYYY-MM-DD_HHMMSS>_CODE_REVIEW.pdf` — the same report rendered as a
-   dark-mode PDF with purple accents
+`code-reviews/<YYYY-MM-DD_HHMMSS>_CODE_REVIEW.md` — severity-ranked findings
+with `file:line` references.
 
-The Markdown is authored by Claude; the PDF is generated from it by
-`generate-report-pdf.sh`, so the two never drift.
+The PDF companion is generated afterwards by the `report-pdf` skill, so the
+rendering pipeline is shared (and stays visually consistent) with every other
+report this project produces.
 
-> **Output location & naming.** Always write reports under `code-reviews/` with a shared
-> datetime prefix so runs don't overwrite each other. Generate the timestamp once and
-> reuse it for both files:
+> **Output location & naming.** Always write reports under `code-reviews/` with
+> a datetime-stamped filename so runs don't overwrite each other:
 >
 > ```bash
 > mkdir -p code-reviews
 > TS=$(date +%Y-%m-%d_%H%M%S)          # e.g. 2026-07-07_124914
 > ```
 >
-> Then write the Markdown to `code-reviews/${TS}_CODE_REVIEW.md`. Consider adding
-> `code-reviews/` to the project's `.gitignore` if it isn't already.
+> Consider adding `code-reviews/` to the project's `.gitignore` if it isn't already.
 
 ---
 
@@ -46,39 +43,24 @@ PDF template:
 Use severity emoji (🔴 Critical / 🟠 High / 🟡 Medium / 🟢 Low), fenced code blocks with
 language hints, and `inline code` for symbols and paths — the stylesheet themes all of these.
 
-### Step 2 — Generate the styled PDF
+### Step 2 — Render the PDF
 
-Run the script (it does: `marked` → HTML → styled template → Chrome `--print-to-pdf`):
+Invoke the `report-pdf` skill (or run its `render.sh` directly) against the Markdown file
+just written:
 
 ```bash
-.claude/skills/code-review-report/generate-report-pdf.sh "code-reviews/${TS}_CODE_REVIEW.md"
+<report-pdf skill directory>/render.sh "code-reviews/${TS}_CODE_REVIEW.md"
 ```
 
-- Output defaults to the input path with a `.pdf` extension, so it lands next to the
-  Markdown in `code-reviews/` with the same datetime prefix.
-- Override output or stylesheet: `generate-report-pdf.sh <input.md> [output.pdf] [style.css]`
-- Make it executable once if needed: `chmod +x .claude/skills/code-review-report/generate-report-pdf.sh`
-
-Report both file paths back to the user when done.
+This writes `code-reviews/${TS}_CODE_REVIEW.pdf` next to the Markdown, styled with the
+shared dark-mode/purple-accent theme. Report both file paths back to the user when done.
 
 ---
 
-### Requirements
-
-- **Node / `npx`** — the script uses `npx --yes marked` (cached after first run).
-- **Google Chrome** (or Chromium / Edge) — used headless for `--print-to-pdf`. The script
-  auto-detects common macOS install paths and PATH fallbacks.
-
-### Styling
-
-The dark-mode purple theme lives in `assets/report-style.css` (CSS custom properties at
-the top — `--bg`, `--accent`, `--accent-strong`, etc.). Edit those variables to retune, or
-pass a different stylesheet as the third argument to the script. Pages are full-bleed dark
-(`@page { margin: 0 }` with body padding) so backgrounds print edge to edge.
-
 ### Notes
 
-- The template supports headings, tables, fenced/inline code, blockquotes, lists, links,
-  and horizontal rules — standard GitHub-flavoured Markdown.
-- Tables and code blocks are set to avoid page breaks mid-element.
-- No network access is needed once `marked` has been fetched by `npx` the first time.
+- This skill contains no rendering logic of its own — `report-pdf` owns the
+  Markdown→HTML→PDF pipeline and its stylesheet, shared across every report
+  skill in this project.
+- Standard GitHub-flavoured Markdown is supported: headings, tables,
+  fenced/inline code, blockquotes, lists, links, horizontal rules.

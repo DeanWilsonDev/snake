@@ -1,20 +1,23 @@
 /*
- * Dark-mode / purple-accent stylesheet for architecture / design-doc PDFs.
- * Palette copied from the code-review-report skill so the two stay visually consistent.
+ * Shared dark-mode stylesheet for report PDFs (code review, architecture/design docs, etc).
+ * Neutral grey/black background with purple accents.
  * Tuned for Chrome headless --print-to-pdf. Edit freely to restyle.
  */
 
-/* Full-bleed dark pages: kill the page margins, pad the body instead. */
-@page { size: A4; margin: 0; }
+/* Per-page top/bottom/side breathing room, repeated on every page (not just
+   the first/last). The html/body background does NOT paint through the
+   @page margin area in Chrome's print renderer — it must be set explicitly
+   on @page itself, or the margin band renders white. */
+@page { size: A4; margin: 16mm 16mm 18mm 16mm; background: #131313; }
 
 :root {
-  --bg:          #16131f;  /* page background            */
-  --bg-alt:      #1e1a2b;  /* table rows / blockquote     */
-  --code-bg:     #100d18;  /* code blocks                 */
-  --inline-bg:   #241f33;  /* inline code                 */
-  --border:      #362e4d;  /* rules / table borders       */
-  --text:        #e8e3f5;  /* body text                   */
-  --muted:       #a99fc4;  /* secondary text              */
+  --bg:          #131313;  /* page background            */
+  --bg-alt:      #1c1c1c;  /* table rows / blockquote     */
+  --code-bg:     #0e0e0e;  /* code blocks                 */
+  --inline-bg:   #242424;  /* inline code                 */
+  --border:      #3a3a3a;  /* rules / table borders       */
+  --text:        #e8e8ea;  /* body text                   */
+  --muted:       #a3a3a8;  /* secondary text              */
   --accent:      #a78bfa;  /* primary purple              */
   --accent-strong: #8b5cf6;/* stronger purple             */
   --accent-soft: #c4b5fd;  /* headings / highlights       */
@@ -35,7 +38,7 @@ body {
   line-height: 1.6;
   color: var(--text);
   margin: 0;
-  padding: 18mm 16mm;
+  padding: 0;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
@@ -86,7 +89,10 @@ pre {
   border-left: 3px solid var(--accent-strong);
   padding: 12px 14px;
   border-radius: 8px;
-  overflow-x: auto;
+  /* PDFs are static — a scrollbar can't actually be scrolled, so wrap long
+     lines instead of clipping them behind overflow-x. */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   font-size: 8.6pt;
   line-height: 1.5;
   page-break-inside: avoid;

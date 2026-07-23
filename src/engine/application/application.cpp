@@ -3,6 +3,7 @@
 #include "core/debug/i-debug-hud.hpp"
 #include "core/dependency-injection/i-dependency-injector.hpp"
 #include "core/events/i-event-bus.hpp"
+#include "core/input/action-set.hpp"
 #include "core/input/i-input-backend.hpp"
 #include "core/input/i-input-system.hpp"
 #include "core/logging/log.hpp"
@@ -78,7 +79,7 @@ void Application::Initialize()
 
   // Input
   auto inputSystem = std::make_shared<Engine::Input::InputSystem>(
-      *inputBackend, *eventBus, config.engine.input.keyMap
+      *inputBackend, *eventBus, config.engine.input.keyMap, config.engine.input.actions
   );
 
   this->RegisterSystem(inputSystem);
@@ -118,7 +119,7 @@ void Application::Initialize()
   this->window->SetTargetFPS(config.engine.window.targetFPS);
 }
 
-void Application::RegisterSystem(const std::shared_ptr<Core::Systems::ISystem>& system) 
+void Application::RegisterSystem(const std::shared_ptr<Core::Systems::ISystem>& system)
 {
   this->systems.push_back(std::move(system));
 }
@@ -251,6 +252,16 @@ Core::IDependencyInjector& Application::GetInjector() const
 Core::Scenes::ISceneManager& Application::GetSceneManager() const
 {
   return *this->sceneManager;
+}
+
+const Core::Input::ActionSet& Application::GetInputActions() const
+{
+  return this->inputActions;
+}
+
+Core::Input::ActionSet& Application::GetInputActions()
+{
+  return this->inputActions;
 }
 
 Core::Events::IEventBus& Application::GetEventBus() const

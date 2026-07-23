@@ -7,7 +7,14 @@
 
 namespace Engine::Input {
 
-InputDispatcher::InputDispatcher(Core::Events::IEventBus& eventBus) : eventBus(eventBus) {}
+InputDispatcher::InputDispatcher(
+    Core::Events::IEventBus& eventBus, std::vector<Core::Input::Action> actions
+)
+    : actions(actions), eventBus(eventBus)
+{
+  this->lastFrameDown.assign(this->actions.size(), false);
+  this->currentDown.assign(this->actions.size(), false);
+}
 
 void InputDispatcher::AddSource(std::unique_ptr<Core::Input::IInputSource> source)
 {
@@ -16,8 +23,8 @@ void InputDispatcher::AddSource(std::unique_ptr<Core::Input::IInputSource> sourc
 
 void InputDispatcher::Run()
 {
-  for (size_t i = 0; i < static_cast<size_t>(Core::Input::Action::Count); ++i) {
-    auto action = static_cast<Core::Input::Action>(i);
+  for (size_t i = 0; i < this->actions.size(); ++i) {
+    const auto& action = this->actions[i];
 
     bool isDown = false;
     for (auto& source : this->sources) {
@@ -28,23 +35,27 @@ void InputDispatcher::Run()
     }
 
     this->currentDown[i] = isDown;
-
     bool wasDown = this->lastFrameDown[i];
 
     if (isDown != wasDown) {
       if (isDown) {
-        this->eventBus.Publish(Events::Input::InputActionPressedEvent());
+        this->eventBus.Publish(Engine::Events::Input::InputActionPressedEvent{action});
       }
       if (wasDown) {
-        this->eventBus.Publish(Events::Input::InputActionReleasedEvent());
+        this->eventBus.Publish(Engine::Events::Input::InputActionReleasedEvent{action});
       }
     }
+    this->lastFrameDown[i] = isDown;
   }
 }
 
 bool InputDispatcher::IsActionDown(Core::Input::Action action) const
 {
-  return this->currentDown[static_cast<size_t>(action)];
+  for (size_t i = 0; i < this->actions.size(); ++i) {
+    if (this->actions[i].id == action.id) {
+      return this->currentDown[i];
+    }
+  }
 }
 
 }  // namespace Engine::Input

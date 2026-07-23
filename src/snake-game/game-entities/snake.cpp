@@ -6,6 +6,9 @@
 #include "core/entities/i-entity-manager.hpp"
 #include "engine/spatial/transform-2d.hpp"
 #include "core/spatial/components/i-transform-component.hpp"
+#include "core/input/action-set.hpp"
+#include "core/input/action-value.hpp"
+#include "core/input/i-input-system.hpp"
 
 #include <cmath>
 #include <memory>
@@ -16,6 +19,8 @@ Snake::~Snake() = default;
 
 Snake::Snake(const SnakeParams& snakeParams)
     : entityManager(snakeParams.entityManager)
+    , inputSystem(snakeParams.inputSystem)
+    , inputActions(snakeParams.inputActions)
     , settings(snakeParams.settings)
     , screenWidth(snakeParams.screenWidth)
     , screenHeight(snakeParams.screenHeight)
@@ -23,26 +28,6 @@ Snake::Snake(const SnakeParams& snakeParams)
   auto snakeSize = static_cast<float>(settings.boxSize);
 
   this->transform = Engine::Spatial::Transform2D({100.f, 100.0f}, 0, {snakeSize, snakeSize});
-  snakeParams.eventBus.Subscribe<Engine::Events::Input::InputActionPressedEvent>(
-      [this](const auto& e) {
-        switch (e.action) {
-          case Core::Input::Action::MoveLeft:
-            this->SetDirection({-1, 0});
-            break;
-          case Core::Input::Action::MoveRight:
-            this->SetDirection({1, 0});
-            break;
-          case Core::Input::Action::MoveUp:
-            this->SetDirection({0, -1});
-            break;
-          case Core::Input::Action::MoveDown:
-            this->SetDirection({0, 1});
-            break;
-          default:
-            break;
-        }
-      }
-  );
 }
 
 Snake* Snake::Initialize()
@@ -82,6 +67,11 @@ void Snake::SetDirection(Core::Math::Vector2D desiredDirection)
 
 void Snake::Move() const
 {
+  float vertical =
+      std::get<float>(this->inputSystem->GetActionValue(this->inputActions.Get("MoveVertical")));
+  float horizontal =
+      std::get<float>(this->inputSystem->GetActionValue(this->inputActions.Get("MoveHorizontal")));
+
   Core::Math::Vector2D newPosition = {
       this->head->GetTransformComponent().GetPosition().x + this->direction.x * this->size,
       this->head->GetTransformComponent().GetPosition().y + this->direction.y * this->size,

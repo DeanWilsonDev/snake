@@ -2,6 +2,7 @@
 #include <deque>
 #include "core/events/i-event-bus.hpp"
 #include "core/math/vector-2d.hpp"
+#include "core/input/action-set.hpp"
 #include "engine/spatial/transform-2d.hpp"
 
 namespace Core::Components {
@@ -14,6 +15,10 @@ class ColliderComponent2D;
 
 namespace Renderer2D::Component {
 class IRenderComponent2D;
+}
+
+namespace Core::Input {
+class IInputSystem;
 }
 
 namespace Core::Entities {
@@ -40,11 +45,13 @@ class Apple;
 namespace SnakeGame {
 
 struct SnakeParams {
+  Core::Events::IEventBus& eventBus;
   Core::Entities::IEntityManager& entityManager;
   const SnakeGameSettings& settings;
+  const Core::Input::IInputSystem& inputSystem;
+  const Core::Input::ActionSet& inputActions;
   int screenWidth;
   int screenHeight;
-  Core::Events::IEventBus& eventBus;
 };
 
 class Snake final {
@@ -74,6 +81,8 @@ class Snake final {
 
  private:
   Core::Entities::IEntityManager& entityManager;
+  const Core::Input::IInputSystem& inputSystem;
+  const Core::Input::ActionSet& inputActions;
   const SnakeGameSettings& settings;
   int screenWidth;
   int screenHeight;

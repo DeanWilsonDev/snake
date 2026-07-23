@@ -1,4 +1,6 @@
 #include "snake-application.hpp"
+#include "core/input/action-binding-builder.hpp"
+#include "core/input/action-value-type.hpp"
 #include "core/scenes/scene-lifetime.hpp"
 #include "engine/application/application.hpp"
 #include "core/scenes/scene-lifetime.hpp"
@@ -19,31 +21,42 @@ void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
   snakeSettings->debug.enabled = false;
   snakeSettings->debug.showDebugLogs = false;
 
-  config = {
-      .engine =
-          {.window =
-               {
-                   .width = 500,
-                   .height = 500,
-               },
-           .input =
-               {
-                   {/* Action::MoveUp    */ std::vector{KeyCode::W, KeyCode::Up},
-                    /* Action::MoveLeft  */ std::vector{KeyCode::A, KeyCode::Left},
-                    /* Action::MoveDown  */ std::vector{KeyCode::S, KeyCode::Down},
-                    /* Action::MoveRight */ std::vector{KeyCode::D, KeyCode::Right},
-                    /* Action::Confirm   */ std::vector{KeyCode::Enter}}
+  auto inputActions = this->GetInputActions();
 
-               },
-           .debug =
-               {
-                   .enabled = false,
-                   .showDebugHud = false,
-                   .showDebugLogs = false,  // Show Core Logging
-               }},
-      .project = {.title = "Snake"},
-      .game = std::move(snakeSettings)
-  };
+  inputActions.RegisterAction("MoveForward", ActionValueType::Axis1D);
+  inputActions.RegisterAction("MoveRight", ActionValueType::Axis1D);
+  inputActions.RegisterAction("Confirm", ActionValueType::Boolean);
+  inputActions.RegisterAction("Decline", ActionValueType::Boolean);
+
+  config =
+      {.engine =
+           {.window =
+                {
+                    .width = 500,
+                    .height = 500,
+                },
+            .input =
+                {
+                    .keyMap = inputActions.BuildKeyMap(
+                        {Core::Input::Bind("MoveForward")
+                             .Axis1D({KeyCode::W, KeyCode::Up}, 1.0f)
+                             .Axis1D({KeyCode::S, KeyCode::Down}, -1.0f),
+                         Core::Input::Bind("MoveRight")
+                             .Axis1D({KeyCode::D, KeyCode::Right}, 1.0f)
+                             .Axis1D({KeyCode::A, KeyCode::Left}, -1.0f),
+                         Core::Input::Bind("Confirm").Digital({KeyCode::Enter, KeyCode::E}),
+                         Core::Input::Bind("Decline").Digital({KeyCode::Escape})}
+                    ),
+                    .actions = inputActions.All(),
+                },
+            .debug =
+                {
+                    .enabled = false,
+                    .showDebugHud = false,
+                    .showDebugLogs = false,  // Show Core Logging
+                }},
+       .project = {.title = "Snake"},
+       .game = std::move(snakeSettings)};
 }
 
 void SnakeApplication::Initialize()
@@ -88,9 +101,9 @@ const SnakeGame::SnakeGameSettings& SnakeApplication::GetSnakeSettings() const
   return static_cast<SnakeGame::SnakeGameSettings&>(*this->GetConfig().game);
 }
 
-void SnakeApplication::OnUpdate(const float deltaTime) {
-    Engine::Application::OnUpdate(deltaTime);
-
+void SnakeApplication::OnUpdate(const float deltaTime)
+{
+  Engine::Application::OnUpdate(deltaTime);
 }
 
 }  // namespace SnakeGame

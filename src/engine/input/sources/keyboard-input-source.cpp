@@ -14,7 +14,13 @@ KeyboardInputSource::KeyboardInputSource(
 
 bool KeyboardInputSource::IsActionDown(Core::Input::Action action) const
 {
-  for (Core::Input::KeyCode keyCode : this->keyMap[static_cast<size_t>(action)]) {
+  auto it = this->keyMap.find(action.id);
+
+  if (it == this->keyMap.end()) {
+    return false;
+  }
+
+  for (Core::Input::KeyCode keyCode : it->second) {
     if (this->backend.IsKeyDown(keyCode)) {
       return true;
     }

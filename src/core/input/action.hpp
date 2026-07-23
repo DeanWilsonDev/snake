@@ -1,38 +1,18 @@
 //
-// Created by Dean Wilson 2nd February 2026
+// Created by Dean Wilson 23rd July 2026
 //
 
 #pragma once
 
-#include "core/input/key-code.hpp"
-
 #include <string>
-#include <array>
+#include "core/input/action-value-type.hpp"
 
-namespace Core {
-namespace Input {
-
-enum class Action {
-  MoveUp,
-  MoveDown,
-  MoveLeft,
-  MoveRight,
-  Confirm,
-  Decline,
-
-  Count,
-};
-
-/// Dynamic Actions:
-///
-/// This setup is overkill but may be something to revisit later
-class InputAction {
+namespace Core::Input {
+struct Action {
  public:
+  int id;
   std::string name;
-  std::array<KeyCode, 4> keycodes;
+  ActionValueType type = ActionValueType::Boolean;
   bool isComposite = false;
 };
-
-}  // namespace Input
-
-}  // namespace Core
+}  // namespace Core::Input

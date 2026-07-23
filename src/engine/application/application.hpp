@@ -12,6 +12,7 @@
 #include "core/debug/i-debug-hud.hpp"
 #include "core/window/i-window.hpp"
 #include "core/input/i-input-backend.hpp"
+#include "core/input/action-set.hpp"
 
 #include <memory>
 #include <vector>
@@ -80,6 +81,8 @@ class Application : public Core::IApplication {
   [[nodiscard]] virtual const Config::ApplicationConfig& GetConfig() const override;
   [[nodiscard]] virtual Core::IDependencyInjector& GetInjector() const override;
   [[nodiscard]] virtual Core::Scenes::ISceneManager& GetSceneManager() const override;
+  [[nodiscard]] virtual const Core::Input::ActionSet& GetInputActions() const override;
+  [[nodiscard]] virtual Core::Input::ActionSet& GetInputActions() override;
   [[nodiscard]] virtual Core::Events::IEventBus& GetEventBus() const override;
   [[nodiscard]] virtual Core::Rendering::IRenderComponentManager&
   GetRenderComponentManager() const override;
@@ -101,5 +104,6 @@ class Application : public Core::IApplication {
   std::shared_ptr<Core::State::IStateMachine> stateMachine = nullptr;
   std::shared_ptr<Core::Scenes::ISceneManager> sceneManager = nullptr;
   std::vector<std::shared_ptr<Core::Systems::ISystem>> systems;
+  Core::Input::ActionSet inputActions;
 };
 }  // namespace Engine

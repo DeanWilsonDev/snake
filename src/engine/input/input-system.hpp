@@ -18,7 +18,10 @@ namespace Input {
 
 class InputSystem final : public Core::Systems::ISystem {
  public:
-  InputSystem(IInputBackend& inputBackend, Core::Events::IEventBus& eventBus, const KeyMap& keyMap);
+  InputSystem(
+      IInputBackend& inputBackend, Core::Events::IEventBus& eventBus, const KeyMap& keyMap,
+      std::vector<Action> actions
+  );
   void OnUpdate(const float deltaTime) override;
   void OnDebugUpdate() const override;
   void OnDebugRender() const override;

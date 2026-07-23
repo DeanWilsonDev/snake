@@ -9,7 +9,6 @@
 
 namespace Engine::Events::Input {
 struct InputActionPressedEvent final : public Core::Events::IEvent {
- public:
   Core::Input::Action action;
 };
 }  // namespace Engine::Events::Input

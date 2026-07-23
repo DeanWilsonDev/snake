@@ -12,6 +12,10 @@
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
 
+namespace Core::Input {
+class ActionSet;
+}  // namespace Core::Input
+
 namespace Core::Systems {
 class ISystem;
 }  // namespace Core::Systems
@@ -40,6 +44,8 @@ class IApplication : public Core::IInitialize,
   virtual const Engine::Config::ApplicationConfig& GetConfig() const = 0;
   virtual Core::IDependencyInjector& GetInjector() const = 0;
   virtual Core::Scenes::ISceneManager& GetSceneManager() const = 0;
+  virtual const Core::Input::ActionSet& GetInputActions() const = 0;
+  virtual Core::Input::ActionSet& GetInputActions() = 0;
   virtual Core::Events::IEventBus& GetEventBus() const = 0;
   virtual Core::Rendering::IRenderComponentManager& GetRenderComponentManager() const = 0;
   virtual void RegisterSystem(const std::shared_ptr<Core::Systems::ISystem>& system) = 0;

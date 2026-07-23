@@ -11,9 +11,10 @@ using namespace Core::Input;
 namespace Engine::Input {
 
 InputSystem::InputSystem(
-    IInputBackend& inputBackend, Core::Events::IEventBus& eventBus, const KeyMap& keyMap
+    IInputBackend& inputBackend, Core::Events::IEventBus& eventBus,
+    const Core::Input::KeyMap& keyMap, std::vector<Core::Input::Action> actions
 )
-    : dispatcher(eventBus)
+    : dispatcher(eventBus, std::move(actions))
 {
   this->dispatcher.AddSource(
       std::make_unique<Engine::Input::Sources::KeyboardInputSource>(inputBackend, keyMap)
@@ -25,12 +26,8 @@ void InputSystem::OnUpdate(const float)
   this->dispatcher.Run();
 }
 
-void InputSystem::OnDebugUpdate() const
-{
-}
+void InputSystem::OnDebugUpdate() const {}
 
-void InputSystem::OnDebugRender() const
-{
-}
+void InputSystem::OnDebugRender() const {}
 
 }  // namespace Engine::Input

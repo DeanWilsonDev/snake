@@ -3,11 +3,11 @@
 //
 
 #pragma once
+#include <unordered_map>
 #include <vector>
-#include <array>
-#include "core/input/key-code.hpp"
-#include "core/input/action.hpp"
+#include "core/input/key-binding.hpp"
 
 namespace Core::Input {
-using KeyMap = std::array<std::vector<KeyCode>, static_cast<size_t>(Action::Count)>;
-}
+
+using KeyMap = std::unordered_map<int, std::vector<KeyBinding>>;
+}  // namespace Core::Input

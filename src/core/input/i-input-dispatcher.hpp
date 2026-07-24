@@ -13,5 +13,6 @@ class IInputDispatcher : public Systems::IDispatcher {
  public:
   virtual ~IInputDispatcher() = default;
   virtual void AddSource(std::unique_ptr<IInputSource> source) = 0;
+  virtual Core::Input::ActionValue GetActionValue(Core::Input::Action action) const = 0;
 };
 }  // namespace Core::Input

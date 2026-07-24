@@ -45,6 +45,8 @@ add_executable(
   src/core/color/color-rgba.cpp
   src/core/logging/log.cpp
   src/core/input/action-set.cpp
+  src/core/input/action-binding-builder.cpp
+  src/core/input/action-router.cpp
   src/engine/spatial/components/transform-component-2d.cpp
   src/engine/spatial/size-2d.cpp
   src/debug/debug-hud.cpp
@@ -57,9 +59,11 @@ add_executable(
   src/engine/entities/entity.cpp
   src/engine/entities/entity-activation-pipeline.cpp
   src/engine/entities/registrars/render-component-registrar.cpp
+  src/engine/entities/registrars/input-component-registrar.cpp
   src/engine/events/event-bus.cpp
   src/engine/input/input-system.cpp
   src/engine/input/input-dispatcher.cpp
+  src/engine/input/components/input-component.cpp
   src/engine/input/sources/keyboard-input-source.cpp
   src/engine/scenes/scene-manager.cpp
   src/engine/state/state-machine.cpp
@@ -77,6 +81,7 @@ add_executable(
   src/renderer-2d/render-component-2d-manager.cpp
   src/snake-game/game-entities/apple.cpp
   src/snake-game/game-entities/snake-segment.cpp
+  src/snake-game/game-entities/snake-head.cpp
   src/snake-game/game-entities/snake.cpp
   src/snake-game/game-scenes/gameplay-scene.cpp
   src/snake-game/game-state/game-over-state.cpp

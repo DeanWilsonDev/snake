@@ -16,7 +16,7 @@ GameplayScene::GameplayScene(const GameplaySceneParams& params)
     , screenWidth(params.screenWidth)
     , screenHeight(params.screenHeight)
 {
-  this->entityManager = make_unique<Engine::Entities::EntityManager>(&this->renderComponentManager);
+  this->entityManager = make_unique<Engine::Entities::EntityManager>(&this->renderComponentManager, params.inputActionRouter);
 }
 
 GameplayScene::~GameplayScene() = default;
@@ -27,11 +27,11 @@ void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
 
   // Register Snake:
   SnakeParams snakeParams = {
+      .eventBus = this->eventBus,
       .entityManager = *this->entityManager,
       .settings = this->gameSettings,
       .screenWidth = this->screenWidth,
       .screenHeight = this->screenHeight,
-      .eventBus = this->eventBus
   };
 
   this->snake = std::make_unique<Snake>(snakeParams);

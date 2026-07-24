@@ -1,14 +1,11 @@
 #include "snake-game/game-entities/snake.hpp"
-#include "engine/events/input/input-action-pressed-event.hpp"
 #include "snake-game/settings/snake-game-settings.hpp"
 #include "snake-segment.hpp"
 #include "core/math/vector-2d.hpp"
 #include "core/entities/i-entity-manager.hpp"
 #include "engine/spatial/transform-2d.hpp"
 #include "core/spatial/components/i-transform-component.hpp"
-#include "core/input/action-set.hpp"
-#include "core/input/action-value.hpp"
-#include "core/input/i-input-system.hpp"
+#include "snake-game/game-entities/snake-head.hpp"
 
 #include <cmath>
 #include <memory>
@@ -19,8 +16,7 @@ Snake::~Snake() = default;
 
 Snake::Snake(const SnakeParams& snakeParams)
     : entityManager(snakeParams.entityManager)
-    , inputSystem(snakeParams.inputSystem)
-    , inputActions(snakeParams.inputActions)
+    // , inputActions(snakeParams.inputActions)
     , settings(snakeParams.settings)
     , screenWidth(snakeParams.screenWidth)
     , screenHeight(snakeParams.screenHeight)
@@ -45,14 +41,15 @@ Snake* Snake::Initialize()
 
 void Snake::Update(const float deltaTime)
 {
+  if (this->head->direction.x != 0.0f || this->head->direction.y != 0.0f) {
+    this->SetDirection(this->head->direction);
+  }
   accumulatedDistance += this->speed * deltaTime;
 
   if (accumulatedDistance >= this->size) {
     this->Move();
     this->CheckIfShouldGrow();
-
     accumulatedDistance -= this->size;
-
     this->Teleport();
   }
 }
@@ -67,11 +64,6 @@ void Snake::SetDirection(Core::Math::Vector2D desiredDirection)
 
 void Snake::Move() const
 {
-  float vertical =
-      std::get<float>(this->inputSystem->GetActionValue(this->inputActions.Get("MoveVertical")));
-  float horizontal =
-      std::get<float>(this->inputSystem->GetActionValue(this->inputActions.Get("MoveHorizontal")));
-
   Core::Math::Vector2D newPosition = {
       this->head->GetTransformComponent().GetPosition().x + this->direction.x * this->size,
       this->head->GetTransformComponent().GetPosition().y + this->direction.y * this->size,
@@ -108,11 +100,16 @@ void Snake::CreateBody()
         )
     );
 
+    if (i == 0) {
+      auto headParams = SnakeHeadParams{i, &nextSegmentTransform};
+      auto headEntity = std::make_unique<SnakeHead>(headParams);
+      this->head = static_cast<SnakeHead*>(this->entityManager.AddEntity(std::move(headEntity)));
+      this->body.push_back(this->head);
+    }
+
     auto params = SnakeSegmentParams{i, &nextSegmentTransform};
     this->CreateSegment(params);
-  }  // namespace SnakeGame
-
-  this->head = this->body.front();
+  }
 }
 
 void Snake::CheckIfShouldGrow()

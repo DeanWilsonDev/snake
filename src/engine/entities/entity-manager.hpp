@@ -4,6 +4,7 @@
 
 #pragma once
 #include "core/entities/i-entity-manager.hpp"
+#include "core/input/action-router.hpp"
 #include "engine/entities/entity-activation-pipeline.hpp"
 #include "engine/entities/entity-component-pipeline.hpp"
 
@@ -27,7 +28,11 @@ namespace Entities {
 
 class EntityManager : public Core::Entities::IEntityManager {
  public:
-  EntityManager(Core::Rendering::IRenderComponentManager* renderManager);
+  EntityManager(
+      Core::Rendering::IRenderComponentManager* renderManager,
+      Core::Input::ActionRouter& inputActionRouter
+  );
+
   Core::Entities::IEntity* AddEntity(std::unique_ptr<Core::Entities::IEntity> entity) override;
   void RemoveEntity(Core::Entities::IEntity* entity) override;
   void OnUpdate(float deltaTime) override;

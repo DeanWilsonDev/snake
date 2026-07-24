@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "core/entities/i-component-registrar.hpp"
 #include "core/rendering/components/i-render-component.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include "engine/entities/typed-component-registrar.hpp"

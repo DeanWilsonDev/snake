@@ -1,18 +1,23 @@
 #include "engine/entities/entity-component-pipeline.hpp"
 #include <memory>
 #include "core/entities/i-entity.hpp"
+#include "core/input/action-router.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
+#include "engine/entities/registrars/input-component-registrar.hpp"
 #include "engine/entities/registrars/render-component-registrar.hpp"
 
 namespace Engine::Entities {
 
 EntityComponentPipeline::EntityComponentPipeline(
-    Core::Rendering::IRenderComponentManager* renderManager
+    Core::Rendering::IRenderComponentManager* renderManager, 
+    Core::Input::ActionRouter& inputActionRouter
 )
 {
   this->dispatcher.AddRegistrar(
       std::make_unique<Registrars::RenderComponentRegistrar>(renderManager)
   );
+
+  this->dispatcher.AddRegistrar(std::make_unique<Registrars::InputComponentRegistrar>(inputActionRouter));
 }
 
 void EntityComponentPipeline::Run(Core::Entities::IEntity* entity)

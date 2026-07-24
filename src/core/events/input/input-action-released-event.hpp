@@ -7,8 +7,9 @@
 #include "core/events/i-event.hpp"
 #include "core/input/action.hpp"
 
-namespace Engine::Events::Input {
+namespace Core::Events::Input {
 struct InputActionReleasedEvent final : public Core::Events::IEvent {
+  explicit InputActionReleasedEvent(Core::Input::Action action) : action(action) {};
   Core::Input::Action action;
 };
-}  // namespace Engine::Events::Input
+}  // namespace Core::Events::Input

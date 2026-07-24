@@ -12,7 +12,8 @@ namespace Engine::Input::Sources {
 class KeyboardInputSource final : public Core::Input::IInputSource {
  public:
   KeyboardInputSource(Core::Input::IInputBackend& backend, const Core::Input::KeyMap& keyMap);
-  bool IsActionDown(Core::Input::Action action) const;
+  bool IsActionDown(Core::Input::Action action) const override;
+  virtual Core::Input::ActionValue GetActionValue(Core::Input::Action action) const override;
   void SetKeyMap(const Core::Input::KeyMap& map);
 
  private:

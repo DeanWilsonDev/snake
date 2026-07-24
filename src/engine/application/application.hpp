@@ -2,6 +2,7 @@
 #include "core/debug/i-debug-user-interface.hpp"
 #include "core/events/i-event-bus.hpp"
 #include "core/application/i-application.hpp"
+#include "core/input/i-input-system.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
 #include "core/scenes/i-scene-manager.hpp"
@@ -16,6 +17,10 @@
 
 #include <memory>
 #include <vector>
+
+namespace Core::Input {
+class ActionRouter;
+}
 
 namespace Core::Debug {
 class IDebugUserInterface;
@@ -81,8 +86,9 @@ class Application : public Core::IApplication {
   [[nodiscard]] virtual const Config::ApplicationConfig& GetConfig() const override;
   [[nodiscard]] virtual Core::IDependencyInjector& GetInjector() const override;
   [[nodiscard]] virtual Core::Scenes::ISceneManager& GetSceneManager() const override;
-  [[nodiscard]] virtual const Core::Input::ActionSet& GetInputActions() const override;
-  [[nodiscard]] virtual Core::Input::ActionSet& GetInputActions() override;
+  [[nodiscard]] virtual const Core::Input::ActionSet& GetInputActionSet() const override;
+  [[nodiscard]] virtual Core::Input::ActionSet& GetInputActionSet() override;
+  [[nodiscard]] virtual Core::Input::ActionRouter& GetInputActionRouter() override;
   [[nodiscard]] virtual Core::Events::IEventBus& GetEventBus() const override;
   [[nodiscard]] virtual Core::Rendering::IRenderComponentManager&
   GetRenderComponentManager() const override;
@@ -102,8 +108,9 @@ class Application : public Core::IApplication {
   std::shared_ptr<Core::Debug::IDebugUserInterface> debugUserInterface = nullptr;
   std::shared_ptr<Core::Debug::IDebugHUD> debugHud = nullptr;
   std::shared_ptr<Core::State::IStateMachine> stateMachine = nullptr;
+  std::shared_ptr<Core::Input::IInputSystem> inputSystem = nullptr;
   std::shared_ptr<Core::Scenes::ISceneManager> sceneManager = nullptr;
   std::vector<std::shared_ptr<Core::Systems::ISystem>> systems;
-  Core::Input::ActionSet inputActions;
+  Core::Input::ActionSet inputActionSet;
 };
 }  // namespace Engine

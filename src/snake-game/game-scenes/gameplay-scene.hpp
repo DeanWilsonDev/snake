@@ -7,7 +7,7 @@
 #include "core/entities/i-entity-manager.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/scenes/i-scene.hpp"
-#include "core/input/action-set.hpp"
+#include "core/input/action-router.hpp"
 #include "core/rendering/i-renderer.hpp"
 #include "snake-game/settings/snake-game-settings.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
@@ -35,7 +35,7 @@ struct GameplaySceneParams {
   Core::Events::IEventBus& eventBus;
   Core::Rendering::IRenderComponentManager& renderComponentManager;
   const SnakeGameSettings& gameSettings;
-  const Core::Input::ActionSet& inputActions;
+  Core::Input::ActionRouter& inputActionRouter;
   int screenWidth;
   int screenHeight;
 };

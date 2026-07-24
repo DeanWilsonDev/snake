@@ -21,10 +21,10 @@ void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
   snakeSettings->debug.enabled = false;
   snakeSettings->debug.showDebugLogs = false;
 
-  auto inputActions = this->GetInputActions();
+  auto& inputActions = this->GetInputActionSet();
 
-  inputActions.RegisterAction("MoveForward", ActionValueType::Axis1D);
-  inputActions.RegisterAction("MoveRight", ActionValueType::Axis1D);
+  inputActions.RegisterAction("MoveVertical", ActionValueType::Axis1D);
+  inputActions.RegisterAction("MoveHorizontal", ActionValueType::Axis1D);
   inputActions.RegisterAction("Confirm", ActionValueType::Boolean);
   inputActions.RegisterAction("Decline", ActionValueType::Boolean);
 
@@ -38,10 +38,10 @@ void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
             .input =
                 {
                     .keyMap = inputActions.BuildKeyMap(
-                        {Core::Input::Bind("MoveForward")
+                        {Core::Input::Bind("MoveVertical")
                              .Axis1D({KeyCode::W, KeyCode::Up}, 1.0f)
                              .Axis1D({KeyCode::S, KeyCode::Down}, -1.0f),
-                         Core::Input::Bind("MoveRight")
+                         Core::Input::Bind("MoveHorizontal")
                              .Axis1D({KeyCode::D, KeyCode::Right}, 1.0f)
                              .Axis1D({KeyCode::A, KeyCode::Left}, -1.0f),
                          Core::Input::Bind("Confirm").Digital({KeyCode::Enter, KeyCode::E}),
@@ -67,6 +67,7 @@ void SnakeApplication::Initialize()
       .eventBus = this->GetEventBus(),
       .renderComponentManager = this->GetRenderComponentManager(),
       .gameSettings = this->GetSnakeSettings(),
+      .inputActionRouter = this->GetInputActionRouter(),
       .screenWidth = this->GetConfig().engine.window.GetScreenWidth(),
       .screenHeight = this->GetConfig().engine.window.GetScreenHeight(),
   };

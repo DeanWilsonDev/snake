@@ -51,13 +51,6 @@ Application::~Application() = default;
 
 void Application::Initialize()
 {
-  const auto& config = this->GetConfig();
-
-  const auto& debug = config.engine.debug;
-  Debug::System.SetDebugMode(debug.enabled);
-
-  LOG_INIT("log.json", debug.enabled);
-
   LOG_CORE_TRACE("[Application] Initializing");
   this->window = this->injector->Resolve<Core::Window::IWindow>();
   this->renderer = this->injector->Resolve<Core::Rendering::IRenderer>();
@@ -78,11 +71,15 @@ void Application::Initialize()
   // can all become systems and i can have control over their lifetimes from here.
 
   // Input
-  auto inputSystem = std::make_shared<Engine::Input::InputSystem>(
-      *inputBackend, *eventBus, config.engine.input.keyMap, config.engine.input.actions
+  this->inputSystem = std::make_shared<Engine::Input::InputSystem>(
+      *inputBackend,
+      *eventBus,
+      config.engine.input.keyMap,
+      config.engine.input.actions,
+      this->inputActionSet
   );
 
-  this->RegisterSystem(inputSystem);
+  this->RegisterSystem(this->inputSystem);
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&this->window));
   LOG_CORE_TRACE("[Application] Renderer set to {}", static_cast<void*>(&this->renderer));
@@ -126,14 +123,6 @@ void Application::RegisterSystem(const std::shared_ptr<Core::Systems::ISystem>& 
 
 void Application::RegisterDependencies()
 {
-  // Init Logger
-  const auto& config = this->GetConfig();
-
-  const auto& debug = config.engine.debug;
-  Debug::System.SetDebugMode(debug.enabled);
-
-  LOG_INIT("log.json", debug.enabled);
-
   // Raylib Dependencies as defaults:
 
   this->GetInjector().Register<Core::Window::IWindow, RaylibFacade::Window::RaylibWindowFacade>();
@@ -173,6 +162,14 @@ void Application::RegisterDependencies()
 
 void Application::Run()
 {
+  // Init Logger
+  const auto& config = this->GetConfig();
+
+  const auto& debug = config.engine.debug;
+  Debug::System.SetDebugMode(debug.enabled);
+
+  LOG_INIT("log.json", debug.enabled);
+
   this->Configure(this->config);
 
   this->RegisterDependencies();
@@ -254,15 +251,20 @@ Core::Scenes::ISceneManager& Application::GetSceneManager() const
   return *this->sceneManager;
 }
 
-const Core::Input::ActionSet& Application::GetInputActions() const
+const Core::Input::ActionSet& Application::GetInputActionSet() const
 {
-  return this->inputActions;
+  return this->inputActionSet;
 }
 
-Core::Input::ActionSet& Application::GetInputActions()
+Core::Input::ActionSet& Application::GetInputActionSet()
 {
-  return this->inputActions;
+  return this->inputActionSet;
 }
+
+Core::Input::ActionRouter& Application::GetInputActionRouter()
+{
+  return this->inputSystem->GetActionRouter();
+};
 
 Core::Events::IEventBus& Application::GetEventBus() const
 {

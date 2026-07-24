@@ -2,8 +2,8 @@
 #include <memory>
 #include "core/events/i-event-bus.hpp"
 #include "core/input/action.hpp"
-#include "engine/events/input/input-action-pressed-event.hpp"
-#include "engine/events/input/input-action-released-event.hpp"
+#include "core/events/input/input-action-pressed-event.hpp"
+#include "core/events/input/input-action-released-event.hpp"
 
 namespace Engine::Input {
 
@@ -39,10 +39,10 @@ void InputDispatcher::Run()
 
     if (isDown != wasDown) {
       if (isDown) {
-        this->eventBus.Publish(Engine::Events::Input::InputActionPressedEvent{action});
+        this->eventBus.Publish(Core::Events::Input::InputActionPressedEvent{action});
       }
       if (wasDown) {
-        this->eventBus.Publish(Engine::Events::Input::InputActionReleasedEvent{action});
+        this->eventBus.Publish(Core::Events::Input::InputActionReleasedEvent{action});
       }
     }
     this->lastFrameDown[i] = isDown;
@@ -56,6 +56,16 @@ bool InputDispatcher::IsActionDown(Core::Input::Action action) const
       return this->currentDown[i];
     }
   }
+  return false;
+}
+
+Core::Input::ActionValue InputDispatcher::GetActionValue(Core::Input::Action action) const
+{
+  // SIDE QUEST: This will need refactoring when Gamepad Support is added
+  for (auto& source : this->sources) {
+    return source->GetActionValue(action);
+  }
+  return {};
 }
 
 }  // namespace Engine::Input

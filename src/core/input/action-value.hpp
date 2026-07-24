@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "core/utils/zip.hpp"
 #include "core/input/action-value-type.hpp"
 #include "core/math/vector-2d.hpp"
 #include <variant>
@@ -19,7 +20,7 @@ inline ActionValueType ValueTypeOf(const ActionValue& value)
         if constexpr (std::is_same_v<T, bool>) {
           return ActionValueType::Boolean;
         }
-        else if constexpr (std::is_same_v<T, bool>) {
+        else if constexpr (std::is_same_v<T, float>) {
           return ActionValueType::Axis1D;
         }
         else if constexpr (std::is_same_v<T, Core::Math::Vector2D>) {
@@ -30,5 +31,41 @@ inline ActionValueType ValueTypeOf(const ActionValue& value)
       value
   );
 }
+
+inline ActionValue Accumulate(const ActionValue& a, const ActionValue& b)
+{
+  return Zip(
+      a,
+      b,
+      Overloaded{
+          [](bool x, bool y) -> ActionValue { return x || y; },
+          [](float x, float y) -> ActionValue { return x + y; },
+          [](const Core::Math::Vector2D x, const Core::Math::Vector2D y) -> ActionValue {
+            return x + y;
+          },
+      }
+  );
+};
+
+/*
+ * Distance:
+ *
+ * Measures the deadzone for a given action depending on the ActionValueType
+ *
+ */
+inline float Distance(const ActionValue& a, const ActionValue& b)
+{
+  return Zip(
+      a,
+      b,
+      Overloaded{
+          [](bool x, bool y) -> float { return x != y ? 1.0f : 0.0f; },
+          [](float x, float y) -> float { return std::abs(x - y); },
+          [](const Core::Math::Vector2D x, const Core::Math::Vector2D y) -> float {
+            return (x - y).Length();
+          },
+      }
+  );
+};
 
 }  // namespace Core::Input

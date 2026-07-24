@@ -27,7 +27,7 @@ struct SnakeSegmentParams : Engine::Entities::EntityParams {
   }
 };
 
-class SnakeSegment final : public Engine::Entities::Entity {
+class SnakeSegment : public Engine::Entities::Entity {
  public:
   // Properties
   int index = {0};
@@ -36,7 +36,7 @@ class SnakeSegment final : public Engine::Entities::Entity {
   explicit SnakeSegment(const SnakeSegmentParams& params);
   ~SnakeSegment() override;
 
-  void OnRegistration() override;
+  virtual void OnRegistration() override;
   void DebugUpdate() const override;
 
   [[nodiscard]] Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D();

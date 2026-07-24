@@ -69,6 +69,8 @@ struct Vector2D {
 
   inline static float Magnitude(const Vector2D& v) { return (sqrt((v.x * v.x) + (v.y * v.y))); }
 
+  inline float Length() const { return Magnitude(*this); }
+
   /*
    * To normalize a 2D vector, you divide each component of the vector by its magnitude (length).
    * This scales the vector to have a length of `1` (making it a unit vector) while preserving its

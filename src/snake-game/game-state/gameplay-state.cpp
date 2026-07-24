@@ -5,6 +5,7 @@
 #include "snake-game/game-state/game-over-state.hpp"
 #include "gameplay-state-machine.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
+#include "snake-game/game-entities/snake-head.hpp"
 #include "physics/collision/rectangle-collider-2d.hpp"
 #include "snake-game/game-entities/snake.hpp"
 #include "snake-game/game-entities/apple.hpp"

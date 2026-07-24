@@ -1,8 +1,8 @@
 #pragma once
 #include <deque>
 #include "core/events/i-event-bus.hpp"
+#include "core/input/action-router.hpp"
 #include "core/math/vector-2d.hpp"
-#include "core/input/action-set.hpp"
 #include "engine/spatial/transform-2d.hpp"
 
 namespace Core::Components {
@@ -26,11 +26,19 @@ class IEntityManager;
 }
 
 namespace SnakeGame {
+class SnakeHead;
+}
+
+namespace SnakeGame {
+struct SnakeHeadParams;
+}
+
+namespace SnakeGame {
 class SnakeSegment;
 }
 
 namespace SnakeGame {
-class SnakeSegmentParams;
+struct SnakeSegmentParams;
 }
 
 namespace SnakeGame {
@@ -48,8 +56,6 @@ struct SnakeParams {
   Core::Events::IEventBus& eventBus;
   Core::Entities::IEntityManager& entityManager;
   const SnakeGameSettings& settings;
-  const Core::Input::IInputSystem& inputSystem;
-  const Core::Input::ActionSet& inputActions;
   int screenWidth;
   int screenHeight;
 };
@@ -76,13 +82,11 @@ class Snake final {
 
   [[nodiscard]] const SnakeGameSettings& GetSnakeGameSettings() const { return this->settings; }
 
-  SnakeSegment* head{};
+  SnakeHead* head{};
   std::deque<SnakeSegment*> body;
 
  private:
   Core::Entities::IEntityManager& entityManager;
-  const Core::Input::IInputSystem& inputSystem;
-  const Core::Input::ActionSet& inputActions;
   const SnakeGameSettings& settings;
   int screenWidth;
   int screenHeight;

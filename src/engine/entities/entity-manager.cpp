@@ -4,6 +4,7 @@
 
 #include "engine/entities/entity-manager.hpp"
 #include "core/entities/i-entity.hpp"
+#include "core/input/action-router.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include "engine/entities/entity-activation-pipeline.hpp"
 #include "engine/entities/entity-lifecycle-state.hpp"
@@ -11,8 +12,11 @@
 
 namespace Engine::Entities {
 
-EntityManager::EntityManager(Core::Rendering::IRenderComponentManager* renderManager)
-    : componentPipeline(renderManager)
+EntityManager::EntityManager(
+    Core::Rendering::IRenderComponentManager* renderManager,
+    Core::Input::ActionRouter& inputActionRouter
+)
+    : componentPipeline(renderManager, inputActionRouter)
 {
 }
 

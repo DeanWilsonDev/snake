@@ -15,22 +15,6 @@ namespace Engine::Entities {
 Entity::Entity(const EntityParams& params) : active(params.active)
 {
   LOG_TRACE("[GameEntity] Setting up new GameEntity");
-
-  if (params.transform) {
-    this->transformComponent =
-        std::make_unique<Engine::Spatial::Components::TransformComponent2D>(params.transform);
-  }
-
-  LOG_TRACE(
-      "[GameEntity] Checking TransformComponent2D is Initialized: [{}]",
-      static_cast<void*>(&this->transformComponent)
-  );
-
-  if (this->transformComponent == nullptr) {
-    this->transformComponent = make_unique<Engine::Spatial::Components::TransformComponent2D>(
-        Core::Math::Vector2D::Zero(), 0.0f, Engine::Spatial::Size2D::Zero()
-    );
-  }
 };
 
 Entity::~Entity() = default;
@@ -79,18 +63,14 @@ void Entity::ForEachComponent(
   }
 }
 
-Core::Spatial::Components::ITransformComponent2D& Entity::GetTransformComponent()
+void Entity::OnRegistration()
 {
-  return *this->transformComponent;
-};
-
-const Core::Spatial::Components::ITransformComponent2D& Entity::GetTransformComponent() const
-{
-  return *this->transformComponent;
-};
+  AddComponent<Engine::Spatial::Components::TransformComponent2D>();
+  this->transform = GetComponent<Engine::Spatial::Components::TransformComponent2D>();
+}
 
 void Entity::BeginPlay() {}
-void Entity::OnRegistration() {}
+
 void Entity::OnActivate() {}
 void Entity::Update(float) {}
 void Entity::DebugUpdate() const {}

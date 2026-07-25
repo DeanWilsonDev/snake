@@ -32,6 +32,8 @@ class IDebugHUD {
 
   virtual void RenderToConsole() const = 0;
 
+  virtual const std::string& GetName() = 0;
+
   template <typename... Args>
   void FormatPathAndSet(
       std::variant<int, size_t, float, std::string, bool> value,

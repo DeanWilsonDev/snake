@@ -39,8 +39,6 @@ class IEntity : public Core::IBeginPlay,
   virtual bool IsActive() const = 0;
   virtual void SetActive(bool active) = 0;
   virtual const bool& GetActive() const = 0;
-  virtual Core::Spatial::Components::ITransformComponent2D& GetTransformComponent() = 0;
-  virtual const Core::Spatial::Components::ITransformComponent2D& GetTransformComponent() const = 0;
 
   template <typename T>
   T* GetComponent()

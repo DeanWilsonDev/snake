@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "engine/entities/entity.hpp"
 #include "core/rendering/components/i-render-component-2d.hpp"
 #include "core/math/vector-2d.hpp"
@@ -37,6 +36,7 @@ class SnakeSegment : public Engine::Entities::Entity {
   ~SnakeSegment() override;
 
   virtual void OnRegistration() override;
+  void Update(const float deltaTime) override;
   void DebugUpdate() const override;
 
   [[nodiscard]] Core::Rendering::Components::IRenderComponent2D& GetRendererComponent2D();
@@ -49,6 +49,14 @@ class SnakeSegment : public Engine::Entities::Entity {
   [[nodiscard]] const Physics::Collision::Components::ColliderComponent2D&
   GetColliderComponent() const;
 
-  void Move(Core::Math::Vector2D newPosition);
+  void Move();
+  void SetDirection(Core::Math::Vector2D value);
+
+ protected:
+  float accumulatedDistance = 0.0f;
+  bool directionChanged = false;
+  float size = {0};
+  float speed = {10};
+  Core::Math::Vector2D direction{};
 };
 }  // namespace SnakeGame

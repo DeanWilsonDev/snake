@@ -40,8 +40,20 @@ int RaylibInputBackendFacade::MapKeyCode(const KeyCode keyCode)
       return KEY_S;
     case KeyCode::W:
       return KEY_W;
+    case KeyCode::E:
+      return KEY_E;
     case KeyCode::Enter:
       return KEY_ENTER;
+    case KeyCode::Escape:
+      return KEY_ESCAPE;
+    case KeyCode::Up:
+      return KEY_UP;
+    case KeyCode::Down:
+      return KEY_DOWN;
+    case KeyCode::Left:
+      return KEY_LEFT;
+    case KeyCode::Right:
+      return KEY_RIGHT;
     default:
       return 0;
   }

@@ -18,9 +18,6 @@ void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
 {
   auto snakeSettings = std::make_unique<SnakeGameSettings>();
 
-  snakeSettings->debug.enabled = false;
-  snakeSettings->debug.showDebugLogs = false;
-
   auto& inputActions = this->GetInputActionSet();
 
   inputActions.RegisterAction("MoveVertical", ActionValueType::Axis1D);
@@ -51,9 +48,10 @@ void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
                 },
             .debug =
                 {
-                    .enabled = false,
-                    .showDebugHud = false,
-                    .showDebugLogs = false,  // Show Core Logging
+                    .enabled = true,
+                    .showDebugHud = true,
+                    .showCoreDebugLogs = true, // SIDE QUEST: Hook these settings up to the logger
+                    .showClientDebugLogs = true,
                 }},
        .project = {.title = "Snake"},
        .game = std::move(snakeSettings)};

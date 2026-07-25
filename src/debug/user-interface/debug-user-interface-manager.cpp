@@ -17,6 +17,7 @@ DebugUserInterfaceManager::~DebugUserInterfaceManager() = default;
 
 void DebugUserInterfaceManager::Register(IDebugGameUI* debugUI)
 {
+  LOG_CORE_INFO("[DebugUserInterfaceManager] Registering Debug UI: {}", debugUI->GetName());
   if (auto ui = dynamic_cast<IDebugGameUI*>(debugUI)) {
     this->debugGameUIs.push_back(ui);
   }

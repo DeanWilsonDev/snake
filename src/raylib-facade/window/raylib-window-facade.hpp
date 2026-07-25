@@ -16,5 +16,8 @@ class RaylibWindowFacade final : public Core::Window::IWindow {
   int GetScreenHeight() override;
   int GetScreenWidth() override;
   void SetWindowSize(int width, int height) override;
+
+ private:
+  bool closed = false;
 };
 }  // namespace RaylibFacade::Window

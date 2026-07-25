@@ -4,7 +4,6 @@
 #include "core/math/vector-2d.hpp"
 #include "core/entities/i-entity-manager.hpp"
 #include "engine/spatial/transform-2d.hpp"
-#include "core/spatial/components/i-transform-component.hpp"
 #include "snake-game/game-entities/snake-head.hpp"
 
 #include <cmath>
@@ -16,7 +15,6 @@ Snake::~Snake() = default;
 
 Snake::Snake(const SnakeParams& snakeParams)
     : entityManager(snakeParams.entityManager)
-    // , inputActions(snakeParams.inputActions)
     , settings(snakeParams.settings)
     , screenWidth(snakeParams.screenWidth)
     , screenHeight(snakeParams.screenHeight)
@@ -39,51 +37,19 @@ Snake* Snake::Initialize()
   return this;
 }
 
-void Snake::Update(const float deltaTime)
+void Snake::Update(const float)
 {
-  if (this->head->direction.x != 0.0f || this->head->direction.y != 0.0f) {
-    this->SetDirection(this->head->direction);
-  }
-  accumulatedDistance += this->speed * deltaTime;
-
-  if (accumulatedDistance >= this->size) {
-    this->Move();
-    this->CheckIfShouldGrow();
-    accumulatedDistance -= this->size;
-    this->Teleport();
-  }
-}
-
-void Snake::SetDirection(Core::Math::Vector2D desiredDirection)
-{
-  if (desiredDirection.x == -this->direction.x && desiredDirection.y == -this->direction.y) {
-    return;
-  }
-  this->direction = desiredDirection;
-}
-
-void Snake::Move() const
-{
-  Core::Math::Vector2D newPosition = {
-      this->head->GetTransformComponent().GetPosition().x + this->direction.x * this->size,
-      this->head->GetTransformComponent().GetPosition().y + this->direction.y * this->size,
-  };
-
-  newPosition.x = std::roundf(newPosition.x / this->size) * this->size;
-  newPosition.y = std::roundf(newPosition.y / this->size) * this->size;
-
-  this->head->Move(newPosition);
-
-  Core::Math::Vector2D nextPosition = newPosition;
-
-  for (int i = 1; i < this->length; i++) {
-    if (this->body[i] && this->body[i - 1]) {
-      const Core::Math::Vector2D previousPosition =
-          this->body[i]->GetTransformComponent().GetPosition();
-      this->body[i]->Move(nextPosition);
-      nextPosition = previousPosition;
-    }
-  }
+  // accumulatedDistance += this->speed * deltaTime;
+  //
+  // if (accumulatedDistance >= this->size) {
+  //   if (this->head->direction.x != 0.0f || this->head->direction.y != 0.0f) {
+  //     this->SetDirection(this->head->direction);
+  //   }
+  //   this->Move();
+  //   this->CheckIfShouldGrow();
+  //   accumulatedDistance -= this->size;
+  //   this->Teleport();
+  // }
 }
 
 void Snake::CreateBody()
@@ -105,25 +71,24 @@ void Snake::CreateBody()
       auto headEntity = std::make_unique<SnakeHead>(headParams);
       this->head = static_cast<SnakeHead*>(this->entityManager.AddEntity(std::move(headEntity)));
       this->body.push_back(this->head);
+      continue;
     }
-
     auto params = SnakeSegmentParams{i, &nextSegmentTransform};
     this->CreateSegment(params);
   }
 }
 
+// MAIN QUEST: Move this to a game system
 void Snake::CheckIfShouldGrow()
 {
-  if (this->grow) {
-    const auto params = SnakeSegmentParams{
-        this->length, &this->body.back()->GetTransformComponent().GetTransform()
-    };
-
-    this->CreateSegment(params);
-
-    this->length++;
-    this->grow = false;
-  }
+  // if (this->grow) {
+  //   const auto params = SnakeSegmentParams{this->length, &this->body.back()->transform};
+  //
+  //   this->CreateSegment(params);
+  //
+  //   this->length++;
+  //   this->grow = false;
+  // }
 }
 
 void Snake::CreateSegment(SnakeSegmentParams params)
@@ -141,38 +106,38 @@ void Snake::Teleport() const
   // Snake should have no knowledge of screen bounds — the system takes a list of
   // entities and wraps their positions if they exceed the boundary.
 
-  for (auto& segment : this->body) {
-    auto& segmentPosition = segment->GetTransformComponent().GetPosition();
-    if (segmentPosition.x > this->screenWidth) {
-      segmentPosition.x = 0;
-    }
-    else if (segmentPosition.x < 0) {
-      segmentPosition.x = this->screenWidth;
-    }
-    else if (segmentPosition.y > this->screenHeight) {
-      segmentPosition.y = 0;
-    }
-    else if (segmentPosition.y < 0) {
-      segmentPosition.y = this->screenHeight;
-    }
-  }
+  // for (auto& segment : this->body) {
+  //   auto& segmentPosition = segment->GetTransformComponent().GetPosition();
+  //   if (segmentPosition.x > this->screenWidth) {
+  //     segmentPosition.x = 0;
+  //   }
+  //   else if (segmentPosition.x < 0) {
+  //     segmentPosition.x = this->screenWidth;
+  //   }
+  //   else if (segmentPosition.y > this->screenHeight) {
+  //     segmentPosition.y = 0;
+  //   }
+  //   else if (segmentPosition.y < 0) {
+  //     segmentPosition.y = this->screenHeight;
+  //   }
+  // }
 }
 
 Core::Math::Vector2D Snake::GetCenter() const
 {
-  const auto boxSize = static_cast<float>(this->settings.boxSize);
-  return {
-      this->head->GetTransformComponent().GetPosition().x + boxSize / 2.0f,
-      this->head->GetTransformComponent().GetPosition().y + boxSize / 2.0f,
-  };
+//   const auto boxSize = static_cast<float>(this->settings.boxSize);
+//   return {
+//       this->head->GetTransformComponent().GetPosition().x + boxSize / 2.0f,
+//       this->head->GetTransformComponent().GetPosition().y + boxSize / 2.0f,
+//   };
 }
 
-void Snake::SetActive(const bool enabled) const
+void Snake::SetActive(const bool) const
 {
-  for (const auto& i : body) {
-    i->SetActive(enabled);
-  }
-  head->SetActive(enabled);
+//   for (const auto& i : body) {
+//     i->SetActive(enabled);
+//   }
+//   head->SetActive(enabled);
 }
 
 void Snake::Destroy()

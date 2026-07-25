@@ -1,7 +1,6 @@
 #pragma once
 #include <deque>
 #include "core/events/i-event-bus.hpp"
-#include "core/input/action-router.hpp"
 #include "core/math/vector-2d.hpp"
 #include "engine/spatial/transform-2d.hpp"
 
@@ -15,10 +14,6 @@ class ColliderComponent2D;
 
 namespace Renderer2D::Component {
 class IRenderComponent2D;
-}
-
-namespace Core::Input {
-class IInputSystem;
 }
 
 namespace Core::Entities {

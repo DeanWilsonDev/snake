@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <string>
+
 namespace Core {
 namespace Debug {
 class IDebugUserInterface;
@@ -22,7 +24,9 @@ class IDebugGameUI {
 
   virtual void OnDebugDrawUI(const Core::Debug::IDebugUserInterface& ui) const = 0;
 
-  [[nodiscard]] virtual Rendering::Components::IRenderComponentUI& GetRenderComponentUI() const = 0;
+  virtual Rendering::Components::IRenderComponentUI& GetRenderComponentUI() const = 0;
+
+  virtual std::string& GetName() const = 0;
 };
 }  // namespace Debug
 }  // namespace Core

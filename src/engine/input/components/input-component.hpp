@@ -11,14 +11,14 @@
 #include "core/input/action-value.hpp"
 
 namespace Core::Input {
-class ActionRouters;
+class ActionRouter;
 }
 
 namespace Engine::Input::Components {
 
-class InputComponent final : public Core::Input::Components::IInputComponent {
+class InputComponent : public Core::Input::Components::IInputComponent {
  public:
-  explicit InputComponent();
+  InputComponent();
   virtual void Bind(const std::string& name, std::function<void()> callback) override;
 
   virtual void BindAxis(
@@ -29,7 +29,7 @@ class InputComponent final : public Core::Input::Components::IInputComponent {
   virtual void AttachRouter(Core::Input::ActionRouter& attachedRouter) override;
 
  private:
-  Core::Input::ActionRouter* router;
+  Core::Input::ActionRouter* router{nullptr};
   std::vector<Core::Input::ActionRouter::Handle> handles;
 };
 

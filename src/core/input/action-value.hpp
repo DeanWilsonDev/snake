@@ -32,6 +32,20 @@ inline ActionValueType ValueTypeOf(const ActionValue& value)
   );
 }
 
+inline ActionValue ZeroValueFor(const ActionValueType& value)
+{
+  switch (value) {
+    case Core::Input::ActionValueType::Boolean:
+      return ActionValue{false};
+    case Core::Input::ActionValueType::Axis1D:
+      return ActionValue{0.0f};
+    case Core::Input::ActionValueType::Axis2D:
+      return ActionValue{Core::Math::Vector2D{0.0f, 0.0f}};
+    default:
+      return ActionValue{false};
+  };
+}
+
 inline ActionValue Accumulate(const ActionValue& a, const ActionValue& b)
 {
   return Zip(

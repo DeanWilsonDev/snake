@@ -9,6 +9,7 @@ struct DebugConfig {
   bool enabled = false;
   bool showFPS = false;
   bool showDebugHud = false;
-  bool showDebugLogs = false;
+  bool showCoreDebugLogs = false;
+  bool showClientDebugLogs = false;
 };
 }  // namespace Engine::Config

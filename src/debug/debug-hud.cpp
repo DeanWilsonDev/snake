@@ -13,7 +13,7 @@
 
 namespace Debug {
 
-DebugHUD::DebugHUD() {}
+DebugHUD::DebugHUD(std::string name) : name(name) {}
 DebugHUD::~DebugHUD() {}
 
 void DebugHUD::ClearFrameData() {};
@@ -48,7 +48,7 @@ DebugNode& DebugHUD::GetOrCreateNode(const std::vector<std::string>& parts)
   for (std::size_t i = 0; i < parts.size(); ++i) {
     const auto& key = parts[i];
 
-   // Ensure Key exists
+    // Ensure Key exists
     auto it = currentMap->find(key);
     if (it == currentMap->end()) {
       auto node = std::make_unique<DebugNode>();
@@ -155,6 +155,11 @@ void DebugHUD::VisitNode(
       this->VisitNode(childKey, *childNode, depth + 1, callback);
     }
   }
+}
+
+const std::string& DebugHUD::GetName()
+{
+  return this->name;
 }
 
 }  // namespace Debug

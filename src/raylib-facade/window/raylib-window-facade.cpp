@@ -11,7 +11,11 @@ RaylibWindowFacade::RaylibWindowFacade()
 
 RaylibWindowFacade::~RaylibWindowFacade()
 {
+  if (closed) {
+    return;
+  }
   CloseWindow();
+  this->closed = true;
 }
 
 void RaylibWindowFacade::CreateWindow(int width, int height, char* title)
@@ -22,7 +26,11 @@ void RaylibWindowFacade::CreateWindow(int width, int height, char* title)
 
 void RaylibWindowFacade::CloseWindow()
 {
+  if (closed) {
+    return;
+  }
   ::CloseWindow();
+  this->closed = true;
 }
 
 void RaylibWindowFacade::SetTargetFPS(const int targetFPS)

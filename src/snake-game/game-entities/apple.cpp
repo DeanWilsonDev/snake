@@ -1,5 +1,4 @@
 #include "apple.hpp"
-#include <memory>
 #include "core/components/i-collision-component-2d.hpp"
 #include "engine/entities/entity.hpp"
 #include "core/color/color.hpp"
@@ -19,18 +18,10 @@ Apple::Apple(const AppleParams& params) : Engine::Entities::Entity(params) {}
 void Apple::OnRegistration()
 {
   LOG_TRACE("[Apple] Initializing Apple from Constructor");
-
-  this->transformComponent = make_unique<Engine::Spatial::Components::TransformComponent2D>(
-      Core::Math::Vector2D::Zero(), 0, Engine::Spatial::Size2D(this->size)
-  );
-
-  LOG_TRACE(
-      "[Apple] Checking TransformComponent2D is Initialized: [{}]",
-      static_cast<void*>(&this->transformComponent)
-  );
+  Engine::Entities::Entity::OnRegistration();
 
   this->AddComponent<Renderer2D::Components::RenderComponent2D>(
-      *this->transformComponent, Core::Color::Red, this->GetActive()
+      *this->transform, Core::Color::Red, this->GetActive()
   );
 
   LOG_TRACE(
@@ -38,9 +29,8 @@ void Apple::OnRegistration()
       static_cast<void*>(&*this->GetComponent<Core::Rendering::Components::IRenderComponent2D>())
   );
 
-  const auto appleColliderParams = Physics::Collision::Components::ColliderComponentParams{
-      .transform = this->transformComponent.get()
-  };
+  const auto appleColliderParams =
+      Physics::Collision::Components::ColliderComponentParams{.transform = this->transform};
 
   this->AddComponent<Physics::Collision::Components::ColliderComponent2D>(appleColliderParams);
 
@@ -55,27 +45,26 @@ void Apple::OnRegistration()
 
 void Apple::BeginPlay()
 {
-  UMBRA_DEBUG({},"Apple Begin Play plays Once");
+  UMBRA_DEBUG({}, "Apple Begin Play plays Once");
 }
 
-void Apple::OnActivate(){
-
-  UMBRA_DEBUG({},"Apple Active on Load");
+void Apple::OnActivate()
+{
+  UMBRA_DEBUG({}, "Apple Active on Load");
   this->SetActive(false);
-  UMBRA_DEBUG({},"Apple Deactivated");
+  UMBRA_DEBUG({}, "Apple Deactivated");
   this->SetActive(true);
-  UMBRA_DEBUG({},"Apple Reactivated");
-
+  UMBRA_DEBUG({}, "Apple Reactivated");
 }
 
 void Apple::Update([[maybe_unused]] const float deltaTime) {}
 
 void Apple::DebugUpdate() const
 {
-  UMBRA_DEBUG(this->transformComponent->GetPosition().x, "Apple/Position/X");
-  UMBRA_DEBUG(this->transformComponent->GetPosition().y, "Apple/Position/Y");
-  UMBRA_DEBUG(this->transformComponent->GetScale().GetWidth(), "Apple/Scale/Width");
-  UMBRA_DEBUG(this->transformComponent->GetScale().GetHeight(), "Apple/Scale/Height");
+  UMBRA_DEBUG(this->transform->GetPosition().x, "Apple/Position/X");
+  UMBRA_DEBUG(this->transform->GetPosition().y, "Apple/Position/Y");
+  UMBRA_DEBUG(this->transform->GetScale().GetWidth(), "Apple/Scale/Width");
+  UMBRA_DEBUG(this->transform->GetScale().GetHeight(), "Apple/Scale/Height");
   UMBRA_DEBUG(this->GetSize(), "Apple/Size");
   UMBRA_DEBUG(this->GetActive(), "Apple/Active");
 

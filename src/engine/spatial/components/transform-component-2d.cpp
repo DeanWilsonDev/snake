@@ -3,7 +3,6 @@
 //
 
 #include "transform-component-2d.hpp"
-#include "core/spatial/i-size-2d.hpp"
 #include "engine/spatial/size-2d.hpp"
 #include "core/math/vector-2d.hpp"
 #include "engine/spatial/transform-2d.hpp"

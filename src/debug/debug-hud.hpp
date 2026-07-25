@@ -14,7 +14,7 @@ namespace Debug {
 
 class DebugHUD : public Core::Debug::IDebugHUD {
  public:
-  DebugHUD();
+  DebugHUD(std::string name);
   ~DebugHUD() override;
 
   void Visit(
@@ -30,8 +30,11 @@ class DebugHUD : public Core::Debug::IDebugHUD {
 
   void RenderToConsole() const override;
 
+  const std::string& GetName() override;
+
  private:
   DebugMap root;
+  std::string name;
 
   static std::vector<std::string> SplitPath(const std::string_view path);
 

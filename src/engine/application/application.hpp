@@ -102,8 +102,6 @@ class Application : public Core::IApplication {
   std::shared_ptr<Core::Rendering::IRenderComponentManager> renderComponentManager;
   Config::ApplicationConfig config;
 
-  std::unique_ptr<Debug::DebugHUD> debugHUD;
-
   std::shared_ptr<Core::UserInterface::IUserInterface> userInterface = nullptr;
   std::shared_ptr<Core::Debug::IDebugUserInterface> debugUserInterface = nullptr;
   std::shared_ptr<Core::Debug::IDebugHUD> debugHud = nullptr;

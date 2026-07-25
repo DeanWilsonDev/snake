@@ -35,7 +35,6 @@
 
 #include "renderer-2d/render-component-2d-manager.hpp"
 
-#include <cstdlib>
 #include <memory>
 #include <cassert>
 #include <chrono>
@@ -60,6 +59,7 @@ void Application::Initialize()
   this->sceneManager = this->injector->Resolve<Core::Scenes::ISceneManager>();
   this->renderComponentManager =
       this->injector->Resolve<Core::Rendering::IRenderComponentManager>();
+  this->debugUserInterface = this->injector->Resolve<Core::Debug::IDebugUserInterface>();
 
   // Systems
 
@@ -87,7 +87,6 @@ void Application::Initialize()
   LOG_CORE_TRACE("[Application] UserInterface set to {}", static_cast<void*>(&this->userInterface));
   LOG_CORE_TRACE("[Application] EventBus set to {}", static_cast<void*>(&this->eventBus));
   LOG_CORE_TRACE("[Application] SceneManager set to {}", static_cast<void*>(&this->sceneManager));
-  LOG_CORE_TRACE("[Application] DebugHUD set to {}", static_cast<void*>(&this->debugHud));
 
   LOG_CORE_TRACE("[Application] Validating Dependencies");
   assert(this->window);
@@ -153,7 +152,7 @@ void Application::RegisterDependencies()
   this->GetInjector().Register<Core::Scenes::ISceneManager, Engine::Scenes::SceneManager>();
 
   // Debug
-  auto hud = std::make_shared<Debug::DebugHUD>();
+  auto hud = std::make_shared<Debug::DebugHUD>("DefaultDebugHUD");
   this->GetInjector().RegisterInstance<Core::Debug::IDebugHUD>(hud);
 
   // Events
@@ -168,7 +167,9 @@ void Application::Run()
   const auto& debug = config.engine.debug;
   Debug::System.SetDebugMode(debug.enabled);
 
-  LOG_INIT("log.json", debug.enabled);
+  // SIDE QUEST: setup log init to take the entire debug settings struct so you can set each loggers
+  // debug settings individually and use debug.enabled as a master switch
+  LOG_INIT("log.json", debug.showCoreDebugLogs);
 
   this->Configure(this->config);
 
@@ -216,6 +217,10 @@ void Application::OnUpdate(const float deltaTime)
 void Application::OnDebugUpdate() const
 {
   for (auto& system : this->systems) system->OnDebugUpdate();
+
+  if (this->sceneManager) {
+    this->sceneManager->OnDebugUpdate();
+  }
 }
 
 void Application::OnRender(const Core::Rendering::IRenderer& renderer) const
@@ -229,6 +234,14 @@ void Application::OnRender(const Core::Rendering::IRenderer& renderer) const
 void Application::OnDebugRender() const
 {
   for (auto& system : this->systems) system->OnDebugRender();
+
+  if (this->sceneManager) {
+    this->sceneManager->OnDebugRender();
+  }
+
+  if (this->debugUserInterface) {
+    this->debugUserInterface->RenderDebugHUD(Debug::System.GetActiveDebugHUD());
+  }
 }
 
 void Application::Shutdown()

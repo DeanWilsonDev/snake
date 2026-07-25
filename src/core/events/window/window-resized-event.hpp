@@ -6,8 +6,10 @@
 
 #include "core/events/i-event.hpp"
 
+// SIDE QUEST: This is an example of an event for Window. 
+// Window sizing isn't supported currently
 namespace Engine::Events::Window {
 struct WindowResizedEvent final : public Core::Events::IEvent {
- public:
+  // TODO: To be implemented
 };
 }  // namespace Engine::Events::Window

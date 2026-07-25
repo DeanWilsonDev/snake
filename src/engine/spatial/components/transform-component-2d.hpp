@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "core/components/i-component.hpp"
 #include "core/spatial/i-transform-2d.hpp"
 #include "core/spatial/components/i-transform-component.hpp"
 #include "core/math/vector-2d.hpp"

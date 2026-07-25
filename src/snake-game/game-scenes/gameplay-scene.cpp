@@ -1,5 +1,6 @@
 #include "snake-game/game-scenes/gameplay-scene.hpp"
 #include <memory>
+#include "core/logging/log.hpp"
 #include "engine/entities/entity-manager.hpp"
 #include "snake-game/game-entities/apple.hpp"
 #include "snake-game/game-entities/snake.hpp"
@@ -16,7 +17,9 @@ GameplayScene::GameplayScene(const GameplaySceneParams& params)
     , screenWidth(params.screenWidth)
     , screenHeight(params.screenHeight)
 {
-  this->entityManager = make_unique<Engine::Entities::EntityManager>(&this->renderComponentManager, params.inputActionRouter);
+  this->entityManager = make_unique<Engine::Entities::EntityManager>(
+      &this->renderComponentManager, params.inputActionRouter
+  );
 }
 
 GameplayScene::~GameplayScene() = default;
@@ -55,6 +58,9 @@ void GameplayScene::Update(float deltaTime)
   this->stateMachine.Update(deltaTime);
   this->entityManager->OnUpdate(deltaTime);
 
+  // MAIN QUEST: the Snake class can probably get moved into SnakeHead and SnakeSegment
+  this->snake->Update(deltaTime);
+
   // if (stateMachine.IsGameOver()) transition.SwitchTo("mainMenu");
 }
 
@@ -75,7 +81,15 @@ void GameplayScene::Update(float deltaTime)
 void GameplayScene::OnExit() {}
 void GameplayScene::OnRender(const Core::Rendering::IRenderer&) const {}
 
-void GameplayScene::DebugUpdate() const {}
-void GameplayScene::DebugRender() const {}
+// SIDE QUEST: The Entity Manager function call should be happening with the other Systems in
+// Application
+void GameplayScene::DebugUpdate() const
+{
+  this->entityManager->OnDebugUpdate();
+}
+void GameplayScene::DebugRender() const
+{
+  this->entityManager->OnDebugRender();
+}
 
 }  // namespace SnakeGame

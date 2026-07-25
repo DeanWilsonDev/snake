@@ -4,6 +4,7 @@
 #include "core/events/i-event-bus.hpp"
 #include "core/events/input/input-action-pressed-event.hpp"
 #include "core/input/action-set.hpp"
+#include "core/input/action-value.hpp"
 
 namespace Core::Input {
 
@@ -33,8 +34,9 @@ ActionRouter::Handle ActionRouter::BindAxis(
 )
 {
   int handleId = this->nextHandleId++;
+  auto action = this->actions.Get(name);
   this->axisBindings.push_back(
-      {handleId, this->actions.Get(name), std::move(callback), ActionValue{}, threshold}
+      {handleId, action, std::move(callback), Core::Input::ZeroValueFor(action.type), threshold}
   );
   return Handle(this, handleId);
 }

@@ -60,18 +60,12 @@ class Entity : public Core::Entities::IEntity {
   template <typename T>
   void RemoveComponent();
 
-  virtual Core::Spatial::Components::ITransformComponent2D& GetTransformComponent() override;
-  virtual const Core::Spatial::Components::ITransformComponent2D& GetTransformComponent() const override;
-
   void ForEachComponent(
       std::function<bool(const Core::Components::IComponent*)> visitor
   ) const override;
 
-  // Properties
  protected:
-  // 1UP: Refactor location of TransformComponent2D so that it lives in engine and has an interface
-  // in Core
-  std::unique_ptr<Engine::Spatial::Components::TransformComponent2D> transformComponent{nullptr};
+  Engine::Spatial::Components::TransformComponent2D* transform;
 
  private:
   std::unordered_map<std::type_index, std::unique_ptr<Core::Components::IComponent>> components{};

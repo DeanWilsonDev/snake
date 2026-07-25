@@ -41,7 +41,7 @@ Core::Input::ActionValue KeyboardInputSource::GetActionValue(Core::Input::Action
   return std::accumulate(
       it->second.begin(),
       it->second.end(),
-      Core::Input::ActionValue{},
+      Core::Input::ZeroValueFor(action.type),
       [this](Core::Input::ActionValue acc, const Core::Input::KeyBinding& keyBinding) {
         return this->backend.IsKeyDown(keyBinding.key)
                    ? Core::Input::Accumulate(acc, keyBinding.contribution)

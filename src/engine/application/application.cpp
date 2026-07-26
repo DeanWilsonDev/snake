@@ -5,7 +5,6 @@
 #include "core/events/i-event-bus.hpp"
 #include "core/input/action-set.hpp"
 #include "core/input/i-input-backend.hpp"
-#include "core/input/i-input-system.hpp"
 #include "core/logging/log.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/rendering/i-renderer.hpp"
@@ -24,6 +23,7 @@
 #include "engine/events/event-bus.hpp"
 #include "engine/input/input-system.hpp"
 #include "engine/scenes/scene-manager.hpp"
+#include "engine/systems/game-systems/game-system-manager.hpp"
 #include "engine/user-interface/user-interface-manager.hpp"
 #include "engine/utils/string-utils.hpp"
 
@@ -71,15 +71,17 @@ void Application::Initialize()
   // can all become systems and i can have control over their lifetimes from here.
 
   // Input
-  this->inputSystem = std::make_shared<Engine::Input::InputSystem>(
-      *inputBackend,
-      *eventBus,
-      config.engine.input.keyMap,
-      config.engine.input.actions,
-      this->inputActionSet
+  this->RegisterSystem(
+      make_unique<Engine::Input::InputSystem>(
+          *inputBackend,
+          *eventBus,
+          config.engine.input.keyMap,
+          config.engine.input.actions,
+          this->inputActionSet
+      )
   );
 
-  this->RegisterSystem(this->inputSystem);
+  this->RegisterSystem(make_unique<Engine::Systems::GameSystemManager>());
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&this->window));
   LOG_CORE_TRACE("[Application] Renderer set to {}", static_cast<void*>(&this->renderer));
@@ -115,9 +117,9 @@ void Application::Initialize()
   this->window->SetTargetFPS(config.engine.window.targetFPS);
 }
 
-void Application::RegisterSystem(const std::shared_ptr<Core::Systems::ISystem>& system)
+void Application::RegisterSystem(std::unique_ptr<Core::Systems::ISystem> system)
 {
-  this->systems.push_back(std::move(system));
+  this->systemManager.AddSystem(std::move(system));
 }
 
 void Application::RegisterDependencies()
@@ -207,7 +209,7 @@ void Application::Configure(Config::ApplicationConfig&) {}
 
 void Application::OnUpdate(const float deltaTime)
 {
-  for (auto& system : this->systems) system->OnUpdate(deltaTime);
+  this->systemManager.OnUpdate(deltaTime);
 
   if (this->sceneManager) {
     this->sceneManager->OnUpdate(deltaTime);
@@ -216,7 +218,7 @@ void Application::OnUpdate(const float deltaTime)
 
 void Application::OnDebugUpdate() const
 {
-  for (auto& system : this->systems) system->OnDebugUpdate();
+  this->systemManager.OnDebugUpdate();
 
   if (this->sceneManager) {
     this->sceneManager->OnDebugUpdate();
@@ -233,7 +235,7 @@ void Application::OnRender(const Core::Rendering::IRenderer& renderer) const
 
 void Application::OnDebugRender() const
 {
-  for (auto& system : this->systems) system->OnDebugRender();
+  this->systemManager.OnDebugRender();
 
   if (this->sceneManager) {
     this->sceneManager->OnDebugRender();
@@ -263,21 +265,6 @@ Core::Scenes::ISceneManager& Application::GetSceneManager() const
 {
   return *this->sceneManager;
 }
-
-const Core::Input::ActionSet& Application::GetInputActionSet() const
-{
-  return this->inputActionSet;
-}
-
-Core::Input::ActionSet& Application::GetInputActionSet()
-{
-  return this->inputActionSet;
-}
-
-Core::Input::ActionRouter& Application::GetInputActionRouter()
-{
-  return this->inputSystem->GetActionRouter();
-};
 
 Core::Events::IEventBus& Application::GetEventBus() const
 {

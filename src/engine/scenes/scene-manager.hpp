@@ -28,6 +28,8 @@ namespace Engine {
 
 namespace Scenes {
 
+// RAID BOSS: The Scene manager needs to be refactored to fit the `ISystem` spec so that it can be
+// treated like a system
 class SceneManager : public ISceneManager {
  public:
   SceneManager();
@@ -45,7 +47,6 @@ class SceneManager : public ISceneManager {
   virtual void OnDebugUpdate() const override;
   virtual void OnDebugRender() const override;
   virtual void OnRender(const Core::Rendering::IRenderer& renderer) const override;
-
 
  private:
   struct SceneEntry {

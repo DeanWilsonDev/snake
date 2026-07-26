@@ -5,7 +5,6 @@
 #include "engine/entities/entity.hpp"
 #include "core/logging/log.hpp"
 #include "engine/spatial/components/transform-component-2d.hpp"
-#include "engine/spatial/size-2d.hpp"
 
 #include <functional>
 #include <memory>
@@ -15,6 +14,10 @@ namespace Engine::Entities {
 Entity::Entity(const EntityParams& params) : active(params.active)
 {
   LOG_TRACE("[GameEntity] Setting up new GameEntity");
+
+  AddComponent<Engine::Spatial::Components::TransformComponent2D>(
+      params.transform->GetPosition(), params.transform->GetRotation(), params.transform->GetScale()
+  );
 };
 
 Entity::~Entity() = default;
@@ -65,7 +68,6 @@ void Entity::ForEachComponent(
 
 void Entity::OnRegistration()
 {
-  AddComponent<Engine::Spatial::Components::TransformComponent2D>();
   this->transform = GetComponent<Engine::Spatial::Components::TransformComponent2D>();
 }
 

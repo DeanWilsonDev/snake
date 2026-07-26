@@ -1,3 +1,4 @@
+#include "engine/entities/entity.hpp"
 #include "physics/collision/rectangle-collider-2d.hpp"
 #include "snake-game/game-entities/snake-segment.hpp"
 #include "snake.hpp"
@@ -108,5 +109,4 @@ SnakeSegment::GetColliderComponent() const
 {
   return *this->GetComponent<Physics::Collision::Components::ColliderComponent2D>();
 }
-
 }  // namespace SnakeGame

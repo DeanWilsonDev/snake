@@ -15,6 +15,7 @@ struct SnakeHeadParams : SnakeSegmentParams {
   SnakeHeadParams(int index, Core::Spatial::ITransform2D* transform, bool active = true)
       : SnakeSegmentParams(index, transform, active)
   {
+
   }
 };
 

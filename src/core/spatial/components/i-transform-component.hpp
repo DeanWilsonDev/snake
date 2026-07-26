@@ -17,8 +17,6 @@ class ITransformComponent2D : public Core::Components::IComponent,
   // Disable copying; implementations may allow moving
   ITransformComponent2D(const ITransformComponent2D&) = delete;
   ITransformComponent2D& operator=(const ITransformComponent2D&) = delete;
-
-  [[nodiscard]] virtual Core::Spatial::ITransform2D& GetTransform() = 0;
 };
 
 }  // namespace Core::Spatial::Components

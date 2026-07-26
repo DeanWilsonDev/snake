@@ -8,9 +8,9 @@
 #include "core/input/action-set.hpp"
 #include "core/input/i-input-backend.hpp"
 #include "core/input/key-map.hpp"
-#include "core/input/i-input-system.hpp"
 #include "core/input/action-router.hpp"
 #include "engine/input/input-dispatcher.hpp"
+#include "engine/systems/system.hpp"
 
 using namespace Core::Input;
 
@@ -18,7 +18,7 @@ namespace Engine {
 
 namespace Input {
 
-class InputSystem final : public Core::Input::IInputSystem {
+class InputSystem final : public Engine::Systems::System {
  public:
   InputSystem(
       IInputBackend& inputBackend, Core::Events::IEventBus& eventBus, const KeyMap& keyMap,
@@ -27,7 +27,7 @@ class InputSystem final : public Core::Input::IInputSystem {
   void OnUpdate(const float deltaTime) override;
   void OnDebugUpdate() const override;
   void OnDebugRender() const override;
-  Core::Input::ActionRouter& GetActionRouter() override;
+  Core::Input::ActionRouter& GetActionRouter();
 
  private:
   InputDispatcher dispatcher;

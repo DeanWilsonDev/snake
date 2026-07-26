@@ -9,8 +9,8 @@
 #include "core/life-cycle-hooks/i-on-updatable.hpp"
 
 namespace Core::Systems {
-class ISystem : public IOnUpdatable, public Debug::IOnDebugable, public IOnRegistration {
+class IGameSystem : public IOnUpdatable, public Debug::IOnDebugable, public IOnRegistration {
  public:
-  virtual ~ISystem() = default;
+  virtual ~IGameSystem() = default;
 };
 }  // namespace Core::Systems

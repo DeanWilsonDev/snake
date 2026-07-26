@@ -5,6 +5,8 @@
 
 namespace Debug {
 
+// RAID BOSS: The Debug System needs to be refactored to fit the `ISystem` spec so that it can be
+// treated like a system
 class DebugSystem {
  public:
   Core::Debug::IDebugHUD& GetActiveDebugHUD() const;

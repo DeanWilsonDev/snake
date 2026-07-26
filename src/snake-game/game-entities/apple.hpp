@@ -16,8 +16,6 @@ class IRenderComponent2D;
 namespace SnakeGame {
 
 struct AppleParams : Engine::Entities::EntityParams {
-  Core::Spatial::ITransform2D* transform{nullptr};
-
   AppleParams(Core::Spatial::ITransform2D* transform = nullptr, bool active = true)
       : Engine::Entities::EntityParams(transform, active)
   {

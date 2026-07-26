@@ -22,26 +22,6 @@ TransformComponent2D::TransformComponent2D(const Transform2D& transform)
 {
 }
 
-TransformComponent2D::TransformComponent2D(ITransform2D* transform)
-    : position(transform != nullptr ? transform->GetPosition() : Core::Math::Vector2D::Zero())
-    , rotation(transform != nullptr ? transform->GetRotation() : 0)
-    , scale(
-          transform != nullptr ? Engine::Spatial::Size2D(transform->GetScale())
-                               : Engine::Spatial::Size2D::Zero()
-      ) {};
-
 TransformComponent2D::TransformComponent2D() = default;
-
-Core::Spatial::ITransform2D& TransformComponent2D::GetTransform()
-{
-  static Engine::Spatial::Transform2D tempTransform(
-      this->GetPosition(), this->GetRotation(), this->GetScale()
-  );
-  tempTransform.position = this->position;
-  tempTransform.rotation = this->rotation;
-  tempTransform.scale = this->scale;
-
-  return tempTransform;
-}
 
 }  // namespace Engine::Spatial::Components

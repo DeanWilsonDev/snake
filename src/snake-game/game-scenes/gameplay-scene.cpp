@@ -28,14 +28,6 @@ void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
 {
   this->transition = ctx;
 
-  // Register Snake:
-  SnakeParams snakeParams = {
-      .eventBus = this->eventBus,
-      .entityManager = *this->entityManager,
-      .settings = this->gameSettings,
-      .screenWidth = this->screenWidth,
-      .screenHeight = this->screenHeight,
-  };
 
   this->snake = std::make_unique<Snake>(snakeParams);
   this->snake->Initialize();

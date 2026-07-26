@@ -5,15 +5,16 @@
 #pragma once
 
 #include "core/debug/i-debugable.hpp"
+#include "core/life-cycle-hooks/i-on-registration.hpp"
 #include "core/life-cycle-hooks/i-updatable.hpp"
-#include "core/rendering/i-render-manager.hpp"
+#include "core/rendering/i-renderable.hpp"
 
 namespace Core {
 namespace Scenes {
 
 struct SceneTransitionContext;
 
-class IScene: public IUpdatable, public Debug::IDebugable, public Rendering::IRenderManager {
+class IScene: public IUpdatable, public Debug::IDebugable, public Rendering::IRenderable, public IOnRegistration {
  public:
   virtual ~IScene() = default;
 

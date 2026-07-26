@@ -51,7 +51,7 @@ class Entity : public Core::Entities::IEntity {
 
   virtual int GetID() const override;
   virtual bool IsActive() const override;
-  virtual void SetActive(bool active) override;
+  virtual void SetActive(const bool active) override;
   virtual const bool& GetActive() const override;
 
   template <typename T, typename... Args>

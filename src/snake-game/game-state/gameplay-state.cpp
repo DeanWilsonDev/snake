@@ -1,7 +1,6 @@
 #include "gameplay-state.hpp"
 #include "core/state/i-game-state.hpp"
 #include "debug/debug.hpp"
-#include "core/input/action.hpp"
 #include "snake-game/game-state/game-over-state.hpp"
 #include "gameplay-state-machine.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
@@ -9,7 +8,6 @@
 #include "physics/collision/rectangle-collider-2d.hpp"
 #include "snake-game/game-entities/snake.hpp"
 #include "snake-game/game-entities/apple.hpp"
-#include "snake-game/game-entities/snake-segment.hpp"
 #include "core/logging/log.hpp"
 
 #include <memory>
@@ -26,18 +24,18 @@ GameplayState::GameplayState(GameContext& gameContext) : gameContext(gameContext
 
 void GameplayState::Enter()
 {
-  if (!this->snake) {
-    LOG_FATAL("[GameplayState] Snake is not initialized");
-    assert(this->snake);
-  }
+  // if (!this->snake) {
+  //   LOG_FATAL("[GameplayState] Snake is not initialized");
+  //   assert(this->snake);
+  // }
+  //
+  // if (!this->apple) {
+  //   LOG_FATAL("[GameplayState] Snake is not initialized");
+  //   assert(this->apple);
+  // }
 
-  if (!this->apple) {
-    LOG_FATAL("[GameplayState] Snake is not initialized");
-    assert(this->apple);
-  }
-
-  snake->SetActive(true);
-  apple->SetActive(true);
+  // snake->SetActive(true);
+  // apple->SetActive(true);
 
   // MAIN QUEST: Display UI Dynamically
   // this->gameplayStateMachine.SetGameUI(*this->gameplayUI);

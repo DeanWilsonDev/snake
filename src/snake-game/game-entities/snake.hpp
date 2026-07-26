@@ -2,6 +2,7 @@
 #include <deque>
 #include "core/events/i-event-bus.hpp"
 #include "core/math/vector-2d.hpp"
+#include "engine/entities/entity.hpp"
 #include "engine/spatial/transform-2d.hpp"
 
 namespace Core::Components {
@@ -47,7 +48,7 @@ class Apple;
 
 namespace SnakeGame {
 
-struct SnakeParams {
+struct SnakeParams : Engine::Entities::EntityParams {
   Core::Events::IEventBus& eventBus;
   Core::Entities::IEntityManager& entityManager;
   const SnakeGameSettings& settings;
@@ -72,7 +73,6 @@ class Snake final {
   [[nodiscard]] Core::Math::Vector2D GetCenter() const;
   [[nodiscard]] Core::Math::Vector2D GetDirection() { return this->direction; }
   void SetGrow(const bool value) { this->grow = value; }
-  void SetActive(bool enabled) const;
   void SetDirection(Core::Math::Vector2D direction);
 
   [[nodiscard]] const SnakeGameSettings& GetSnakeGameSettings() const { return this->settings; }

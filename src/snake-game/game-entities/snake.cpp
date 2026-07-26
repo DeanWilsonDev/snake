@@ -132,14 +132,6 @@ Core::Math::Vector2D Snake::GetCenter() const
 //   };
 }
 
-void Snake::SetActive(const bool) const
-{
-//   for (const auto& i : body) {
-//     i->SetActive(enabled);
-//   }
-//   head->SetActive(enabled);
-}
-
 void Snake::Destroy()
 {
   for (auto& segment : this->body) {

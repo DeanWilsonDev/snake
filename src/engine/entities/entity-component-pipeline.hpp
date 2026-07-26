@@ -20,6 +20,7 @@ class ActionRouter;
 
 namespace Engine::Entities {
 
+// RAID BOSS: The Entity Component Pipeline needs to be refactored slightly to fit the ISystem spec so that the engine can treat it like a system
 class EntityComponentPipeline : public Core::Entities::IEntityComponentPipeline {
  public:
   EntityComponentPipeline(

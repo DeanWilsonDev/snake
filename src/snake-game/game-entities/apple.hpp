@@ -1,5 +1,6 @@
 #pragma once
 
+#include "core/math/vector-2d.hpp"
 #include "core/spatial/i-transform-2d.hpp"
 #include "engine/entities/entity.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
@@ -16,7 +17,7 @@ class IRenderComponent2D;
 namespace SnakeGame {
 
 struct AppleParams : Engine::Entities::EntityParams {
-  AppleParams(Core::Spatial::ITransform2D* transform = nullptr, bool active = true)
+  AppleParams(const Core::Spatial::ITransform2D& transform, bool active = true)
       : Engine::Entities::EntityParams(transform, active)
   {
   }
@@ -39,11 +40,10 @@ class Apple final : public Engine::Entities::Entity {
   [[nodiscard]] const Core::Rendering::Components::IRenderComponent2D&
   GetRendererComponent2D() const;
 
-  [[nodiscard]] float GetSize() const { return this->size; }
+  [[nodiscard]] float GetSize() const;
+  float SetPostion(const Core::Math::Vector2D newPosition) const;
 
  private:
-  // unique_ptr<Physics::Collision::Components::ColliderComponent2D> colliderComponent{nullptr};
-  // unique_ptr<Core::Rendering::Components::IRenderComponent2D> renderComponent{nullptr};
   float size = {10};
 };
 }  // namespace SnakeGame

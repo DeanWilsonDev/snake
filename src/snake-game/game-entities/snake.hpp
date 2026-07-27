@@ -66,8 +66,8 @@ class Snake final {
   void Destroy();
   void Move() const;
   void CheckIfShouldGrow();
-  void CreateSegment(SnakeSegmentParams params);
   void Teleport() const;
+  void CreateSegment(SnakeSegmentParams params);
   void CreateHead();
   void CreateBody();
   [[nodiscard]] Core::Math::Vector2D GetCenter() const;
@@ -89,7 +89,6 @@ class Snake final {
   bool directionChanged = false;
   float size = {0};
   float speed = {10};
-  int length = {3};
   Core::Math::Vector2D direction{};
   bool grow = false;
   bool debugEnabled = false;

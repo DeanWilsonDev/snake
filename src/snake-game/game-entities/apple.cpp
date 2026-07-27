@@ -100,4 +100,9 @@ const Core::Rendering::Components::IRenderComponent2D& Apple::GetRendererCompone
   return *this->GetComponent<Core::Rendering::Components::IRenderComponent2D>();
 }
 
+float Apple::GetSize() const
+{
+  return this->size;
+};
+
 }  // namespace SnakeGame

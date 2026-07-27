@@ -17,16 +17,28 @@ Core::Entities::IEntity* Scene::AddEntity(std::unique_ptr<Core::Entities::IEntit
   return raw;
 }
 
-Core::Systems::IGameSystem* Scene::AddGameSystem(std::unique_ptr<Core::Systems::IGameSystem> gameSystem)
+Core::Systems::IGameSystem* Scene::AddGameSystem(
+    std::unique_ptr<Core::Systems::IGameSystem> gameSystem
+)
 {
   auto* raw = gameSystemManager.AddGameSystem(std::move(gameSystem));
   ownedGameSystems.push_back(raw);
   return raw;
 }
 
-void Scene::OnExit(){
-  for()
+void Scene::OnExit()
+{
+  for (auto* entity : this->ownedEntities) {
+    this->entityManager.RemoveEntity(entity);
+  }
 
+  for (auto* gameSystem : this->ownedGameSystems) {
+    this->gameSystemManager.RemoveGameSystem(gameSystem);
+  }
+
+  ownedEntities.clear();
+  ownedGameSystems.clear();
+  OnSceneExit();
 }
 
 }  // namespace Engine::Scenes

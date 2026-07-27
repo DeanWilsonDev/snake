@@ -2,7 +2,7 @@
 
 #include <random>
 
-namespace Core {
+namespace Core::Utils{
 
 /**
  * Generates a random integer value within the specified range [min, max].

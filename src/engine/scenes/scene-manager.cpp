@@ -95,7 +95,7 @@ void SceneManager::OnDebugRender() const
 void SceneManager::OnRender(const Core::Rendering::IRenderer& renderer) const
 {
   if (this->activeScene) {
-    this->activeScene->OnRender(renderer);
+    this->activeScene->Render(renderer);
   }
 }
 

@@ -52,31 +52,6 @@ void Snake::Update(const float)
   // }
 }
 
-void Snake::CreateBody()
-{
-  for (int i = 0; i < this->length; i++) {
-    auto nextSegmentTransform = Engine::Spatial::Transform2D(this->transform);
-
-    nextSegmentTransform.SetPosition(
-        Core::Math::Vector2D(
-            std::round(
-                (this->transform.position.x - this->size * static_cast<float>(i)) * this->size
-            ),
-            std::round((this->transform.position.y / this->size) * this->size)
-        )
-    );
-
-    if (i == 0) {
-      auto headParams = SnakeHeadParams{i, &nextSegmentTransform};
-      auto headEntity = std::make_unique<SnakeHead>(headParams);
-      this->head = static_cast<SnakeHead*>(this->entityManager.AddEntity(std::move(headEntity)));
-      this->body.push_back(this->head);
-      continue;
-    }
-    auto params = SnakeSegmentParams{i, &nextSegmentTransform};
-    this->CreateSegment(params);
-  }
-}
 
 // MAIN QUEST: Move this to a game system
 void Snake::CheckIfShouldGrow()

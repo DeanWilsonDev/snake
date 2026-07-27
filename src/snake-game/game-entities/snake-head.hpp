@@ -12,10 +12,9 @@ class ActionRouter;
 namespace SnakeGame {
 
 struct SnakeHeadParams : SnakeSegmentParams {
-  SnakeHeadParams(int index, Core::Spatial::ITransform2D* transform, bool active = true)
+  SnakeHeadParams(const int index, const Core::Spatial::ITransform2D& transform, const bool active = true)
       : SnakeSegmentParams(index, transform, active)
   {
-
   }
 };
 

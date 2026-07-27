@@ -15,13 +15,13 @@ class ColliderComponent2D;
 namespace SnakeGame {
 
 struct SnakeSegmentParams : Engine::Entities::EntityParams {
-  int index{0};
-  Core::Spatial::ITransform2D& initialTransform;
+  const int index{0};
+  const Core::Spatial::ITransform2D& transform;
 
-  SnakeSegmentParams(int index, Core::Spatial::ITransform2D* transform, bool active = true)
-      : Engine::Entities::EntityParams(transform, active)
-      , index(index)
-      , initialTransform(*transform)
+  SnakeSegmentParams(
+      const int index, const Core::Spatial::ITransform2D& transform, const bool active = true
+  )
+      : Engine::Entities::EntityParams(transform, active), index(index), transform(transform)
   {
   }
 };

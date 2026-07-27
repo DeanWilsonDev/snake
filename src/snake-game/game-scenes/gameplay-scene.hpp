@@ -6,7 +6,7 @@
 
 #include "core/entities/i-entity-manager.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
-#include "core/scenes/i-scene.hpp"
+#include "engine/scenes/scene.hpp"
 #include "core/input/action-router.hpp"
 #include "core/rendering/i-renderer.hpp"
 #include "snake-game/settings/snake-game-settings.hpp"
@@ -40,21 +40,20 @@ struct GameplaySceneParams {
   int screenHeight;
 };
 
-class GameplayScene : public Core::Scenes::IScene {
+class GameplayScene : public Engine::Scenes::Scene {
  public:
   GameplayScene(const GameplaySceneParams& params);
   ~GameplayScene();
   void OnEnter(Core::Scenes::SceneTransitionContext ctx) override;
-  void OnExit() override;
+  void OnSceneExit() override;
   void Update(float deltaTime) override;
-  void OnRender(const Core::Rendering::IRenderer& renderer) const override;
+  void Render(const Core::Rendering::IRenderer& renderer) const override;
   void DebugUpdate() const override;
   void DebugRender() const override;
 
  private:
   Core::Scenes::SceneTransitionContext transition;
   Core::Rendering::IRenderComponentManager& renderComponentManager;
-  std::unique_ptr<Core::Entities::IEntityManager> entityManager;
   GameplayStateMachine stateMachine;
   Core::Events::IEventBus& eventBus;
   std::unique_ptr<Snake> snake;

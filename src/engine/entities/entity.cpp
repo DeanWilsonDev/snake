@@ -15,8 +15,8 @@ Entity::Entity(const EntityParams& params) : active(params.active)
 {
   LOG_TRACE("[GameEntity] Setting up new GameEntity");
 
-  AddComponent<Engine::Spatial::Components::TransformComponent2D>(
-      params.transform->GetPosition(), params.transform->GetRotation(), params.transform->GetScale()
+  this->transform = AddComponent<Engine::Spatial::Components::TransformComponent2D>(
+      params.transform.GetPosition(), params.transform.GetRotation(), params.transform.GetScale()
   );
 };
 

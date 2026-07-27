@@ -27,11 +27,10 @@ class TransformComponent2D;
 namespace Engine::Entities {
 
 struct EntityParams {
-  bool active = true;
+  const bool active = true;
+  const Core::Spatial::ITransform2D& transform;
 
-  Core::Spatial::ITransform2D* transform = {nullptr};
-
-  EntityParams(Core::Spatial::ITransform2D* transform = nullptr, bool active = true)
+  EntityParams(const Core::Spatial::ITransform2D& transform, const bool active = true)
       : active(active), transform(transform)
   {
   }
@@ -39,6 +38,8 @@ struct EntityParams {
 
 class Entity : public Core::Entities::IEntity {
  public:
+  Engine::Spatial::Components::TransformComponent2D* transform;
+
   explicit Entity(const EntityParams& params);
   virtual ~Entity() = 0;
 
@@ -55,7 +56,7 @@ class Entity : public Core::Entities::IEntity {
   virtual const bool& GetActive() const override;
 
   template <typename T, typename... Args>
-  void AddComponent(Args&&... args);
+  T* AddComponent(Args&&... args);
 
   template <typename T>
   void RemoveComponent();
@@ -63,9 +64,6 @@ class Entity : public Core::Entities::IEntity {
   void ForEachComponent(
       std::function<bool(const Core::Components::IComponent*)> visitor
   ) const override;
-
- protected:
-  Engine::Spatial::Components::TransformComponent2D* transform;
 
  private:
   std::unordered_map<std::type_index, std::unique_ptr<Core::Components::IComponent>> components{};
@@ -78,7 +76,7 @@ class Entity : public Core::Entities::IEntity {
 };
 
 template <typename T, typename... Args>
-void Entity::AddComponent(Args&&... args)
+T* Entity::AddComponent(Args&&... args)
 {
   // Ensure no duplicate components of the same type
   const auto type = std::type_index(typeid(T));
@@ -86,6 +84,7 @@ void Entity::AddComponent(Args&&... args)
 
   // Emplace a new instance of T using perfect forwarding of arguments
   components[type] = std::make_unique<T>(std::forward<Args>(args)...);
+  return static_cast<T*>(components[type].get());
 }
 
 template <typename T>

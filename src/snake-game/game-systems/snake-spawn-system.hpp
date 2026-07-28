@@ -19,8 +19,6 @@ struct SnakeGameSettings;
 namespace SnakeGame {
 
 struct SnakeSpawnSystemParams {
-  Core::Events::IEventBus& eventBus;
-  Core::Entities::IEntityManager& entityManager;
   const SnakeGameSettings& settings;
   const int screenWidth;
   const int screenHeight;
@@ -28,7 +26,10 @@ struct SnakeSpawnSystemParams {
 
 class SnakeSpawnSystem : public Engine::Systems::GameSystem {
  public:
-  SnakeSpawnSystem(SnakeSpawnSystemParams& params);
+  SnakeSpawnSystem(
+      Core::Events::IEventBus& eventBus, Core::Entities::IEntityManager& entityManager,
+      SnakeSpawnSystemParams& params
+  );
   ~SnakeSpawnSystem();
 
   virtual void OnRegistration() override;
@@ -42,7 +43,6 @@ class SnakeSpawnSystem : public Engine::Systems::GameSystem {
   const Core::Math::Vector2D GetRandomPosition() const;
   void CreateBody();
 
-  Core::Entities::IEntityManager& entityManager;
   const SnakeGameSettings& settings;
   int screenWidth;
   int screenHeight;

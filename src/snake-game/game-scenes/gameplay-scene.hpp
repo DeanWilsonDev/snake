@@ -33,11 +33,12 @@ class GameplayStateMachine;
 
 struct GameplaySceneParams {
   Core::Events::IEventBus& eventBus;
+  Core::Entities::IEntityManager& entityManager;
   Core::Rendering::IRenderComponentManager& renderComponentManager;
   const SnakeGameSettings& gameSettings;
   Core::Input::ActionRouter& inputActionRouter;
-  int screenWidth;
-  int screenHeight;
+  const int screenWidth;
+  const int screenHeight;
 };
 
 class GameplayScene : public Engine::Scenes::Scene {
@@ -55,10 +56,9 @@ class GameplayScene : public Engine::Scenes::Scene {
   Core::Scenes::SceneTransitionContext transition;
   Core::Rendering::IRenderComponentManager& renderComponentManager;
   GameplayStateMachine stateMachine;
-  Core::Events::IEventBus& eventBus;
   std::unique_ptr<Snake> snake;
   const SnakeGameSettings& gameSettings;
-  int screenWidth;
-  int screenHeight;
+  const int screenWidth;
+  const int screenHeight;
 };
 }  // namespace SnakeGame

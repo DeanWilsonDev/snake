@@ -17,25 +17,23 @@ class Apple;
 
 namespace SnakeGame {
 struct AppleSpawnSystemParams {
-  Core::Events::IEventBus& eventBus;
-  Core::Entities::IEntityManager& entityManager;
-  // const SnakeGameSettings& settings;
   int screenWidth;
   int screenHeight;
 };
 
 class AppleSpawnSystem : public Engine::Systems::GameSystem {
  public:
-  explicit AppleSpawnSystem(AppleSpawnSystemParams& params);
+  explicit AppleSpawnSystem(
+      Core::Events::IEventBus& eventBus, Core::Entities::IEntityManager& entityManager,
+      AppleSpawnSystemParams& params
+  );
   ~AppleSpawnSystem();
 
   virtual void OnRegistration() override;
   void Spawn() const;
 
  private:
-
   const Core::Math::Vector2D GetRandomPosition() const;
-  Core::Entities::IEntityManager& entityManager;
   Apple* apple;
   int screenWidth;
   int screenHeight;

@@ -26,6 +26,7 @@
 #include "engine/systems/game-systems/game-system-manager.hpp"
 #include "engine/user-interface/user-interface-manager.hpp"
 #include "engine/utils/string-utils.hpp"
+#include "engine/entities/entity-manager.hpp"
 
 #include "raylib-facade/input/raylib-input-backend-facade.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
@@ -82,6 +83,12 @@ void Application::Initialize()
   );
 
   this->RegisterSystem(make_unique<Engine::Systems::GameSystemManager>());
+
+  this->RegisterSystem(
+      make_unique<Engine::Entities::EntityManager>(
+          this->renderComponentManager, this->GetInputActionRouter()
+      )
+  );
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&this->window));
   LOG_CORE_TRACE("[Application] Renderer set to {}", static_cast<void*>(&this->renderer));

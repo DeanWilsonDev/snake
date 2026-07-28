@@ -27,14 +27,23 @@ class Scene : public Core::Scenes::IScene {
   void OnExit() final;
 
  protected:
-
   Core::Entities::IEntity* AddEntity(std::unique_ptr<Core::Entities::IEntity> entity);
   void RemoveEntity(Core::Entities::IEntity* entity);
 
+  template <typename T, typename... Args>
+  T* CreateGameSystem(Args&&... args)
+  {
+    auto system =
+        std::make_unique<T>(this->eventBus, this->entityManager, std::forward<Args>(args)...);
+    auto* raw = static_cast<T*>(this->AddGameSystem(std::move(system)));
+    return raw;
+  }
+
   Core::Systems::IGameSystem* AddGameSystem(std::unique_ptr<Core::Systems::IGameSystem> system);
-  Core::Systems::IGameSystem* RemoveGameSystem(std::unique_ptr<Core::Systems::IGameSystem> system);
+  void RemoveGameSystem(Core::Systems::IGameSystem* gameSystem);
 
   Core::Events::IEventBus& GetEventBus() const;
+  Core::Entities::IEntityManager& GetEntityManager() const;
 
   virtual void OnSceneExit();
 

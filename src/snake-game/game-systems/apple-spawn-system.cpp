@@ -13,9 +13,11 @@
 
 namespace SnakeGame {
 
-AppleSpawnSystem::AppleSpawnSystem(AppleSpawnSystemParams& params)
-    : Engine::Systems::GameSystem(params.eventBus)
-    , entityManager(params.entityManager)
+AppleSpawnSystem::AppleSpawnSystem(
+    Core::Events::IEventBus& eventBus, Core::Entities::IEntityManager& entityManager,
+    AppleSpawnSystemParams& params
+)
+    : Engine::Systems::GameSystem(eventBus, entityManager)
     , screenWidth(params.screenWidth)
     , screenHeight(params.screenHeight)
 {

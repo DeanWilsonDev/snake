@@ -7,6 +7,7 @@
 #include "engine/spatial/transform-2d.hpp"
 #include "core/entities/i-entity-manager.hpp"
 #include "snake-game/game-systems/apple-spawn-system.hpp"
+#include "snake-game/game-systems/snake-growth-system.hpp"
 #include "snake-game/game-systems/snake-spawn-system.hpp"
 
 namespace SnakeGame {
@@ -25,15 +26,22 @@ void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
   this->transition = ctx;
 
   // Add Game Systems
-  this->AddGameSystem(std::make_unique<AppleSpawnSystem>());
-  this->AddGameSystem(
-      std::make_unique<SnakeSpawnSystem>(SnakeSpawnSystemParams{
-          .eventBus = this->eventBus,
-          .screenWidth = this->screenWidth,
-          .screenHeight = this->screenHeight,
-      })
-  );
 
+  auto appleSpawnParams =
+      AppleSpawnSystemParams{.screenWidth = this->screenWidth, .screenHeight = this->screenHeight};
+  this->CreateGameSystem<AppleSpawnSystem>(appleSpawnParams);
+
+  auto snakeSpawnParams = SnakeSpawnSystemParams{
+      .settings = this->gameSettings,
+      .screenWidth = this->screenWidth,
+      .screenHeight = this->screenHeight,
+  };
+  this->CreateGameSystem<SnakeSpawnSystem>(snakeSpawnParams);
+
+  auto snakeGrowParams = SnakeGrowSystemParams{
+      .settings = this->gameSettings,
+  };
+  this->CreateGameSystem<SnakeGrowSystem>(snakeGrowParams);
   // Tigger OnGameStart Event
 }
 
@@ -43,7 +51,6 @@ void GameplayScene::Update(float deltaTime)
   // I'm going to need to find an itelligent way to handle update priority
   // and decide what should update in what order
   this->stateMachine.Update(deltaTime);
-  this->entityManager->OnUpdate(deltaTime);
 
   // MAIN QUEST: the Snake class can probably get moved into SnakeHead and SnakeSegment
   this->snake->Update(deltaTime);

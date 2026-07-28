@@ -22,7 +22,7 @@ class SnakeBodyComponent : Core::Components::IComponent {
  public:
   SnakeBodyComponent();
 
-  void AddBodyPart(SnakeSegment* segment);
+  void Append(SnakeSegment* segment);
   void Clear();
   [[nodiscard]] const std::deque<SnakeSegment*>& GetSegments() const;
 

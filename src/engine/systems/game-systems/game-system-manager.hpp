@@ -16,6 +16,7 @@ class GameSystemManager : public Engine::Systems::System {
   virtual void OnUpdate(const float deltaTime) override;
 
   Core::Systems::IGameSystem* AddGameSystem(std::unique_ptr<Core::Systems::IGameSystem> gameSystem);
+
   void RemoveGameSystem(Core::Systems::IGameSystem* gameSystem);
 
   template <typename T>

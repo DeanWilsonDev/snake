@@ -13,9 +13,11 @@
 
 namespace SnakeGame {
 
-SnakeSpawnSystem::SnakeSpawnSystem(SnakeSpawnSystemParams& params)
-    : Engine::Systems::GameSystem(params.eventBus)
-    , entityManager(params.entityManager)
+SnakeSpawnSystem::SnakeSpawnSystem(
+    Core::Events::IEventBus& eventBus, Core::Entities::IEntityManager& entityManager,
+    SnakeSpawnSystemParams& params
+)
+    : Engine::Systems::GameSystem(eventBus, entityManager)
     , settings(params.settings)
     , screenWidth(params.screenWidth)
     , screenHeight(params.screenHeight)
@@ -24,7 +26,7 @@ SnakeSpawnSystem::SnakeSpawnSystem(SnakeSpawnSystemParams& params)
 
 void SnakeSpawnSystem::OnRegistration()
 {
-  this->eventBus.Subscribe<GameStartedEvent>([this](const auto&) { this->Spawn(); });
+  this->GetEventBus().Subscribe<GameStartedEvent>([this](const auto&) { this->Spawn(); });
 }
 
 void SnakeSpawnSystem::Spawn()

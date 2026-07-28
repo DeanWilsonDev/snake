@@ -4,9 +4,9 @@
 
 namespace SnakeGame {
 
-SnakeBodyComponent::SnakeBodyComponent(SnakeBodyComponentParams& params) : head(params.head) {}
+SnakeBodyComponent::SnakeBodyComponent() {}
 
-void SnakeBodyComponent::AddBodyPart(SnakeSegment* bodyPart)
+void SnakeBodyComponent::Append(SnakeSegment* bodyPart)
 {
   this->segments.push_back(bodyPart);
 }

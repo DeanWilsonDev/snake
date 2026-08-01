@@ -4,6 +4,8 @@
 
 namespace Engine::Systems {
 
+SystemManager::SystemManager() {}
+
 Core::Systems::ISystem* SystemManager::AddSystem(std::unique_ptr<Core::Systems::ISystem> system)
 {
   return Core::Utils::RegisterInto(this->systems, std::move(system));

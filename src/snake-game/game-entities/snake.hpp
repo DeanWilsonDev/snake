@@ -67,9 +67,6 @@ class Snake final {
   void Move() const;
   void CheckIfShouldGrow();
   void Teleport() const;
-  void CreateSegment(SnakeSegmentParams params);
-  void CreateHead();
-  void CreateBody();
   [[nodiscard]] Core::Math::Vector2D GetCenter() const;
   [[nodiscard]] Core::Math::Vector2D GetDirection() { return this->direction; }
   void SetGrow(const bool value) { this->grow = value; }
@@ -88,7 +85,7 @@ class Snake final {
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;
   float size = {0};
-  float speed = {10};
+  float speed = {2.5f};
   Core::Math::Vector2D direction{};
   bool grow = false;
   bool debugEnabled = false;

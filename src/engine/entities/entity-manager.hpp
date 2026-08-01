@@ -38,6 +38,7 @@ class EntityManager : public Core::Entities::IEntityManager {
   void OnUpdate(float deltaTime) override;
   void OnDebugUpdate() const override;
   void OnDebugRender() const override;
+  void OnRegistration() override;
 
  private:
   std::vector<std::unique_ptr<Core::Entities::IEntity>> entities;

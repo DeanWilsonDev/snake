@@ -28,6 +28,15 @@ class SystemManager : public Engine::Systems::System {
     }
   }
 
+  template <typename T, typename... Args>
+  T* CreateSystem(Args&&... args)
+  {
+    auto system = std::make_unique<T>(std::forward<Args>(args)...);
+    T* raw = system.get();
+    this->AddSystem(std::move(system));
+    return raw;
+  }
+
  private:
   std::vector<std::unique_ptr<Core::Systems::ISystem>> systems;
 };

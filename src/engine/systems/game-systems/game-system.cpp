@@ -1,6 +1,7 @@
 #include "engine/systems/game-systems/game-system.hpp"
 #include "core/entities/i-entity-manager.hpp"
 #include "core/events/i-event-bus.hpp"
+#include "core/entities/i-entity.hpp"
 
 namespace Engine::Systems {
 GameSystem::GameSystem(

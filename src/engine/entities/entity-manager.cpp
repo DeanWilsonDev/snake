@@ -20,6 +20,11 @@ EntityManager::EntityManager(
 {
 }
 
+void EntityManager::OnRegistration()
+{
+  // This is for registrations on the EntityManager itself, not the entities it holds
+}
+
 Core::Entities::IEntity* EntityManager::AddEntity(std::unique_ptr<Core::Entities::IEntity> entity)
 {
   Core::Entities::IEntity* handle = entity.get();
@@ -64,4 +69,5 @@ void EntityManager::OnDebugRender() const
     }
   }
 }
+
 }  // namespace Engine::Entities

@@ -30,7 +30,7 @@ class SnakeSpawnSystem : public Engine::Systems::GameSystem {
       Core::Events::IEventBus& eventBus, Core::Entities::IEntityManager& entityManager,
       SnakeSpawnSystemParams& params
   );
-  ~SnakeSpawnSystem();
+  ~SnakeSpawnSystem() = default;
 
   virtual void OnRegistration() override;
   void Spawn();
@@ -46,6 +46,6 @@ class SnakeSpawnSystem : public Engine::Systems::GameSystem {
   const SnakeGameSettings& settings;
   int screenWidth;
   int screenHeight;
-  SnakeHead* head;
+  SnakeHead* head = nullptr;
 };
 }  // namespace SnakeGame

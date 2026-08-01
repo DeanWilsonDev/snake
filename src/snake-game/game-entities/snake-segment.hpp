@@ -36,6 +36,7 @@ class SnakeSegment : public Engine::Entities::Entity {
   ~SnakeSegment() override;
 
   virtual void OnRegistration() override;
+  virtual void BeginPlay() override;
   void Update(const float deltaTime) override;
   void DebugUpdate() const override;
 
@@ -49,14 +50,17 @@ class SnakeSegment : public Engine::Entities::Entity {
   [[nodiscard]] const Physics::Collision::Components::ColliderComponent2D&
   GetColliderComponent() const;
 
-  void Move();
+  void Step();
   void SetDirection(Core::Math::Vector2D value);
 
  protected:
   float accumulatedDistance = 0.0f;
   bool directionChanged = false;
   float size = {0};
-  float speed = {10};
   Core::Math::Vector2D direction{};
+  Core::Math::Vector2D pendingDirection{};
+  float speed = 10.0f;
+  float moveTimer = 0.0f;
+  float moveInterval = 0.2f;
 };
 }  // namespace SnakeGame

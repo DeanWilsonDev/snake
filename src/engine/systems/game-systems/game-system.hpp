@@ -16,15 +16,17 @@ namespace Engine::Systems {
 class GameSystem : public Core::Systems::IGameSystem {
  public:
   GameSystem(Core::Events::IEventBus& eventBus, Core::Entities::IEntityManager& entityManager);
-  virtual void OnUpdate(const float deltaTime) override;
-  virtual void OnDebugUpdate() const override;
-  virtual void OnDebugRender() const override;
-  virtual void OnRegistration() override;
 
   Core::Entities::IEntity* AddEntity(std::unique_ptr<Core::Entities::IEntity> entity);
   void RemoveEntity(Core::Entities::IEntity* entity);
 
   Core::Events::IEventBus& GetEventBus() const;
+
+ protected:
+  virtual void OnUpdate(const float deltaTime) override;
+  virtual void OnDebugUpdate() const override;
+  virtual void OnDebugRender() const override;
+  virtual void OnRegistration() override;
 
  private:
   Core::Entities::IEntityManager& entityManager;

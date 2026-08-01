@@ -6,6 +6,13 @@
 
 namespace Engine::Scenes {
 
+Scene::Scene(const SceneParams& params)
+    : entityManager(params.entityManager)
+    , gameSystemManager(params.gameSystemManager)
+    , eventBus(params.eventBus)
+{
+}
+
 void Scene::Render(const Core::Rendering::IRenderer&) const {};
 void Scene::Update(const float) {};
 void Scene::DebugUpdate() const {};
@@ -54,6 +61,8 @@ void Scene::OnExit()
   this->ownedGameSystems.clear();
   this->OnSceneExit();
 }
+
+void Scene::OnSceneExit() {}
 
 Core::Events::IEventBus& Scene::GetEventBus() const
 {

@@ -1,13 +1,23 @@
 #include "scene-manager.hpp"
+#include "core/entities/i-entity-manager.hpp"
+#include "core/events/i-event-bus.hpp"
 #include "core/logging/log.hpp"
 #include "core/scenes/i-scene.hpp"
+#include "core/scenes/scene-base-params.hpp"
+#include "core/systems/i-game-system-manager.hpp"
 #include <vector>
 
 using namespace Core::Scenes;
 
 namespace Engine::Scenes {
 
-SceneManager::SceneManager() {}
+SceneManager::SceneManager(
+    Core::Events::IEventBus& eventBus, Core::Systems::IGameSystemManager& gameSystemManager,
+    Core::Entities::IEntityManager& entityManager
+)
+    : eventBus(eventBus), gameSystemManager(gameSystemManager), entityManager(entityManager)
+{
+}
 
 void SceneManager::Register(const std::string& name, SceneFactory factory, SceneLifetime lifetime)
 {
@@ -109,7 +119,13 @@ IScene* SceneManager::ResolveScene(const std::string& name)
   auto& entry = it->second;
 
   if (!entry.instance) {
-    entry.instance = entry.factory();
+    entry.instance = entry.factory(
+        SceneBaseParams{
+            .entityManager = this->entityManager,
+            .gameSystemManager = this->gameSystemManager,
+            .eventBus = this->eventBus
+        }
+    );
   }
 
   return entry.instance.get();

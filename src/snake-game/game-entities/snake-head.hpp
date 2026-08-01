@@ -26,7 +26,6 @@ class SnakeHead final : public SnakeSegment {
   virtual void BeginPlay() override;
   virtual void Update(const float deltaTime) override;
   virtual void DebugUpdate() const override;
-  void Move() const;
   [[nodiscard]] Core::Math::Vector2D GetDirection() { return this->direction; }
   void SetDirection(Core::Math::Vector2D direction);
 

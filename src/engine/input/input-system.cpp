@@ -17,8 +17,7 @@ InputSystem::InputSystem(
     const Core::Input::KeyMap& keyMap, std::vector<Core::Input::Action> actions,
     const Core::Input::ActionSet& actionSet
 )
-    : dispatcher(eventBus, std::move(actions))
-    , actionRouter(eventBus, actionSet, this->dispatcher)
+    : dispatcher(eventBus, std::move(actions)), actionRouter(eventBus, actionSet, this->dispatcher)
 {
   this->dispatcher.AddSource(
       std::make_unique<Engine::Input::Sources::KeyboardInputSource>(inputBackend, keyMap)
@@ -35,8 +34,9 @@ void InputSystem::OnDebugUpdate() const {}
 
 void InputSystem::OnDebugRender() const {}
 
-Core::Input::ActionRouter& InputSystem::GetActionRouter() {
-    return this->actionRouter;
+Core::Input::ActionRouter& InputSystem::GetActionRouter()
+{
+  return this->actionRouter;
 }
 
 }  // namespace Engine::Input

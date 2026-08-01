@@ -4,6 +4,10 @@
 
 namespace Engine::Systems {
 
+GameSystemManager::GameSystemManager() {}
+
+void GameSystemManager::OnRegistration() {};
+
 Core::Systems::IGameSystem* GameSystemManager::AddGameSystem(
     std::unique_ptr<Core::Systems::IGameSystem> gameSystem
 )
@@ -22,5 +26,19 @@ void GameSystemManager::OnUpdate(const float deltaTime)
     gameSystem->OnUpdate(deltaTime);
   }
 }
+
+void GameSystemManager::OnDebugUpdate() const
+{
+  for (auto& gameSystem : this->gameSystems) {
+    gameSystem->OnDebugUpdate();
+  }
+};
+
+void GameSystemManager::OnDebugRender() const
+{
+  for (auto& gameSystem : this->gameSystems) {
+    gameSystem->OnDebugRender();
+  }
+};
 
 }  // namespace Engine::Systems

@@ -1,6 +1,7 @@
 #include "snake-application.hpp"
 #include "core/input/action-binding-builder.hpp"
 #include "core/input/action-value-type.hpp"
+#include "core/scenes/scene-base-params.hpp"
 #include "core/scenes/scene-lifetime.hpp"
 #include "engine/application/application.hpp"
 #include "core/scenes/scene-lifetime.hpp"
@@ -20,8 +21,10 @@ void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
 
   auto& inputActions = this->GetInputActionSet();
 
-  inputActions.RegisterAction("MoveVertical", ActionValueType::Axis1D);
-  inputActions.RegisterAction("MoveHorizontal", ActionValueType::Axis1D);
+  inputActions.RegisterAction("Up");
+  inputActions.RegisterAction("Down");
+  inputActions.RegisterAction("Left");
+  inputActions.RegisterAction("Right");
   inputActions.RegisterAction("Confirm", ActionValueType::Boolean);
   inputActions.RegisterAction("Decline", ActionValueType::Boolean);
 
@@ -35,12 +38,10 @@ void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
             .input =
                 {
                     .keyMap = inputActions.BuildKeyMap(
-                        {Core::Input::Bind("MoveVertical")
-                             .Axis1D({KeyCode::W, KeyCode::Up}, 1.0f)
-                             .Axis1D({KeyCode::S, KeyCode::Down}, -1.0f),
-                         Core::Input::Bind("MoveHorizontal")
-                             .Axis1D({KeyCode::D, KeyCode::Right}, 1.0f)
-                             .Axis1D({KeyCode::A, KeyCode::Left}, -1.0f),
+                        {Core::Input::Bind("Up").Digital({KeyCode::W, KeyCode::Up}),
+                         Core::Input::Bind("Down").Digital({KeyCode::S, KeyCode::Down}),
+                         Core::Input::Bind("Right").Digital({KeyCode::D, KeyCode::Right}),
+                         Core::Input::Bind("Left").Digital({KeyCode::A, KeyCode::Left}),
                          Core::Input::Bind("Confirm").Digital({KeyCode::Enter, KeyCode::E}),
                          Core::Input::Bind("Decline").Digital({KeyCode::Escape})}
                     ),
@@ -50,7 +51,7 @@ void SnakeApplication::Configure(Engine::Config::ApplicationConfig& config)
                 {
                     .enabled = true,
                     .showDebugHud = true,
-                    .showCoreDebugLogs = true, // SIDE QUEST: Hook these settings up to the logger
+                    .showCoreDebugLogs = true,  // SIDE QUEST: Hook these settings up to the logger
                     .showClientDebugLogs = true,
                 }},
        .project = {.title = "Snake"},
@@ -61,18 +62,20 @@ void SnakeApplication::Initialize()
 {
   Engine::Application::Initialize();
 
-  GameplaySceneParams gameplaySceneParams = {
-      .eventBus = this->GetEventBus(),
-      .renderComponentManager = this->GetRenderComponentManager(),
-      .gameSettings = this->GetSnakeSettings(),
-      .inputActionRouter = this->GetInputActionRouter(),
-      .screenWidth = this->GetConfig().engine.window.GetScreenWidth(),
-      .screenHeight = this->GetConfig().engine.window.GetScreenHeight(),
-  };
+  const auto& gameSettings = this->GetSnakeSettings();
+  const int screenWidth = this->GetConfig().engine.window.GetScreenWidth();
+  const int screenHeight = this->GetConfig().engine.window.GetScreenHeight();
 
   this->GetSceneManager().Register(
       "Gameplay",
-      [gameplaySceneParams]() { return std::make_unique<GameplayScene>(gameplaySceneParams); },
+      [&gameSettings, screenWidth, screenHeight](const Core::Scenes::SceneBaseParams& base) {
+        return std::make_unique<GameplayScene>(GameplaySceneParams{
+            {base},
+            gameSettings,
+            screenWidth,
+            screenHeight,
+        });
+      },
       Core::Scenes::SceneLifetime::Transient
   );
 

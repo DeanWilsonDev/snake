@@ -1,19 +1,17 @@
 #include "snake-game/game-scenes/gameplay-scene.hpp"
 #include <memory>
-#include "core/logging/log.hpp"
-#include "snake-game/game-entities/apple.hpp"
 #include "snake-game/game-entities/snake.hpp"
-#include "snake-game/game-entities/apple.hpp"
-#include "engine/spatial/transform-2d.hpp"
-#include "core/entities/i-entity-manager.hpp"
+#include "snake-game/game-events/game-started-event.hpp"
 #include "snake-game/game-systems/apple-spawn-system.hpp"
 #include "snake-game/game-systems/snake-growth-system.hpp"
 #include "snake-game/game-systems/snake-spawn-system.hpp"
+#include "engine/scenes/scene.hpp"
 
 namespace SnakeGame {
 
 GameplayScene::GameplayScene(const GameplaySceneParams& params)
-    : gameSettings(params.gameSettings)
+    : Engine::Scenes::Scene(params)
+    , gameSettings(params.gameSettings)
     , screenWidth(params.screenWidth)
     , screenHeight(params.screenHeight)
 {
@@ -27,8 +25,12 @@ void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
 
   // Add Game Systems
 
-  auto appleSpawnParams =
-      AppleSpawnSystemParams{.screenWidth = this->screenWidth, .screenHeight = this->screenHeight};
+  auto appleSpawnParams = AppleSpawnSystemParams{
+      .settings = this->gameSettings,
+      .screenWidth = this->screenWidth,
+      .screenHeight = this->screenHeight
+  };
+
   this->CreateGameSystem<AppleSpawnSystem>(appleSpawnParams);
 
   auto snakeSpawnParams = SnakeSpawnSystemParams{
@@ -41,8 +43,11 @@ void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
   auto snakeGrowParams = SnakeGrowSystemParams{
       .settings = this->gameSettings,
   };
+
   this->CreateGameSystem<SnakeGrowSystem>(snakeGrowParams);
   // Tigger OnGameStart Event
+
+  this->GetEventBus().Publish(GameStartedEvent{});
 }
 
 void GameplayScene::Update(float deltaTime)
@@ -52,11 +57,10 @@ void GameplayScene::Update(float deltaTime)
   // and decide what should update in what order
   this->stateMachine.Update(deltaTime);
 
-  // MAIN QUEST: the Snake class can probably get moved into SnakeHead and SnakeSegment
-  this->snake->Update(deltaTime);
-
   // if (stateMachine.IsGameOver()) transition.SwitchTo("mainMenu");
 }
+
+void GameplayScene::Render(const Core::Rendering::IRenderer&) const {}
 
 // // PauseScene — example of push/pop overlay
 // void GameplayScene::Update(float deltaTime)
@@ -74,15 +78,8 @@ void GameplayScene::Update(float deltaTime)
 
 void GameplayScene::OnSceneExit() {}
 
-// SIDE QUEST: The Entity Manager function call should be happening with the other Systems in
-// Application
-void GameplayScene::DebugUpdate() const
-{
-  this->entityManager->OnDebugUpdate();
-}
-void GameplayScene::DebugRender() const
-{
-  this->entityManager->OnDebugRender();
-}
+void GameplayScene::DebugUpdate() const {}
+
+void GameplayScene::DebugRender() const {}
 
 }  // namespace SnakeGame

@@ -18,6 +18,7 @@ AppleSpawnSystem::AppleSpawnSystem(
     AppleSpawnSystemParams& params
 )
     : Engine::Systems::GameSystem(eventBus, entityManager)
+    , settings(params.settings)
     , screenWidth(params.screenWidth)
     , screenHeight(params.screenHeight)
 {
@@ -25,19 +26,19 @@ AppleSpawnSystem::AppleSpawnSystem(
 
 void AppleSpawnSystem::OnRegistration()
 {
+  const float boxSize = this->settings.boxSize / 2.0f;
+  const Engine::Spatial::Size2D appleSize = {boxSize, boxSize};
+
+  const auto appleTransform = Engine::Spatial::Transform2D{this->GetRandomPosition(), 0, appleSize};
+
   this->apple = static_cast<Apple*>(
-      this->entityManager.AddEntity(
-          std::make_unique<Apple>(AppleParams(
-              Engine::Spatial::Transform2D{
-                  this->GetRandomPosition(), 0, Engine::Spatial::Size2D{1, 1}
-              }
-          ))
-      )
+      this->AddEntity(std::make_unique<Apple>(AppleParams(appleTransform)))
 
   );
 
-  this->eventBus.Subscribe<GameStartedEvent>([this](const auto&) { this->Spawn(); });
-  this->eventBus.Subscribe<AppleCollectedEvent>([this](const auto&) { this->Spawn(); });
+  // 1UP: Add a Subscribe function to Engine::Scenes::Scene and remove GetEventBus
+  this->GetEventBus().Subscribe<GameStartedEvent>([this](const auto&) { this->Spawn(); });
+  this->GetEventBus().Subscribe<AppleCollectedEvent>([this](const auto&) { this->Spawn(); });
 }
 
 void AppleSpawnSystem::Spawn() const

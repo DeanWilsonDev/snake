@@ -28,11 +28,10 @@ Snake* Snake::Initialize()
 {
   this->size = static_cast<float>(this->settings.boxSize);
   this->speed = this->size * 5.0f;
-  this->length = this->settings.defaultSnakeLength;
+  // this->length = this->settings.defaultSnakeLength;
   this->direction = {1.0f, 0.0f};
   this->grow = false;
 
-  this->CreateBody();
 
   return this;
 }
@@ -64,13 +63,6 @@ void Snake::CheckIfShouldGrow()
   //   this->length++;
   //   this->grow = false;
   // }
-}
-
-void Snake::CreateSegment(SnakeSegmentParams params)
-{
-  auto segment = std::make_unique<SnakeSegment>(params);
-  auto bodyPart = this->entityManager.AddEntity(std::move(segment));
-  this->body.push_back(static_cast<SnakeSegment*>(bodyPart));
 }
 
 void Snake::Teleport() const

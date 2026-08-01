@@ -8,15 +8,18 @@
 #include "core/entities/i-entity.hpp"
 #include "core/events/i-event-bus.hpp"
 #include "core/rendering/i-renderer.hpp"
+#include "core/scenes/scene-base-params.hpp"
 #include "core/scenes/i-scene.hpp"
 #include "core/systems/i-game-system.hpp"
-#include "engine/systems/game-systems/game-system-manager.hpp"
 #include <memory>
 
 namespace Engine::Scenes {
+
+struct SceneParams : public Core::Scenes::SceneBaseParams {};
+
 class Scene : public Core::Scenes::IScene {
  public:
-  explicit Scene();
+  explicit Scene(const SceneParams& params);
   ~Scene() override = default;
   virtual void Render(const Core::Rendering::IRenderer&) const override;
   virtual void Update(const float deltaTime) override;
@@ -49,7 +52,7 @@ class Scene : public Core::Scenes::IScene {
 
  private:
   Core::Entities::IEntityManager& entityManager;
-  Engine::Systems::GameSystemManager& gameSystemManager;
+  Core::Systems::IGameSystemManager& gameSystemManager;
   Core::Events::IEventBus& eventBus;
 
   std::vector<Core::Entities::IEntity*> ownedEntities;

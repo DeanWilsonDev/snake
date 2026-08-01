@@ -4,15 +4,13 @@
 
 #pragma once
 
-#include "core/entities/i-entity-manager.hpp"
 #include "core/rendering/i-render-component-manager.hpp"
 #include "engine/scenes/scene.hpp"
-#include "core/input/action-router.hpp"
 #include "core/rendering/i-renderer.hpp"
+#include "snake-game/game-systems/snake-spawn-system.hpp"
 #include "snake-game/settings/snake-game-settings.hpp"
 #include "renderer-2d/render-component-2d-manager.hpp"
 #include "snake-game/game-state/gameplay-state-machine.hpp"
-#include "core/events/i-event-bus.hpp"
 #include "core/scenes/scene-transition-context.hpp"
 #include "snake-game/settings/snake-game-settings.hpp"
 
@@ -31,12 +29,9 @@ class IEntityManager;
 namespace SnakeGame {
 class GameplayStateMachine;
 
-struct GameplaySceneParams {
-  Core::Events::IEventBus& eventBus;
-  Core::Entities::IEntityManager& entityManager;
-  Core::Rendering::IRenderComponentManager& renderComponentManager;
+struct GameplaySceneParams : public Engine::Scenes::SceneParams {
+  // Core::Rendering::IRenderComponentManager& renderComponentManager;
   const SnakeGameSettings& gameSettings;
-  Core::Input::ActionRouter& inputActionRouter;
   const int screenWidth;
   const int screenHeight;
 };
@@ -54,8 +49,9 @@ class GameplayScene : public Engine::Scenes::Scene {
 
  private:
   Core::Scenes::SceneTransitionContext transition;
-  Core::Rendering::IRenderComponentManager& renderComponentManager;
+  // Core::Rendering::IRenderComponentManager& renderComponentManager;
   GameplayStateMachine stateMachine;
+
   std::unique_ptr<Snake> snake;
   const SnakeGameSettings& gameSettings;
   const int screenWidth;

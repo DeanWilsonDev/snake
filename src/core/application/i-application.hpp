@@ -54,7 +54,9 @@ class IApplication : public Core::IInitialize,
   virtual Core::Input::ActionRouter& GetInputActionRouter() = 0;
   virtual Core::Events::IEventBus& GetEventBus() const = 0;
   virtual Core::Rendering::IRenderComponentManager& GetRenderComponentManager() const = 0;
-  virtual void RegisterSystem(std::unique_ptr<Core::Systems::ISystem> system) = 0;
+  virtual Core::Systems::ISystem* RegisterSystem(
+      std::unique_ptr<Core::Systems::ISystem> system
+  ) = 0;
 
   virtual void Shutdown() = 0;
 };

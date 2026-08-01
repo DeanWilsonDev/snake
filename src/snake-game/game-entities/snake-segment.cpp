@@ -29,17 +29,34 @@ void SnakeSegment::OnRegistration()
   );
 }
 
-void SnakeSegment::Move()
+void SnakeSegment::BeginPlay()
 {
-  this->transform->GetPosition().x = this->direction.x;
-  this->transform->GetPosition().y = this->direction.y;
+  this->size = this->transform->GetScale().GetWidth();
+}
+
+void SnakeSegment::Step()
+{
+  if (this->pendingDirection.x != 0.0f || this->pendingDirection.y != 0.0f) {
+    bool isReversal = this->pendingDirection.x == -this->direction.x &&
+                      this->pendingDirection.y == -this->direction.y;
+    if (!isReversal) {
+      this->direction = this->pendingDirection;
+    }
+  }
+  this->transform->GetPosition().x += this->direction.x * this->size;
+  this->transform->GetPosition().y += this->direction.y * this->size;
 }
 
 void SnakeSegment::Update(const float deltaTime)
 {
+  this->moveTimer += deltaTime;
+  if (this->moveTimer >= this->moveInterval) {
+    this->moveTimer -= this->moveInterval;
+    this->Step();
+  }
+
   this->accumulatedDistance += this->speed * deltaTime;
 
-  this->Move();
   // this->CheckIfShouldGrow();  // MAIN QUEST: Implement a snake growth system
   accumulatedDistance -= this->size;
   // this->Teleport();  // MAIN QUEST: Implement a boundary detection system
@@ -47,12 +64,7 @@ void SnakeSegment::Update(const float deltaTime)
 
 void SnakeSegment::SetDirection(Core::Math::Vector2D value)
 {
-  this->direction = value;
-  if (this->accumulatedDistance >= this->size) {
-    if (this->direction.x != 0.0f || this->direction.y != 0.0f) {
-      this->SetDirection(this->direction);
-    }
-  }
+  this->pendingDirection = value;
 }
 
 void SnakeSegment::DebugUpdate() const

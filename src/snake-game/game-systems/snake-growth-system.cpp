@@ -5,7 +5,6 @@
 #include "snake-game/game-events/apple-collected-event.hpp"
 #include "core/events/i-event-bus.hpp"
 #include "engine/spatial/components/transform-component-2d.hpp"
-#include "engine/entities/entity-manager.hpp"
 
 namespace SnakeGame {
 
@@ -33,7 +32,7 @@ void SnakeGrowSystem::Grow()
 
   const int newIndex = static_cast<int>(body->GetSegments().size()) + 1;
 
-  auto* rawSegment = static_cast<SnakeSegment*>(this->entityManager.AddEntity(
+  auto* rawSegment = static_cast<SnakeSegment*>(this->AddEntity(
       std::make_unique<SnakeSegment>(SnakeSegmentParams{newIndex, newSegmentTransform})
   ));
 

@@ -43,30 +43,35 @@ add_executable(
   ${PROJECT_NAME}
   src/core/color/color-hex.cpp
   src/core/color/color-rgba.cpp
-  src/core/logging/log.cpp
-  src/core/input/action-set.cpp
   src/core/input/action-binding-builder.cpp
   src/core/input/action-router.cpp
-  src/engine/spatial/components/transform-component-2d.cpp
-  src/engine/spatial/size-2d.cpp
+  src/core/input/action-set.cpp
+  src/core/logging/log.cpp
   src/debug/debug-hud.cpp
   src/debug/user-interface/debug-user-interface-manager.cpp
   src/engine/application/application.cpp
   src/engine/dependency-injection/dependency-injector.cpp
   src/engine/entities/component-dispatcher.cpp
+  src/engine/entities/entity-activation-pipeline.cpp
   src/engine/entities/entity-component-pipeline.cpp
   src/engine/entities/entity-manager.cpp
   src/engine/entities/entity.cpp
-  src/engine/entities/entity-activation-pipeline.cpp
-  src/engine/entities/registrars/render-component-registrar.cpp
   src/engine/entities/registrars/input-component-registrar.cpp
+  src/engine/entities/registrars/render-component-registrar.cpp
   src/engine/events/event-bus.cpp
-  src/engine/input/input-system.cpp
-  src/engine/input/input-dispatcher.cpp
   src/engine/input/components/input-component.cpp
+  src/engine/input/input-dispatcher.cpp
+  src/engine/input/input-system.cpp
   src/engine/input/sources/keyboard-input-source.cpp
   src/engine/scenes/scene-manager.cpp
+  src/engine/scenes/scene.cpp
+  src/engine/spatial/components/transform-component-2d.cpp
+  src/engine/spatial/size-2d.cpp
   src/engine/state/state-machine.cpp
+  src/engine/systems/game-systems/game-system-manager.cpp
+  src/engine/systems/game-systems/game-system.cpp
+  src/engine/systems/system-manager.cpp
+  src/engine/systems/system.cpp
   src/engine/ui/render-component-ui-manager.cpp
   src/engine/user-interface/user-interface-manager.cpp
   src/main.cpp
@@ -79,15 +84,19 @@ add_executable(
   src/raylib-facade/window/raylib-window-facade.cpp
   src/renderer-2d/components/render-component-2d.cpp
   src/renderer-2d/render-component-2d-manager.cpp
+  src/snake-game/game-components/snake-body-component.cpp
   src/snake-game/game-entities/apple.cpp
-  src/snake-game/game-entities/snake-segment.cpp
   src/snake-game/game-entities/snake-head.cpp
+  src/snake-game/game-entities/snake-segment.cpp
   src/snake-game/game-entities/snake.cpp
   src/snake-game/game-scenes/gameplay-scene.cpp
   src/snake-game/game-state/game-over-state.cpp
   src/snake-game/game-state/gameplay-state-machine.cpp
   src/snake-game/game-state/gameplay-state.cpp
   src/snake-game/game-state/main-menu-state.cpp
+  src/snake-game/game-systems/apple-spawn-system.cpp
+  src/snake-game/game-systems/snake-growth-system.cpp
+  src/snake-game/game-systems/snake-spawn-system.cpp
   src/snake-game/snake-application.cpp
   src/snake-game/ui/game-over-ui.cpp
   src/snake-game/ui/gameplay-ui.cpp

@@ -6,6 +6,7 @@
 #include "core/debug/i-on-debugable.hpp"
 #include "core/life-cycle-hooks/i-on-updatable.hpp"
 #include "core/rendering/i-on-renderable.hpp"
+#include "core/scenes/scene-base-params.hpp"
 #include "core/scenes/scene-lifetime.hpp"
 #include "core/scenes/i-scene.hpp"
 #include <string>
@@ -15,7 +16,7 @@
 namespace Core {
 namespace Scenes {
 
-using SceneFactory = std::function<std::unique_ptr<IScene>()>;
+using SceneFactory = std::function<std::unique_ptr<IScene>(const SceneBaseParams&)>;
 
 class ISceneManager : public Debug::IOnDebugable,
                       public IOnUpdatable,

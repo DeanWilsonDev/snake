@@ -1,6 +1,7 @@
 #include "application.hpp"
 #include "core/color/color.hpp"
 #include "core/debug/i-debug-hud.hpp"
+#include "core/debug/i-debug-user-interface.hpp"
 #include "core/dependency-injection/i-dependency-injector.hpp"
 #include "core/events/i-event-bus.hpp"
 #include "core/input/action-set.hpp"
@@ -9,31 +10,28 @@
 #include "core/rendering/i-render-component-manager.hpp"
 #include "core/rendering/i-renderer.hpp"
 #include "core/scenes/i-scene-manager.hpp"
-#include "core/debug/i-debug-user-interface.hpp"
+#include "core/systems/i-system.hpp"
 #include "core/user-interface/i-user-interface-manager.hpp"
 #include "core/user-interface/i-user-interface.hpp"
 #include "core/window/i-window.hpp"
-
 #include "debug/debug-hud.hpp"
 #include "debug/debug.hpp"
-
 #include "engine/config/application-config.hpp"
 #include "engine/config/project-settings.hpp"
 #include "engine/dependency-injection/dependency-injector.hpp"
+#include "engine/entities/entity-manager.hpp"
 #include "engine/events/event-bus.hpp"
+#include "engine/input/input-system.hpp"
 #include "engine/input/input-system.hpp"
 #include "engine/scenes/scene-manager.hpp"
 #include "engine/systems/game-systems/game-system-manager.hpp"
 #include "engine/user-interface/user-interface-manager.hpp"
 #include "engine/utils/string-utils.hpp"
-#include "engine/entities/entity-manager.hpp"
-
 #include "raylib-facade/input/raylib-input-backend-facade.hpp"
 #include "raylib-facade/renderer/raylib-renderer-facade.hpp"
 #include "raylib-facade/user-interface/raylib-debug-user-interface-facade.hpp"
 #include "raylib-facade/user-interface/raylib-user-interface-facade.hpp"
 #include "raylib-facade/window/raylib-window-facade.hpp"
-
 #include "renderer-2d/render-component-2d-manager.hpp"
 
 #include <memory>
@@ -57,7 +55,6 @@ void Application::Initialize()
   this->inputBackend = this->injector->Resolve<Core::Input::IInputBackend>();
   this->userInterface = this->injector->Resolve<Core::UserInterface::IUserInterface>();
   this->eventBus = this->injector->Resolve<Core::Events::IEventBus>();
-  this->sceneManager = this->injector->Resolve<Core::Scenes::ISceneManager>();
   this->renderComponentManager =
       this->injector->Resolve<Core::Rendering::IRenderComponentManager>();
   this->debugUserInterface = this->injector->Resolve<Core::Debug::IDebugUserInterface>();
@@ -72,22 +69,22 @@ void Application::Initialize()
   // can all become systems and i can have control over their lifetimes from here.
 
   // Input
-  this->RegisterSystem(
-      make_unique<Engine::Input::InputSystem>(
-          *inputBackend,
-          *eventBus,
-          config.engine.input.keyMap,
-          config.engine.input.actions,
-          this->inputActionSet
-      )
+  this->inputSystem = this->systemManager.CreateSystem<Engine::Input::InputSystem>(
+      *inputBackend,
+      *eventBus,
+      config.engine.input.keyMap,
+      config.engine.input.actions,
+      this->inputActionSet
   );
 
-  this->RegisterSystem(make_unique<Engine::Systems::GameSystemManager>());
+  auto* gameSystemManager = this->systemManager.CreateSystem<Engine::Systems::GameSystemManager>();
 
-  this->RegisterSystem(
-      make_unique<Engine::Entities::EntityManager>(
-          this->renderComponentManager, this->GetInputActionRouter()
-      )
+  auto* entityManager = this->systemManager.CreateSystem<Engine::Entities::EntityManager>(
+      this->renderComponentManager.get(), this->GetInputActionRouter()
+  );
+
+  this->sceneManager = this->systemManager.CreateSystem<Engine::Scenes::SceneManager>(
+      *this->eventBus.get(), *gameSystemManager, *entityManager
   );
 
   LOG_CORE_TRACE("[Application] Window set to {}", static_cast<void*>(&this->window));
@@ -95,7 +92,6 @@ void Application::Initialize()
   LOG_CORE_TRACE("[Application] Input set to {}", static_cast<void*>(&this->inputBackend));
   LOG_CORE_TRACE("[Application] UserInterface set to {}", static_cast<void*>(&this->userInterface));
   LOG_CORE_TRACE("[Application] EventBus set to {}", static_cast<void*>(&this->eventBus));
-  LOG_CORE_TRACE("[Application] SceneManager set to {}", static_cast<void*>(&this->sceneManager));
 
   LOG_CORE_TRACE("[Application] Validating Dependencies");
   assert(this->window);
@@ -103,7 +99,6 @@ void Application::Initialize()
   assert(this->inputBackend);
   assert(this->userInterface);
   assert(this->eventBus);
-  assert(this->sceneManager);
 
   LOG_CORE_TRACE("[Application] Beginning Application");
   std::string title = config.project.title;
@@ -124,9 +119,9 @@ void Application::Initialize()
   this->window->SetTargetFPS(config.engine.window.targetFPS);
 }
 
-void Application::RegisterSystem(std::unique_ptr<Core::Systems::ISystem> system)
+Core::Systems::ISystem* Application::RegisterSystem(std::unique_ptr<Core::Systems::ISystem> system)
 {
-  this->systemManager.AddSystem(std::move(system));
+  return this->systemManager.AddSystem(std::move(system));
 }
 
 void Application::RegisterDependencies()
@@ -156,9 +151,6 @@ void Application::RegisterDependencies()
   // Rendering
   this->GetInjector()
       .Register<Core::Rendering::IRenderComponentManager, Renderer2D::RenderComponent2DManager>();
-
-  // Scene Management
-  this->GetInjector().Register<Core::Scenes::ISceneManager, Engine::Scenes::SceneManager>();
 
   // Debug
   auto hud = std::make_shared<Debug::DebugHUD>("DefaultDebugHUD");
@@ -281,6 +273,21 @@ Core::Events::IEventBus& Application::GetEventBus() const
 Core::Rendering::IRenderComponentManager& Application::GetRenderComponentManager() const
 {
   return *this->renderComponentManager;
+}
+
+Core::Input::ActionRouter& Application::GetInputActionRouter()
+{
+  return this->inputSystem->GetActionRouter();
+};
+
+const Core::Input::ActionSet& Application::GetInputActionSet() const
+{
+  return this->inputActionSet;
+}
+
+Core::Input::ActionSet& Application::GetInputActionSet()
+{
+  return this->inputActionSet;
 }
 
 }  // namespace Engine

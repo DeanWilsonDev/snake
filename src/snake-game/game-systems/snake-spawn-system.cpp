@@ -42,10 +42,14 @@ void SnakeSpawnSystem::Spawn()
 
 void SnakeSpawnSystem::CreateHead()
 {
-  auto headParams =
-      SnakeHeadParams{0, Engine::Spatial::Transform2D(GetRandomPosition(), 0.0f, {1.0f, 1.0f})};
+  float boxSize = this->settings.boxSize;
+  Engine::Spatial::Size2D snakeSize = {boxSize, boxSize};
+
+  auto headTransform = Engine::Spatial::Transform2D(GetRandomPosition(), 0.0f, snakeSize);
+
+  auto headParams = SnakeHeadParams{0, headTransform};
   auto headEntity = std::make_unique<SnakeHead>(headParams);
-  this->head = static_cast<SnakeHead*>(this->entityManager.AddEntity(std::move(headEntity)));
+  this->head = static_cast<SnakeHead*>(this->AddEntity(std::move(headEntity)));
 }
 
 const Core::Math::Vector2D SnakeSpawnSystem::GetRandomPosition() const
@@ -62,15 +66,10 @@ void SnakeSpawnSystem::CreateBody()
   for (int i = 0; i < this->settings.defaultSnakeLength; i++) {
     auto nextSegmentTransform = Engine::Spatial::Transform2D(
         Core::Math::Vector2D(
-            std::round(
-                (headTransform->GetPosition().x -
-                 headTransform->GetScale().GetWidth() * static_cast<float>(i)) *
-                headTransform->GetScale().GetWidth()
-            ),
-            std::round(
-                (headTransform->GetPosition().y / headTransform->GetScale().GetHeight()) *
-                headTransform->GetScale().GetHeight()
-            )
+            headTransform->GetPosition().x -
+                headTransform->GetScale().GetWidth() * static_cast<float>(i),
+            headTransform->GetPosition().y
+
         ),
         headTransform->GetRotation(),
         headTransform->GetScale()
@@ -84,8 +83,8 @@ void SnakeSpawnSystem::CreateBody()
 void SnakeSpawnSystem::CreateSegment(SnakeSegmentParams params)
 {
   auto segment = std::make_unique<SnakeSegment>(params);
-  auto bodyPart = this->entityManager.AddEntity(std::move(segment));
-  this->head->GetComponent<SnakeBodyComponent>()->AddBodyPart(static_cast<SnakeSegment*>(bodyPart));
+  auto bodyPart = this->AddEntity(std::move(segment));
+  this->head->GetComponent<SnakeBodyComponent>()->Append(static_cast<SnakeSegment*>(bodyPart));
 }
 
 void SnakeSpawnSystem::TeardownBody()
@@ -93,7 +92,7 @@ void SnakeSpawnSystem::TeardownBody()
   auto* body = this->head->GetComponent<SnakeBodyComponent>();
 
   for (SnakeSegment* segment : body->GetSegments()) {
-    this->entityManager.RemoveEntity(segment);
+    this->RemoveEntity(segment);
   }
 
   body->Clear();
@@ -103,7 +102,7 @@ void SnakeSpawnSystem::Reset()
 {
   this->TeardownBody();
 
-  this->entityManager.RemoveEntity(this->head);
+  this->RemoveEntity(this->head);
   this->head = nullptr;
 
   this->CreateHead();

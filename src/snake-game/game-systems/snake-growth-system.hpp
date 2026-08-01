@@ -27,13 +27,12 @@ class SnakeGrowSystem : public Engine::Systems::GameSystem {
       Core::Events::IEventBus& eventBus, Core::Entities::IEntityManager& entityManager,
       SnakeGrowSystemParams& params
   );
-  ~SnakeGrowSystem();
+  ~SnakeGrowSystem() = default;
 
   virtual void OnRegistration() override;
   void Grow();
 
  private:
-  Core::Entities::IEntityManager& entityManager;
   const SnakeGameSettings& settings;
   SnakeHead* head;
 };

@@ -18,7 +18,7 @@ class SnakeHead;
 
 namespace SnakeGame {
 
-class SnakeBodyComponent : Core::Components::IComponent {
+class SnakeBodyComponent : public Core::Components::IComponent {
  public:
   SnakeBodyComponent();
 

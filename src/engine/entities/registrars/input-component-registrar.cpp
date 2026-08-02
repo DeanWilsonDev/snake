@@ -14,4 +14,14 @@ void InputComponentRegistrar::OnRegistered(Core::Input::Components::IInputCompon
 
 void InputComponentRegistrar::OnUnregistered(Core::Input::Components::IInputComponent*) {}
 
+std::vector<Core::Components::IComponent*> InputComponentRegistrar::GetComponentsFromRegistry()
+{
+  std::vector<Core::Components::IComponent*> raw;
+  raw.reserve(this->registry.size());
+  for (const auto& owner : this->registry) {
+    raw.push_back(owner.get());
+  }
+  return raw;
+}
+
 }  // namespace Engine::Entities::Registrars

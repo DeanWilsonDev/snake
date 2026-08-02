@@ -21,6 +21,8 @@ class InputComponent : public Core::Input::Components::IInputComponent {
   InputComponent();
   virtual void Bind(const std::string& name, std::function<void()> callback) override;
 
+  void Update(const float) override;
+
   virtual void BindAxis(
       const std::string& name, std::function<void(Core::Input::ActionValue)> callback,
       float threshold = 0.01f

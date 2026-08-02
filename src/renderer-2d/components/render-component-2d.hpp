@@ -21,6 +21,7 @@ class RenderComponent2D final : public Core::Rendering::Components::IRenderCompo
       Core::Spatial::ITransform2D& transform, Core::Color::ColorRGBA color, const bool& active
   );
   ~RenderComponent2D() override = default;
+  void Update(const float) override;
   void Render(const Core::Rendering::IRenderer& renderer) const override;
   [[nodiscard]] float GetX() const override;
   [[nodiscard]] float GetY() const override;

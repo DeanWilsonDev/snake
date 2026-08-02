@@ -4,8 +4,11 @@
 
 #pragma once
 
-namespace Core::Components{
-  class IComponent;
+#include "core/components/i-component.hpp"
+#include <vector>
+
+namespace Core::Components {
+class IComponent;
 }
 
 namespace Core::Entities {
@@ -14,6 +17,7 @@ class IComponentRegistrar {
   virtual ~IComponentRegistrar() = default;
   virtual void Register(Core::Components::IComponent* component) = 0;
   virtual void Unregister(Core::Components::IComponent* component) = 0;
+  virtual std::vector<Core::Components::IComponent*> GetComponentsFromRegistry() = 0;
 };
 
 }  // namespace Core::Entities

@@ -7,9 +7,9 @@
 #include <cassert>
 #include "physics/collision/rectangle-collider-2d.hpp"
 
-Physics::Collision::Components::ColliderComponent2D::ColliderComponent2D(
-    const ColliderComponentParams& params
-)
+namespace Physics::Collision::Components {
+
+ColliderComponent2D::ColliderComponent2D(const ColliderComponentParams& params)
     : transform(params.transform)
 {
   assert(this->transform != nullptr && "ColliderComponent2D requires a valid transform");
@@ -17,11 +17,12 @@ Physics::Collision::Components::ColliderComponent2D::ColliderComponent2D(
   this->collider = std::make_unique<Physics::Collision::RectangleCollider2D>(rectangleParams);
 }
 
-bool Physics::Collision::Components::ColliderComponent2D::Intersects(
-    const IColliderComponent2D& other
-) const
+void ColliderComponent2D::Update(const float) {}
+
+bool ColliderComponent2D::Intersects(const IColliderComponent2D& other) const
 {
   return RectangleCollider2D::Intersects(
       this->collider->GetWorldRect(), other.GetCollider().GetWorldRect()
   );
 }
+}  // namespace Physics::Collision::Components

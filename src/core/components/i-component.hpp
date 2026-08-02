@@ -4,9 +4,11 @@
 
 #pragma once
 
+#include "core/life-cycle-hooks/i-updatable.hpp"
+
 namespace Core::Components {
 
-class IComponent {
+class IComponent: public Core::IUpdatable {
   public:
     virtual ~IComponent() = default;
 };

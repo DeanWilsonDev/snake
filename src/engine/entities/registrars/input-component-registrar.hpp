@@ -6,6 +6,8 @@
 
 #include "core/input/components/i-input-component.hpp"
 #include "engine/entities/typed-component-registrar.hpp"
+#include <vector>
+#include <memory>
 
 namespace Core::Components {
 class IComponent;
@@ -28,9 +30,10 @@ class InputComponentRegistrar final
  protected:
   void OnRegistered(Core::Input::Components::IInputComponent* component) override;
   void OnUnregistered(Core::Input::Components::IInputComponent* component) override;
+  std::vector<Core::Components::IComponent*> GetComponentsFromRegistry() override;
 
  private:
   Core::Input::ActionRouter& router;
+  std::vector<std::unique_ptr<Core::Input::Components::IInputComponent>> registry;
 };
-
 }  // namespace Engine::Entities::Registrars

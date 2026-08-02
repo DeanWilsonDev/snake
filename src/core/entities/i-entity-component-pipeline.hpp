@@ -4,11 +4,12 @@
 
 #pragma once
 
+#include "core/life-cycle-hooks/i-on-updatable.hpp"
 namespace Core {
 namespace Entities {
 class IEntity;
 
-class IEntityComponentPipeline {
+class IEntityComponentPipeline : public Core::IOnUpdatable {
  public:
   virtual ~IEntityComponentPipeline() = default;
   virtual void Run(IEntity* entity) = 0;

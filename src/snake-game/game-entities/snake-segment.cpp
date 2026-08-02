@@ -1,6 +1,7 @@
 #include "engine/entities/entity.hpp"
 #include "physics/collision/rectangle-collider-2d.hpp"
 #include "snake-game/game-entities/snake-segment.hpp"
+#include "snake-game/game-components/snake-body-component.hpp"
 #include "snake.hpp"
 #include "debug/debug.hpp"
 #include "physics/collision/components/collider-component-2d.hpp"
@@ -24,9 +25,11 @@ void SnakeSegment::OnRegistration()
   const auto colliderParams =
       Physics::Collision::Components::ColliderComponentParams{.transform = this->transform};
   this->AddComponent<Physics::Collision::Components::ColliderComponent2D>(colliderParams);
+
   this->AddComponent<Renderer2D::Components::RenderComponent2D>(
       *this->transform, Core::Color::Green, this->GetActive()
   );
+
 }
 
 void SnakeSegment::BeginPlay()

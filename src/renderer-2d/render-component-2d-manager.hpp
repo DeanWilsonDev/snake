@@ -7,20 +7,21 @@
 #include <vector>
 #include "core/rendering/i-render-component-manager.hpp"
 
-namespace Core {
-
-namespace Rendering {
+namespace Core::Rendering {
 class IRenderable;
-class IRenderer;
-
-namespace Components {
-class IRenderComponent2D;
 }
-}  // namespace Rendering
-}  // namespace Core
+
+namespace Core::Rendering {
+class IRenderer;
+}
+
+namespace Core::Rendering::Components {
+class IRenderComponent2D;
+}  // namespace Core::Rendering::Components
 
 namespace Renderer2D {
 
+// RAID BOSS: Move this entire Manager into a pipeline in the ECS
 class RenderComponent2DManager final : public Core::Rendering::IRenderComponentManager {
  public:
   explicit RenderComponent2DManager();
@@ -32,4 +33,4 @@ class RenderComponent2DManager final : public Core::Rendering::IRenderComponentM
  private:
   std::vector<Core::Rendering::Components::IRenderComponent*> renderComponents;
 };
-};  // namespace Renderer2D
+}  // namespace Renderer2D

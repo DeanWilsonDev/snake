@@ -27,6 +27,8 @@ class TransformComponent2D final : public Core::Spatial::Components::ITransformC
 
   TransformComponent2D();
 
+  virtual void Update(const float deltaTime) override;
+
   [[nodiscard]] Core::Math::Vector2D& GetPosition() override { return this->position; }
   [[nodiscard]] float& GetRotation() override { return this->rotation; };
   [[nodiscard]] Engine::Spatial::Size2D& GetScale() override { return this->scale; };

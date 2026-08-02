@@ -1,14 +1,13 @@
 #include "component-dispatcher.hpp"
 #include "core/components/i-component.hpp"
+#include "core/entities/entity-component-registrars.hpp"
 #include "core/entities/i-entity.hpp"
 
 namespace Engine::Entities {
 
-void ComponentDispatcher::AddRegistrar(
-    std::unique_ptr<Core::Entities::IComponentRegistrar> registrar
-)
+ComponentDispatcher::ComponentDispatcher(Core::Entities::EntityComponentRegistrars& registrars)
+    : registrars(registrars)
 {
-  this->registrars.push_back(std::move(registrar));
 }
 
 void ComponentDispatcher::Dispatch(Core::Entities::IEntity* entity)

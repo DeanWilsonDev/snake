@@ -6,7 +6,6 @@
 #include "engine/spatial/size-2d.hpp"
 #include "core/math/vector-2d.hpp"
 #include "engine/spatial/transform-2d.hpp"
-#include "core/spatial/i-transform-2d.hpp"
 
 namespace Engine::Spatial::Components {
 
@@ -23,5 +22,7 @@ TransformComponent2D::TransformComponent2D(const Transform2D& transform)
 }
 
 TransformComponent2D::TransformComponent2D() = default;
+
+void TransformComponent2D::Update(const float) {}
 
 }  // namespace Engine::Spatial::Components

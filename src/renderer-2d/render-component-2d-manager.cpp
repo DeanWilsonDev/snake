@@ -15,6 +15,7 @@ RenderComponent2DManager::RenderComponent2DManager() {}
 
 void RenderComponent2DManager::Register(Core::Rendering::Components::IRenderComponent* component)
 {
+  LOG_CORE_TRACE("[RenderComponent2DManager] Registering {}", static_cast<void*>(component));
   if (auto component2d =
           dynamic_cast<Core::Rendering::Components::IRenderComponent2D*>(component)) {
     this->renderComponents.push_back(component2d);

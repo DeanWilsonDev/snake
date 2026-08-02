@@ -16,6 +16,8 @@ RenderComponent2D::RenderComponent2D(
 {
 }
 
+void RenderComponent2D::Update(const float) {}
+
 void RenderComponent2D::Render(const Core::Rendering::IRenderer& renderer) const
 {
   if (!active) {

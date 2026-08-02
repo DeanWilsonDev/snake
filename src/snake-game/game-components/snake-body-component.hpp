@@ -1,7 +1,6 @@
 #pragma once
 
-#include "core/components/i-component.hpp"
-#include "core/entities/i-entity.hpp"
+#include "engine/components/game-component.hpp"
 #include <deque>
 
 namespace SnakeGame {
@@ -18,9 +17,11 @@ class SnakeHead;
 
 namespace SnakeGame {
 
-class SnakeBodyComponent : public Core::Components::IComponent {
+class SnakeBodyComponent final : public Engine::Components::GameComponent {
  public:
   SnakeBodyComponent();
+
+  virtual void Update(const float) override;
 
   void Append(SnakeSegment* segment);
   void Clear();

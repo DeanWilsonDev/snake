@@ -6,6 +6,10 @@ namespace SnakeGame {
 
 SnakeBodyComponent::SnakeBodyComponent() {}
 
+void SnakeBodyComponent::Update(const float)
+{
+}
+
 void SnakeBodyComponent::Append(SnakeSegment* bodyPart)
 {
   this->segments.push_back(bodyPart);

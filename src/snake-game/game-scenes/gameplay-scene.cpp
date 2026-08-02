@@ -1,5 +1,6 @@
 #include "snake-game/game-scenes/gameplay-scene.hpp"
 #include <memory>
+#include "core/logging/log.hpp"
 #include "snake-game/game-entities/snake.hpp"
 #include "snake-game/game-events/game-started-event.hpp"
 #include "snake-game/game-systems/apple-spawn-system.hpp"
@@ -21,6 +22,7 @@ GameplayScene::~GameplayScene() = default;
 
 void GameplayScene::OnEnter(Core::Scenes::SceneTransitionContext ctx)
 {
+  LOG_DEBUG("RUNNING GAMEPLAY SCENE ON ENTER");
   this->transition = ctx;
 
   // Add Game Systems

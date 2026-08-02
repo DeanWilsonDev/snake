@@ -4,11 +4,13 @@
 
 #pragma once
 
+#include "core/entities/entity-component-registrars.hpp"
 #include "core/entities/i-component-dispatcher.hpp"
 #include "core/entities/i-entity-component-pipeline.hpp"
 #include "core/entities/i-entity.hpp"
 #include "core/input/action-router.hpp"
 #include "engine/entities/component-dispatcher.hpp"
+#include "engine/entities/component-updater.hpp"
 
 namespace Core::Rendering {
 class IRenderComponentManager;
@@ -20,7 +22,6 @@ class ActionRouter;
 
 namespace Engine::Entities {
 
-// RAID BOSS: The Entity Component Pipeline needs to be refactored slightly to fit the ISystem spec so that the engine can treat it like a system
 class EntityComponentPipeline : public Core::Entities::IEntityComponentPipeline {
  public:
   EntityComponentPipeline(
@@ -29,10 +30,14 @@ class EntityComponentPipeline : public Core::Entities::IEntityComponentPipeline 
   );
   ~EntityComponentPipeline() = default;
   virtual void Run(Core::Entities::IEntity*) override;
+  virtual void OnUpdate(const float) override;
   virtual void Teardown(Core::Entities::IEntity*) override;
 
  private:
-  ComponentDispatcher dispatcher;
-};
+  void AddRegistrar(std::unique_ptr<Core::Entities::IComponentRegistrar> registrar);
 
+  Core::Entities::EntityComponentRegistrars registrars;
+  ComponentDispatcher dispatcher;
+  ComponentUpdater updater;
+};
 }  // namespace Engine::Entities

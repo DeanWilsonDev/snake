@@ -10,6 +10,8 @@ namespace Engine::Input::Components {
 
 InputComponent::InputComponent() {};
 
+void InputComponent::Update(const float) {}
+
 void InputComponent::Bind(const std::string& name, std::function<void()> callback)
 {
   assert(this->router && "InputComponent::Bind called before AttachRouter. bind in BeginPlay()");

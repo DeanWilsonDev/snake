@@ -18,6 +18,9 @@ struct ColliderComponentParams {
 class ColliderComponent2D : public Core::Components::IColliderComponent2D {
  public:
   explicit ColliderComponent2D(const ColliderComponentParams& params);
+
+  void Update(const float) override;
+
   [[nodiscard]] bool Intersects(const IColliderComponent2D& other) const override;
   [[nodiscard]] Physics::Collision::RectangleCollider2D& GetCollider() const override
   {

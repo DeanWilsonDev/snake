@@ -52,10 +52,12 @@ add_executable(
   src/engine/application/application.cpp
   src/engine/dependency-injection/dependency-injector.cpp
   src/engine/entities/component-dispatcher.cpp
+  src/engine/entities/component-updater.cpp
   src/engine/entities/entity-activation-pipeline.cpp
   src/engine/entities/entity-component-pipeline.cpp
   src/engine/entities/entity-manager.cpp
   src/engine/entities/entity.cpp
+  src/engine/entities/registrars/game-component-registrar.cpp
   src/engine/entities/registrars/input-component-registrar.cpp
   src/engine/entities/registrars/render-component-registrar.cpp
   src/engine/events/event-bus.cpp

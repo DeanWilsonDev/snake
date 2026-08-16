@@ -12,8 +12,9 @@ class IEntity;
 class IEntityComponentPipeline : public Core::IOnUpdatable {
  public:
   virtual ~IEntityComponentPipeline() = default;
-  virtual void Run(IEntity* entity) = 0;
-  virtual void Teardown(IEntity* entity) = 0;
+  virtual void Run() = 0;
+  virtual void Teardown() = 0;
+  virtual void SetEntity(Core::Entities::IEntity* entity) = 0;
 };
 
 }  // namespace Entities

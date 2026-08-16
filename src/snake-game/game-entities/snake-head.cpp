@@ -1,10 +1,11 @@
 #include "snake-head.hpp"
 #include "engine/input/components/input-component.hpp"
-#include "engine/spatial/components/transform-component-2d.hpp"
+#include "snake-game/game-components/movement-component.hpp"
 #include "snake-game/game-components/snake-body-component.hpp"
 #include "snake-game/game-entities/snake-segment.hpp"
 #include "snake-game/game-entities/snake.hpp"
 #include "debug/debug.hpp"
+#include "core/logging/log.hpp"
 
 namespace SnakeGame {
 
@@ -13,20 +14,18 @@ SnakeHead::SnakeHead(const SnakeHeadParams& params) : SnakeGame::SnakeSegment(pa
 void SnakeHead::OnRegistration()
 {
   SnakeSegment::OnRegistration();
-  this->AddComponent<Engine::Input::Components::InputComponent>();
+  this->inputComponent = this->AddComponent<Engine::Input::Components::InputComponent>();
   this->AddComponent<SnakeBodyComponent>();
+
+  auto movementParams = MovementComponentParams{.cellSize = this->size};
+
+  this->movementComponent =
+      this->AddComponent<MovementComponent>(this->inputComponent, this->transform, movementParams);
 }
 
 void SnakeHead::BeginPlay()
 {
   SnakeSegment::BeginPlay();
-
-  this->inputComponent = this->GetComponent<Engine::Input::Components::InputComponent>();
-
-  this->inputComponent->Bind("Up", [this]() { this->SetDirection({0.0f, -1.0f}); });
-  this->inputComponent->Bind("Down", [this]() { this->SetDirection({0.0f, 1.0f}); });
-  this->inputComponent->Bind("Left", [this]() { this->SetDirection({-1.0f, 0.0f}); });
-  this->inputComponent->Bind("Right", [this]() { this->SetDirection({1.0f, 0.0f}); });
 }
 
 void SnakeHead::Update(const float deltaTime)
@@ -37,16 +36,9 @@ void SnakeHead::Update(const float deltaTime)
 void SnakeHead::DebugUpdate() const
 {
   UMBRA_DEBUG(this->GetActive(), "Snake/Head/Active");
-  SnakeSegment::DebugUpdate();
-}
-
-void SnakeHead::SetDirection(Core::Math::Vector2D desiredDirection)
-{
-  SnakeSegment::SetDirection(desiredDirection);
-  //   if (desiredDirection.x == -this->direction.x && desiredDirection.y == -this->direction.y) {
-  //     return;
-  //   }
-  //   this->direction = desiredDirection;
+  UMBRA_DEBUG(this->transform->position.x, "Snake/Head/Transform/X");
+  UMBRA_DEBUG(this->transform->position.y, "Snake/Head/Transform/Y");
+  // SnakeSegment::DebugUpdate();
 }
 
 }  // namespace SnakeGame

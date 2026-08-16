@@ -51,16 +51,9 @@ class SnakeSegment : public Engine::Entities::Entity {
   GetColliderComponent() const;
 
   void Step();
-  void SetDirection(Core::Math::Vector2D value);
 
  protected:
-  float accumulatedDistance = 0.0f;
-  bool directionChanged = false;
-  float size = {0};
-  Core::Math::Vector2D direction{};
-  Core::Math::Vector2D pendingDirection{};
-  float speed = 10.0f;
-  float moveTimer = 0.0f;
-  float moveInterval = 0.2f;
+  // MAIN QUEST: Set this to the box size in settings
+  float size = {20.0f};
 };
 }  // namespace SnakeGame

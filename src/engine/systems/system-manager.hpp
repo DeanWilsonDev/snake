@@ -13,6 +13,8 @@ class SystemManager : public Engine::Systems::System {
  public:
   SystemManager();
   virtual void OnUpdate(const float deltaTime) override;
+  virtual void OnDebugUpdate() const override;
+  virtual void OnDebugRender() const override;
 
   Core::Systems::ISystem* AddSystem(std::unique_ptr<Core::Systems::ISystem> system);
   void RemoveSystem(Core::Systems::ISystem* system);

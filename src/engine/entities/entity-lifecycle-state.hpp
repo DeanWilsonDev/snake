@@ -11,7 +11,6 @@ namespace Engine::Entities {
 struct EntityLifecycleState {
   std::unordered_set<int>& beginPlayFiredIds;
   std::unordered_set<int>& activeLastFrame;
-  const float deltaTime;
 };
 
 }  // namespace Engine::Entities

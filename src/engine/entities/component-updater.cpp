@@ -1,19 +1,22 @@
 #include "component-updater.hpp"
+#include "core/entities/i-entity.hpp"
 
 namespace Engine::Entities {
 
 ComponentUpdater::ComponentUpdater(Core::Entities::EntityComponentRegistrars& registrars)
     : registrars(registrars)
 {
+
 }
 
-void ComponentUpdater::Run(const float deltaTime)
+void ComponentUpdater::Run(const float deltaTime, Core::Entities::IEntity* entity)
 {
-  for (auto& registrar : this->registrars) {
-    for (auto& component : registrar->GetComponentsFromRegistry()) {
-      component->Update(deltaTime);
-    }
-  }
+  entity->ForEachComponent([deltaTime](Core::Components::IComponent* component) {
+    component->Update(deltaTime);
+    component->DebugUpdate();
+    component->DebugRender();
+    return true;
+  });
 };
 
 }  // namespace Engine::Entities

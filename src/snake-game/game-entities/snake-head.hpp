@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core/math/vector-2d.hpp"
 #include "core/spatial/i-transform-2d.hpp"
+#include "snake-game/game-components/movement-component.hpp"
 #include "snake-game/game-entities/snake-segment.hpp"
 #include "engine/input/components/input-component.hpp"
 
@@ -12,7 +12,9 @@ class ActionRouter;
 namespace SnakeGame {
 
 struct SnakeHeadParams : SnakeSegmentParams {
-  SnakeHeadParams(const int index, const Core::Spatial::ITransform2D& transform, const bool active = true)
+  SnakeHeadParams(
+      const int index, const Core::Spatial::ITransform2D& transform, const bool active = true
+  )
       : SnakeSegmentParams(index, transform, active)
   {
   }
@@ -26,13 +28,10 @@ class SnakeHead final : public SnakeSegment {
   virtual void BeginPlay() override;
   virtual void Update(const float deltaTime) override;
   virtual void DebugUpdate() const override;
-  [[nodiscard]] Core::Math::Vector2D GetDirection() { return this->direction; }
-  void SetDirection(Core::Math::Vector2D direction);
 
  private:
-  Core::Math::Vector2D direction = Core::Math::Vector2D::Zero();
-  Core::Math::Vector2D pendingDirection = Core::Math::Vector2D::Zero();
-  Engine::Input::Components::InputComponent* inputComponent;
+  Engine::Input::Components::InputComponent* inputComponent{nullptr};
+  MovementComponent* movementComponent{nullptr};
 };
 
 }  // namespace SnakeGame

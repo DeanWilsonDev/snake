@@ -7,7 +7,6 @@
 #include "core/entities/entity-component-registrars.hpp"
 #include "core/entities/i-component-dispatcher.hpp"
 #include "core/entities/i-entity.hpp"
-#include <memory>
 
 namespace Engine::Entities {
 

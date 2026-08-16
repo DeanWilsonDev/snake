@@ -66,6 +66,15 @@ void Entity::ForEachComponent(
   }
 }
 
+void Entity::ForEachComponent(std::function<bool(Core::Components::IComponent*)> visitor)
+{
+  for (auto& [type, component] : this->components) {
+    if (!visitor(component.get())) {
+      return;
+    }
+  }
+}
+
 void Entity::OnRegistration()
 {
   this->transform = GetComponent<Engine::Spatial::Components::TransformComponent2D>();

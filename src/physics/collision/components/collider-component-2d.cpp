@@ -17,7 +17,10 @@ ColliderComponent2D::ColliderComponent2D(const ColliderComponentParams& params)
   this->collider = std::make_unique<Physics::Collision::RectangleCollider2D>(rectangleParams);
 }
 
+void ColliderComponent2D::BeginPlay() {}
 void ColliderComponent2D::Update(const float) {}
+void ColliderComponent2D::DebugUpdate() const {};
+void ColliderComponent2D::DebugRender() const {};
 
 bool ColliderComponent2D::Intersects(const IColliderComponent2D& other) const
 {

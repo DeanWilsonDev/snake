@@ -16,7 +16,12 @@ RenderComponent2D::RenderComponent2D(
 {
 }
 
+void RenderComponent2D::BeginPlay() {}
+
 void RenderComponent2D::Update(const float) {}
+
+void RenderComponent2D::DebugUpdate() const {};
+void RenderComponent2D::DebugRender() const {};
 
 void RenderComponent2D::Render(const Core::Rendering::IRenderer& renderer) const
 {

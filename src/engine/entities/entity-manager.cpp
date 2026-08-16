@@ -28,41 +28,43 @@ void EntityManager::OnRegistration()
 
 Core::Entities::IEntity* EntityManager::AddEntity(std::unique_ptr<Core::Entities::IEntity> entity)
 {
-  LOG_CORE_DEBUG("[EntityManager] Adding Entity {}", static_cast<void*>(entity.get()));
-
   Core::Entities::IEntity* handle = entity.get();
-  this->componentPipeline.Run(handle);
+  this->componentPipeline.SetEntity(handle);
+  this->componentPipeline.Run();
   this->entities.push_back(std::move(entity));
-  EntityLifecycleState state{this->beginPlayFiredIds, this->activeLastFrame, 0};
+  EntityLifecycleState state{this->beginPlayFiredIds, this->activeLastFrame};
   this->activationPipeline.Run(handle, state);
   return handle;
 }
 
 void EntityManager::RemoveEntity(Core::Entities::IEntity* entity)
 {
-  this->componentPipeline.Teardown(entity);
+  this->componentPipeline.SetEntity(entity);
+  this->componentPipeline.Teardown();
   std::erase_if(entities, [&](const auto& p) { return p.get() == entity; });
 }
 
 void EntityManager::OnUpdate(const float deltaTime)
 {
-  EntityLifecycleState state{this->beginPlayFiredIds, this->activeLastFrame, deltaTime};
-  for (auto& object : this->entities) {
+  EntityLifecycleState state{this->beginPlayFiredIds, this->activeLastFrame};
+  for (auto& entity : this->entities) {
     // SIDE QUEST: Make this event driven so that if "active" becomes true it fires
-    this->activationPipeline.Run(object.get(), state);
-    this->componentPipeline.OnUpdate(deltaTime);
 
-    if (object->IsActive()) {
-      object->Update(deltaTime);
+    this->activationPipeline.Run(entity.get(), state);
+
+    if (entity->IsActive()) {
+      entity->Update(deltaTime);
+      this->componentPipeline.SetEntity(entity.get());
+      this->componentPipeline.OnUpdate(deltaTime);
     }
   }
 }
 
 void EntityManager::OnDebugUpdate() const
 {
-  for (auto& object : this->entities) {
-    if (object->IsActive()) {
-      object->DebugUpdate();
+  for (auto& entity : this->entities) {
+    if (entity->IsActive()) {
+      entity->DebugUpdate();
     }
   }
 }

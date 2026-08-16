@@ -10,7 +10,8 @@ namespace Engine::Components {
 
 class Component : public Core::Components::IComponent {
  public:
+  virtual void BeginPlay() override {};
   virtual void Update(const float) override {};
 };
 
-}  // namespace Core::Components
+}  // namespace Engine::Components

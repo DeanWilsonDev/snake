@@ -10,7 +10,13 @@ namespace Engine::Input::Components {
 
 InputComponent::InputComponent() {};
 
+void InputComponent::BeginPlay() {}
+
 void InputComponent::Update(const float) {}
+
+void InputComponent::DebugUpdate() const {}
+
+void InputComponent::DebugRender() const {}
 
 void InputComponent::Bind(const std::string& name, std::function<void()> callback)
 {

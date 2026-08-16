@@ -19,7 +19,11 @@ class ColliderComponent2D : public Core::Components::IColliderComponent2D {
  public:
   explicit ColliderComponent2D(const ColliderComponentParams& params);
 
+  virtual void BeginPlay() override;
   void Update(const float) override;
+
+  void DebugUpdate() const override;
+  void DebugRender() const override;
 
   [[nodiscard]] bool Intersects(const IColliderComponent2D& other) const override;
   [[nodiscard]] Physics::Collision::RectangleCollider2D& GetCollider() const override

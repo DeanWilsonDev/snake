@@ -21,7 +21,11 @@ class InputComponent : public Core::Input::Components::IInputComponent {
   InputComponent();
   virtual void Bind(const std::string& name, std::function<void()> callback) override;
 
+  void BeginPlay() override;
   void Update(const float) override;
+
+  void DebugUpdate() const override;
+  void DebugRender() const override;
 
   virtual void BindAxis(
       const std::string& name, std::function<void(Core::Input::ActionValue)> callback,

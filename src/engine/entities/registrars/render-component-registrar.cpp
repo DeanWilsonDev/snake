@@ -1,4 +1,5 @@
 #include "render-component-registrar.hpp"
+#include "core/logging/log.hpp"
 #include "core/rendering/components/i-render-component.hpp"
 
 namespace Engine::Entities::Registrars {
@@ -8,6 +9,10 @@ void RenderComponentRegistrar::OnRegistered(
 )
 {
   this->manager->Register(component);
+  LOG_CORE_TRACE(
+      "[RenderComponentRegistrar] Adding Render Component: {}", static_cast<void*>(component)
+  );
+  this->registry.emplace_back(component);
 }
 
 void RenderComponentRegistrar::OnUnregistered(

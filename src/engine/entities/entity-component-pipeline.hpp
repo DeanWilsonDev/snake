@@ -29,13 +29,15 @@ class EntityComponentPipeline : public Core::Entities::IEntityComponentPipeline 
       Core::Input::ActionRouter& inputActionRouter
   );
   ~EntityComponentPipeline() = default;
-  virtual void Run(Core::Entities::IEntity*) override;
+  virtual void Run() override;
   virtual void OnUpdate(const float) override;
-  virtual void Teardown(Core::Entities::IEntity*) override;
+  virtual void Teardown() override;
+  virtual void SetEntity(Core::Entities::IEntity* entity) override;
 
  private:
   void AddRegistrar(std::unique_ptr<Core::Entities::IComponentRegistrar> registrar);
 
+  Core::Entities::IEntity* entity;
   Core::Entities::EntityComponentRegistrars registrars;
   ComponentDispatcher dispatcher;
   ComponentUpdater updater;

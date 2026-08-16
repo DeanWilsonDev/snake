@@ -29,7 +29,6 @@ void SnakeSegment::OnRegistration()
   this->AddComponent<Renderer2D::Components::RenderComponent2D>(
       *this->transform, Core::Color::Green, this->GetActive()
   );
-
 }
 
 void SnakeSegment::BeginPlay()
@@ -37,68 +36,37 @@ void SnakeSegment::BeginPlay()
   this->size = this->transform->GetScale().GetWidth();
 }
 
-void SnakeSegment::Step()
-{
-  if (this->pendingDirection.x != 0.0f || this->pendingDirection.y != 0.0f) {
-    bool isReversal = this->pendingDirection.x == -this->direction.x &&
-                      this->pendingDirection.y == -this->direction.y;
-    if (!isReversal) {
-      this->direction = this->pendingDirection;
-    }
-  }
-  this->transform->GetPosition().x += this->direction.x * this->size;
-  this->transform->GetPosition().y += this->direction.y * this->size;
-}
-
-void SnakeSegment::Update(const float deltaTime)
-{
-  this->moveTimer += deltaTime;
-  if (this->moveTimer >= this->moveInterval) {
-    this->moveTimer -= this->moveInterval;
-    this->Step();
-  }
-
-  this->accumulatedDistance += this->speed * deltaTime;
-
-  // this->CheckIfShouldGrow();  // MAIN QUEST: Implement a snake growth system
-  accumulatedDistance -= this->size;
-  // this->Teleport();  // MAIN QUEST: Implement a boundary detection system
-}
-
-void SnakeSegment::SetDirection(Core::Math::Vector2D value)
-{
-  this->pendingDirection = value;
-}
+void SnakeSegment::Update(const float) {}
 
 void SnakeSegment::DebugUpdate() const
 {
-  UMBRA_DEBUG(this->transform->GetScale().GetWidth(), "Snake/Segment-{}/Scale/Width", this->index);
-  UMBRA_DEBUG(
-      this->transform->GetScale().GetHeight(), "Snake/Segment-{}/Scale/Height", this->index
-  );
-
-  UMBRA_DEBUG(this->transform->GetPosition().x, "Snake/Segment-{}/Position/X", this->index);
-  UMBRA_DEBUG(this->transform->GetPosition().y, "Snake/Segment-{}/Position/Y", this->index);
-  UMBRA_DEBUG(
-      this->GetColliderComponent().GetCollider().GetWorldRect().x,
-      "Snake/Segment-{}/Collision/X",
-      this->index
-  );
-  UMBRA_DEBUG(
-      this->GetColliderComponent().GetCollider().GetWorldRect().y,
-      "Snake/Segment-{}/Collision/Y",
-      this->index
-  );
-  UMBRA_DEBUG(
-      this->GetColliderComponent().GetCollider().GetWorldRect().width,
-      "Snake/Segment-{}/Collision/width",
-      this->index
-  );
-  UMBRA_DEBUG(
-      this->GetColliderComponent().GetCollider().GetWorldRect().height,
-      "Snake/Segment-{}/Collision/height",
-      this->index
-  );
+  // UMBRA_DEBUG(this->transform->GetScale().GetWidth(), "Snake/Segment-{}/Scale/Width", this->index);
+  // UMBRA_DEBUG(
+  //     this->transform->GetScale().GetHeight(), "Snake/Segment-{}/Scale/Height", this->index
+  // );
+  //
+  // UMBRA_DEBUG(this->transform->GetPosition().x, "Snake/Segment-{}/Position/X", this->index);
+  // UMBRA_DEBUG(this->transform->GetPosition().y, "Snake/Segment-{}/Position/Y", this->index);
+  // UMBRA_DEBUG(
+  //     this->GetColliderComponent().GetCollider().GetWorldRect().x,
+  //     "Snake/Segment-{}/Collision/X",
+  //     this->index
+  // );
+  // UMBRA_DEBUG(
+  //     this->GetColliderComponent().GetCollider().GetWorldRect().y,
+  //     "Snake/Segment-{}/Collision/Y",
+  //     this->index
+  // );
+  // UMBRA_DEBUG(
+  //     this->GetColliderComponent().GetCollider().GetWorldRect().width,
+  //     "Snake/Segment-{}/Collision/width",
+  //     this->index
+  // );
+  // UMBRA_DEBUG(
+  //     this->GetColliderComponent().GetCollider().GetWorldRect().height,
+  //     "Snake/Segment-{}/Collision/height",
+  //     this->index
+  // );
 }
 
 [[nodiscard]] Core::Rendering::Components::IRenderComponent2D&

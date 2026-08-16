@@ -65,6 +65,8 @@ class Entity : public Core::Entities::IEntity {
       std::function<bool(const Core::Components::IComponent*)> visitor
   ) const override;
 
+  void ForEachComponent(std::function<bool(Core::Components::IComponent*)> visitor) override;
+
  private:
   std::unordered_map<std::type_index, std::unique_ptr<Core::Components::IComponent>> components{};
 

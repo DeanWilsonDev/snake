@@ -16,7 +16,7 @@ struct EntityLifecycleState;
 class ComponentUpdater {
  public:
   ComponentUpdater(Core::Entities::EntityComponentRegistrars& registrars);
-  void Run(const float deltaTime);
+  void Run(const float deltaTime, Core::Entities::IEntity* entity);
 
  private:
   Core::Entities::EntityComponentRegistrars& registrars;

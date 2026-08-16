@@ -1,5 +1,6 @@
 #include "input-component-registrar.hpp"
 #include "core/input/components/i-input-component.hpp"
+#include "core/logging/log.hpp"
 
 namespace Engine::Entities::Registrars {
 
@@ -9,6 +10,10 @@ InputComponentRegistrar::InputComponentRegistrar(Core::Input::ActionRouter& rout
 
 void InputComponentRegistrar::OnRegistered(Core::Input::Components::IInputComponent* component)
 {
+  LOG_CORE_TRACE(
+      "[GameComponentRegistrar] Adding Game Component: {}", static_cast<void*>(component)
+  );
+  this->registry.emplace_back(component);
   component->AttachRouter(this->router);
 }
 

@@ -28,21 +28,30 @@ void EntityComponentPipeline::AddRegistrar(
   this->registrars.push_back(std::move(registrar));
 }
 
-void EntityComponentPipeline::Run(Core::Entities::IEntity* entity)
+void EntityComponentPipeline::Run()
 {
-  entity->OnRegistration();
-  this->dispatcher.Dispatch(entity);
+  this->entity->OnRegistration();
+  this->dispatcher.Dispatch(this->entity);
 }
 
 void EntityComponentPipeline::OnUpdate(const float deltaTime)
 {
-
-  this->updater.Run(deltaTime);
+  this->updater.Run(deltaTime, this->entity);
 }
 
-void EntityComponentPipeline::Teardown(Core::Entities::IEntity* entity)
+void EntityComponentPipeline::Teardown()
 {
-  this->dispatcher.Teardown(entity);
+  this->dispatcher.Teardown(this->entity);
+
+  if (this->entity) {
+    this->entity = nullptr;
+    delete this->entity;
+  }
+}
+
+void EntityComponentPipeline::SetEntity(Core::Entities::IEntity* entity)
+{
+  this->entity = entity;
 }
 
 }  // namespace Engine::Entities

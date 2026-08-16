@@ -23,6 +23,11 @@ TransformComponent2D::TransformComponent2D(const Transform2D& transform)
 
 TransformComponent2D::TransformComponent2D() = default;
 
+void TransformComponent2D::BeginPlay() {}
+
 void TransformComponent2D::Update(const float) {}
+
+void TransformComponent2D::DebugUpdate() const {}
+void TransformComponent2D::DebugRender() const {}
 
 }  // namespace Engine::Spatial::Components

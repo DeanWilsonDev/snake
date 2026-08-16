@@ -86,6 +86,7 @@ add_executable(
   src/raylib-facade/window/raylib-window-facade.cpp
   src/renderer-2d/components/render-component-2d.cpp
   src/renderer-2d/render-component-2d-manager.cpp
+  src/snake-game/game-components/movement-component.cpp
   src/snake-game/game-components/snake-body-component.cpp
   src/snake-game/game-entities/apple.cpp
   src/snake-game/game-entities/snake-head.cpp

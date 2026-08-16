@@ -67,6 +67,8 @@ class IEntity : public Core::IBeginPlay,
       std::function<bool(const Core::Components::IComponent*)> visitor
   ) const = 0;
 
+  virtual void ForEachComponent(std::function<bool(Core::Components::IComponent*)> visitor) = 0;
+
  private:
   virtual Core::Components::IComponent* GetComponentByType(std::type_index type) const = 0;
 };

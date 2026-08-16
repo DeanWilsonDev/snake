@@ -23,4 +23,18 @@ void SystemManager::OnUpdate(const float deltaTime)
   }
 }
 
+void SystemManager::OnDebugUpdate() const
+{
+  for (auto& system : this->systems) {
+    system->OnDebugUpdate();
+  }
+}
+
+void SystemManager::OnDebugRender() const
+{
+  for (auto& system : this->systems) {
+    system->OnDebugRender();
+  }
+}
+
 }  // namespace Engine::Systems
